@@ -7,13 +7,13 @@ class AddNewProject extends Component {
     return (
       <main className="main">
         <section className="addNewProject">
-          <Container>
+          <Container fluid>
             <div className="pt-5">
-              <Row>
+              <Row noGutters>
                 <Col>
                   <h2>Add New Project</h2>
                 </Col>
-                <Col xs={4} className="text-right">
+                <Col xs={5} className="text-right">
                   <Button variant="primary" size="sm">
                     Create New Project
                   </Button>
@@ -41,46 +41,52 @@ class AddNewProject extends Component {
                     </div>
                   </Col>
                   <Col>
-                    <div className="addNewProjectData"></div>
-                    <Form.Group>
-                      <Form.Label>Video Section</Form.Label>
-                      <label className="dropImg">
-                        <input type="file" />
-                        <span>Drag & Drop Video Here</span>
-                      </label>
-                      <Form.Control type="text" placeholder="Video Titel" />
-                      <Form.Control type="text" placeholder="Video Url" />
-                      <Form.Control type="text" placeholder="Video Link" />
-                    </Form.Group>
+                    <div className="addNewProjectData">
+                      <Form.Group>
+                        <Form.Label>Video Section</Form.Label>
+                        <label className="dropImg">
+                          <input type="file" />
+                          <span>Drag & Drop Video Here</span>
+                        </label>
+                        <Form.Control type="text" placeholder="Video Titel" />
+                        <Form.Control type="text" placeholder="Video Url" />
+                        <Form.Control type="text" placeholder="Video Link" />
+                      </Form.Group>
 
-                    <Form.Group>
-                      <Form.Label>Image Section</Form.Label>
-                      <label className="dropImg">
-                        <input type="file" />
-                        <span>Drag & Drop Image Here</span>
-                      </label>
-                      <Form.Control type="text" placeholder="Image Titel" />
-                      <Form.Control type="text" placeholder="Image Url" />
-                      <Form.Control type="text" placeholder="Image Link" />
-                    </Form.Group>
+                      <Form.Group>
+                        <Form.Label>Image Section</Form.Label>
+                        <label className="dropImg">
+                          <input type="file" />
+                          <span>Drag & Drop Image Here</span>
+                        </label>
+                        <Form.Control type="text" placeholder="Image Titel" />
+                        <Form.Control type="text" placeholder="Image Url" />
+                        <Form.Control type="text" placeholder="Image Link" />
+                      </Form.Group>
 
-                    <Form.Group>
-                      <Form.Label>Other resources</Form.Label>
-                      <Form.Control type="text" placeholder="Titel" />
-                      <Form.Control type="text" placeholder="Icon" />
-                      <Form.Control type="text" placeholder="Link" />
-                    </Form.Group>
+                      <Form.Group>
+                        <Form.Label>Other resources</Form.Label>
+                        <Form.Control type="text" placeholder="Titel" />
+                        <Form.Control type="text" placeholder="Icon" />
+                        <Form.Control type="text" placeholder="Link" />
+                      </Form.Group>
 
-                    <Form.Group>
-                      <Form.Label>Latest news and articles</Form.Label>
-                      <label className="dropImg">
-                        <input type="file" />
-                        <span>Drag & Drop Image Here</span>
-                      </label>
-                      <Form.Control type="text" placeholder="Titel" />
-                      <Form.Control type="text" placeholder="Image Url" />
-                      <Form.Control type="text" placeholder="Link" />
-                    </Form.Group>
+                      <Form.Group>
+                        <Form.Label>Latest news and articles</Form.Label>
+                        <label className="dropImg">
+                          <input type="file" />
+                          <span>Drag & Drop Image Here</span>
+                        </label>
+                        <Form.Control type="text" placeholder="Titel" />
+                        <Form.Control type="text" placeholder="Image Url" />
+                        <Form.Control type="text" placeholder="Link" />
+                      </Form.Group>
+                      <div className="text-right mb-4">
+                        <Button variant="primary" size="lg" type="submit">
+                          Submit
+                        </Button>
+                      </div>
+                    </div>
                   </Col>
                 </Row>
               </Form>

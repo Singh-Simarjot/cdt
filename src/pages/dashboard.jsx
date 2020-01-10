@@ -39,13 +39,13 @@ class Dashbord extends Component {
     return (
       <main className="main">
         <section className="dashboard">
-          <Container>
+          <Container fluid>
             <div className="pt-5">
-              <Row>
+              <Row noGutters>
                 <Col>
                   <h2>Recent Projects</h2>
                 </Col>
-                <Col xs={4} className="text-right">
+                <Col xs={5} className="text-right">
                   <Button variant="primary" size="sm">
                     Create New Project
                   </Button>
