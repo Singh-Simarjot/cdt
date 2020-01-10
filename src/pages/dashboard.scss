@@ -1,0 +1,11 @@
+@import "../assets/scss/variables";
+@import "../assets/scss/mixins";
+.dashboard {
+  background-color: rgba($theme-bg, 0.1);
+  overflow: auto;
+  @include lg {
+    height: 100%;
+  }
+  .projectBox {
+  }
+}

@@ -1,0 +1,61 @@
+@import "../assets/scss/variables";
+@import "../assets/scss/mixins";
+.componentsList {
+  padding: 15px;
+  overflow: auto;
+  background-color: rgba($theme-bg, 0.8);
+  color: $theme-text;
+  @include lg {
+    width: 450px;
+    height: 100%;
+  }
+  h2 {
+    // font-size: $drfault-size * 1.5;
+    margin: 0;
+  }
+  .componentsListBtn {
+    @include lg {
+      display: none;
+    }
+  }
+}
+.componentsListItms {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  .componentItem {
+    background-color: $theme-bg;
+    padding: 15px 10px;
+    // text-align: center;
+    cursor: pointer;
+    width: -webkit-calc(50% - 7.5px);
+    width: calc(50% - 7.5px);
+    margin-top: 15px;
+    h5 {
+      margin: 0;
+      font-weight: normal;
+      font-size: 14px;
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+  @include lg {
+    max-height: 100vh;
+    overflow: auto;
+  }
+  &.componentsListItmsOpen {
+    // max-height: 100vh;
+    max-height: 500px;
+    overflow: auto;
+  }
+}
