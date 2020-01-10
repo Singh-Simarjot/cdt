@@ -1,11 +1,21 @@
 @import "../assets/scss/variables";
 @import "../assets/scss/mixins";
 .dashboard {
-  background-color: rgba($theme-bg, 0.1);
+  // background-color: rgba($theme-bg, 0.1);
   overflow: auto;
   @include lg {
     height: 100%;
   }
-  .projectBox {
+  .card {
+    margin: 15px 0;
+    img {
+      width: 200px;
+      max-width: 100%;
+    }
+  }
+  .table {
+    thead {
+      background-color: rgba($theme-bg, 0.1);
+    }
   }
 }
