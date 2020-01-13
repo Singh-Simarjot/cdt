@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./header.scss";
+import { Link} from "react-router-dom";
+
 import $ from "jquery";
 class Header extends Component {
   state = {};
@@ -19,26 +21,13 @@ class Header extends Component {
               <Button variant="dark" size="sm" className="menuBtn">
                 <i className="fa fa-bars"></i>
               </Button>
-              <a href="#" className="headerLogo">
-                Carbon <b>Design System</b> TEsting
-              </a>
+              <Link to="/" className="headerLogo">
+                Carbon <b>Design System</b> Testing
+              </Link>
             </Col>
             <Col xs={4} md={2} className="text-right">
               <div className="headerRight">
-                <Button variant="dark" size="sm">
-                  <svg
-                    focusable="false"
-                    preserveAspectRatio="xMidYMid meet"
-                    description="Open search"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 32 32"
-                    aria-hidden="true"
-                  >
-                    <path d="M30 28.59L22.45 21A11 11 0 1 0 21 22.45L28.59 30zM5 14a9 9 0 1 1 9 9 9 9 0 0 1-9-9z"></path>
-                  </svg>
-                </Button>
+
                 <Button variant="dark" size="sm">
                   <svg
                     focusable="false"

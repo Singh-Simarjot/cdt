@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./addNewProject.scss";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Link} from "react-router-dom";
+
 class AddNewProject extends Component {
   state = {};
   render() {
@@ -14,9 +16,9 @@ class AddNewProject extends Component {
                   <h2>Add New Project</h2>
                 </Col>
                 <Col xs={4} className="text-right">
-                  <Button variant="primary" size="sm">
-                    Create New Project
-                  </Button>
+                  <Link variant="primary" size="sm" to="/">
+                    Back
+                  </Link>
                 </Col>
               </Row>
               <Form className="pt-3">

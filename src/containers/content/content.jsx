@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import "./content.scss";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import ContentItem from "./contentItem";
 
 class Content extends Component {
-  state = {};
+ 
   render() {
+
+    const {page} = this.props;
+    console.log(page)
     return (
       <div className="content">
         <div className="contentTop">
@@ -22,18 +25,20 @@ class Content extends Component {
           </Row>
         </div>
         <div className="contentData">
-          <ContentItem
-            icon="fa fa-code"
-            titel="HTML Component"
-            text="HTML Component HTML Component HTML Component HTML Component HTML
-            Component HTML Component HTML Component HTML Component Component
-            HTML Component HTML Component HTML Component"
-          />
-          <ContentItem
-            icon="fa fa-keyboard-o"
-            titel="Typography Block"
-            text="Typography Block Typography Block Typography Block Typography Block Typography Block"
-          />
+          <Form.Group>
+            <Form.Label>Select Template</Form.Label>
+            <Form.Control type="text"  value={page.title} />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlSelect1">
+    <Form.Label>Select Template</Form.Label>
+    <Form.Control as="select" >
+      <option value={page.title } selected={page.template === "DEFAULT"}>Default Template</option>
+      <option selected={page.template === "TABS"}>Tabs Template</option>
+      <option selected={page.template === "GRID"}>Grid Template</option>
+      <option selected={page.template === "GLOSSARY"}> Glossary Template</option>
+      
+    </Form.Control>
+  </Form.Group>
           <ContentItem
             icon="fa fa-th-large"
             titel="Icons Grid"

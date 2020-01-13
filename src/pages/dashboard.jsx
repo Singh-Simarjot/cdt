@@ -3,10 +3,19 @@ import "./dashboard.scss";
 import { Container, Row, Col, Button, Card, Table } from "react-bootstrap";
 import ProjectLogo1 from "./images/logo-dummy.png";
 import ProjectsContext  from '../context/projectsContext';
+import { Link} from "react-router-dom";
+
 
 class Dashbord extends Component {
   static contextType = ProjectsContext;
 
+  onSelectProject = (id) =>{
+    this.context.onSelectProject(id);
+    this.props.history.push('/project')
+  }
+  componentDidMount (){
+    this.context.getAllProjects()
+  }
   
   render() {
         const {allProjects} = this.context
@@ -22,24 +31,26 @@ class Dashbord extends Component {
                   <h2>Recent Projects</h2>
                 </Col>
                 <Col xs={4} className="text-right">
-                  <Button variant="primary" size="sm">
+                  <Link  to ="/addnew" variant="primary" size="sm">
                     Create New Project
-                  </Button>
+                  </Link>
                 </Col>
               </Row>
               <Row>
                 {}
                 { allProjects.slice(0, 4).map(item => <Col sm={6} sm={6} md={4} lg={3}>
-                  <Card bg="light">
+        
+                  <Card bg="light"  key={item.id} onClick={()=>this.onSelectProject(item.id)} >
                     <Card.Body className="text-center">
                       <Card.Img
                         variant="top"
                         src={ProjectLogo1}
-                        alt={item.name}
+                        alt={item.title}
                       />
                     </Card.Body>
-                    <Card.Footer>{item.name}</Card.Footer>
+                    <Card.Footer>{item.title}</Card.Footer>
                   </Card>
+                  
                 </Col> )}
                
                 
@@ -66,7 +77,7 @@ class Dashbord extends Component {
                   {allProjects.map(project => (
                     <tr key={project.id}>
                       <td>{project.id}</td>
-                      <td>{project.name}</td>
+                      <td><Link  to="/project">{project.title}</Link></td>
                       <td>{project.dateCreated}</td>
                       <td>{project.dateEdited}</td>
                       <td>{project.authour}</td>

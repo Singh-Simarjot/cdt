@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+ 
+import { getProjects, getPages } from '../services/projects';
 
 const Context = React.createContext();
 
+
 export class ProjectsContext extends Component {
-  state = { currentProject:null,
-    
-    allProjects:[
+  state = {
+    selectedProjectID: null,
+    allProjects: [
       {
         id: 1,
         name: "Item name 1",
@@ -82,22 +85,32 @@ export class ProjectsContext extends Component {
         dateEdited: 1578657273,
         authour: "Authour Name"
       }
-
-
-    ] };
-
-  onSlideChange = selectedZoneType => {
-    this.setState({ selectedZoneType });
+    ],
+    pages: []
   };
-  getAllOptions = data => {
-    console.log(data)
-    this.setState({allOptions:data,selectedZoneType:this.state.selectedZoneType===null?data[0]:this.state.selectedZoneType})
-  }
+
+  onSelectProject = id => {
+    this.setState({ selectedProjectID: id });
+  };
+  getAllProjects =async  () => {
+    const allProjects = await  getProjects()
+    this.setState({ allProjects:allProjects.data });
+  };
+  getAllPages = async()  => {
+  
+  const pages = await  getPages(this.state.selectedProjectID)
+    this.setState({ pages:pages.data });
+  };
 
   render() {
     return (
       <Context.Provider
-        value={{ ...this.state, onSlideChange: this.onSlideChange, getOptions:this.getAllOptions }}
+        value={{
+          ...this.state,
+          onSelectProject: this.onSelectProject,
+          getAllProjects: this.getAllProjects,
+          getAllPages:this.getAllPages
+        }}
       >
         {this.props.children}
       </Context.Provider>
