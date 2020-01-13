@@ -11,6 +11,7 @@ class AddNewPage extends Component {
    }
 
   };
+  changeTemplate = () => "{}"
   render() {
     const {page} = this.state
     return (
