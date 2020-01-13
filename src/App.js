@@ -8,15 +8,17 @@ import Header from "./containers/header/header";
 import Dashboard from "./pages/dashboard";
 import AddNewProject from "./pages/addNewProject";
 import Page from "./pages/page";
+ 
+import { ProjectsContext } from './context/projectsContext';
 
 function App() {
   return (
-    <React.Fragment>
+    <ProjectsContext>
       <Header />
-      {/* <Dashboard /> */}
-      <AddNewProject />
-      {/* <Page /> */}
-    </React.Fragment>
+      <Dashboard />
+      {/* <AddNewProject />
+      <Page /> */}
+    </ProjectsContext>
   );
 }
 
