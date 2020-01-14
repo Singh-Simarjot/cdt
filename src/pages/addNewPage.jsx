@@ -48,6 +48,7 @@ class AddNewPage extends Component {
           titel={this.props.text}
           onModalChange={this.handleModal}
           showModal={this.state.showModalComponent}
+          modalData={this.state.modalData}
         />
       </React.Fragment>
     );

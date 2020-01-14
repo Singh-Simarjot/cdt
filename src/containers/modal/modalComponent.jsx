@@ -3,15 +3,17 @@ import "./modalComponent.scss";
 import { Button, Form, Modal } from "react-bootstrap";
 class ModalComponent extends Component {
   render() {
+
+    const {modalData} = this.props;
     return (
-      <Modal
+      modalData !== null && <Modal
         size={"md"}
         show={this.props.showModal}
         onHide={() => {
           this.props.onModalChange();
         }}
       >
-        <Modal.Header closeButton>{this.props.titel}</Modal.Header>
+        <Modal.Header closeButton><i className={modalData.icon + " fa" }></i> {modalData.label}</Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group>
