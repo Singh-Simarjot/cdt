@@ -3,8 +3,48 @@ import "./addNewProject.scss";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+
 class AddNewProject extends Component {
-  state = {};
+  state = {
+    project: {
+      title: "",
+      description: "",
+      coverPhoto: "",
+      videoSection: {
+        videoType: "",
+        videoTitle: "",
+        videoUrl: "",
+        videoLink: ""
+      },
+      designSection: {
+        title: "",
+        link: "",
+        image: ""
+      },
+      developSection: {
+        title: "",
+        link: "",
+        image: ""
+      },
+      otherresources: [
+        {
+          title: "",
+          desc: "",
+          link: ""
+        },
+        {
+          title: "",
+          desc: "",
+          link: ""
+        }
+      ],
+      relatedArticles: [
+        { title: "", Desc: "", image: "", url: "" },
+        { title: "", Desc: "", image: "", url: "" },
+        { title: "", Desc: "", image: "", url: "" }
+      ]
+    }
+  };
   render() {
     return (
       <main className="main">
@@ -26,7 +66,7 @@ class AddNewProject extends Component {
                   <Col sm={5}>
                     <div className="addNewProjectDetail">
                       <Form.Group>
-                        <Form.Label>Titel</Form.Label>
+                        <Form.Label>Title</Form.Label>
                         <Form.Control type="text" />
                       </Form.Group>
                       <Form.Group>

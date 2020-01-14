@@ -36,13 +36,7 @@ class AllPages extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                <tr >
-                      <td>sdf</td>
-                      <td>sdf</td>
-                      <td>sdf</td>
-                      <td>sdfdsf</td>
-                      <td>sdfd</td>
-                    </tr>
+                
                   {pages.map(project => (
                     <tr key={project.id}>
                       <td>{project.id}</td>
