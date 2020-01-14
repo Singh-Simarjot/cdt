@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./componentsList.scss";
-import ComponentsListItem from "./componentsListItem";
+// import ComponentsListItem from "./componentsListItem";
 import { Row, Col, Button } from "react-bootstrap";
 import $ from "jquery";
 class NavigationList extends Component {
@@ -23,92 +23,91 @@ class NavigationList extends Component {
             </Button>
           </Col>
         </Row>
-        <div className="navigationList">
-          
-         <ul>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             <li>Page</li>
-             
-         </ul>
-         
+        <div className="componentsListItms">
+          <div className="navigationList">
+            <ul>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+              <li>Page</li>
+            </ul>
+          </div>
         </div>
       </div>
     );

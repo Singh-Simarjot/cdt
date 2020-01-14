@@ -43,19 +43,43 @@
     h5 {
       margin: 0;
       font-weight: normal;
-      font-size: 14px;
+      font-size: $drfault-size - 2;
       i {
         margin-right: 5px;
       }
     }
   }
   @include lg {
-    max-height: 100vh;
+    // max-height: 100vh;
+    max-height: unset;
     overflow: auto;
   }
   &.componentsListItmsOpen {
     // max-height: 100vh;
-    max-height: 500px;
+    // max-height: 500px;
+    max-height: unset;
     overflow: auto;
+  }
+}
+
+.navigationList {
+  width: 100%;
+  ul {
+    padding: 0;
+    margin: 15px 0 0 0;
+    li {
+      padding: 8px 10px;
+      border: 1px solid rgba($theme-text, 0.2);
+      background-color: rgba($theme-text, 0.1);
+      margin: 10px 0 0 0;
+      list-style: none;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
+      cursor: pointer;
+      font-size: $drfault-size - 2;
+      &:hover {
+        background-color: rgba($theme-text, 0.2);
+      }
+    }
   }
 }

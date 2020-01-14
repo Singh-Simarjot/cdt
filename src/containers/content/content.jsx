@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import "./content.scss";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import ContentItem from "./contentItem";
 
 class Content extends Component {
- 
   render() {
-
-    const {page} = this.props;
-    console.log(page)
+    const { page } = this.props;
     return (
       <div className="content">
         <div className="contentTop">
@@ -26,29 +23,33 @@ class Content extends Component {
         </div>
         <div className="contentData">
           <Form.Group>
-            <Form.Label>Select Template</Form.Label>
-            <Form.Control type="text"  value={page.title} />
+            <Form.Label>Project Titel</Form.Label>
+            <Form.Control type="text" value={page.title} />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlSelect1">
-    <Form.Label>Select Template</Form.Label>
-    <Form.Control as="select"  onChange={(e)=>this.props.onChangeTemplate(e)}>
-    <option value=" "  >Select Template</option>
-      <option value="DEFAULT"  >Default Template</option>
-      <option value="TABS" >Tabs Template</option>
-      <option value="GRID"  >Grid Template</option>
-      <option value="GLOSSARY"  > Glossary Template</option>
-      
-    </Form.Control>
-  </Form.Group>
+            <Form.Label>Select Template</Form.Label>
+            <Form.Control
+              as="select"
+              onChange={e => this.props.onChangeTemplate(e)}
+            >
+              <option value=" ">Select Template</option>
+              <option value="DEFAULT">Default Template</option>
+              <option value="TABS">Tabs Template</option>
+              <option value="GRID">Grid Template</option>
+              <option value="GLOSSARY"> Glossary Template</option>
+            </Form.Control>
+          </Form.Group>
           <ContentItem
             icon="fa fa-th-large"
             titel="Icons Grid"
             text="Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid"
+            onModalChange={this.props.onModalChange}
           />
           <ContentItem
             icon="fa fa-th"
             titel="Color Palette"
             text="Color Palette Color Palette Color Palette Color Palette Color Palette Color Palette Color Palette Color Palette"
+            onModalChange={this.props.onModalChange}
           />
         </div>
       </div>

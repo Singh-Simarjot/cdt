@@ -1,41 +1,6 @@
 @import "../assets/scss/variables";
 @import "../assets/scss/mixins";
 .addNewProject {
-  .dropImg {
-    background-color: rgba($theme-bg, 0.1);
-    padding: 15px;
-    display: block;
-    position: relative;
-    input[type="file"] {
-      position: absolute;
-      opacity: 0;
-      visibility: hidden;
-    }
-    span {
-      display: block;
-      text-align: center;
-      color: rgba($theme-bg, 0.5);
-      border: 1px solid rgba($theme-bg, 0.2);
-      padding: 50px 10px;
-    }
-  }
-  .dropImg + .form-control {
-    margin-top: 10px;
-  }
-  .form-group {
-    .form-control {
-      background-color: rgba($theme-bg, 0.1);
-      border: 0;
-      border-radius: 0;
-      &:not(:last-child) {
-        margin-bottom: 10px;
-      }
-    }
-    textarea.form-control {
-      resize: none;
-    }
-  }
-
   .addNewProjectDetail {
     position: -webkit-sticky;
     position: sticky;

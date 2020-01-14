@@ -1,14 +1,24 @@
 import React, { Component } from "react";
 class ComponentsListItem extends Component {
-  state = {};
+  handleModal(item) {
+    this.props.onModalChange(item);
+  }
+
   render() {
     return (
-      <div className="componentItem">
-        <h5>
-          <i className={this.props.icon}></i>
-          {this.props.text}
-        </h5>
-      </div>
+      <React.Fragment>
+        <div
+          className="componentItem"
+          onClick={() => {
+            this.handleModal(this.props.item);
+          }}
+        >
+          <h5>
+            <i className={this.props.item.icon + " fa"}></i>
+            {this.props.item.label}
+          </h5>
+        </div>
+      </React.Fragment>
     );
   }
 }

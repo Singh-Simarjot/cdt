@@ -1,24 +1,39 @@
 import React, { Component } from "react";
 import "./componentsList.scss";
 import ComponentsListItem from "./componentsListItem";
+// import ContentItem from "../containers/content/contentItem";
 import { Row, Col, Button } from "react-bootstrap";
+// import ModalComponent from "../containers/modal/modalComponent";
+
 import $ from "jquery";
 class ComponentsList extends Component {
   state = {
     options: [
-      { icon: "fa-code", label: "HTML Component" },
-      { icon: "fa-keyboard-o", label: "Typography Block" },
-      { icon: "fa-th-large", label: "Icons Grid" },
-      { icon: "fa-th", label: "Color Palette" },
-      { icon: "fa-picture-o", label: "Multiple Image" },
-      { icon: "fa-picture-o", label: "Image Block" },
-      { icon: "fa-video-camera", label: "Video Block" },
-      { icon: "fa-file-code-o", label: "Iframe Block" },
-      { icon: "fa-codepen", label: "Code Snippets" },
-      { icon: "fa-codepen", label: "Code Snippets With View" },
-      { icon: "fa-file-o", label: "External Page Link Grid" },
-      { icon: "fa-file-text-o", label: "Text Block" },
-      { icon: "fa-external-link", label: "Internal Page Navigation" }
+      { icon: "fa-code", label: "HTML Component", type: "HTML" },
+      { icon: "fa-keyboard-o", label: "Typography Block", type: "TYPOGRAPHY" },
+      { icon: "fa-th-large", label: "Icons Grid", type: "ICON_GRID" },
+      { icon: "fa-th", label: "Color Palette", type: "COLOR_PALETTE" },
+      { icon: "fa-picture-o", label: "Multiple Image", type: "MULTIPLE_IMAGE" },
+      { icon: "fa-picture-o", label: "Image Block", type: "IMAGE_BLOCK" },
+      { icon: "fa-video-camera", label: "Video Block", type: "VIDEO_BLOCK" },
+      { icon: "fa-file-code-o", label: "Iframe Block", type: "IFRAME_BLOCK" },
+      { icon: "fa-codepen", label: "Code Snippets", type: "CODE_SNIPPETS" },
+      {
+        icon: "fa-codepen",
+        label: "Code Snippets With View",
+        type: "CODE_SNIPPETS_WITH_VIEW"
+      },
+      {
+        icon: "fa-file-o",
+        label: "External Page Link Grid",
+        type: "EXTERNAL_PAGE_LINK_GRID"
+      },
+      { icon: "fa-file-text-o", label: "Text Block", type: "TEXT_BLOCK" },
+      {
+        icon: "fa-external-link",
+        label: "Internal Page Navigation",
+        type: "INTERNAL_PAGE_NAVIGATION"
+      }
     ]
   };
   componentDidMount() {
@@ -26,6 +41,7 @@ class ComponentsList extends Component {
       $(".componentsListItms").toggleClass("componentsListItmsOpen");
     });
   }
+
   render() {
     const { options } = this.state;
     return (
@@ -42,7 +58,11 @@ class ComponentsList extends Component {
         </Row>
         <div className="componentsListItms">
           {options.map(item => (
-            <ComponentsListItem icon={item.icon + " fa"} text={item.label} />
+            <ComponentsListItem
+              onModalChange={this.props.onModalChange}
+              icon={item.icon + " fa"}
+              item={item}
+            />
           ))}
         </div>
       </div>

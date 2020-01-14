@@ -56,7 +56,7 @@ class AddNewProject extends Component {
                   <h2>Add New Project</h2>
                 </Col>
                 <Col xs={4} className="text-right">
-                  <Link variant="primary" size="sm" to="/">
+                  <Link size="sm" to="/" className="btn btn-success">
                     Back
                   </Link>
                 </Col>
@@ -64,7 +64,7 @@ class AddNewProject extends Component {
               <Form className="pt-3">
                 <Row>
                   <Col sm={5}>
-                    <div className="addNewProjectDetail">
+                    <div className="addNewProjectDetail mb-3 mb-sm-0">
                       <Form.Group>
                         <Form.Label>Title</Form.Label>
                         <Form.Control type="text" />
