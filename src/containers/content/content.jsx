@@ -31,11 +31,12 @@ class Content extends Component {
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlSelect1">
     <Form.Label>Select Template</Form.Label>
-    <Form.Control as="select" >
-      <option value={page.title } selected={page.template === "DEFAULT"}>Default Template</option>
-      <option selected={page.template === "TABS"}>Tabs Template</option>
-      <option selected={page.template === "GRID"}>Grid Template</option>
-      <option selected={page.template === "GLOSSARY"}> Glossary Template</option>
+    <Form.Control as="select"  onChange={(e)=>this.props.onChangeTemplate(e)}>
+    <option value=" "  >Select Template</option>
+      <option value="DEFAULT"  >Default Template</option>
+      <option value="TABS" >Tabs Template</option>
+      <option value="GRID"  >Grid Template</option>
+      <option value="GLOSSARY"  > Glossary Template</option>
       
     </Form.Control>
   </Form.Group>

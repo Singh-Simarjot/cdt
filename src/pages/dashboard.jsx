@@ -75,9 +75,9 @@ class Dashbord extends Component {
                 </thead>
                 <tbody>
                   {allProjects.map(project => (
-                    <tr key={project.id}>
+                    <tr  onClick={()=>this.onSelectProject(project.id)}  key={project.id}>
                       <td>{project.id}</td>
-                      <td><Link  to="/project">{project.title}</Link></td>
+                      <td> {project.title}</td>
                       <td>{project.dateCreated}</td>
                       <td>{project.dateEdited}</td>
                       <td>{project.authour}</td>

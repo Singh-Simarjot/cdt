@@ -4,13 +4,30 @@ import ComponentsListItem from "./componentsListItem";
 import { Row, Col, Button } from "react-bootstrap";
 import $ from "jquery";
 class ComponentsList extends Component {
-  state = {};
+  state = {
+    options: [
+      { icon: "fa-code", label: "HTML Component" },
+      { icon: "fa-keyboard-o", label: "Typography Block" },
+      { icon: "fa-th-large", label: "Icons Grid" },
+      { icon: "fa-th", label: "Color Palette" },
+      { icon: "fa-picture-o", label: "Multiple Image" },
+      { icon: "fa-picture-o", label: "Image Block" },
+      { icon: "fa-video-camera", label: "Video Block" },
+      { icon: "fa-file-code-o", label: "Iframe Block" },
+      { icon: "fa-codepen", label: "Code Snippets" },
+      { icon: "fa-codepen", label: "Code Snippets With View" },
+      { icon: "fa-file-o", label: "External Page Link Grid" },
+      { icon: "fa-file-text-o", label: "Text Block" },
+      { icon: "fa-external-link", label: "Internal Page Navigation" }
+    ]
+  };
   componentDidMount() {
     $(".componentsListBtn button").on("click", function() {
       $(".componentsListItms").toggleClass("componentsListItmsOpen");
     });
   }
   render() {
+    const { options } = this.state;
     return (
       <div className="componentsList">
         <Row>
@@ -24,28 +41,9 @@ class ComponentsList extends Component {
           </Col>
         </Row>
         <div className="componentsListItms">
-          <ComponentsListItem icon="fa fa-code" text="HTML Component" />
-          <ComponentsListItem icon="fa fa-keyboard-o" text="Typography Block" />
-          <ComponentsListItem icon="fa fa-th-large" text="Icons Grid" />
-          <ComponentsListItem icon="fa fa-th" text="Color Palette" />
-          <ComponentsListItem icon="fa fa-picture-o" text="Multiple Image" />
-          <ComponentsListItem icon="fa fa-picture-o" text="Image Block" />
-          <ComponentsListItem icon="fa fa-video-camera" text="Video Block" />
-          <ComponentsListItem icon="fa fa-file-code-o" text="Iframe Block" />
-          <ComponentsListItem icon="fa fa-codepen" text="Code Snippets" />
-          <ComponentsListItem
-            icon="fa fa-codepen"
-            text="Code Snippets With View"
-          />
-          <ComponentsListItem
-            icon="fa fa-file-o"
-            text="External Page Link Grid"
-          />
-          <ComponentsListItem icon="fa fa-file-text-o" text="Text Block" />
-          <ComponentsListItem
-            icon="fa fa-external-link"
-            text="Internal Page Navigation"
-          />
+          {options.map(item => (
+            <ComponentsListItem icon={item.icon + " fa"} text={item.label} />
+          ))}
         </div>
       </div>
     );

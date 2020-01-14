@@ -11,13 +11,19 @@ class AddNewPage extends Component {
    }
 
   };
-  changeTemplate = () => "{}"
+  changeTemplate = (e) => {
+     
+    const page = {...this.state.page}
+    page.template = e.target.value;
+    this.setState({page})
+
+  }
   render() {
     const {page} = this.state
     return (
       <React.Fragment>
         {page.template  === "DEFAULT" && <ComponentsList /> }
-        <Content page={this.state.page} />
+        <Content page={this.state.page} onChangeTemplate ={this.changeTemplate}/>
       </React.Fragment>
     );
   }
