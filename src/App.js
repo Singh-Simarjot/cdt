@@ -7,17 +7,23 @@ import "./assets/scss/common.scss";
 import Header from "./containers/header/header";
 import Dashboard from "./pages/dashboard";
 import AddNewProject from "./pages/addNewProject";
-import Page from "./pages/page";
+import ProjectDetail from "./pages/projectDetail";
+import { Switch, Route } from "react-router-dom";
+
+import { ProjectsContext } from "./context/projectsContext";
 
 function App() {
   return (
-    <React.Fragment>
+    <ProjectsContext>
       <Header />
-      {/* <Dashboard /> */}
-      <AddNewProject />
+      <Switch>
+        <Route   path="/project" component={ProjectDetail} />
+        <Route   path="/addnew" component={AddNewProject} />
+        <Route path="/" component={Dashboard} />
+      </Switch>
+
       {/* <Page /> */}
-    </React.Fragment>
+    </ProjectsContext>
   );
 }
-
 export default App;
