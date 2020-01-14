@@ -1,11 +1,16 @@
 import React, { Component } from "react";
-import { Button, ButtonToolbar, Modal } from "react-bootstrap";
+import { Button, ButtonToolbar, Modal, Form } from "react-bootstrap";
+// import ModalComponent from "../modal/modalComponent";
 class ContentItem extends Component {
   state = {
-    showModal: false
+    showModal: false,
+    showDeleteModal: false
   };
   handleModal() {
-    this.setState({ showModal: !this.state.showModal });
+    this.props.onModalChange();
+  }
+  handleModalDelete() {
+    this.setState({ showDeleteModal: !this.state.showDeleteModal });
   }
   render() {
     return (
@@ -23,34 +28,94 @@ class ContentItem extends Component {
           </div>
           <div className="contentItemAction">
             <ButtonToolbar>
-              <Button variant="dark" size="sm">
+              <Button
+                variant="dark"
+                size="sm"
+                onClick={() => {
+                  this.handleModal();
+                }}
+              >
                 <i className="fa fa-pencil"></i>
               </Button>
-              <Button variant="dark" size="sm" className="ml-2">
+              <Button
+                variant="dark"
+                size="sm"
+                className="ml-2"
+                onClick={() => {
+                  this.handleModalDelete();
+                }}
+              >
                 <i className="fa fa-trash"></i>
               </Button>
             </ButtonToolbar>
           </div>
         </div>
-
-        <Button
-          onClick={() => {
+        <Modal
+          size={"md"}
+          show={this.state.showModal}
+          onHide={() => {
             this.handleModal();
           }}
         >
-          Show Modal
-        </Button>
-        <Modal show={this.state.showModal}>
-          <Modal.Header>Modal Header</Modal.Header>
-          <Modal.Body>Modal Header</Modal.Body>
+          <Modal.Header closeButton>{this.props.titel}</Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group>
+                <Form.Label>Titel</Form.Label>
+                <Form.Control type="text" value={this.props.titel} />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Image</Form.Label>
+                <label className="dropImg">
+                  <input type="file" />
+                  <span>Drag & Drop Image Here</span>
+                </label>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Video</Form.Label>
+                <label className="dropImg">
+                  <input type="file" />
+                  <span>Drag & Drop Video Here</span>
+                </label>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Description</Form.Label>
+                <Form.Control value={this.props.text} as="textarea" rows="4" />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
           <Modal.Footer>
             <Button
               onClick={() => {
                 this.handleModal();
               }}
+              variant="danger"
             >
               Calcel
             </Button>
+            <Button variant="success">Save</Button>
+          </Modal.Footer>
+        </Modal>
+        {/* delete */}
+        <Modal
+          size={"md"}
+          show={this.state.showDeleteModal}
+          onHide={() => {
+            this.handleModalDelete();
+          }}
+        >
+          <Modal.Header closeButton>Are you sure for delete this</Modal.Header>
+          <Modal.Body>Are you sure for delete this</Modal.Body>
+          <Modal.Footer>
+            <Button
+              onClick={() => {
+                this.handleModalDelete();
+              }}
+              variant="danger"
+            >
+              Calcel
+            </Button>
+            <Button variant="success">Delete</Button>
           </Modal.Footer>
         </Modal>
       </React.Fragment>

@@ -1,31 +1,33 @@
 import React, { Component } from "react";
 import "./sidebarNav.scss";
- 
-import { Link } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 class SidebarNav extends Component {
   state = {};
   render() {
     return (
       <div className="sidebarNav">
-        <h4>Pages</h4>
-        <ul>
-        <li>
-            <Link to="/project">Pages</Link>
+        <ul className="sidebarNavList">
+          <li>
+            <h4>Pages</h4>
+            <ul>
+              <li>
+                <NavLink to="/project">Pages</NavLink>
+              </li>
+              <li>
+                <NavLink to="/project/addnew">Create New Page</NavLink>
+              </li>
+            </ul>
           </li>
           <li>
-          <Link to="/project/addnew">Create New Page</Link>
-            <a></a>
+            <h4>Navigation</h4>
+            <ul>
+              <li>
+                {" "}
+                <NavLink to="/project/navigation">Create Navigation</NavLink>
+              </li>
+            </ul>
           </li>
-          
         </ul>
-        <br/>
-        
-        <h4>Navigation</h4>
-       <ul>
-        <li> <Link to="/project/navigation">Create Navigation</Link>
-            
-          </li>
-          </ul>
       </div>
     );
   }

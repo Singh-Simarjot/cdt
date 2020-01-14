@@ -1,16 +1,49 @@
 import React, { Component } from "react";
 import "./componentsList.scss";
 import ComponentsListItem from "./componentsListItem";
+// import ContentItem from "../containers/content/contentItem";
 import { Row, Col, Button } from "react-bootstrap";
+// import ModalComponent from "../containers/modal/modalComponent";
+
 import $ from "jquery";
 class ComponentsList extends Component {
-  state = {};
+  state = {
+    options: [
+      { icon: "fa-code", label: "HTML Component", type: "HTML" },
+      { icon: "fa-keyboard-o", label: "Typography Block", type: "TYPOGRAPHY" },
+      { icon: "fa-th-large", label: "Icons Grid", type: "ICON_GRID" },
+      { icon: "fa-th", label: "Color Palette", type: "COLOR_PALETTE" },
+      { icon: "fa-picture-o", label: "Multiple Image", type: "MULTIPLE_IMAGE" },
+      { icon: "fa-picture-o", label: "Image Block", type: "IMAGE_BLOCK" },
+      { icon: "fa-video-camera", label: "Video Block", type: "VIDEO_BLOCK" },
+      { icon: "fa-file-code-o", label: "Iframe Block", type: "IFRAME_BLOCK" },
+      { icon: "fa-codepen", label: "Code Snippets", type: "CODE_SNIPPETS" },
+      {
+        icon: "fa-codepen",
+        label: "Code Snippets With View",
+        type: "CODE_SNIPPETS_WITH_VIEW"
+      },
+      {
+        icon: "fa-file-o",
+        label: "External Page Link Grid",
+        type: "EXTERNAL_PAGE_LINK_GRID"
+      },
+      { icon: "fa-file-text-o", label: "Text Block", type: "TEXT_BLOCK" },
+      {
+        icon: "fa-external-link",
+        label: "Internal Page Navigation",
+        type: "INTERNAL_PAGE_NAVIGATION"
+      }
+    ]
+  };
   componentDidMount() {
     $(".componentsListBtn button").on("click", function() {
       $(".componentsListItms").toggleClass("componentsListItmsOpen");
     });
   }
+
   render() {
+    const { options } = this.state;
     return (
       <div className="componentsList">
         <Row>
@@ -24,28 +57,13 @@ class ComponentsList extends Component {
           </Col>
         </Row>
         <div className="componentsListItms">
-          <ComponentsListItem icon="fa fa-code" text="HTML Component" />
-          <ComponentsListItem icon="fa fa-keyboard-o" text="Typography Block" />
-          <ComponentsListItem icon="fa fa-th-large" text="Icons Grid" />
-          <ComponentsListItem icon="fa fa-th" text="Color Palette" />
-          <ComponentsListItem icon="fa fa-picture-o" text="Multiple Image" />
-          <ComponentsListItem icon="fa fa-picture-o" text="Image Block" />
-          <ComponentsListItem icon="fa fa-video-camera" text="Video Block" />
-          <ComponentsListItem icon="fa fa-file-code-o" text="Iframe Block" />
-          <ComponentsListItem icon="fa fa-codepen" text="Code Snippets" />
-          <ComponentsListItem
-            icon="fa fa-codepen"
-            text="Code Snippets With View"
-          />
-          <ComponentsListItem
-            icon="fa fa-file-o"
-            text="External Page Link Grid"
-          />
-          <ComponentsListItem icon="fa fa-file-text-o" text="Text Block" />
-          <ComponentsListItem
-            icon="fa fa-external-link"
-            text="Internal Page Navigation"
-          />
+          {options.map(item => (
+            <ComponentsListItem
+              onModalChange={this.props.onModalChange}
+              icon={item.icon + " fa"}
+              item={item}
+            />
+          ))}
         </div>
       </div>
     );

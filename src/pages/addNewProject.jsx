@@ -16,7 +16,7 @@ class AddNewProject extends Component {
                   <h2>Add New Project</h2>
                 </Col>
                 <Col xs={4} className="text-right">
-                  <Link variant="primary" size="sm" to="/">
+                  <Link size="sm" to="/" className="btn btn-success">
                     Back
                   </Link>
                 </Col>

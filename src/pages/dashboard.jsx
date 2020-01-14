@@ -30,7 +30,7 @@ class Dashbord extends Component {
                     <h2>Recent Projects</h2>
                   </Col>
                   <Col xs={4} className="text-right">
-                    <Link to="/addnew" variant="primary" size="sm">
+                    <Link to="/addnew" size="sm" className="btn btn-success">
                       Create New Project
                     </Link>
                   </Col>
@@ -69,6 +69,8 @@ class Dashbord extends Component {
                       <th>Date Created</th>
                       <th>Date Edited</th>
                       <th>Authour</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -81,6 +83,16 @@ class Dashbord extends Component {
                         <td>{project.dateCreated}</td>
                         <td>{project.dateEdited}</td>
                         <td>{project.authour}</td>
+                        <td>
+                          <Button size={"sm"} variant="info">
+                            <i className="fa fa-pencil"></i>
+                          </Button>
+                        </td>
+                        <td>
+                          <Button size={"sm"} variant="danger">
+                            <i className="fa fa-trash"></i>
+                          </Button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
