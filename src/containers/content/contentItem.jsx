@@ -1,31 +1,59 @@
 import React, { Component } from "react";
-import { Button, ButtonToolbar } from "react-bootstrap";
+import { Button, ButtonToolbar, Modal } from "react-bootstrap";
 class ContentItem extends Component {
-  state = {};
+  state = {
+    showModal: false
+  };
+  handleModal() {
+    this.setState({ showModal: !this.state.showModal });
+  }
   render() {
     return (
-      <div className="media border p-3">
-        <div className="mediaIcon border">
-          <i className={this.props.icon}></i>
+      <React.Fragment>
+        <div className="media border p-3">
+          <div className="mediaIcon border">
+            <i className={this.props.icon}></i>
+          </div>
+          <div className="media-body">
+            <h4>{this.props.titel}</h4>
+            <p>{this.props.text}</p>
+          </div>
+          <div className="moveIcon">
+            <i className="fa fa-arrows-v"></i>
+          </div>
+          <div className="contentItemAction">
+            <ButtonToolbar>
+              <Button variant="dark" size="sm">
+                <i className="fa fa-pencil"></i>
+              </Button>
+              <Button variant="dark" size="sm" className="ml-2">
+                <i className="fa fa-trash"></i>
+              </Button>
+            </ButtonToolbar>
+          </div>
         </div>
-        <div className="media-body">
-          <h4>{this.props.titel}</h4>
-          <p>{this.props.text}</p>
-        </div>
-        <div className="moveIcon">
-          <i className="fa fa-arrows-v"></i>
-        </div>
-        <div className="contentItemAction">
-          <ButtonToolbar>
-            <Button variant="dark" size="sm">
-              <i className="fa fa-pencil"></i>
+
+        <Button
+          onClick={() => {
+            this.handleModal();
+          }}
+        >
+          Show Modal
+        </Button>
+        <Modal show={this.state.showModal}>
+          <Modal.Header>Modal Header</Modal.Header>
+          <Modal.Body>Modal Header</Modal.Body>
+          <Modal.Footer>
+            <Button
+              onClick={() => {
+                this.handleModal();
+              }}
+            >
+              Calcel
             </Button>
-            <Button variant="dark" size="sm" className="ml-2">
-              <i className="fa fa-trash"></i>
-            </Button>
-          </ButtonToolbar>
-        </div>
-      </div>
+          </Modal.Footer>
+        </Modal>
+      </React.Fragment>
     );
   }
 }

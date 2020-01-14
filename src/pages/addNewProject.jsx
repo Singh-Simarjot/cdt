@@ -24,7 +24,7 @@ class AddNewProject extends Component {
               <Form className="pt-3">
                 <Row>
                   <Col sm={5}>
-                    <div className="addNewProjectDetail">
+                    <div className="addNewProjectDetail mb-3 mb-sm-0">
                       <Form.Group>
                         <Form.Label>Titel</Form.Label>
                         <Form.Control type="text" />
