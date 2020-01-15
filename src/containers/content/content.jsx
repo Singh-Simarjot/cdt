@@ -58,7 +58,7 @@ class Content extends Component {
 
           {/*  */}
 
-          <Draggable draggableId={1} index={1}>
+          {/* <Draggable draggableId={1} index={1}>
             {(provided, snapshot) => (
               <div
                 {...provided.dragHandleProps}
@@ -68,7 +68,7 @@ class Content extends Component {
                 Drab 1
               </div>
             )}
-          </Draggable>
+          </Draggable> */}
         </div>
       </div>
     );
