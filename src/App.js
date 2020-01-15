@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 import "./assets/scss/common.scss";
+import 'react-dropzone-uploader/dist/styles.css'
+
 
 // import { Route } from "react-router-dom";
 

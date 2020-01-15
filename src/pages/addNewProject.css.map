@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AEoEA;;;;;;;;;;EAUE;AF5EF,AACE,cADY,CACZ,oBAAoB,CAAC;EACnB,QAAQ,EAAE,cAAc;EACxB,QAAQ,EAAE,MAAM;EAChB,GAAG,EAAE,IAAI;CACV;;AALH,AAOI,cAPU,CAMZ,kBAAkB,CAChB,WAAW,CAAC;EACV,OAAO,EAAE,IAAI;EACb,MAAM,EAAE,GAAG,CAAC,KAAK,CCXT,kBAAI;CDYb",
+    "sources": [
+        "addNewProject.scss",
+        "../assets/scss/_variables.scss",
+        "../assets/scss/_mixins.scss"
+    ],
+    "names": [],
+    "file": "addNewProject.css"
+}

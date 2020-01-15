@@ -1,0 +1,138 @@
+/*
+@include lg {
+  max-width: 1100px;
+}
+@include sm {}
+@include md {}
+@include lg {}
+@include xl {}
+@include sm-max {}
+@include sm-min {}
+*/
+.content {
+  padding: 15px;
+  overflow: auto;
+  width: 100%;
+}
+
+@media (min-width: 1200px) {
+  .content {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 100%;
+  }
+}
+
+.content .contentTop h2 {
+  margin: 0;
+}
+
+.content .contentData .media {
+  margin-top: 15px;
+  position: relative;
+}
+
+.content .contentData .media .mediaIcon {
+  font-size: 20px;
+  margin-right: 15px;
+  width: 50px;
+  height: 50px;
+  line-height: 48px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.content .contentData .media .media-body h4 {
+  font-size: 18px;
+  margin: 0 0 5px 0;
+}
+
+.content .contentData .media .media-body p {
+  font-size: 14px;
+}
+
+.content .contentData .media .media-body p:last-child {
+  margin-bottom: 0;
+}
+
+.content .contentData .media .moveIcon {
+  font-size: 24px;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: 10px;
+}
+
+.content .contentData .media .contentItemAction {
+  position: absolute;
+  top: 50%;
+  right: 50px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  display: none;
+}
+
+.content .contentData .media:hover .contentItemAction {
+  display: block;
+}
+
+.contentDataUl {
+  padding: 0;
+  margin: 15px 0 0 0;
+}
+
+.contentDataUl li {
+  padding: 0;
+  margin: 10px 0 0 0;
+  list-style: none;
+}
+
+.contentDataUl li span {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  padding: 10px 40px 10px 15px;
+  position: relative;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: move;
+  max-width: 600px;
+  font-size: 14px;
+}
+
+.contentDataUl li span .moveIcons {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: rgba(0, 0, 0, 0.5);
+  font-style: normal;
+  height: 32px;
+  font-size: 14px;
+}
+
+.contentDataUl li span .moveIcons:before, .contentDataUl li span .moveIcons:after {
+  display: block;
+  font-family: FontAwesome;
+  height: 12px;
+}
+
+.contentDataUl li span .moveIcons:before {
+  content: "\f0d8";
+}
+
+.contentDataUl li span .moveIcons:after {
+  content: "\f0d7";
+}
+
+.contentDataUl li span:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.contentDataUl li ul {
+  padding-left: 30px;
+}
+/*# sourceMappingURL=content.css.map */

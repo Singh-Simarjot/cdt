@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AEoEA;;;;;;;;;;EAUE",
+    "sources": [
+        "modalComponent.scss",
+        "../../assets/scss/_variables.scss",
+        "../../assets/scss/_mixins.scss"
+    ],
+    "names": [],
+    "file": "modalComponent.css"
+}

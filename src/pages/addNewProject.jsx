@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./addNewProject.scss";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import Dropzone from "react-dropzone-uploader";
 
 class AddNewProject extends Component {
   state = {
@@ -45,6 +45,20 @@ class AddNewProject extends Component {
       ]
     }
   };
+  getUploadParams = ({ meta }) => {
+    return { url: "https://httpbin.org/post" };
+  };
+  handleChangeStatus = ({ meta, file }, status) => {
+    console.log(status, meta, file);
+  };
+  handleSubmit = (files, allFiles) => {
+
+    console.log(files.map(f => f.meta));
+     
+  };
+  handleChange = (e,section) => {
+      console.log(e.target.value,section)
+  }
   render() {
     return (
       <main className="main">
@@ -67,17 +81,23 @@ class AddNewProject extends Component {
                     <div className="addNewProjectDetail mb-3 mb-sm-0">
                       <Form.Group>
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control type="text" name="title"  onChange={(e,section)=>this.handleChange(e,null)} />
                       </Form.Group>
                       <Form.Group>
                         <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" rows="4" />
+                        <Form.Control as="textarea" rows="4"  onChange={(e,section)=>this.handleChange(e,null)} />
                       </Form.Group>
                       <Form.Group>
                         <Form.Label>Project Cover Photo</Form.Label>
                         <label className="dropImg">
-                          <span>Drag & Drop Image Here</span>
-                          <input type="file" />
+                          <Dropzone
+                            getUploadParams={this.getUploadParams}
+                            onChangeStatus={this.handleChangeStatus}
+                            onSubmit={this.handleSubmit}
+                            maxFiles={1}
+                            accept="image/*,audio/*,video/*"
+                          />
+                         
                         </label>
                       </Form.Group>
                     </div>
@@ -87,41 +107,53 @@ class AddNewProject extends Component {
                       <Form.Group>
                         <Form.Label>Video Section</Form.Label>
                         <label className="dropImg">
-                          <input type="file" />
-                          <span>Drag & Drop Video Here</span>
+                        <Dropzone
+                            getUploadParams={this.getUploadParams}
+                            onChangeStatus={this.handleChangeStatus}
+                            onSubmit={this.handleSubmit}
+                            accept="image/*,audio/*,video/*"
+                          />
                         </label>
-                        <Form.Control type="text" placeholder="Video Titel" />
-                        <Form.Control type="text" placeholder="Video Url" />
-                        <Form.Control type="text" placeholder="Video Link" />
+                        <Form.Control type="text" placeholder="Video Titel"  onChange={(e,section)=>this.handleChange(e,"VIDEOSECTION")} />
+                        <Form.Control type="text" placeholder="Video Url" onChange={(e,section)=>this.handleChange(e,"VIDEOSECTION")} />
+                        <Form.Control type="text" placeholder="Video Link" onChange={(e,section)=>this.handleChange(e,"VIDEOSECTION")} />
                       </Form.Group>
 
                       <Form.Group>
                         <Form.Label>Image Section</Form.Label>
                         <label className="dropImg">
-                          <input type="file" />
-                          <span>Drag & Drop Image Here</span>
+                        <Dropzone
+                            getUploadParams={this.getUploadParams}
+                            onChangeStatus={this.handleChangeStatus}
+                            onSubmit={this.handleSubmit}
+                            accept="image/*,audio/*,video/*"
+                          />
                         </label>
-                        <Form.Control type="text" placeholder="Image Titel" />
-                        <Form.Control type="text" placeholder="Image Url" />
-                        <Form.Control type="text" placeholder="Image Link" />
+                        <Form.Control type="text" placeholder="Image Titel" onChange={(e,section)=>this.handleChange(e,"DESIGNSECTION")} />
+                        <Form.Control type="text" placeholder="Image Url" onChange={(e,section)=>this.handleChange(e,"DESIGNSECTION")}  />
+                        <Form.Control type="text" placeholder="Image Link" onChange={(e,section)=>this.handleChange(e,"DESIGNSECTION")}  />
                       </Form.Group>
 
                       <Form.Group>
                         <Form.Label>Other resources</Form.Label>
-                        <Form.Control type="text" placeholder="Titel" />
-                        <Form.Control type="text" placeholder="Icon" />
-                        <Form.Control type="text" placeholder="Link" />
+                        <Form.Control type="text" placeholder="Titel" onChange={(e,section)=>this.handleChange(e,"DESIGNSECTION")}  />
+                        <Form.Control type="text" placeholder="Icon" onChange={(e,section)=>this.handleChange(e,"DESIGNSECTION")}  />
+                        <Form.Control type="text" placeholder="Link" onChange={(e,section)=>this.handleChange(e,"DESIGNSECTION")}  />
                       </Form.Group>
 
                       <Form.Group>
                         <Form.Label>Latest news and articles</Form.Label>
                         <label className="dropImg">
-                          <input type="file" />
-                          <span>Drag & Drop Image Here</span>
+                        <Dropzone
+                            getUploadParams={this.getUploadParams}
+                            onChangeStatus={this.handleChangeStatus}
+                            onSubmit={this.handleSubmit}
+                            accept="image/*,audio/*,video/*"
+                          />
                         </label>
-                        <Form.Control type="text" placeholder="Titel" />
-                        <Form.Control type="text" placeholder="Image Url" />
-                        <Form.Control type="text" placeholder="Link" />
+                        <Form.Control type="text" placeholder="Titel" onChange={(e,section)=>this.handleChange(e,"DESIGNSECTION")}  />
+                        <Form.Control type="text" placeholder="Image Url"  onChange={(e,section)=>this.handleChange(e,"DESIGNSECTION")} />
+                        <Form.Control type="text" placeholder="Link"  onChange={(e,section)=>this.handleChange(e,"DESIGNSECTION")} />
                       </Form.Group>
                       <div className="text-right mb-4">
                         <Button variant="primary" size="lg" type="submit">
