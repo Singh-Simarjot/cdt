@@ -1,11 +1,25 @@
 import React, { Component } from "react";
 import "./content.scss";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 // import ContentItem from "./contentItem";
+import $ from "jquery";
 
 class NavigationContent extends Component {
   state = {};
+  componentDidMount() {
+    $(".menuItem .editBtn").on("click", function() {
+      // $(".menuItem").removeClass("open");
+      $(this)
+        .parent(".menuItem")
+        .addClass("open");
+    });
+    $(".menuItem .saveEdit").on("click", function() {
+      $(this)
+        .closest(".menuItem")
+        .removeClass("open");
+    });
+  }
   render() {
     return (
       <div className="content">
@@ -24,145 +38,664 @@ class NavigationContent extends Component {
         <div className="contentData">
           <ul className="contentDataUl">
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
               <ul>
                 {" "}
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
               </ul>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
               <ul>
                 {" "}
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
               </ul>
             </li>{" "}
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
             </li>
             <li>
-              <span>
+              <span className="menuItem">
                 Page one <i className="moveIcons"></i>
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className="editBtn text-dark"
+                >
+                  <i className="fa fa-pencil"></i>
+                </Button>
+                <div className="editNavFelid">
+                  <Form.Control
+                    size={"sm"}
+                    className="editInput"
+                    value="Page one"
+                  />
+                  <Button size={"sm"} className="saveEdit" variant="success">
+                    <i className="fa fa-check"></i>
+                  </Button>
+                </div>
               </span>
               <ul>
                 {" "}
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
                 <li>
-                  <span>
+                  <span className="menuItem">
                     Page one <i className="moveIcons"></i>
+                    <Button
+                      size={"sm"}
+                      variant="link"
+                      className="editBtn text-dark"
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </Button>
+                    <div className="editNavFelid">
+                      <Form.Control
+                        size={"sm"}
+                        className="editInput"
+                        value="Page one"
+                      />
+                      <Button
+                        size={"sm"}
+                        className="saveEdit"
+                        variant="success"
+                      >
+                        <i className="fa fa-check"></i>
+                      </Button>
+                    </div>
                   </span>
                 </li>
               </ul>

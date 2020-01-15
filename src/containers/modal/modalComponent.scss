@@ -1,2 +1,9 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
+.modal {
+  .modal-header {
+    & > i {
+      margin: 3px 10px 0 0;
+    }
+  }
+}

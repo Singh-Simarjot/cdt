@@ -4,12 +4,14 @@ import Content from "../containers/content/content";
 
 import ComponentsList from "../components/componentsList";
 import ModalComponent from "../containers/modal/modalComponent";
+// import ComponentsTabs from "../components/componentsTab";
+import NavigationList from "../components/navigationList";
 
 class AddNewPage extends Component {
   state = {
     page: {
       title: "dd",
-      template: null
+      template: "DEFAULT"
     },
     showModalComponent: false,
     modalData: null
@@ -38,6 +40,9 @@ class AddNewPage extends Component {
       <React.Fragment>
         {page.template === "DEFAULT" && (
           <ComponentsList onModalChange={this.handleModal} />
+        )}
+        {page.template === "TABS" && (
+          <NavigationList onModalChange={this.handleModal} />
         )}
         <Content
           page={this.state.page}

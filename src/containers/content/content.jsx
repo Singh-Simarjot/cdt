@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import "./content.scss";
-// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import ReactDOM from "react-dom";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import ContentItem from "./contentItem";
 
 class Content extends Component {
   render() {
     const { page } = this.props;
+
     return (
       <div className="content">
         <div className="contentTop">
@@ -32,25 +34,41 @@ class Content extends Component {
               as="select"
               onChange={e => this.props.onChangeTemplate(e)}
             >
-              <option value=" ">Select Template</option>
               <option value="DEFAULT">Default Template</option>
               <option value="TABS">Tabs Template</option>
-              <option value="GRID">Grid Template</option>
-              <option value="GLOSSARY"> Glossary Template</option>
+              {/* <option value="GRID">Grid Template</option>
+              <option value="GLOSSARY"> Glossary Template</option> */}
             </Form.Control>
           </Form.Group>
-          <ContentItem
-            icon="fa fa-th-large"
-            titel="Icons Grid"
-            text="Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid"
-            onModalChange={this.props.onModalChange}
-          />
-          <ContentItem
-            icon="fa fa-th"
-            titel="Color Palette"
-            text="Color Palette Color Palette Color Palette Color Palette Color Palette Color Palette Color Palette Color Palette"
-            onModalChange={this.props.onModalChange}
-          />
+          {page.template === "TABS" && (
+            <div className="addTabDara">
+              <label class="dropImg">
+                <span>Drag &amp; Drop Tab Here</span>
+              </label>
+            </div>
+          )}
+          {page.template === "DEFAULT" && (
+            <ContentItem
+              icon="fa fa-th-large"
+              titel="Icons Grid"
+              text="Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid"
+              onModalChange={this.props.onModalChange}
+            />
+          )}
+
+          {/*  */}
+
+          <Draggable draggableId={1} index={1}>
+            {(provided, snapshot) => (
+              <div
+                {...provided.dragHandleProps}
+                innerRef={provided.innerRef}
+                isDragging={snapshot.isDragging}
+              >
+                Drab 1
+              </div>
+            )}
+          </Draggable>
         </div>
       </div>
     );

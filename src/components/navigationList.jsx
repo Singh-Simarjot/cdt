@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./componentsList.scss";
 // import ComponentsListItem from "./componentsListItem";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import $ from "jquery";
 class NavigationList extends Component {
   state = {};
@@ -107,6 +107,29 @@ class NavigationList extends Component {
               <li>Page</li>
               <li>Page</li>
             </ul>
+          </div>
+          {/* customLickCreate */}
+          <div className="customLickCreate">
+            <h2>Add Custom Lick</h2>
+            <Row noGutters>
+              <Col>
+                <Form.Group className="pr-2">
+                  <Form.Label>Titel</Form.Label>
+                  <Form.Control size={"sm"} />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="pl-2">
+                  <Form.Label>URL</Form.Label>
+                  <Form.Control size={"sm"} />
+                </Form.Group>
+              </Col>
+            </Row>
+            <div className="text-right">
+              <Button size={"sm"} variant="success">
+                Add Menu
+              </Button>
+            </div>
           </div>
         </div>
       </div>
