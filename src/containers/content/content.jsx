@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./content.scss";
-import ReactDOM from "react-dom";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+// import ReactDOM from "react-dom";
+// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import ContentItem from "./contentItem";
 
@@ -25,7 +25,7 @@ class Content extends Component {
         </div>
         <div className="contentData">
           <Form.Group>
-            <Form.Label>Project Titel</Form.Label>
+            <Form.Label>Project Title</Form.Label>
             <Form.Control type="text" value={page.title} />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlSelect1">
@@ -50,25 +50,11 @@ class Content extends Component {
           {page.template === "DEFAULT" && (
             <ContentItem
               icon="fa fa-th-large"
-              titel="Icons Grid"
+              title="Icons Grid"
               text="Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid"
               onModalChange={this.props.onModalChange}
             />
           )}
-
-          {/*  */}
-
-          {/* <Draggable draggableId={1} index={1}>
-            {(provided, snapshot) => (
-              <div
-                {...provided.dragHandleProps}
-                innerRef={provided.innerRef}
-                isDragging={snapshot.isDragging}
-              >
-                Drab 1
-              </div>
-            )}
-          </Draggable> */}
         </div>
       </div>
     );

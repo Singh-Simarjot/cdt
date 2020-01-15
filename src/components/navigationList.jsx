@@ -108,13 +108,13 @@ class NavigationList extends Component {
               <li>Page</li>
             </ul>
           </div>
-          {/* customLickCreate */}
-          <div className="customLickCreate">
-            <h2>Add Custom Lick</h2>
+          {/* customLinkCreate */}
+          <div className="customLinkCreate">
+            <h2>Add Custom Link</h2>
             <Row noGutters>
               <Col>
                 <Form.Group className="pr-2">
-                  <Form.Label>Titel</Form.Label>
+                  <Form.Label>Title</Form.Label>
                   <Form.Control size={"sm"} />
                 </Form.Group>
               </Col>
