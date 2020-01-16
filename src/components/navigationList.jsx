@@ -19,7 +19,7 @@ class NavigationList extends Component {
           </Col>
           <Col xs={4} className="text-right componentsListBtn">
             <Button variant="light" size="sm">
-              <i className="fa fa-bars"></i>
+              <i classNameName="fa fa-bars"></i>
             </Button>
           </Col>
         </Row>

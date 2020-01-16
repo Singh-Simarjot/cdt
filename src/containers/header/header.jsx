@@ -19,7 +19,7 @@ class Header extends Component {
           <Row className="align-items-center">
             <Col>
               <Button variant="dark" size="sm" className="menuBtn">
-                <i className="fa fa-bars"></i>
+                <i classNameName="fa fa-bars"></i>
               </Button>
               <Link to="/" className="headerLogo">
                 Carbon <b>Design System</b> Testing

@@ -23,7 +23,7 @@
   }
   .menuBtn {
     margin-right: 10px;
-    @include sm-min {
+    @include lg {
       display: none;
     }
   }
