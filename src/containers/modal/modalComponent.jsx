@@ -52,7 +52,7 @@ class ModalComponent extends Component {
     return (
       modalData !== null && (
         <Modal
-          size={"md"}
+          size={"lg"}
           show={this.props.showModal}
           onHide={() => {
             this.props.onModalChange();
