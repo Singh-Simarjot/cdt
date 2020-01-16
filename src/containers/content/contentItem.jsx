@@ -91,7 +91,7 @@ class ContentItem extends Component {
               }}
               variant="danger"
             >
-              Calcel
+              Cancel
             </Button>
             <Button variant="success">Save</Button>
           </Modal.Footer>

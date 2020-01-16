@@ -42,7 +42,7 @@ class ModalComponent extends Component {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => this.props.showModal} variant="danger">
-            Calcel
+          Cancel
           </Button>
           <Button variant="success">Save</Button>
         </Modal.Footer>

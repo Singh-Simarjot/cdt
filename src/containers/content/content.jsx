@@ -6,9 +6,12 @@ import { Row, Col, Button, Form } from "react-bootstrap";
 import ContentItem from "./contentItem";
 
 class Content extends Component {
+  handleDragOver = (e) => {
+    console.log(e)
+  }
   render() {
     const { page } = this.props;
-
+   
     return (
       <div className="content">
         <div className="contentTop">
@@ -41,7 +44,7 @@ class Content extends Component {
             </Form.Control>
           </Form.Group>
           {page.template === "TABS" && (
-            <div className="addTabDara">
+            <div className="addTabDara" onDragOver={(e)=>this.handleDragOver(e)}>
               <label class="dropImg">
                 <span>Drag &amp; Drop Tab Here</span>
               </label>

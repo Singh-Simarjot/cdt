@@ -86,7 +86,8 @@ export class ProjectsContext extends Component {
         authour: "Authour Name"
       }
     ],
-    pages: []
+    pages: [],
+    navigation:[],
   };
 
   onSelectProject = id => {
@@ -102,6 +103,14 @@ export class ProjectsContext extends Component {
     this.setState({ pages:pages.data });
   };
 
+  addToNavigation = (item) => {
+     const navigation = [...this.state.navigation,item]
+      
+     this.setState({navigation})
+  }
+ 
+
+
   render() {
     return (
       <Context.Provider
@@ -109,7 +118,8 @@ export class ProjectsContext extends Component {
           ...this.state,
           onSelectProject: this.onSelectProject,
           getAllProjects: this.getAllProjects,
-          getAllPages:this.getAllPages
+          getAllPages:this.getAllPages,
+          addToNavigation:this.addToNavigation
         }}
       >
         {this.props.children}
