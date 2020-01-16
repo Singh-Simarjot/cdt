@@ -28,12 +28,7 @@ class ComponentsList extends Component {
         label: "External Page Link Grid",
         type: "EXTERNAL_PAGE_LINK_GRID"
       },
-      { icon: "fa-file-text-o", label: "Text Block", type: "TEXT_BLOCK" },
-      {
-        icon: "fa-external-link",
-        label: "Internal Page Navigation",
-        type: "INTERNAL_PAGE_NAVIGATION"
-      }
+      { icon: "fa-file-text-o", label: "Text Block", type: "TEXT_BLOCK" }
     ]
   };
   componentDidMount() {

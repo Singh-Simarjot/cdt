@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-// import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 class TextBlock extends Component {
   state = {};
   render() {
     return (
       <div className="widgetsDiv">
-        <h6>TextBlock</h6>
+        <Form.Group>
+          <Form.Label>Html</Form.Label>
+          <Form.Control as="textarea" rows="4" />
+        </Form.Group>
       </div>
     );
   }

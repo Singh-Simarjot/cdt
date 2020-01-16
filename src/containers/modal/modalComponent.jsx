@@ -14,7 +14,6 @@ import CodeSnippets from "../../components/widgets/codeSnippets";
 import CodeSnippetsWithView from "../../components/widgets/codeSnippetsWithView";
 import ExternalPageLinkGrid from "../../components/widgets/externalPageLinkGrid";
 import TextBlock from "../../components/widgets/textBlock";
-import InternalPageNavigation from "../../components/widgets/internalPageNavigation";
 class ModalComponent extends Component {
   renderComponent() {
     const { modalData } = this.props;
@@ -43,8 +42,6 @@ class ModalComponent extends Component {
         return <ExternalPageLinkGrid />;
       case "TEXT_BLOCK":
         return <TextBlock />;
-      case "INTERNAL_PAGE_NAVIGATION":
-        return <InternalPageNavigation />;
       default:
         return "foo";
     }
@@ -68,7 +65,11 @@ class ModalComponent extends Component {
             <Form>
               <Form.Group>
                 <Form.Label>Title</Form.Label>
-                <Form.Control type="text" value={this.props.title} />
+                <Form.Control
+                  type="text"
+                  value={this.props.title}
+                  placeholder="Title"
+                />
               </Form.Group>
               {this.renderComponent()}
               {/* <Form.Group>
@@ -89,6 +90,12 @@ class ModalComponent extends Component {
                 <Form.Label>Description</Form.Label>
                 <Form.Control value={this.props.text} as="textarea" rows="4" />
               </Form.Group> */}
+              <Form.Group>
+                <Form.Check
+                  id="addInternalNavigation"
+                  label={"Add Internal Navigation"}
+                />
+              </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>

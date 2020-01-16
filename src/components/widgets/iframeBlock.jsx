@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-// import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 class IframeBlock extends Component {
   state = {};
   render() {
     return (
       <div className="widgetsDiv">
-        <h6>IframeBlock</h6>
+        <Form.Group>
+          <Form.Label>Enter Iframe</Form.Label>
+          <Form.Control as="textarea" rows="4" />
+        </Form.Group>
       </div>
     );
   }
