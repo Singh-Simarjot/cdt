@@ -28,12 +28,7 @@ class ComponentsList extends Component {
         label: "External Page Link Grid",
         type: "EXTERNAL_PAGE_LINK_GRID"
       },
-      { icon: "fa-file-text-o", label: "Text Block", type: "TEXT_BLOCK" },
-      {
-        icon: "fa-external-link",
-        label: "Internal Page Navigation",
-        type: "INTERNAL_PAGE_NAVIGATION"
-      }
+      { icon: "fa-file-text-o", label: "Text Block", type: "TEXT_BLOCK" }
     ]
   };
   componentDidMount() {
@@ -52,7 +47,7 @@ class ComponentsList extends Component {
           </Col>
           <Col xs={4} className="text-right componentsListBtn">
             <Button variant="light" size="sm">
-              <i className="fa fa-bars"></i>
+              <i classNameName="fa fa-bars"></i>
             </Button>
           </Col>
         </Row>

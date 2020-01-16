@@ -73,6 +73,19 @@ h2 {
     border: 1px solid rgba($theme-bg, 0.2);
     padding: 50px 10px;
   }
+  .dzu-dropzone {
+    .dzu-inputLabel {
+      color: rgba($theme-bg, 0.5);
+      font-size: $drfault-size - 2;
+      font-weight: normal;
+    }
+    .dzu-previewButton {
+      border: 0;
+    }
+    .dzu-inputLabelWithFiles {
+      color: rgba($theme-bg, 0.5);
+    }
+  }
 }
 .dropImg + .form-control {
   margin-top: 10px;

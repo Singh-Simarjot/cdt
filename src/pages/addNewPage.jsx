@@ -50,7 +50,7 @@ class AddNewPage extends Component {
           onModalChange={this.handleModal}
         />
         <ModalComponent
-          titel={this.props.text}
+          title={this.props.text}
           onModalChange={this.handleModal}
           showModal={this.state.showModalComponent}
           modalData={this.state.modalData}

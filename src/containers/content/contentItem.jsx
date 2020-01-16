@@ -20,7 +20,7 @@ class ContentItem extends Component {
             <i className={this.props.icon}></i>
           </div>
           <div className="media-body">
-            <h4>{this.props.titel}</h4>
+            <h4>{this.props.title}</h4>
             <p>{this.props.text}</p>
           </div>
           <div className="moveIcon">
@@ -57,12 +57,12 @@ class ContentItem extends Component {
             this.handleModal();
           }}
         >
-          <Modal.Header closeButton>{this.props.titel}</Modal.Header>
+          <Modal.Header closeButton>{this.props.title}</Modal.Header>
           <Modal.Body>
             <Form>
               <Form.Group>
-                <Form.Label>Titel</Form.Label>
-                <Form.Control type="text" value={this.props.titel} />
+                <Form.Label>Title</Form.Label>
+                <Form.Control type="text" value={this.props.title} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Image</Form.Label>
@@ -113,7 +113,7 @@ class ContentItem extends Component {
               }}
               variant="danger"
             >
-              Calcel
+              Cancel
             </Button>
             <Button variant="success">Delete</Button>
           </Modal.Footer>

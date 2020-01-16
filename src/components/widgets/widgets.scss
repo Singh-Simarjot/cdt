@@ -1,0 +1,15 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.widgetsDiv {
+  //   background-color: rgba($theme-bg, 0.5);
+  .addIceon {
+    padding-right: 40px;
+    position: relative;
+    button {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
