@@ -23,7 +23,7 @@ function App() {
         <Route   path="/project" component={ProjectDetail} />
         <Route   path="/addnew" component={AddNewProject} />
         <Route path="/" component={Dashboard} />
-        {/* <Route path="/" component={Home} /> */}
+        <Route path="/" component={Home} />
       </Switch>
 
       {/* <Page /> */}
