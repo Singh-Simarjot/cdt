@@ -7,7 +7,7 @@ class CodeSnippets extends Component {
   render() {
     return (
       <div className="widgetsDiv">
-        <h6>CodeSnippets</h6>
+        <h6>Code Snippets</h6>
       </div>
     );
   }

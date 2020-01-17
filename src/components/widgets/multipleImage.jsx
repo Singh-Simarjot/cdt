@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-import $ from "jquery";
+// import $ from "jquery";
 // import ko from "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js";
 // import { Button, Form } from "react-bootstrap";
 

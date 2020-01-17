@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./widgets.scss";
 import { Form } from "react-bootstrap";
-import FigureImage from "react-bootstrap/FigureImage";
+// import FigureImage from "react-bootstrap/FigureImage";
 
 class VideoBlock extends Component {
   state = {

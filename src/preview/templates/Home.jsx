@@ -4,10 +4,10 @@ import ListGroup from "react-bootstrap/ListGroup";
 import "./assets/home.scss";
 import Sidebar from "./component/sidebar";
 import { Container, Row, Col } from "react-bootstrap";
-import SidebarNav from "../../containers/sidebarNav/sidebarNav";
+// import SidebarNav from "../../containers/sidebarNav/sidebarNav";
 import designImage from "./assets/images/designers.jpg";
 import developImage from "./assets/images/developing.jpg";
-import sketchIcon from "./assets/images/sketch.jpg";
+// import sketchIcon from "./assets/images/sketch.jpg";
 import xdImage from "./assets/images/xd_kit_img.jpg";
 import carbonImage from "./assets/images/v10.7-release.jpg";
 import hackImage from "./assets/images/hacktoberfest.jpg";
@@ -39,10 +39,10 @@ class Home extends Component {
 
             <video
               poster={videoImg}
-              muted=""
-              autoplay=""
+              muted
+              autoplay="autoplay"
               playsinline=""
-              loop=""
+              loop
             >
               <source
                 src={videoMobWebm}

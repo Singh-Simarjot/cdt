@@ -9,26 +9,63 @@ import $ from "jquery";
 class ComponentsList extends Component {
   state = {
     options: [
-      { icon: "fa-code", label: "HTML Component", type: "HTML" },
-      { icon: "fa-keyboard-o", label: "Typography Block", type: "TYPOGRAPHY" },
-      { icon: "fa-th-large", label: "Icons Grid", type: "ICON_GRID" },
-      { icon: "fa-th", label: "Color Palette", type: "COLOR_PALETTE" },
-      { icon: "fa-picture-o", label: "Multiple Image", type: "MULTIPLE_IMAGE" },
-      { icon: "fa-picture-o", label: "Image Block", type: "IMAGE_BLOCK" },
-      { icon: "fa-video-camera", label: "Video Block", type: "VIDEO_BLOCK" },
-      { icon: "fa-file-code-o", label: "Iframe Block", type: "IFRAME_BLOCK" },
-      { icon: "fa-codepen", label: "Code Snippets", type: "CODE_SNIPPETS" },
+      { id: 1, icon: "fa-code", label: "HTML Component", type: "HTML" },
       {
+        id: 2,
+        icon: "fa-keyboard-o",
+        label: "Typography Block",
+        type: "TYPOGRAPHY"
+      },
+      { id: 3, icon: "fa-th-large", label: "Icons Grid", type: "ICON_GRID" },
+      { id: 4, icon: "fa-th", label: "Color Palette", type: "COLOR_PALETTE" },
+      {
+        id: 5,
+        icon: "fa-picture-o",
+        label: "Multiple Image",
+        type: "MULTIPLE_IMAGE"
+      },
+      {
+        id: 6,
+        icon: "fa-picture-o",
+        label: "Image Block",
+        type: "IMAGE_BLOCK"
+      },
+      {
+        id: 7,
+        icon: "fa-video-camera",
+        label: "Video Block",
+        type: "VIDEO_BLOCK"
+      },
+      {
+        id: 8,
+        icon: "fa-file-code-o",
+        label: "Iframe Block",
+        type: "IFRAME_BLOCK"
+      },
+      {
+        id: 9,
+        icon: "fa-codepen",
+        label: "Code Snippets",
+        type: "CODE_SNIPPETS"
+      },
+      {
+        id: 10,
         icon: "fa-codepen",
         label: "Code Snippets With View",
         type: "CODE_SNIPPETS_WITH_VIEW"
       },
       {
+        id: 11,
         icon: "fa-file-o",
         label: "External Page Link Grid",
         type: "EXTERNAL_PAGE_LINK_GRID"
       },
-      { icon: "fa-file-text-o", label: "Text Block", type: "TEXT_BLOCK" }
+      {
+        id: 12,
+        icon: "fa-file-text-o",
+        label: "Text Block",
+        type: "TEXT_BLOCK"
+      }
     ]
   };
   componentDidMount() {
@@ -47,13 +84,14 @@ class ComponentsList extends Component {
           </Col>
           <Col xs={4} className="text-right componentsListBtn">
             <Button variant="light" size="sm">
-              <i classNameName="fa fa-bars"></i>
+              <i className="fa fa-bars"></i>
             </Button>
           </Col>
         </Row>
         <div className="componentsListItms">
           {options.map(item => (
             <ComponentsListItem
+              key={item.id}
               onModalChange={this.props.onModalChange}
               icon={item.icon + " fa"}
               item={item}

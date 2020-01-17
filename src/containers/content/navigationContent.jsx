@@ -4,8 +4,7 @@ import "./content.scss";
 import { Row, Col, Button, Form } from "react-bootstrap";
 // import ContentItem from "./contentItem";
 import $ from "jquery";
-import ProjectsContext  from '../../context/projectsContext';
-
+import ProjectsContext from "../../context/projectsContext";
 
 class NavigationContent extends Component {
   state = {};
@@ -25,7 +24,7 @@ class NavigationContent extends Component {
     });
   }
   render() {
-    const {navigation } =   this.context;
+    const { navigation } = this.context;
     return (
       <div className="content">
         <div className="contentTop">
@@ -42,30 +41,30 @@ class NavigationContent extends Component {
         </div>
         <div className="contentData">
           <ul className="contentDataUl">
-          {navigation.map( item =>  <li>
-              <span className="menuItem">
-               {item.name} <i className="moveIcons"></i>
-                <Button
-                  size={"sm"}
-                  variant="link"
-                  className="editBtn text-dark"
-                >
-                  <i className="fa fa-pencil"></i>
-                </Button>
-                <div className="editNavFelid">
-                  <Form.Control
+            {navigation.map(item => (
+              <li key={item.id}>
+                <span className="menuItem">
+                  {item.name} <i className="moveIcons"></i>
+                  <Button
                     size={"sm"}
-                    className="editInput"
-                    value="Page one"
-                  />
-                  <Button size={"sm"} className="saveEdit" variant="success">
-                    <i className="fa fa-check"></i>
+                    variant="link"
+                    className="editBtn text-dark"
+                  >
+                    <i className="fa fa-pencil"></i>
                   </Button>
-                </div>
-              </span>
-            </li>)}
-           
-             
+                  <div className="editNavFelid">
+                    <Form.Control
+                      size={"sm"}
+                      className="editInput"
+                      value="Page one"
+                    />
+                    <Button size={"sm"} className="saveEdit" variant="success">
+                      <i className="fa fa-check"></i>
+                    </Button>
+                  </div>
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

@@ -38,7 +38,7 @@ class Dashbord extends Component {
                 <Row>
                   {}
                   {allProjects.slice(0, 4).map(item => (
-                    <Col sm={6} sm={6} md={4} lg={3}>
+                    <Col sm={6} md={4} lg={3} key={item.id}>
                       <Card
                         bg="light"
                         key={item.id}

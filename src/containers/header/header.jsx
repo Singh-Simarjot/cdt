@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./header.scss";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import $ from "jquery";
 class Header extends Component {
@@ -19,7 +19,7 @@ class Header extends Component {
           <Row className="align-items-center">
             <Col>
               <Button variant="dark" size="sm" className="menuBtn">
-                <i classNameName="fa fa-bars"></i>
+                <i className="fa fa-bars"></i>
               </Button>
               <Link to="/" className="headerLogo">
                 Carbon <b>Design System</b> Testing
@@ -27,7 +27,6 @@ class Header extends Component {
             </Col>
             <Col xs={4} md={2} className="text-right">
               <div className="headerRight">
-
                 <Button variant="dark" size="sm">
                   <svg
                     focusable="false"
