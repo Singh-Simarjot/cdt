@@ -32,13 +32,13 @@ class Navigation extends Component {
                     className="editNavBtn"
                     onClick={() => this.onEdit(item)}
                   >
-                    <i className="fa fa-pencil"></i>
+                    Edit
                   </span>
                   <span
                     className="deleteNavBtn"
                     onClick={() => this.onDelete(item)}
                   >
-                    <i className="fa fa-trash-o"></i>
+                    Delete
                   </span>
                 </div>
               ))
@@ -46,10 +46,10 @@ class Navigation extends Component {
         (item.subtitle = (
           <div>
             <span className="editNavBtn" onClick={() => this.onEdit(item)}>
-              <i className="fa fa-pencil"></i>
+              Edit
             </span>
             <span className="deleteNavBtn" onClick={() => this.onDelete(item)}>
-              <i className="fa fa-trash-o"></i>
+              Delete
             </span>
           </div>
         ))
