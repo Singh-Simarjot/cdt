@@ -11,7 +11,15 @@ class AddNewPage extends Component {
   state = {
     page: {
       title: "dd",
-      template: "DEFAULT"
+      template: "DEFAULT",
+      widgets: [
+        {
+          icon: "fa-file-text-o",
+          label: "Text Block",
+          type: "TEXT_BLOCK",
+          data: {}
+        }
+      ]
     },
     showModalComponent: false,
     modalData: null

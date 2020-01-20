@@ -4,6 +4,9 @@ import { Container, Row, Col, Button, Card, Table } from "react-bootstrap";
 import ProjectLogo1 from "./images/logo-dummy.png";
 import ProjectsContext from "../context/projectsContext";
 import { Link } from "react-router-dom";
+import moment from "moment";
+
+
 
 class Dashbord extends Component {
   static contextType = ProjectsContext;
@@ -15,7 +18,15 @@ class Dashbord extends Component {
   componentDidMount() {
     this.context.getAllProjects();
   }
-
+  onPreview = (id) =>{
+    this.context.onSelectProject(id);
+    this.props.history.push("/preview");
+  }
+  onEditProject =(id) => {
+    this.context.onSelectProject(id);
+    this.props.history.push("/edit");
+  }
+  
   render() {
     const { allProjects } = this.context;
 
@@ -23,7 +34,7 @@ class Dashbord extends Component {
       <main className="main">
         <section className="dashboard">
           <Container fluid>
-            {allProjects !== null && (
+            {allProjects.length > 0  ? (
               <div className="pt-5">
                 <Row>
                   <Col>
@@ -42,23 +53,29 @@ class Dashbord extends Component {
                       <Card
                         bg="light"
                         key={item.id}
-                        onClick={() => this.onSelectProject(item.id)}
+                        
                       >
-                        <Card.Body className="text-center">
+                        <Card.Body className="text-center" onClick={() => this.onSelectProject(item.id)}>
                           <Card.Img
                             variant="top"
                             src={ProjectLogo1}
                             alt={item.title}
                           />
-                        </Card.Body>
-                        <Card.Footer>{item.title}</Card.Footer>
+                        </Card.Body >
+                        <Card.Footer>{item.name} <i onClick={()=>this.onPreview(item.id)} class="fa fa-eye pull-right"></i> <i   onClick ={() => this.onEditProject(item.id)} className={"fa fa-edit pull-right" }></i></Card.Footer>
                       </Card>
                     </Col>
                   ))}
                 </Row>
               </div>
-            )}
-            {allProjects !== null && allProjects.length > 5 && (
+            ):
+            <div className="p5 text-center">
+            <br/><br/>
+              <Link to="/addnew" size="sm" className="btn btn-success">
+            Create New Project
+          </Link></div>
+          }
+            {allProjects.length > 0  && (
               <div className="pt-5">
                 <h2>All Projects</h2>
                 <Table responsive="md" hover variant="">
@@ -68,7 +85,8 @@ class Dashbord extends Component {
                       <th>Project Name</th>
                       <th>Date Created</th>
                       <th>Date Edited</th>
-                      <th>Authour</th>
+                      <th>Author</th>
+                      <th>Preview</th>
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
@@ -78,18 +96,22 @@ class Dashbord extends Component {
                       <tr key={project.id}>
                         <td>{project.id}</td>
                         <td>
-                          <Link to="/project">{project.title}</Link>
+                          <Link to="/project">{project.name}</Link>
                         </td>
-                        <td>{project.dateCreated}</td>
-                        <td>{project.dateEdited}</td>
+                        <td>{  moment(project.dateCreated).format("YYYY//MM//DD") }</td>
+                        <td>{  moment(project.dateEdited).format("YYYY//MM//DD") }</td>
                         <td>{project.authour}</td>
                         <td>
-                          <Button size={"sm"} variant="info">
+                        <i onClick={()=>this.onPreview(project.id)} class="fa fa-eye"></i>
+                        </td>
+                        <td>
+                          <Button size={"sm"} variant="info"  onClick ={() => this.onEditProject(project.id)}
+                           >
                             <i className="fa fa-pencil"></i>
                           </Button>
                         </td>
                         <td>
-                          <Button size={"sm"} variant="danger">
+                          <Button  onClick={()=> this.context.onDeleteProject(project.id)}  size={"sm"} variant="danger">
                             <i className="fa fa-trash"></i>
                           </Button>
                         </td>

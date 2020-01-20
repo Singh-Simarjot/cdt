@@ -31,11 +31,10 @@ class NavigationList extends Component {
   addItem = () => {
     const customItem = {... this.state.customItem};
     this.context.addToNavigation(customItem);
-     
 
   }
   render() {
-   const { pages } = this.context;
+   const { selectedProject } = this.context;
    const {customItem} = this.state;
     return (
       <div className="componentsList">
@@ -52,7 +51,7 @@ class NavigationList extends Component {
         <div className="componentsListItms">
           <div className="navigationList">
             <ul>
-             {pages.map(item => <li> {item.name}  <i onClick={()=>this.context.addToNavigation(item)} className="fa fa-plus pull-right"></i> </li>)}
+             {selectedProject.pages.map(item => <li> {item.name}  <i onClick={()=>this.context.addToNavigation(item)} className="fa fa-plus pull-right"></i> </li>)}
             </ul>
           </div>
           {/* customLickCreate */}

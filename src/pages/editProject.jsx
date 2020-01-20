@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone-uploader";
 import ProjectsContext from "../context/projectsContext";
 
-class AddNewProject extends Component {
+class EditProject extends Component {
   static contextType = ProjectsContext;
 
   state = {
@@ -67,6 +67,12 @@ class AddNewProject extends Component {
     console.log(this.context)
     this.context.addNewProject(this.state.project)
   }
+
+//   componentDidMount(){
+      
+//       this.setState({})
+//   }
+
   render() {
     return (
       <main className="main">
@@ -262,4 +268,4 @@ class AddNewProject extends Component {
   }
 }
 
-export default AddNewProject;
+export default EditProject;

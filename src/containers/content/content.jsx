@@ -51,13 +51,18 @@ class Content extends Component {
             </div>
           )}
           {page.template === "DEFAULT" && (
-            <ContentItem
-              icon="fa fa-th-large"
-              title="Icons Grid"
+             page.widgets.map(item => 
+              <ContentItem
+              icon= {item.icon + " fa" }
+              title={item.label}
               text="Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid"
               onModalChange={this.props.onModalChange}
             />
+            )
+         
           )}
+          <br/>
+          <Button>Save</Button>
         </div>
       </div>
     );
