@@ -66,6 +66,34 @@
         }
       }
     }
+    &.contentDataNavigation {
+      height: -webkit-calc(100vh - 110px);
+      height: calc(100vh - 110px);
+      overflow: auto;
+      // @include lg {
+      // }
+      .rst__rowContents {
+        .rst__rowLabel {
+          width: 100%;
+          position: relative;
+          .rst__rowTitle {
+            line-height: 1.1em;
+          }
+          .rst__rowSubtitle {
+            position: absolute;
+            right: 0;
+            top: 0;
+            .editNavBtn {
+              cursor: pointer;
+            }
+            .deleteNavBtn {
+              margin-left: 10px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

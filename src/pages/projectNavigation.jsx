@@ -22,16 +22,38 @@ class Navigation extends Component {
     const { selectedProject } = this.context;
     const navigation = selectedProject.navigation;
     navigation.filter(
-      item => 
-        ( item.children !== undefined &&  item.children.filter(subItem=>subItem.subtitle = ( <div>
-          <span onClick={() => this.onEdit(item)}>Edit </span>
-          <span onClick={() => this.onDelete(item)}>Delete</span>
-        </div>) ), item.subtitle = (
+      item => (
+        item.children !== undefined &&
+          item.children.filter(
+            subItem =>
+              (subItem.subtitle = (
+                <div>
+                  <span
+                    className="editNavBtn"
+                    onClick={() => this.onEdit(item)}
+                  >
+                    <i className="fa fa-pencil"></i>
+                  </span>
+                  <span
+                    className="deleteNavBtn"
+                    onClick={() => this.onDelete(item)}
+                  >
+                    <i className="fa fa-trash-o"></i>
+                  </span>
+                </div>
+              ))
+          ),
+        (item.subtitle = (
           <div>
-            <span onClick={() => this.onEdit(item)}>Edit </span>
-            <span onClick={() => this.onDelete(item)}>Delete</span>
+            <span className="editNavBtn" onClick={() => this.onEdit(item)}>
+              <i className="fa fa-pencil"></i>
+            </span>
+            <span className="deleteNavBtn" onClick={() => this.onDelete(item)}>
+              <i className="fa fa-trash-o"></i>
+            </span>
           </div>
         ))
+      )
     );
     this.setState({ navigation });
   }
