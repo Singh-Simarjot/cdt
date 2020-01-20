@@ -11,17 +11,34 @@ class NavigationContent extends Component {
   static contextType = ProjectsContext;
 
   componentDidMount() {
+    /*
     $(".menuItem .editBtn").on("click", function() {
       // $(".menuItem").removeClass("open");
       $(this)
         .parent(".menuItem")
         .addClass("open");
     });
-    $(".menuItem .saveEdit").on("click", function() {
+    $(".menuItem .saveEdit, .menuItem .cancelEdit").on("click", function() {
       $(this)
         .closest(".menuItem")
         .removeClass("open");
     });
+    */
+    $(document).on("click", ".menuItem .editBtn", function() {
+      // $(".menuItem").removeClass("open");
+      $(this)
+        .parent(".menuItem")
+        .addClass("open");
+    });
+    $(document).on(
+      "click",
+      ".menuItem .saveEdit, .menuItem .cancelEdit",
+      function() {
+        $(this)
+          .closest(".menuItem")
+          .removeClass("open");
+      }
+    );
   }
   render() {
     const { selectedProject } = this.context;
@@ -63,6 +80,9 @@ class NavigationContent extends Component {
                     <Button size={"sm"} className="saveEdit" variant="success">
                       <i className="fa fa-check"></i>
                     </Button>
+                    <Button size={"sm"} className="cancelEdit" variant="danger">
+                      <i className="fa fa-times"></i>
+                    </Button>
                   </div>
                 </span>
 
@@ -99,6 +119,13 @@ class NavigationContent extends Component {
                               variant="success"
                             >
                               <i className="fa fa-check"></i>
+                            </Button>
+                            <Button
+                              size={"sm"}
+                              className="cancelEdit"
+                              variant="danger"
+                            >
+                              <i className="fa fa-times"></i>
                             </Button>
                           </div>
                         </span>

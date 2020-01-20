@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import ListGroup from "react-bootstrap/ListGroup";
+// import ListGroup from "react-bootstrap/ListGroup";
 import "./assets/home.scss";
-import Sidebar from "./component/sidebar";
+// import Sidebar from "./component/sidebar";
 import { Container, Row, Col } from "react-bootstrap";
 import designImage from "./assets/images/designers.jpg";
 import developImage from "./assets/images/developing.jpg";
@@ -35,8 +35,8 @@ class Home extends Component {
           <video
             poster={videoImg}
             muted
-            autoplay="autoplay"
-            playsinline=""
+            autoPlay="autoplay"
+            playsInline=""
             loop
           >
             <source

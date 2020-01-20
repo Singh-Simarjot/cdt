@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 class ColorPalette extends Component {
   state = {};
   render() {
