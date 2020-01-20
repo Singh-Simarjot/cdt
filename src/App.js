@@ -27,7 +27,7 @@ function App() {
         <Route path="/edit" component={EditProject} />
         <Route path="/preview"   component={Preview} />
         <Route path="/" component={Dashboard} />
-        {/* <Route path="/" component={Home} /> */}
+     
       </Switch>
 
       {/* <Page /> */}

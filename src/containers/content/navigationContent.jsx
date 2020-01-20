@@ -4,13 +4,15 @@ import "./content.scss";
 import { Row, Col, Button, Form } from "react-bootstrap";
 // import ContentItem from "./contentItem";
 import $ from "jquery";
-import ProjectsContext from "../../context/projectsContext";
+import SortableTree from 'react-sortable-tree';
+import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
 
 class NavigationContent extends Component {
-  state = {};
-  static contextType = ProjectsContext;
+  
+   
 
   componentDidMount() {
+  
     $(".menuItem .editBtn").on("click", function() {
       // $(".menuItem").removeClass("open");
       $(this)
@@ -23,6 +25,7 @@ class NavigationContent extends Component {
         .removeClass("open");
     });
   }
+  
   render() {
     const { selectedProject } = this.context;
     return (
@@ -34,81 +37,13 @@ class NavigationContent extends Component {
             </Col>
           </Row>
         </div>
-        <div className="contentData">
-          <ul className="contentDataUl">
-            {selectedProject.navigation.map(item => (
-              <li>
-                <span className="menuItem">
-                  {item.name} <i className="moveIcons"></i>
-                  <Button
-                    size={"sm"}
-                    variant="link"
-                    className="editBtn text-dark"
-                  >
-                    <i className="fa fa-pencil"></i>
-                  </Button>
-                  <Button
-                    size={"sm"}
-                    variant="link"
-                    className="deleteBtn text-dark"
-                  >
-                    <i className="fa fa-trash-o"></i>
-                  </Button>
-                  <div className="editNavFelid">
-                    <Form.Control
-                      size={"sm"}
-                      className="editInput"
-                      value="Page one"
-                    />
-                    <Button size={"sm"} className="saveEdit" variant="success">
-                      <i className="fa fa-check"></i>
-                    </Button>
-                  </div>
-                </span>
-
-                {item.childpages !== undefined && item.childpages.length > 0 && (
-                  <ul>
-                    {item.childpages.map(childItem => (
-                      <li>
-                        <span className="menuItem">
-                          {childItem.name}
-                          <i className="moveIcons"></i>
-                          <Button
-                            size={"sm"}
-                            variant="link"
-                            className="editBtn text-dark"
-                          >
-                            <i className="fa fa-pencil"></i>
-                          </Button>
-                          <Button
-                            size={"sm"}
-                            variant="link"
-                            className="deleteBtn text-dark"
-                          >
-                            <i className="fa fa-trash-o"></i>
-                          </Button>
-                          <div className="editNavFelid">
-                            <Form.Control
-                              size={"sm"}
-                              className="editInput"
-                              value="Page one"
-                            />
-                            <Button
-                              size={"sm"}
-                              className="saveEdit"
-                              variant="success"
-                            >
-                              <i className="fa fa-check"></i>
-                            </Button>
-                          </div>
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
-          </ul>
+        <div className="contentData" style={{ height: 600 }}>
+        <SortableTree
+          treeData={this.props.navigation}
+          onChange={navigation => this.props.sortNavigation({ navigation })}
+          maxDepth="2"
+        />
+           
         </div>
       </div>
     );
