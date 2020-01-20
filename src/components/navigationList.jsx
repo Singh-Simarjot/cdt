@@ -55,7 +55,7 @@ class NavigationList extends Component {
                   {item.name}{" "}
                   <i
                     onClick={() => this.context.addToNavigation(item)}
-                    className="fa fa-plus pull-right"
+                    className="fa fa-plus"
                   ></i>{" "}
                 </li>
               ))}
