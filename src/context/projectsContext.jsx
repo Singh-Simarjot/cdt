@@ -13,7 +13,8 @@ export class ProjectsContext extends Component {
         name: "Item name 1",
         dateCreated: 1578657273,
         dateEdited: 1578657273,
-        authour: "Authour Name"
+        authour: "Authour Name",
+        thumbnail: "ada"
       },
       {
         id: 2,
@@ -89,7 +90,7 @@ export class ProjectsContext extends Component {
       pages: [
         {
           id: 1,
-          name: "Page 1",
+          title: "Page 1",
           dateCreated: 1579338582,
           dateEdited: 1579338582,
           author: "DEV1",
@@ -97,7 +98,7 @@ export class ProjectsContext extends Component {
         },
         {
           id: 2,
-          name: "Page 2",
+          title: "Page 2",
           dateCreated: 1579338582,
           dateEdited: 1579338582,
           author: "DEV1",
@@ -105,7 +106,7 @@ export class ProjectsContext extends Component {
         },
         {
           id: 3,
-          name: "Page 3",
+          title: "Page 3",
           dateCreated: 1579338582,
           dateEdited: 1579338582,
           author: "DEV1",
@@ -113,7 +114,7 @@ export class ProjectsContext extends Component {
         },
         {
           id: 4,
-          name: "Page 4",
+          title: "Page 4",
           dateCreated: 1579338582,
           dateEdited: 1579338582,
           author: "DEV1",
@@ -122,26 +123,32 @@ export class ProjectsContext extends Component {
       ],
       navigation: [
         {
-          name: "Link 1",
+          title: "asd",
           url: "/link1",
-          childpages: [
-            { name: "Link 1", url: "/link1" },
-            { name: "Link 2", url: "/link2" },
-            { name: "Link 3", url: "/link3" }
+          children: [
+            { title: "Link 1", url: "/link1" },
+            { title: "Link 2", url: "/link2" },
+            { title: "Link 3", url: "/link3" }
           ]
         },
         {
-          name: "Link 1",
+          title: "Link 1",
+          subtitle: <span>test</span>,
           url: "/link1",
-          childpages: [
-            { name: "Link 4", url: "/link4" },
-            { name: "Link 5", url: "/link5" },
-            { name: "Link 6", url: "/link6" }
+          children: [
+            { title: "Link 4", url: "/link4" },
+            { title: "Link 5", url: "/link5" },
+            { title: "Link 6", url: "/link6" }
           ]
         },
         {
-          name: "Link 7",
-          url: "/link7"
+          title: "Link 7",
+          url: "/link7",
+          children: [
+            { title: "Link 1", url: "/link1" },
+            { title: "Link 2", url: "/link2" },
+            { title: "Link 3", url: "/link3" }
+          ]
         }
       ]
     }
@@ -158,6 +165,10 @@ export class ProjectsContext extends Component {
     // const pages = await  getPages(this.state.selectedProjectID)
     // this.setState({ pages:pages.data });
   };
+
+  test = () => {
+    console.log("test")
+  }
 
   addToNavigation = item => {
     const selectedProject = { ...this.state.selectedProject };

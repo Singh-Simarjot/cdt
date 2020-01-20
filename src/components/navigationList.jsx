@@ -7,33 +7,10 @@ import ProjectsContext from "../context/projectsContext";
 import $ from "jquery";
 class NavigationList extends Component {
   static contextType = ProjectsContext;
-  state = {
-    customItem: {
-      name: "",
-      url: ""
-    }
-  };
-  componentDidMount() {
-    $(".componentsListBtn button").on("click", function() {
-      $(".componentsListItms").toggleClass("componentsListItmsOpen");
-    });
-  }
-  handleDragStart = event => {
-    console.log(event.target);
-  };
-  handleInput = e => {
-    console.log(e.target.name, e.target.value);
-    const customItem = { ...this.state.customItem };
-    customItem[e.target.name] = e.target.value;
-    this.setState({ customItem });
-  };
-  addItem = () => {
-    const customItem = { ...this.state.customItem };
-    this.context.addToNavigation(customItem);
-  };
+   
   render() {
-    const { selectedProject } = this.context;
-    const { customItem } = this.state;
+    const { pages , customItem } = this.props;
+    
     return (
       <div className="componentsList">
         <Row>
@@ -49,12 +26,12 @@ class NavigationList extends Component {
         <div className="componentsListItms">
           <div className="navigationList">
             <ul>
-              {selectedProject.pages.map(item => (
+              {pages.map(item => (
                 <li>
                   {" "}
-                  {item.name}{" "}
+                  {item.title}{" "}
                   <i
-                    onClick={() => this.context.addToNavigation(item)}
+                    onClick={() => this.props.addToNavigation(item)}
                     className="fa fa-plus"
                   ></i>{" "}
                 </li>
@@ -69,9 +46,9 @@ class NavigationList extends Component {
                 <Form.Group className="pr-2">
                   <Form.Label>Title</Form.Label>
                   <Form.Control
-                    name="name"
-                    value={customItem.name}
-                    onChange={e => this.handleInput(e)}
+                    name="title"
+                    value={customItem.title}
+                    onChange={e => this.props.onChangeField(e)}
                     size={"sm"}
                   />
                 </Form.Group>
@@ -83,14 +60,14 @@ class NavigationList extends Component {
                     name="url"
                     value={customItem.url}
                     size={"sm"}
-                    onChange={e => this.handleInput(e)}
+                    onChange={e => this.props.onChangeField(e)}
                   />
                 </Form.Group>
               </Col>
             </Row>
             <div className="text-right">
               <Button
-                onClick={() => this.addItem()}
+                onClick={() => this.props.onCustomItem()}
                 size={"sm"}
                 variant="success"
               >

@@ -44,7 +44,7 @@ class AllPages extends Component {
                 {selectedProject.pages.map(project => (
                   <tr key={project.id}>
                     <td>{project.id}</td>
-                    <td>{project.name}</td>
+                    <td>{project.title}</td>
                     <td>{  moment(project.dateCreated).format("YYYY//MM//DD") } </td>
                     <td>{  moment(project.dateEdited).format("YYYY//MM//DD") } </td>
                     <td>{project.templateType}</td>
