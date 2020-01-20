@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-// import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 class CodeSnippetsWithView extends Component {
   state = {};
   render() {
     return (
       <div className="widgetsDiv">
-        <h6>CodeSnippetsWithView</h6>
+        <Form.Group>
+          <iframe
+            style={{ width: "100%", height: "400px" }}
+            src="https://codepen.io/chriscoyier/embed/BdYmjz?height=300&amp;theme-id=1&amp;slug-hash=BdYmjz&amp;default-tab=css%2Cresult&amp;user=chriscoyier&amp;embed-version=2&amp;pen-title=caret-color&amp;editable=true&amp;name=cp_embed_1"
+            frameborder="0"
+          ></iframe>
+        </Form.Group>
       </div>
     );
   }
