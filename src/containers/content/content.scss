@@ -117,6 +117,12 @@
         top: 5px;
         display: none;
       }
+      .deleteBtn {
+        position: absolute;
+        right: 80px;
+        top: 5px;
+        display: none;
+      }
       .editNavFelid {
         padding: 10px 40px 0 0;
         position: relative;
@@ -130,7 +136,8 @@
       // end editNavFelid
       &:hover {
         background-color: rgba($theme-bg, 0.2);
-        .editBtn {
+        .editBtn,
+        .deleteBtn {
           display: block;
         }
       }

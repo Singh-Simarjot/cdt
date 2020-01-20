@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { Row, Col, Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProjectsContext from "../context/projectsContext";
+import moment from "moment";
 
 class AllPages extends Component {
   static contextType = ProjectsContext;
 
   state = {};
   render() {
-    const { pages } = this.context;
+    const { selectedProject } = this.context;
     return (
       <div className="content">
         <div className="contentTop">
@@ -24,7 +25,7 @@ class AllPages extends Component {
           </Row>
         </div>
         <div className="contentData mt-4">
-          {pages.length > 0 && (
+          {selectedProject.pages.length > 0 && (
             <Table responsive="md" hover variant="">
               <thead>
                 <tr>
@@ -32,36 +33,22 @@ class AllPages extends Component {
                   <th>Project Name</th>
                   <th>Date Created</th>
                   <th>Date Edited</th>
-                  <th>Authour</th>
+                  <th>Template Type</th>
+                  <th>Author</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>sdf</td>
-                  <td>sdf</td>
-                  <td>sdf</td>
-                  <td>sdfdsf</td>
-                  <td>sdfd</td>
-                  <td>
-                    <Button size={"sm"} variant="info">
-                      <i className="fa fa-pencil"></i>
-                    </Button>
-                  </td>
-                  <td>
-                    <Button size={"sm"} variant="danger">
-                      <i className="fa fa-trash"></i>
-                    </Button>
-                  </td>
-                </tr>
-                {pages.map(project => (
+                
+                {selectedProject.pages.map(project => (
                   <tr key={project.id}>
                     <td>{project.id}</td>
                     <td>{project.name}</td>
-                    <td>{project.dateCreated}</td>
-                    <td>{project.dateEdited}</td>
-                    <td>{project.authour}</td>
+                    <td>{  moment(project.dateCreated).format("YYYY//MM//DD") } </td>
+                    <td>{  moment(project.dateEdited).format("YYYY//MM//DD") } </td>
+                    <td>{project.templateType}</td>
+                    <td>{project.author}</td>
                     <td>
                       <Button size={"sm"} variant="info">
                         <i className="fa fa-pencil"></i>

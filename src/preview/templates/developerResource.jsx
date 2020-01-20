@@ -24,7 +24,7 @@ class DeveloperResource extends Component {
                   height="32"
                   viewBox="0 0 32 32"
                   aria-hidden="true"
-                  class="MdxIcon-module--mdx-icon--3p_4x MdxIcon-module--icon-inverse--q6_WJ"
+                  className="MdxIcon-module--mdx-icon--3p_4x MdxIcon-module--icon-inverse--q6_WJ"
                 >
                   <path
                     fill-rule="evenodd"

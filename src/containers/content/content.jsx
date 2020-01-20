@@ -6,12 +6,12 @@ import { Row, Col, Button, Form } from "react-bootstrap";
 import ContentItem from "./contentItem";
 
 class Content extends Component {
-  handleDragOver = (e) => {
-    console.log(e)
-  }
+  handleDragOver = e => {
+    console.log(e);
+  };
   render() {
     const { page } = this.props;
-   
+
     return (
       <div className="content">
         <div className="contentTop">
@@ -44,20 +44,26 @@ class Content extends Component {
             </Form.Control>
           </Form.Group>
           {page.template === "TABS" && (
-            <div className="addTabDara" onDragOver={(e)=>this.handleDragOver(e)}>
-              <label class="dropImg">
+            <div
+              className="addTabDara"
+              onDragOver={e => this.handleDragOver(e)}
+            >
+              <label className="dropImg">
                 <span>Drag &amp; Drop Tab Here</span>
               </label>
             </div>
           )}
-          {page.template === "DEFAULT" && (
-            <ContentItem
-              icon="fa fa-th-large"
-              title="Icons Grid"
-              text="Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid"
-              onModalChange={this.props.onModalChange}
-            />
-          )}
+          {page.template === "DEFAULT" &&
+            page.widgets.map(item => (
+              <ContentItem
+                icon={item.icon + " fa"}
+                title={item.label}
+                text="Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid"
+                onModalChange={this.props.onModalChange}
+              />
+            ))}
+          <br />
+          <Button>Save</Button>
         </div>
       </div>
     );

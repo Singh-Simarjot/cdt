@@ -32,7 +32,7 @@ class NavigationList extends Component {
     this.context.addToNavigation(customItem);
   };
   render() {
-    const { pages } = this.context;
+    const { selectedProject } = this.context;
     const { customItem } = this.state;
     return (
       <div className="componentsList">
@@ -49,8 +49,8 @@ class NavigationList extends Component {
         <div className="componentsListItms">
           <div className="navigationList">
             <ul>
-              {pages.map(item => (
-                <li key={item.id}>
+              {selectedProject.pages.map(item => (
+                <li>
                   {" "}
                   {item.name}{" "}
                   <i

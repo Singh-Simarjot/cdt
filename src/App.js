@@ -13,6 +13,9 @@ import Home from "./preview/templates/Home";
 import { Switch, Route } from "react-router-dom";
 
 import { ProjectsContext } from "./context/projectsContext";
+import Preview from './preview/index';
+ 
+import EditProject from './pages/editProject';
 
 function App() {
   return (
@@ -21,8 +24,10 @@ function App() {
       <Switch>
         <Route path="/project" component={ProjectDetail} />
         <Route path="/addnew" component={AddNewProject} />
+        <Route path="/edit" component={EditProject} />
+        <Route path="/preview"   component={Preview} />
         <Route path="/" component={Dashboard} />
-        <Route path="/" component={Home} />
+        {/* <Route path="/" component={Home} /> */}
       </Switch>
 
       {/* <Page /> */}
