@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./content.scss";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 // import ContentItem from "./contentItem";
 // import $ from "jquery";
 import SortableTree from "react-sortable-tree";
@@ -34,6 +34,9 @@ class NavigationContent extends Component {
           <Row>
             <Col>
               <h2>Navigation</h2>
+            </Col>
+            <Col size={"4"} className="text-right">
+              <Button size={"sm"}>Save</Button>
             </Col>
           </Row>
         </div>

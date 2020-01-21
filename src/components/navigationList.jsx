@@ -4,13 +4,13 @@ import "./componentsList.scss";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import ProjectsContext from "../context/projectsContext";
 
-import $ from "jquery";
+// import $ from "jquery";
 class NavigationList extends Component {
   static contextType = ProjectsContext;
-   
+
   render() {
-    const { pages , customItem } = this.props;
-    
+    const { pages, customItem } = this.props;
+
     return (
       <div className="componentsList">
         <Row>

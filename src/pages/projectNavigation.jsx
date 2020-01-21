@@ -6,7 +6,8 @@ import React, { Component } from "react";
 import NavigationList from "../components/navigationList";
 import NavigationContent from "../containers/content/navigationContent";
 import ProjectsContext from "../context/projectsContext";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import $ from "jquery";
 
 class Navigation extends Component {
   static contextType = ProjectsContext;
@@ -19,6 +20,18 @@ class Navigation extends Component {
   };
 
   componentDidMount() {
+    //editNavBtn
+    $(document).on("click", ".editNavBtn", function() {
+      $(this)
+        .siblings(".editDrop")
+        .addClass("editDropOpen");
+    });
+    $(document).on("click", ".editDropCancel, .editDropSave", function() {
+      $(this)
+        .parent(".editDrop")
+        .removeClass("editDropOpen");
+    });
+
     const { selectedProject } = this.context;
     const navigation = selectedProject.navigation;
     navigation.filter(
@@ -40,6 +53,23 @@ class Navigation extends Component {
                   >
                     Delete
                   </span>
+                  <div className="editDrop">
+                    <Form.Control />
+                    <Button
+                      size={"sm"}
+                      variant={"success"}
+                      className="editDropSave"
+                    >
+                      <i className="fa fa-check"></i>
+                    </Button>
+                    <Button
+                      size={"sm"}
+                      variant={"danger"}
+                      className="editDropCancel"
+                    >
+                      <i className="fa fa-times"></i>
+                    </Button>
+                  </div>
                 </div>
               ))
           ),
@@ -51,6 +81,15 @@ class Navigation extends Component {
             <span className="deleteNavBtn" onClick={() => this.onDelete(item)}>
               Delete
             </span>
+            <div className="editDrop">
+              <Form.Control />
+              <Button size={"sm"} variant={"success"} className="editDropSave">
+                <i className="fa fa-check"></i>
+              </Button>
+              <Button size={"sm"} variant={"danger"} className="editDropCancel">
+                <i className="fa fa-times"></i>
+              </Button>
+            </div>
           </div>
         ))
       )
@@ -70,8 +109,21 @@ class Navigation extends Component {
     item.subtitle = (
       <div>
         {" "}
-        <span onClick={() => this.onEdit(item)}>Edit </span>{" "}
-        <span onClick={() => this.onDelete(item)}>Delete</span>{" "}
+        <span className="editNavBtn" onClick={() => this.onEdit(item)}>
+          Edit{" "}
+        </span>{" "}
+        <span className="deleteNavBtn" onClick={() => this.onDelete(item)}>
+          Delete
+        </span>{" "}
+        <div className="editDrop">
+          <Form.Control />
+          <Button size={"sm"} variant={"success"} className="editDropSave">
+            <i className="fa fa-check"></i>
+          </Button>
+          <Button size={"sm"} variant={"danger"} className="editDropCancel">
+            <i className="fa fa-times"></i>
+          </Button>
+        </div>
       </div>
     );
     const navigation = [...this.state.navigation, item];
@@ -105,7 +157,7 @@ class Navigation extends Component {
           navigation={this.state.navigation}
           sortNavigation={this.sortNavigation}
         />
-        <Button>Save</Button>
+        {/* <Button>Save</Button> */}
       </React.Fragment>
     );
   }
