@@ -1,0 +1,93 @@
+@import "../../../assets/scss/mixins";
+@import "../../../assets/scss/variables";
+
+h2{
+    font-size: 28px;
+    line-height: 36px;
+    margin-top: 80px;
+    padding-right: 32px;
+    margin-bottom:0;
+}
+
+h3{
+    font-size: 20px;
+    line-height: 26px;
+    margin-top: 64px;
+    padding-right: 32px;
+    margin-bottom:0;
+}
+
+h4{
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 32px;
+    padding-right: 32px;
+    font-weight: 600;
+    margin-bottom:0;
+
+    &+ *{
+        margin-top:0 !important;
+    }
+}
+
+p{
+    margin-top: 24px;
+    font-size: 16px;
+    // padding-left: 16px;
+    padding-right: 32px;
+    line-height: 24px;
+
+    @include sm{
+        width:75%;
+    }
+
+    @include lg{
+        width:66.6%
+    }
+}
+
+ul{
+    text-decoration: none;
+    list-style: none;
+    margin-bottom:0;
+    
+    &.page-navigation{
+        padding-right:25px;
+
+        li{
+            
+            a{
+                position: relative;
+                color:#161616;
+                transition: color .11s;
+                margin-bottom: 8px;
+                line-height: 26px;
+                font-size: 20px;
+                display: inline-block;
+
+            &:before{
+                content: "\21B3";
+                position: absolute;
+                left: -1.5rem;
+                color:
+                #393939;
+                transition: color .11s;
+                cursor: pointer;
+            }
+
+
+            
+            &:hover{
+                color: #0f62fe;
+                text-decoration: none;
+
+            &::before {
+                color: #0f62fe;
+            }
+            }
+
+            }
+        }
+    }
+
+}

@@ -12,9 +12,11 @@ import ProjectDetail from "./pages/projectDetail";
 // import Home from "./preview/templates/Home";
 import { Switch, Route } from "react-router-dom";
 
+import Theme from "./preview/components/Content/Content.jsx";
+import Content from "./preview/components/Content/Content";
+
 import { ProjectsContext } from "./context/projectsContext";
 import Preview from "./preview/index";
-
 import EditProject from "./pages/editProject";
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
         <Route path="/edit" component={EditProject} />
         <Route path="/preview" component={Preview} />
         <Route path="/" component={Dashboard} />
+        {/* <Route path="/" component={Content} /> */}
      
       </Switch>
 
