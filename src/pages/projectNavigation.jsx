@@ -54,7 +54,7 @@ class Navigation extends Component {
                     Delete
                   </span>
                   <div className="editDrop">
-                    <Form.Control />
+                    <Form.Control size={"sm"} />
                     <Button
                       size={"sm"}
                       variant={"success"}
@@ -82,7 +82,7 @@ class Navigation extends Component {
               Delete
             </span>
             <div className="editDrop">
-              <Form.Control />
+              <Form.Control size={"sm"} />
               <Button size={"sm"} variant={"success"} className="editDropSave">
                 <i className="fa fa-check"></i>
               </Button>
@@ -116,7 +116,7 @@ class Navigation extends Component {
           Delete
         </span>{" "}
         <div className="editDrop">
-          <Form.Control />
+          <Form.Control size={"sm"} />
           <Button size={"sm"} variant={"success"} className="editDropSave">
             <i className="fa fa-check"></i>
           </Button>
