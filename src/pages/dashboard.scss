@@ -10,10 +10,12 @@
     margin: 15px 0;
     height: -webkit-calc(100% - 30px);
     height: calc(100% - 30px);
-    cursor: pointer;
     img {
       width: 200px;
       max-width: 100%;
+    }
+    .card-body {
+      cursor: pointer;
     }
     &:hover {
       background-color: rgba($theme-bg, 0.1) !important;

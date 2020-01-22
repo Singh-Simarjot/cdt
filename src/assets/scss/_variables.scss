@@ -1,11 +1,26 @@
 $color-black: #000;
 $color-white: #fff;
 $color-oranger: #ff6600;
+$color-red: #f00;
 
 // font-size
 $drfault-size: 16px;
 
-// theme setting
+// themesetting
 $theme-bg: $color-black;
 $theme-text: $color-white;
 $theme-active-link: $color-oranger;
+/*
+$theme-dark: true;
+$theme-light: false;
+@if $theme-dark {
+  $theme-bg: $color-black;
+  $theme-text: $color-white;
+  $theme-active-link: $color-oranger;
+}
+@if $theme-light {
+  $theme-bg: $color-white;
+  $theme-text: $color-black;
+  $theme-active-link: $color-oranger;
+}
+*/

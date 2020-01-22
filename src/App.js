@@ -19,6 +19,8 @@ import { ProjectsContext } from "./context/projectsContext";
 import Preview from "./preview/index";
 import EditProject from "./pages/editProject";
 
+import Login from "./components/login/login";
+
 function App() {
   return (
     <ProjectsContext>
@@ -28,9 +30,9 @@ function App() {
         <Route path="/addnew" component={AddNewProject} />
         <Route path="/edit" component={EditProject} />
         <Route path="/preview" component={Preview} />
+        <Route path="/login" component={Login} />
         <Route path="/" component={Dashboard} />
         {/* <Route path="/" component={Content} /> */}
-     
       </Switch>
 
       {/* <Page /> */}
