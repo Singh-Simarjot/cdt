@@ -74,6 +74,8 @@ class TableData extends Component {
                     </Table>
                     <p>For best result, test design and code at each of these standard breakpoints.</p>
                 </div>
+
+
             </React.Fragment>
          );
     }

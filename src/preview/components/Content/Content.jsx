@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Image from 'react-bootstrap/Image'
 
 import "./content.scss"
 
@@ -10,7 +11,7 @@ class TextBlock extends Component {
     }
     render() { 
         return ( 
-            <React.Fragment>
+            <div className="content-block" >
 
                 <p>Carbon is IBM’s open-source design system for digital products and experiences. With the IBM Design Language as its foundation, the system consists of working code, design tools and resources, human interface guidelines, and a vibrant community of contributors.</p>
 
@@ -39,7 +40,46 @@ class TextBlock extends Component {
                 <h3>Adoption</h3>
                 <p> <strong>We conduct training classes and offer certifications.</strong> These cover introductions to Carbon and participating in this community. Each program is piloted internally and available upon release externally. We teach at conferences, bootcamp labs, and wherever else we’re needed.</p>
 
-            </React.Fragment>
+
+                {/* Content Spacing */}
+                <div className="content-place mt-5">
+                    <div className="box-wrap">
+                        <div className="right-content-place">
+                            <span className="icon"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                            <div className="center-content">
+                                <h2>Always flush left type</h2>
+                            </div>
+                        </div>
+                        <p className="caption"> Always place type against the padding </p>
+                    </div>
+
+                    <div className="box-wrap">
+                        <div className="wrong-content-place">
+                            <span className="icon"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                            <div className="center-content">
+                                <h2>Always flush left type</h2>
+                            </div>
+                        </div>
+                        <p className="caption"> Never place type on padding </p>
+                    </div>
+                </div>
+
+                {/* Image Block */}
+                <div className="single-img-block">
+                <Image src="https://cdn.shopify.com/s/files/1/1162/8728/articles/Blog_Post_400x.JPG" fluid />
+                </div>
+
+                {/* Multiple Image Block */}
+                <div className="multi-img-block">
+                    <Image src="https://cdn.shopify.com/s/files/1/1162/8728/articles/Blog_Post_400x.JPG" fluid />
+                    <Image src="https://cdn.shopify.com/s/files/1/1162/8728/articles/Blog_Post_400x.JPG" fluid />
+                    <Image src="https://cdn.shopify.com/s/files/1/1162/8728/articles/Blog_Post_400x.JPG" fluid />
+                    <Image src="https://cdn.shopify.com/s/files/1/1162/8728/articles/Blog_Post_400x.JPG" fluid />
+                    <Image src="https://cdn.shopify.com/s/files/1/1162/8728/articles/Blog_Post_400x.JPG" fluid />
+                    
+                </div>
+
+            </div>
          );
     }
 }
