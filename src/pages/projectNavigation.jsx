@@ -35,10 +35,10 @@ class Navigation extends Component {
     const { selectedProject } = this.context;
     const navigation = selectedProject.navigation;
     navigation.filter(
-      item => (
+      (item,key) => (
         item.children !== undefined &&
           item.children.filter(
-            subItem =>
+            (subItem,subkey) =>
               (subItem.subtitle = (
                 <div>
                   <span
@@ -54,7 +54,7 @@ class Navigation extends Component {
                     Delete
                   </span>
                   <div className="editDrop">
-                    <Form.Control size={"sm"} />
+                    <Form.Control size={"sm"}  onChange={(e)=>this.editLabel(e,key,subkey)}  value={item.title}  />
                     <Button
                       size={"sm"}
                       variant={"success"}
@@ -82,7 +82,7 @@ class Navigation extends Component {
               Delete
             </span>
             <div className="editDrop">
-              <Form.Control size={"sm"} />
+              <Form.Control size={"sm"} value={item.title} onChange={(e)=>this.editLabel(e,key,null)}  />
               <Button size={"sm"} variant={"success"} className="editDropSave">
                 <i className="fa fa-check"></i>
               </Button>
@@ -102,6 +102,17 @@ class Navigation extends Component {
   onDelete = item => {
     console.log(item);
   };
+  editLabel = (e,key,subkey) => {
+    const navigation = [...this.state.navigation]
+    if(subkey!==null){
+      navigation[key].children[subkey].title =e.target.value;
+    }
+    else{
+      navigation[key].title= e.target.value
+    }
+    console.log(navigation);
+    // this.setState({navigation})
+  }
   sortNavigation = nav => {
     this.setState({ navigation: nav.navigation });
   };

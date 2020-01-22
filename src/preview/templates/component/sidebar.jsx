@@ -24,15 +24,15 @@ class Sidebar extends Component {
               <ListGroup.Item>
                 <h5>
                   {" "}
-                  {item.name}{" "}
+                  {item.title}{" "}
                   <span>
                     <i className="fa fa-angle-down" aria-hidden="true"></i>
                   </span>{" "}
                 </h5>
-                {item.childpages !== undefined && item.childpages.length > 0 && (
+                {item.children !== undefined && item.children.length > 0 && (
                   <ListGroup className="nav-sub-list">
-                    {item.childpages.map(childItem => (
-                      <ListGroup.Item><Link to={"/preview"+childItem.url}>{childItem.name}</Link></ListGroup.Item>
+                    {item.children.map(childItem => (
+                      <ListGroup.Item><Link to={"/preview"+childItem.url}>{childItem.title}</Link></ListGroup.Item>
                     ))}
                   </ListGroup>
                 )}
