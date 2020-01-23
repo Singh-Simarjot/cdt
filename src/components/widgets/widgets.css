@@ -23,7 +23,14 @@ $theme-light: false;
 @include sm-max {}
 @include sm-min {}
 */
-.modal .modal-header > i {
-  margin: 3px 10px 0 0;
+.widgetsDiv .addIceon {
+  padding-right: 40px;
+  position: relative;
 }
-/*# sourceMappingURL=modalComponent.css.map */
+
+.widgetsDiv .addIceon button {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+/*# sourceMappingURL=widgets.css.map */

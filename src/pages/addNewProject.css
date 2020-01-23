@@ -1,4 +1,18 @@
 /*
+$theme-dark: true;
+$theme-light: false;
+@if $theme-dark {
+  $theme-bg: $color-black;
+  $theme-text: $color-white;
+  $theme-active-link: $color-oranger;
+}
+@if $theme-light {
+  $theme-bg: $color-white;
+  $theme-text: $color-black;
+  $theme-active-link: $color-oranger;
+}
+*/
+/*
 @include lg {
   max-width: 1100px;
 }

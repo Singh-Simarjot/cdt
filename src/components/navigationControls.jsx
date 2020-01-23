@@ -3,7 +3,9 @@ import { Button, Form } from "react-bootstrap";
 import $ from "jquery";
 
 class NavigationControls extends Component {
+    state = { title:""};
   componentDidMount() {
+      const title = this.props.item.title;
     //editNavBtn
     $(document).on("click", ".editNavBtn", function() {
       $(this)
@@ -16,31 +18,36 @@ class NavigationControls extends Component {
         .removeClass("editDropOpen");
     });
   }
-  state = {};
+  editLabel = (e) =>{
+       
+       this.setState({title:e.target.value});
+  }
+
   render() {
-    const { item,parentid,  onEdit, onDelete,onEditLabel } = this.props;
-   
+    const { item, parentid,  onEdit, onDelete,onSaveLabel } = this.props;
+   const {title} = this.state;
     return (
       <div>
-        <span className="editNavBtn" onClick={() => onEdit(item.dummyid,parentid)}>
+        {/* <span className="editNavBtn" onClick={() => onEdit(item.dummyid,parentid)}>
           Edit{" "}
-        </span>{" "}
+        </span>{" "} */}
         <span className="deleteNavBtn" onClick={() => onDelete(item.dummyid,parentid)}>
           Delete
         </span>{" "}
-        <div className="editDrop">
+        {/* <div className="editDrop">
           <Form.Control
             size={"sm"}
-            onChange={e => onEditLabel(item.dummyid)}
-            value={item.title}
+            onChange={e => this.editLabel(e)}
+            value={title}
+            name="title"
           />
-          <Button size={"sm"} variant={"success"} className="editDropSave">
+          <Button size={"sm"} variant={"success"} onClick={()=>this.props.onSaveLabel(item.dummyid,parentid,title) } className="editDropSave">
             <i className="fa fa-check"></i>
           </Button>
           <Button size={"sm"} variant={"danger"} className="editDropCancel">
             <i className="fa fa-times"></i>
           </Button>
-        </div>
+        </div> */}
       </div>
     );
   }

@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "ACYA;;;;;;;;;;;;;EAaE;AC2CF;;;;;;;;;;EAUE;AF3EF,AAEE,WAFS,CAET,SAAS,CAAC;EACR,aAAa,EAAE,IAAI;EACnB,QAAQ,EAAE,QAAQ;CAMnB;;AAVH,AAKI,WALO,CAET,SAAS,CAGP,MAAM,CAAC;EACL,QAAQ,EAAE,QAAQ;EAClB,KAAK,EAAE,CAAC;EACR,GAAG,EAAE,CAAC;CACP",
+    "sources": [
+        "widgets.scss",
+        "../../assets/scss/_variables.scss",
+        "../../assets/scss/_mixins.scss"
+    ],
+    "names": [],
+    "file": "widgets.css"
+}

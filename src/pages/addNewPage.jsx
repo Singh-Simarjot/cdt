@@ -6,8 +6,11 @@ import ComponentsList from "../components/componentsList";
 import ModalComponent from "../containers/modal/modalComponent";
 // import ComponentsTabs from "../components/componentsTab";
 import NavigationList from "../components/navigationList";
+import ProjectsContext from "../context/projectsContext";
 
 class AddNewPage extends Component {
+  static contextType = ProjectsContext;
+
   state = {
     page: {
       title: "dd",
@@ -20,6 +23,10 @@ class AddNewPage extends Component {
           data: {}
         }
       ]
+    },
+    customItem: {
+      title: "",
+      url: ""
     },
     showModalComponent: false,
     modalData: null
@@ -42,15 +49,43 @@ class AddNewPage extends Component {
       this.setState({ modalData: null });
     }
   };
+  addCustomItem = () => {
+    const customItem = { ...this.state.customItem };
+    this.setState({ customItem }, () =>
+      this.addToNavigation(this.state.customItem)
+    );
+
+    setTimeout(() => {
+      customItem.title = "";
+      customItem.url = "";
+      this.setState({ customItem });
+    }, 500);
+  };
+  handleInput = e => {
+    const customItem = { ...this.state.customItem };
+    customItem[e.target.name] = e.target.value;
+    this.setState({ customItem });
+  };
   render() {
     const { page } = this.state;
+    const { selectedProject } = this.context;
+
+    const pages = selectedProject.pages.filter(
+      item => item.templateType !== "TABS"
+    );
     return (
       <React.Fragment>
         {page.template === "DEFAULT" && (
           <ComponentsList onModalChange={this.handleModal} />
         )}
         {page.template === "TABS" && (
-          <NavigationList onModalChange={this.handleModal} />
+          <NavigationList
+            onCustomItem={this.addCustomItem}
+            pages={pages}
+            customItem={this.state.customItem}
+            onChangeField={this.handleInput}
+            onModalChange={this.handleModal}
+          />
         )}
         <Content
           page={this.state.page}

@@ -10,6 +10,7 @@ import { Button, Form } from "react-bootstrap";
 import NavigationControls from "../components/navigationControls";
 
 import _ from "lodash";
+import nextId from "react-id-generator";
 
 class Navigation extends Component {
   static contextType = ProjectsContext;
@@ -21,9 +22,8 @@ class Navigation extends Component {
     }
   };
 
-  componentDidMount() {
-    const { selectedProject } = this.context;
-    const navigation = selectedProject.navigation;
+  renderInfo = () => {
+    const { navigation } = this.state;
     navigation.filter(
       (item, key) => (
         item.children !== undefined &&
@@ -33,7 +33,7 @@ class Navigation extends Component {
               <NavigationControls
                 onEdit={this.handleEdit}
                 onDelete={this.handleDelete}
-                onEditLabel={this.handleEditLabel}
+                onSaveLabel={this.handleEditLabel}
                 item={subItem}
                 parentid={key}
               />
@@ -44,15 +44,23 @@ class Navigation extends Component {
           <NavigationControls
             onEdit={this.handleEdit}
             onDelete={this.handleDelete}
-            onEditLabel={this.handleEditLabel}
+            onSaveLabel={this.saveLabel}
             item={item}
             parentid={null}
           />
         )))
       )
     );
+
     this.setState({ navigation });
+  };
+
+  componentDidMount() {
+    const { selectedProject } = this.context;
+    const navigation = selectedProject.navigation;
+    this.setState({ navigation }, () => this.renderInfo());
   }
+
   handleEdit = (key, subkey) => {
     console.log(key, subkey);
   };
@@ -76,33 +84,65 @@ class Navigation extends Component {
   componentWillReceiveProps(nextProps) {
     console.log("NEW", nextProps.itemkey, nextProps.itemsubKey);
   }
-  handleEditLabel = (e, key, subkey) => {
-    const navigation = this.state.navigation;
-    if (subkey !== null) {
-      navigation[key].children[subkey].title = e.target.value;
-
-      this.setState({ navigation });
+  saveLabel = (id, parentid,title) => {
+    const { navigation } = this.state;
+    if (parentid !== null) {
+      // navigation[key].children[subkey].title = e.target.value;
+      // this.setState({ navigation });
     } else {
-      navigation[key].title = e.target.value;
+      navigation.filter(item =>
+        item.dummyid === id ? (item.title = title) : item
+      );
+       
+       this.setState({ navigation });
 
-      this.setState({ navigation });
     }
+    
+   
   };
   sortNavigation = nav => {
+    nav.navigation.filter(
+      (item, key) => (
+        item.children !== undefined &&
+          item.children.filter((subItem, subkey) => {
+            subItem.dummyid = subkey;
+            subItem.subtitle = (
+              <NavigationControls
+                onEdit={this.handleEdit}
+                onDelete={this.handleDelete}
+                onSaveLabel={this.saveLabel}
+                item={subItem}
+                parentid={key}
+              />
+            );
+          }),
+        ((item.dummyid = key),
+        (item.subtitle = (
+          <NavigationControls
+            onEdit={this.handleEdit}
+            onDelete={this.handleDelete}
+            onSaveLabel={this.saveLabel}
+            item={item}
+            parentid={null}
+          />
+        )))
+      )
+    );
     this.setState({ navigation: nav.navigation });
   };
   addToNavigation = item => {
-    let key = this.state.navigation.length + 1;
+    const dummyid = nextId();
+
     item.subtitle = (
       <NavigationControls
         onEdit={this.handleEdit}
         onDelete={this.handleDelete}
-        onEditLabel={this.handleEditLabel}
+        onSaveLabel={this.saveLabel}
         item={item}
-        key={key}
-        subKey={null}
+        parentid={null}
       />
     );
+    item.dummyid = dummyid;
     const navigation = [...this.state.navigation, item];
     this.setState({ navigation });
   };
@@ -112,14 +152,11 @@ class Navigation extends Component {
       this.addToNavigation(this.state.customItem)
     );
 
-    setTimeout(
-      function() {
-        customItem.title = "";
-        customItem.url = "";
-        this.setState({ customItem });
-      }.bind(this),
-      500
-    );
+    setTimeout(() => {
+      customItem.title = "";
+      customItem.url = "";
+      this.setState({ customItem });
+    }, 500);
   };
   handleInput = e => {
     const customItem = { ...this.state.customItem };

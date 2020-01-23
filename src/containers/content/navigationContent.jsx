@@ -8,26 +8,14 @@ import SortableTree from "react-sortable-tree";
 import "react-sortable-tree/style.css"; // This only needs to be imported once in your app
 
 class NavigationContent extends Component {
-  // componentDidMount() {
-  //   $(document).on("click", ".menuItem .editBtn", function() {
-  //     // $(".menuItem").removeClass("open");
-  //     $(this)
-  //       .parent(".menuItem")
-  //       .addClass("open");
-  //   });
-  //   $(document).on(
-  //     "click",
-  //     ".menuItem .saveEdit, .menuItem .cancelEdit",
-  //     function() {
-  //       $(this)
-  //         .closest(".menuItem")
-  //         .removeClass("open");
-  //     }
-  //   );
-  // }
+ 
+   componentWillUpdate = props => {
+     console.log(props)
+   }
 
   render() {
-    const { onSaveNavigatoin } = this.props;
+    const { onSaveNavigatoin,navigation } = this.props;
+    
     return (
       <div className="content">
         <div className="contentTop">
@@ -44,8 +32,8 @@ class NavigationContent extends Component {
         </div>
         <div className="contentData contentDataNavigation">
           <SortableTree
-            treeData={this.props.navigation}
-            onChange={navigation => this.props.sortNavigation({ navigation })}
+            treeData={navigation}
+            onChange={(navigation) => this.props.sortNavigation({ navigation })}
             maxDepth="2"
           />
         </div>
