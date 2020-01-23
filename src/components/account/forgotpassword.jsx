@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "./login.scss";
+import "./account.scss";
+import { Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import lopginBg from "./images/lopginBg.jpg";
-class Login extends Component {
+class ForgotPassword extends Component {
   state = {
     account: {
-      userName: "",
-      userPassword: ""
+      userEmail: ""
     }
   };
   changeVal = ({ currentTarget: input }) => {
@@ -14,7 +14,7 @@ class Login extends Component {
     account[input.name] = input.value;
     this.setState({ account });
   };
-  submitLogin = e => {
+  submitForgotPassword = e => {
     e.preventDefault();
   };
   render() {
@@ -22,39 +22,36 @@ class Login extends Component {
     return (
       <main className="main">
         <div
-          className="login"
+          className="account"
           style={{ backgroundImage: "url(" + lopginBg + ")" }}
         >
-          <div className="loginInner">
-            <h3>Login</h3>
-            <Form onSubmit={this.submitLogin}>
+          <div className="accountInner">
+            <h3>Forgot yout password?</h3>
+            <Form onSubmit={this.submitForgotPassword}>
               <Form.Group>
-                <Form.Label>User Name</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
-                  value={account.userName}
-                  name="userName"
-                  onChange={this.changeVal}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={account.userPassword}
-                  name="userPassword"
+                  value={account.userEmail}
+                  name="userEmail"
                   onChange={this.changeVal}
                 />
               </Form.Group>
               <Form.Group className="text-center">
                 <Button variant="success" block size={"md"} type="submit">
-                  Login
+                  Send Password
                 </Button>
               </Form.Group>
             </Form>
             <div className="text-center">
-              Don't have an account? <a className="text-primary">Sign Up</a>
+              Don't have an account?{" "}
+              <Link to="/signup" className="text-primary">
+                Sign Up
+              </Link>
               <br />
-              <a className="text-primary">Forgot yout password?</a>
+              Have an account?{" "}
+              <Link to="/login" className="text-primary">
+                Login
+              </Link>
             </div>
           </div>
         </div>
@@ -63,4 +60,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default ForgotPassword;

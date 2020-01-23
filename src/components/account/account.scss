@@ -1,6 +1,6 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
-.login {
+.account {
   background-color: rgba($theme-bg, 1);
   //   height: 100vh;
   height: 100%;
@@ -18,7 +18,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  .loginInner {
+  .accountInner {
     width: 100%;
     background-color: $theme-text;
     max-width: 400px;
