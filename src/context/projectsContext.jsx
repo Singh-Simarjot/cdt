@@ -88,10 +88,10 @@ export class ProjectsContext extends Component {
       }
     ],
     selectedProject: {
-      title: "",
-      description: "",
-      id: "",
-      data: {},
+      title:"Page 1",
+      description:"Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum ",
+      id:"1",
+      data:{},
 
       pages: [
         {

@@ -48,6 +48,12 @@ class EditProject extends Component {
       ]
     }
   };
+
+  componentDidMount() {
+    const project = this.context.selectedProject;
+    this.setState({project})
+  }
+
   getUploadParams = ({ meta }) => {
     return { url: "https://httpbin.org/post" };
   };
@@ -98,7 +104,8 @@ class EditProject extends Component {
                         <Form.Control
                           type="text"
                           name="name"
-                          value={this.state.project.name}
+                          value={this.state.project.title}
+                          // value={this.context.selectedProject.title}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
                       </Form.Group>
@@ -109,6 +116,7 @@ class EditProject extends Component {
                           rows="4"
                           name="description"
                           value={this.state.project.description}
+                          value={this.context.selectedProject.description}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
                       </Form.Group>
