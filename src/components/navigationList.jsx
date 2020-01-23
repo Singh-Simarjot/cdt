@@ -7,7 +7,10 @@ import ProjectsContext from "../context/projectsContext";
 // import $ from "jquery";
 class NavigationList extends Component {
   static contextType = ProjectsContext;
-
+  renderBtnStatus = () => {
+    const { customItem } = this.props;
+    return customItem.title === "" || customItem.url === "" ? true : false;
+  };
   render() {
     const { pages, customItem } = this.props;
 
@@ -70,6 +73,7 @@ class NavigationList extends Component {
                 onClick={() => this.props.onCustomItem()}
                 size={"sm"}
                 variant="success"
+                disabled={this.renderBtnStatus()}
               >
                 Add Menu
               </Button>

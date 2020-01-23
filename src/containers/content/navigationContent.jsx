@@ -27,7 +27,7 @@ class NavigationContent extends Component {
   // }
 
   render() {
-    const { selectedProject } = this.context;
+    const { onSaveNavigatoin } = this.props;
     return (
       <div className="content">
         <div className="contentTop">
@@ -36,7 +36,9 @@ class NavigationContent extends Component {
               <h2>Navigation</h2>
             </Col>
             <Col size={"4"} className="text-right">
-              <Button size={"sm"}>Save</Button>
+              <Button onClick={onSaveNavigatoin} size={"sm"}>
+                Save
+              </Button>
             </Col>
           </Row>
         </div>

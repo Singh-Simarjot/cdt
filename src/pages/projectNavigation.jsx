@@ -7,7 +7,9 @@ import NavigationList from "../components/navigationList";
 import NavigationContent from "../containers/content/navigationContent";
 import ProjectsContext from "../context/projectsContext";
 import { Button, Form } from "react-bootstrap";
-import $ from "jquery";
+import NavigationControls from "../components/navigationControls";
+
+import _ from "lodash";
 
 class Navigation extends Component {
   static contextType = ProjectsContext;
@@ -20,137 +22,113 @@ class Navigation extends Component {
   };
 
   componentDidMount() {
-    //editNavBtn
-    $(document).on("click", ".editNavBtn", function() {
-      $(this)
-        .siblings(".editDrop")
-        .addClass("editDropOpen");
-    });
-    $(document).on("click", ".editDropCancel, .editDropSave", function() {
-      $(this)
-        .parent(".editDrop")
-        .removeClass("editDropOpen");
-    });
-
     const { selectedProject } = this.context;
     const navigation = selectedProject.navigation;
     navigation.filter(
-      (item,key) => (
+      (item, key) => (
         item.children !== undefined &&
-          item.children.filter(
-            (subItem,subkey) =>
-              (subItem.subtitle = (
-                <div>
-                  <span
-                    className="editNavBtn"
-                    onClick={() => this.onEdit(item)}
-                  >
-                    Edit
-                  </span>
-                  <span
-                    className="deleteNavBtn"
-                    onClick={() => this.onDelete(item)}
-                  >
-                    Delete
-                  </span>
-                  <div className="editDrop">
-                    <Form.Control size={"sm"}  onChange={(e)=>this.editLabel(e,key,subkey)}  value={item.title}  />
-                    <Button
-                      size={"sm"}
-                      variant={"success"}
-                      className="editDropSave"
-                    >
-                      <i className="fa fa-check"></i>
-                    </Button>
-                    <Button
-                      size={"sm"}
-                      variant={"danger"}
-                      className="editDropCancel"
-                    >
-                      <i className="fa fa-times"></i>
-                    </Button>
-                  </div>
-                </div>
-              ))
-          ),
+          item.children.filter((subItem, subkey) => {
+            subItem.dummyid = subkey;
+            subItem.subtitle = (
+              <NavigationControls
+                onEdit={this.handleEdit}
+                onDelete={this.handleDelete}
+                onEditLabel={this.handleEditLabel}
+                item={subItem}
+                parentid={key}
+              />
+            );
+          }),
+        ((item.dummyid = key),
         (item.subtitle = (
-          <div>
-            <span className="editNavBtn" onClick={() => this.onEdit(item)}>
-              Edit
-            </span>
-            <span className="deleteNavBtn" onClick={() => this.onDelete(item)}>
-              Delete
-            </span>
-            <div className="editDrop">
-              <Form.Control size={"sm"} value={item.title} onChange={(e)=>this.editLabel(e,key,null)}  />
-              <Button size={"sm"} variant={"success"} className="editDropSave">
-                <i className="fa fa-check"></i>
-              </Button>
-              <Button size={"sm"} variant={"danger"} className="editDropCancel">
-                <i className="fa fa-times"></i>
-              </Button>
-            </div>
-          </div>
-        ))
+          <NavigationControls
+            onEdit={this.handleEdit}
+            onDelete={this.handleDelete}
+            onEditLabel={this.handleEditLabel}
+            item={item}
+            parentid={null}
+          />
+        )))
       )
     );
     this.setState({ navigation });
   }
-  onEdit = item => {
-    console.log(item);
+  handleEdit = (key, subkey) => {
+    console.log(key, subkey);
   };
-  onDelete = item => {
-    console.log(item);
+  handleDelete = (id, parentid) => {
+    console.log(id, parentid);
+    const navigation = [...this.state.navigation];
+    let result;
+
+    if (parentid !== null) {
+      result = navigation.filter(item =>
+        item.dummyid === parentid
+          ? (item.children = item.children.filter(item => item.dummyid !== id))
+          : item
+      );
+    } else {
+      result = navigation.filter(item => item.dummyid !== id);
+    }
+    this.setState({ navigation: result });
   };
-  editLabel = (e,key,subkey) => {
-    const navigation = [...this.state.navigation]
-    if(subkey!==null){
-      navigation[key].children[subkey].title =e.target.value;
-    }
-    else{
-      navigation[key].title= e.target.value
-    }
-    console.log(navigation);
-    // this.setState({navigation})
+
+  componentWillReceiveProps(nextProps) {
+    console.log("NEW", nextProps.itemkey, nextProps.itemsubKey);
   }
+  handleEditLabel = (e, key, subkey) => {
+    const navigation = this.state.navigation;
+    if (subkey !== null) {
+      navigation[key].children[subkey].title = e.target.value;
+
+      this.setState({ navigation });
+    } else {
+      navigation[key].title = e.target.value;
+
+      this.setState({ navigation });
+    }
+  };
   sortNavigation = nav => {
     this.setState({ navigation: nav.navigation });
   };
   addToNavigation = item => {
+    let key = this.state.navigation.length + 1;
     item.subtitle = (
-      <div>
-        {" "}
-        <span className="editNavBtn" onClick={() => this.onEdit(item)}>
-          Edit{" "}
-        </span>{" "}
-        <span className="deleteNavBtn" onClick={() => this.onDelete(item)}>
-          Delete
-        </span>{" "}
-        <div className="editDrop">
-          <Form.Control size={"sm"} />
-          <Button size={"sm"} variant={"success"} className="editDropSave">
-            <i className="fa fa-check"></i>
-          </Button>
-          <Button size={"sm"} variant={"danger"} className="editDropCancel">
-            <i className="fa fa-times"></i>
-          </Button>
-        </div>
-      </div>
+      <NavigationControls
+        onEdit={this.handleEdit}
+        onDelete={this.handleDelete}
+        onEditLabel={this.handleEditLabel}
+        item={item}
+        key={key}
+        subKey={null}
+      />
     );
     const navigation = [...this.state.navigation, item];
     this.setState({ navigation });
   };
   addCustomItem = () => {
     const customItem = { ...this.state.customItem };
+    this.setState({ customItem }, () =>
+      this.addToNavigation(this.state.customItem)
+    );
 
-    this.addToNavigation(customItem);
-
-    this.setState({ customItem });
+    setTimeout(
+      function() {
+        customItem.title = "";
+        customItem.url = "";
+        this.setState({ customItem });
+      }.bind(this),
+      500
+    );
   };
   handleInput = e => {
     const customItem = { ...this.state.customItem };
     customItem[e.target.name] = e.target.value;
     this.setState({ customItem });
+  };
+
+  saveNavigation = () => {
+    this.context.updateNavigation(this.state.navigation);
   };
 
   render() {
@@ -167,8 +145,8 @@ class Navigation extends Component {
         <NavigationContent
           navigation={this.state.navigation}
           sortNavigation={this.sortNavigation}
+          onSaveNavigatoin={this.saveNavigation}
         />
-        {/* <Button>Save</Button> */}
       </React.Fragment>
     );
   }

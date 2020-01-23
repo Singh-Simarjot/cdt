@@ -151,6 +151,16 @@ export class ProjectsContext extends Component {
           ]
         }
       ]
+    },
+    selectedPage:{
+           id: 4,
+          title: "Page 4",
+          dateCreated: 1579338582,
+          dateEdited: 1579338582,
+          author: "DEV1",
+          templateType: "TABS",
+          data: "asdasdasd"
+          
     }
   };
 
@@ -166,15 +176,10 @@ export class ProjectsContext extends Component {
     // this.setState({ pages:pages.data });
   };
 
-  test = () => {
-    console.log("test")
-  }
-
-  addToNavigation = item => {
+  
+  updateNavigation = navigation => {
     const selectedProject = { ...this.state.selectedProject };
-    selectedProject.navigation = [...selectedProject.navigation, item];
-    // selectedProject.navigation = [...this.state.selectedProject.navigation, item];
-
+    selectedProject.navigation = navigation;
     this.setState({ selectedProject });
   };
   addNewProject = item => {
@@ -194,7 +199,7 @@ export class ProjectsContext extends Component {
           onSelectProject: this.onSelectProject,
           getAllProjects: this.getAllProjects,
           getAllPages: this.getAllPages,
-          addToNavigation: this.addToNavigation,
+          updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
           onDeleteProject: this.onDeleteProject
         }}
