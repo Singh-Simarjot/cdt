@@ -9,7 +9,7 @@ class Icon extends Component {
     render() { 
         return ( 
             <div className="px-ratio">
-                <div className="grid">
+                <div className="grid-block">
                     <h6 className="icon-name">{this.props.iconName}</h6>
                     <div className="icon-preview">
                         <span>

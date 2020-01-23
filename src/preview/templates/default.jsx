@@ -8,6 +8,7 @@ import TextBlock from "../../components/widgets/textBlock2";
 // import Icon from "../components/Icons/Icon";
 import IconGrid from "../components/Icons/IconGrid";
 import Theme from "../components/Theme/Theme";
+import { Container } from "react-bootstrap";
 class DefaultTemplate extends Component {
   static contextType = ProjectsContext;
   //   state = {};
@@ -27,12 +28,14 @@ class DefaultTemplate extends Component {
     return (
       <React.Fragment>
         <section>
-          <TableData />
-          <ColorGrid />
-          <TextBlock />
-          {/* <Icon /> */}
-          <IconGrid />
-          <Theme />
+          <Container>
+            <TableData />
+            <ColorGrid />
+            <TextBlock />
+            {/* <Icon /> */}
+            <IconGrid />
+            <Theme />
+          </Container>
         </section>
       </React.Fragment>
     );
