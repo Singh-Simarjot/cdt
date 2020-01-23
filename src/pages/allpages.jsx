@@ -10,17 +10,16 @@ class AllPages extends Component {
 
   state = {
     showDeleteModal: false,
-    selectedPage:null
+    selectedPage: null
   };
-  handleModalDelete = (id) => {
+  handleModalDelete = id => {
     this.setState({ showDeleteModal: !this.state.showDeleteModal });
-    this.setState({selectedPage:id}) 
+    this.setState({ selectedPage: id });
   };
-  confirmAction = () =>{
-     console.log("Asds")
+  confirmAction = () => {
     this.context.onDeletePage(this.state.selectedPage);
-     this.setState({ showDeleteModal: false });
-  }
+    this.setState({ showDeleteModal: false });
+  };
 
   render() {
     const { selectedProject } = this.context;
@@ -91,7 +90,7 @@ class AllPages extends Component {
         <ModalDelete
           showModal={this.state.showDeleteModal}
           modalAction={this.handleModalDelete}
-          onconfirm ={this.confirmAction}
+          onconfirm={this.confirmAction}
         />
       </div>
     );

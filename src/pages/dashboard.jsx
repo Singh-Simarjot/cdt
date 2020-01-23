@@ -9,10 +9,15 @@ import ModalDelete from "../components/modalDelete/modalDelete";
 
 class Dashbord extends Component {
   state = {
-    showDeleteModal: false
+    showDeleteModal: false,
+    selectedProject: null
   };
-  handleModalDelete = () => {
+  // handleModalDelete = () => {
+  //   this.setState({ showDeleteModal: !this.state.showDeleteModal });
+  // };
+  handleModalDelete = id => {
     this.setState({ showDeleteModal: !this.state.showDeleteModal });
+    this.setState({ selectedProject: id });
   };
   static contextType = ProjectsContext;
 
@@ -30,6 +35,11 @@ class Dashbord extends Component {
   onEditProject = id => {
     this.context.onSelectProject(id);
     this.props.history.push("/edit");
+  };
+
+  confirmAction = () => {
+    this.context.onDeleteProject(this.state.selectedProject);
+    this.setState({ showDeleteModal: false });
   };
 
   render() {
@@ -72,16 +82,9 @@ class Dashbord extends Component {
                           <Row noGutters>
                             <Col>{item.name} </Col>
                             <Col
-                              style={{ maxWidth: "85px" }}
+                              style={{ maxWidth: "120px" }}
                               className="text-right"
                             >
-                              <Button
-                                onClick={() => this.onPreview(item.id)}
-                                size={"sm"}
-                                variant={"dark"}
-                              >
-                                <i className="fa fa-eye"></i>
-                              </Button>{" "}
                               <Button
                                 onClick={() => this.onEditProject(item.id)}
                                 size={"sm"}
@@ -89,6 +92,24 @@ class Dashbord extends Component {
                                 className="ml-2"
                               >
                                 <i className={"fa fa-edit"}></i>
+                              </Button>
+                              <Button
+                                onClick={() => this.onPreview(item.id)}
+                                size={"sm"}
+                                variant={"dark"}
+                                className="ml-2"
+                              >
+                                <i className="fa fa-eye"></i>
+                              </Button>
+                              <Button
+                                size={"sm"}
+                                variant={"dark"}
+                                className="ml-2"
+                                onClick={() => {
+                                  this.handleModalDelete(item.id);
+                                }}
+                              >
+                                <i className="fa fa-trash-o"></i>
                               </Button>
                             </Col>
                           </Row>
@@ -163,7 +184,7 @@ class Dashbord extends Component {
                             //   this.context.onDeleteProject(project.id)
                             // }
                             onClick={() => {
-                              this.handleModalDelete();
+                              this.handleModalDelete(project.id);
                             }}
                             size={"sm"}
                             variant="danger"
@@ -182,6 +203,7 @@ class Dashbord extends Component {
         <ModalDelete
           showModal={this.state.showDeleteModal}
           modalAction={this.handleModalDelete}
+          onconfirm={this.confirmAction}
         />
       </main>
     );
