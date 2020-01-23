@@ -9,11 +9,19 @@ class AllPages extends Component {
   static contextType = ProjectsContext;
 
   state = {
-    showDeleteModal: false
+    showDeleteModal: false,
+    selectedPage:null
   };
-  handleModalDelete = () => {
+  handleModalDelete = (id) => {
     this.setState({ showDeleteModal: !this.state.showDeleteModal });
+    this.setState({selectedPage:id}) 
   };
+  confirmAction = () =>{
+     console.log("Asds")
+    this.context.onDeletePage(this.state.selectedPage);
+     this.setState({ showDeleteModal: false });
+  }
+
   render() {
     const { selectedProject } = this.context;
     return (
@@ -68,7 +76,7 @@ class AllPages extends Component {
                         size={"sm"}
                         variant="danger"
                         onClick={() => {
-                          this.handleModalDelete();
+                          this.handleModalDelete(project.id);
                         }}
                       >
                         <i className="fa fa-trash"></i>
@@ -83,6 +91,7 @@ class AllPages extends Component {
         <ModalDelete
           showModal={this.state.showDeleteModal}
           modalAction={this.handleModalDelete}
+          onconfirm ={this.confirmAction}
         />
       </div>
     );

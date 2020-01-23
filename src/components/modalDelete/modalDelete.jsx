@@ -28,7 +28,7 @@ class ModalDelete extends Component {
           <Button onClick={() => this.props.modalAction()} variant="secondary">
             Cancel
           </Button>
-          <Button variant="danger">Delete</Button>
+          <Button variant="danger" onClick={this.props.onconfirm}>Delete</Button>
         </Modal.Footer>
       </Modal>
     );

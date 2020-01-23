@@ -87,6 +87,11 @@ export class ProjectsContext extends Component {
       }
     ],
     selectedProject: {
+      title:"",
+      description:"",
+      id:"",
+      data:{},
+
       pages: [
         {
           id: 1,
@@ -152,15 +157,14 @@ export class ProjectsContext extends Component {
         }
       ]
     },
-    selectedPage:{
-           id: 4,
-          title: "Page 4",
-          dateCreated: 1579338582,
-          dateEdited: 1579338582,
-          author: "DEV1",
-          templateType: "TABS",
-          data: "asdasdasd"
-          
+    selectedPage: {
+      id: 4,
+      title: "Page 4",
+      dateCreated: 1579338582,
+      dateEdited: 1579338582,
+      author: "DEV1",
+      templateType: "TABS",
+      data: "asdasdasd"
     }
   };
 
@@ -176,7 +180,6 @@ export class ProjectsContext extends Component {
     // this.setState({ pages:pages.data });
   };
 
-  
   updateNavigation = navigation => {
     const selectedProject = { ...this.state.selectedProject };
     selectedProject.navigation = navigation;
@@ -190,6 +193,13 @@ export class ProjectsContext extends Component {
     const allProjects = this.state.allProjects.filter(item => item.id !== id);
     this.setState({ allProjects });
   };
+  onDeletePage = id => {
+    const selectedProject = this.state.selectedProject;
+
+    let pages = selectedProject.pages.filter(item => item.id !== id);
+    selectedProject.pages = pages;
+    this.setState({ selectedProject });
+  };
 
   render() {
     return (
@@ -201,7 +211,8 @@ export class ProjectsContext extends Component {
           getAllPages: this.getAllPages,
           updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
-          onDeleteProject: this.onDeleteProject
+          onDeleteProject: this.onDeleteProject,
+          onDeletePage: this.onDeletePage
         }}
       >
         {this.props.children}
