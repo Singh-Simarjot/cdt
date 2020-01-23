@@ -67,15 +67,18 @@
       }
     }
     &.contentDataNavigation {
-      height: -webkit-calc(100vh - 110px);
-      height: calc(100vh - 110px);
+      height: -webkit-calc(100vh - 185px);
+      height: calc(100vh - 185px);
       overflow: auto;
-      // @include lg {
-      // }
+      @include lg {
+        height: -webkit-calc(100vh - 120px);
+        height: calc(100vh - 120px);
+      }
       .rst__rowContents {
         .rst__rowLabel {
           width: 100%;
           position: relative;
+          padding-right: 5px;
           .rst__rowTitle {
             line-height: 1.1em;
           }

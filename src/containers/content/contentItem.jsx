@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, ButtonToolbar, Modal, Form } from "react-bootstrap";
 // import ModalComponent from "../modal/modalComponent";
+import ModalDelete from "../../components/modalDelete/modalDelete";
 class ContentItem extends Component {
   state = {
     showModal: false,
@@ -9,9 +10,9 @@ class ContentItem extends Component {
   handleModal() {
     this.props.onModalChange();
   }
-  handleModalDelete() {
+  handleModalDelete = () => {
     this.setState({ showDeleteModal: !this.state.showDeleteModal });
-  }
+  };
   render() {
     return (
       <React.Fragment>
@@ -96,28 +97,10 @@ class ContentItem extends Component {
             <Button variant="success">Save</Button>
           </Modal.Footer>
         </Modal>
-        {/* delete */}
-        <Modal
-          size={"md"}
-          show={this.state.showDeleteModal}
-          onHide={() => {
-            this.handleModalDelete();
-          }}
-        >
-          <Modal.Header closeButton>Are you sure for delete this</Modal.Header>
-          <Modal.Body>Are you sure for delete this</Modal.Body>
-          <Modal.Footer>
-            <Button
-              onClick={() => {
-                this.handleModalDelete();
-              }}
-              variant="danger"
-            >
-              Cancel
-            </Button>
-            <Button variant="success">Delete</Button>
-          </Modal.Footer>
-        </Modal>
+        <ModalDelete
+          showModal={this.state.showDeleteModal}
+          modalAction={this.handleModalDelete}
+        />
       </React.Fragment>
     );
   }

@@ -3,11 +3,17 @@ import { Row, Col, Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProjectsContext from "../context/projectsContext";
 import moment from "moment";
+import ModalDelete from "../components/modalDelete/modalDelete";
 
 class AllPages extends Component {
   static contextType = ProjectsContext;
 
-  state = {};
+  state = {
+    showDeleteModal: false
+  };
+  handleModalDelete = () => {
+    this.setState({ showDeleteModal: !this.state.showDeleteModal });
+  };
   render() {
     const { selectedProject } = this.context;
     return (
@@ -40,13 +46,16 @@ class AllPages extends Component {
                 </tr>
               </thead>
               <tbody>
-                
                 {selectedProject.pages.map(project => (
                   <tr key={project.id}>
                     <td>{project.id}</td>
                     <td>{project.title}</td>
-                    <td>{  moment(project.dateCreated).format("YYYY//MM//DD") } </td>
-                    <td>{  moment(project.dateEdited).format("YYYY//MM//DD") } </td>
+                    <td>
+                      {moment(project.dateCreated).format("YYYY//MM//DD")}{" "}
+                    </td>
+                    <td>
+                      {moment(project.dateEdited).format("YYYY//MM//DD")}{" "}
+                    </td>
                     <td>{project.templateType}</td>
                     <td>{project.author}</td>
                     <td>
@@ -55,7 +64,13 @@ class AllPages extends Component {
                       </Button>
                     </td>
                     <td>
-                      <Button size={"sm"} variant="danger">
+                      <Button
+                        size={"sm"}
+                        variant="danger"
+                        onClick={() => {
+                          this.handleModalDelete();
+                        }}
+                      >
                         <i className="fa fa-trash"></i>
                       </Button>
                     </td>
@@ -65,6 +80,10 @@ class AllPages extends Component {
             </Table>
           )}
         </div>
+        <ModalDelete
+          showModal={this.state.showDeleteModal}
+          modalAction={this.handleModalDelete}
+        />
       </div>
     );
   }

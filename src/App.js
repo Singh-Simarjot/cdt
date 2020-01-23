@@ -19,6 +19,10 @@ import { ProjectsContext } from "./context/projectsContext";
 import Preview from "./preview/index";
 import EditProject from "./pages/editProject";
 
+import Login from "./components/account/login";
+import SignUp from "./components/account/signup";
+import ForgotPassword from "./components/account/forgotpassword";
+
 function App() {
   return (
     <ProjectsContext>
@@ -28,9 +32,11 @@ function App() {
         <Route path="/addnew" component={AddNewProject} />
         <Route path="/edit" component={EditProject} />
         <Route path="/preview" component={Preview} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/forgotpassword" component={ForgotPassword} />
         <Route path="/" component={Dashboard} />
         {/* <Route path="/" component={Content} /> */}
-     
       </Switch>
 
       {/* <Page /> */}

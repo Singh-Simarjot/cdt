@@ -5,8 +5,15 @@ import ProjectLogo1 from "./images/logo-dummy.png";
 import ProjectsContext from "../context/projectsContext";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import ModalDelete from "../components/modalDelete/modalDelete";
 
 class Dashbord extends Component {
+  state = {
+    showDeleteModal: false
+  };
+  handleModalDelete = () => {
+    this.setState({ showDeleteModal: !this.state.showDeleteModal });
+  };
   static contextType = ProjectsContext;
 
   onSelectProject = id => {
@@ -36,7 +43,9 @@ class Dashbord extends Component {
               <div className="pt-5">
                 <Row>
                   <Col>
-                    <h2>Recent Projects</h2>
+                    <div className="titelTop">
+                      <h2>Recent Projects</h2>
+                    </div>
                   </Col>
                   <Col xs={4} className="text-right">
                     <Link to="/addnew" size="sm" className="btn btn-success">
@@ -60,15 +69,29 @@ class Dashbord extends Component {
                           />
                         </Card.Body>
                         <Card.Footer>
-                          {item.name}{" "}
-                          <i
-                            onClick={() => this.onPreview(item.id)}
-                            className="fa fa-eye pull-right"
-                          ></i>{" "}
-                          <i
-                            onClick={() => this.onEditProject(item.id)}
-                            className={"fa fa-edit pull-right"}
-                          ></i>
+                          <Row noGutters>
+                            <Col>{item.name} </Col>
+                            <Col
+                              style={{ maxWidth: "85px" }}
+                              className="text-right"
+                            >
+                              <Button
+                                onClick={() => this.onPreview(item.id)}
+                                size={"sm"}
+                                variant={"dark"}
+                              >
+                                <i className="fa fa-eye"></i>
+                              </Button>{" "}
+                              <Button
+                                onClick={() => this.onEditProject(item.id)}
+                                size={"sm"}
+                                variant={"dark"}
+                                className="ml-2"
+                              >
+                                <i className={"fa fa-edit"}></i>
+                              </Button>
+                            </Col>
+                          </Row>
                         </Card.Footer>
                       </Card>
                     </Col>
@@ -86,7 +109,9 @@ class Dashbord extends Component {
             )}
             {allProjects.length > 0 && (
               <div className="pt-5">
-                <h2>All Projects</h2>
+                <div className="titelTop mb-3">
+                  <h2>All Projects</h2>
+                </div>
                 <Table responsive="md" hover variant="">
                   <thead>
                     <tr>
@@ -115,10 +140,13 @@ class Dashbord extends Component {
                         </td>
                         <td>{project.authour}</td>
                         <td>
-                          <i
+                          <Button
+                            size={"sm"}
+                            variant="success"
                             onClick={() => this.onPreview(project.id)}
-                            className="fa fa-eye"
-                          ></i>
+                          >
+                            <i className="fa fa-eye"></i>
+                          </Button>
                         </td>
                         <td>
                           <Button
@@ -131,9 +159,12 @@ class Dashbord extends Component {
                         </td>
                         <td>
                           <Button
-                            onClick={() =>
-                              this.context.onDeleteProject(project.id)
-                            }
+                            // onClick={() =>
+                            //   this.context.onDeleteProject(project.id)
+                            // }
+                            onClick={() => {
+                              this.handleModalDelete();
+                            }}
                             size={"sm"}
                             variant="danger"
                           >
@@ -148,6 +179,10 @@ class Dashbord extends Component {
             )}
           </Container>
         </section>
+        <ModalDelete
+          showModal={this.state.showDeleteModal}
+          modalAction={this.handleModalDelete}
+        />
       </main>
     );
   }
