@@ -7,10 +7,6 @@ import { NavLink } from "react-router-dom";
 class Sidebar extends Component {
   static contextType = ProjectsContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     const { selectedProject } = this.context;
 
@@ -26,15 +22,19 @@ class Sidebar extends Component {
             {selectedProject.navigation.map(item => (
               <ListGroup.Item key={item.id}>
                 <h5>
-                  <NavLink
-                    to={"/preview" + item.url}
-                    onClick={() => {
-                      this.context.onSelectPage(item.id);
-                    }}
-                  >
-                    {" "}
-                    {item.title}{" "}
-                  </NavLink>
+                  {item.children !== undefined && item.children.length > 0 ? (
+                    item.title
+                  ) : (
+                    <NavLink
+                      to={"/preview" + item.url}
+                      onClick={() => {
+                        this.context.onSelectPage(item.id);
+                      }}
+                    >
+                      {" "}
+                      {item.title}{" "}
+                    </NavLink>
+                  )}
                   {item.children !== undefined && item.children.length > 0 && (
                     <span>
                       <i className="fa fa-angle-down" aria-hidden="true"></i>

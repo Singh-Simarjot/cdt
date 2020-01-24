@@ -30,7 +30,6 @@ class Preview extends Component {
                   <Route
                     path={"/preview" + item.url}
                     component={DefaultTemplate}
-                    exact
                   />
                 ),
                 item.children.map(item => (

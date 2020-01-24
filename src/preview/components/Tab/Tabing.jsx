@@ -1,39 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Container } from "react-bootstrap";
-import Nav from 'react-bootstrap/Nav'
+import Nav from "react-bootstrap/Nav";
 
 import "./tab.scss";
+import { NavLink } from "react-router-dom";
+
+import ProjectsContext from "../../../context/projectsContext";
 
 class Tabs extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
-    render() { 
-        return ( 
-            <section className="tabing-section">
-                <Container>
-                <Nav
-                    activeKey="/home"
-                    onSelect={selectedKey => alert(`selected ${selectedKey}`)}
-                    >
-                    <Nav.Item>
-                        <Nav.Link href="/home" className="selected">Page 1</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-1">Page 2</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-2">Page 3</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-2">Page 4</Nav.Link>
-                    </Nav.Item>
-                    </Nav>
-                </Container>
-            </section>
-         );
-    }
+  static contextType = ProjectsContext;
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    const { tabsList } = this.props;
+    const { selectedTabID } = this.context;
+    return (
+      <section className="tabing-section">
+        <Container>
+          <Nav
+          // activeKey="/home"
+          // onSelect={selectedKey => alert(`selected ${selectedKey}`)}
+          >
+            {tabsList.map(item => (
+              <Nav.Item key={item.id}>
+                {/* <Nav.Link href={item.url}>{item.title}</Nav.Link> */}
+                <NavLink
+                  to={"/preview/link1/page1" + item.url}
+                  //   onClick={() => {
+                  //     this.context.onSelectTab(item.id);
+                  //   }}
+                >
+                  {item.title}
+                </NavLink>
+              </Nav.Item>
+            ))}
+          </Nav>
+        </Container>
+      </section>
+    );
+  }
 }
- 
+
 export default Tabs;

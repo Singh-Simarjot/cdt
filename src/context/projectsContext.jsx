@@ -8,6 +8,7 @@ export class ProjectsContext extends Component {
   state = {
     selectedProjectID: null,
     selectedPageID: null,
+    // selectedTabID: null,
     allProjects: [
       {
         id: 1,
@@ -88,10 +89,11 @@ export class ProjectsContext extends Component {
       }
     ],
     selectedProject: {
-      title:"Page 1",
-      description:"Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum ",
-      id:"1",
-      data:{},
+      title: "Page 1",
+      description:
+        "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum ",
+      id: "1",
+      data: {},
 
       pages: [
         {
@@ -132,6 +134,7 @@ export class ProjectsContext extends Component {
           id: 1,
           title: "asd",
           url: "/link1",
+          templateType: "TABS",
           children: [
             { id: "1_1", title: "Link 1", url: "/link1/page1" },
             { id: "1_2", title: "Link 2", url: "/link1/page2" },
@@ -144,6 +147,7 @@ export class ProjectsContext extends Component {
           title: "Link 2",
           subtitle: <span>test</span>,
           url: "/link2",
+          templateType: "TABS",
           children: [
             { id: "2_1", title: "Link 5", url: "/link2/page1" },
             { id: "2_2", title: "Link 6", url: "/link2/page2" },
@@ -175,7 +179,26 @@ export class ProjectsContext extends Component {
       dateEdited: 1579338582,
       author: "DEV1",
       templateType: "TABS",
-      data: "asdasdasd"
+      data: {
+        tabs: [
+          {
+            id: 2,
+            title: "Tab 2",
+            url: "/tab2"
+          },
+          {
+            id: 3,
+            title: "Tab 3",
+            url: "/ltab3"
+          },
+
+          {
+            id: 4,
+            title: "Tab 4",
+            url: "/tab4"
+          }
+        ]
+      }
     }
   };
 
@@ -185,6 +208,9 @@ export class ProjectsContext extends Component {
   onSelectPage = id => {
     this.setState({ selectedPageID: id });
   };
+  // onSelectTab = id => {
+  //   this.setState({ selectedTabID: id });
+  // };
   getAllProjects = async () => {
     // const allProjects = await  getProjects()
     // this.setState({ allProjects:allProjects.data });
@@ -234,6 +260,7 @@ export class ProjectsContext extends Component {
           onDeleteProject: this.onDeleteProject,
           onDeletePage: this.onDeletePage,
           onSelectPage: this.onSelectPage
+          // onSelectTab: this.onSelectTab
         }}
       >
         {this.props.children}
