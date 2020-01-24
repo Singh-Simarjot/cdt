@@ -21,9 +21,9 @@ class AllPages extends Component {
     this.setState({ showDeleteModal: false });
   };
 
-  onEditProject = id => {
-    this.context.onSelectProject(id);
-    this.props.history.push("/edit");
+  onEditPage = id => {
+    this.context.onSelectPage(id);
+    this.props.history.push("/project/editpage");
   };
 
   render() {
@@ -72,7 +72,7 @@ class AllPages extends Component {
                     <td>{project.author}</td>
                     <td>
                       <Button size={"sm"} variant="info" 
-                      onClick={() => this.onEditProject(project.id)}
+                      onClick={() => this.onEditPage(project.id)}
                       >
                         <i className="fa fa-pencil"></i>
                       </Button>

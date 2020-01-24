@@ -201,12 +201,17 @@ export class ProjectsContext extends Component {
       }
     }
   };
+  
 
   onSelectProject = id => {
     this.setState({ selectedProjectID: id });
+          
   };
   onSelectPage = id => {
-    this.setState({ selectedPageID: id });
+    const page = this.state.selectedProject.pages.filter(item  => item.id === id);
+    this.setState({ selectedPageID: id,selectedPage:page[0]});
+
+
   };
   // onSelectTab = id => {
   //   this.setState({ selectedTabID: id });
@@ -229,6 +234,15 @@ export class ProjectsContext extends Component {
     const allProjects = [item, ...this.state.allProjects];
     this.setState({ allProjects });
   };
+  editProject = (selectedProject) => {
+    this.setState({selectedProject})
+  }
+
+  editPage = (data) =>{
+    // this.setState({data})
+    console.log(data);
+  }
+  
   // onDeleteProject = id => {
   //   const allProjects = this.state.allProjects.filter(item => item.id !== id);
   //   this.setState({ allProjects });
@@ -257,6 +271,7 @@ export class ProjectsContext extends Component {
           getAllPages: this.getAllPages,
           updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
+          editProject:this.editProject,
           onDeleteProject: this.onDeleteProject,
           onDeletePage: this.onDeletePage,
           onSelectPage: this.onSelectPage

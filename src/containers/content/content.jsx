@@ -9,6 +9,7 @@ class Content extends Component {
   handleDragOver = e => {
     console.log(e);
   };
+
   render() {
     const { page } = this.props;
 
@@ -29,7 +30,8 @@ class Content extends Component {
         <div className="contentData">
           <Form.Group>
             <Form.Label>Project Title</Form.Label>
-            <Form.Control type="text" value={page.title} />
+            <Form.Control type="text" name="title" value={page.title}
+            onChange={this.props.onHandle} />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlSelect1">
             <Form.Label>Select Template</Form.Label>
@@ -63,7 +65,7 @@ class Content extends Component {
               />
             ))}
           <br />
-          <Button>Save</Button>
+          <Button onClick={this.props.saveData}>Save</Button>
         </div>
       </div>
     );

@@ -64,8 +64,9 @@ class AddNewProject extends Component {
   };
   addProject = (e) => {
     e.preventDefault();
-    console.log(this.context)
-    this.context.addNewProject(this.state.project)
+  
+    this.context.addNewProject(this.state.project);
+    this.props.history.push("/")
   }
   render() {
     return (
