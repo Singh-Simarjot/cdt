@@ -50,13 +50,17 @@ class Content extends Component {
               className="addTabDara"
               onDragOver={e => this.handleDragOver(e)}
             >
-              <label className="dropImg">
-                <span>Drag &amp; Drop Tab Here</span>
-              </label>
+              {<label className="dropImg"> { page.data.tabs.length > 0 ? (
+                page.data.tabs.map(item => <li>{item.title}</li>)
+              ) : (
+                
+                  <span>Please select Pages from left Panel</span>
+               
+              )} </label>}
             </div>
           )}
           {page.template === "DEFAULT" &&
-            page.widgets.map(item => (
+            page.data.widgets.map(item => (
               <ContentItem
                 icon={item.icon + " fa"}
                 title={item.label}

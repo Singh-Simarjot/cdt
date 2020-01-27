@@ -88,7 +88,7 @@ class ModalComponent extends Component {
           </Modal.Footer>
         </Modal>
       )
-    );
+    );   
   }
 }
 export default ModalComponent;

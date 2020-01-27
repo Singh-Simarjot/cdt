@@ -15,14 +15,10 @@ class AddNewPage extends Component {
     page: {
       title: "dd",
       template: "DEFAULT",
-      widgets: [
-        {
-          icon: "fa-file-text-o",
-          label: "Text Block",
-          type: "TEXT_BLOCK",
-          data: {}
-        }
-      ]
+      data: {
+        widgets: [],
+        tabs: []
+      }
     },
     customItem: {
       title: "",
@@ -56,10 +52,16 @@ class AddNewPage extends Component {
     );
 
     setTimeout(() => {
-      customItem.title = "";
+      customItem.title = ""; 
       customItem.url = "";
       this.setState({ customItem });
     }, 500);
+  };
+  addToNavigation = item => {
+    const page = this.state.page;
+    let tabs = [...page.data.tabs, item];
+    page.data.tabs = tabs;
+    this.setState({ page });
   };
   handleInput = e => {
     const customItem = { ...this.state.customItem };
@@ -85,6 +87,7 @@ class AddNewPage extends Component {
             customItem={this.state.customItem}
             onChangeField={this.handleInput}
             onModalChange={this.handleModal}
+            addToNavigation={this.addToNavigation}
           />
         )}
         <Content
