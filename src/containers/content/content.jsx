@@ -12,6 +12,7 @@ class Content extends Component {
 
   render() {
     const { page } = this.props;
+   
 
     return (
       <div className="content">
@@ -42,14 +43,15 @@ class Content extends Component {
             <Form.Control
               as="select"
               onChange={e => this.props.onChangeTemplate(e)}
+              
             >
-              <option value="DEFAULT">Default Template</option>
-              <option value="TABS">Tabs Template</option>
+              <option  selected = {page.templateType === "DEFAULT"}  value="DEFAULT">Default Template</option>
+              <option selected = {page.templateType === "TABS"} value="TABS">Tabs Template</option>
               {/* <option value="GRID">Grid Template</option>
               <option value="GLOSSARY"> Glossary Template</option> */}
             </Form.Control>
           </Form.Group>
-          {page.template === "TABS" && (
+          {page.template === "TABS" && page.data.widgets !== undefined && (
             <div
               className="addTabDara"
               onDragOver={e => this.handleDragOver(e)}
@@ -67,7 +69,7 @@ class Content extends Component {
             </div>
           )}
           {page.template === "DEFAULT" &&
-            page.data.widgets.map(item => (
+            page.data.widgets !== undefined && page.data.widgets.map(item => (
               <ContentItem
                 icon={item.icon + " fa"}
                 title={item.title}

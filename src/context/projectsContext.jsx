@@ -101,7 +101,11 @@ export class ProjectsContext extends Component {
           dateCreated: 1579338582,
           dateEdited: 1579338582,
           author: "DEV1",
-          templateType: "DEFAULT"
+          templateType: "DEFAULT",
+          data: {
+            widgets: [],
+            tabs: []
+          }
         },
         {
           id: 2,
@@ -109,7 +113,11 @@ export class ProjectsContext extends Component {
           dateCreated: 1579338582,
           dateEdited: 1579338582,
           author: "DEV1",
-          templateType: "TABS"
+          templateType: "TABS",
+          data: {
+            widgets: [],
+            tabs: []
+          }
         },
         {
           id: 3,
@@ -117,7 +125,11 @@ export class ProjectsContext extends Component {
           dateCreated: 1579338582,
           dateEdited: 1579338582,
           author: "DEV1",
-          templateType: "DEFAULT"
+          templateType: "DEFAULT",
+          data: {
+            widgets: [],
+            tabs: []
+          }
         },
         {
           id: 4,
@@ -125,7 +137,11 @@ export class ProjectsContext extends Component {
           dateCreated: 1579338582,
           dateEdited: 1579338582,
           author: "DEV1",
-          templateType: "TABS"
+          templateType: "TABS",
+          data: {
+            widgets: [],
+            tabs: []
+          }
         }
       ],
       navigation: [
@@ -179,7 +195,7 @@ export class ProjectsContext extends Component {
       author: "DEV1",
       templateType: "TABS",
       data: {
-        tabs: [
+        tabs: [ 
           {
             id: 2,
             title: "Tab 2",
@@ -197,7 +213,7 @@ export class ProjectsContext extends Component {
             url: "/tab4"
           }
         ],
-        widgets: [{}]
+        widgets: []
       }
     }
   };

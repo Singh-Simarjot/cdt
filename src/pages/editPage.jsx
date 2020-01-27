@@ -7,30 +7,22 @@ import ModalComponent from "../containers/modal/modalComponent";
 // import ComponentsTabs from "../components/componentsTab";
 import NavigationList from "../components/navigationList";
 import ProjectsContext from "../context/projectsContext";
+import { WidgetsContext } from "../context/widgetsContext";
 
 class EditPage extends Component {
     static contextType = ProjectsContext;
 
   state = {
-    page: {
-      title: "dd",
-      template: "DEFAULT",
-      widgets: [
-        {
-          icon: "fa-file-text-o",
-          label: "Text Block",
-          type: "TEXT_BLOCK",
-          data: {}
-        }
-      ]
-    },
+    page: {},
     showModalComponent: false,
-    modalData: null
+    modalData: null,customItem: {
+      title: "",
+      url: ""
+    },
   };
 
   componentDidMount() {
       const page= this.context.selectedPage;
-      console.log(page);
       this.setState({page});
   }
 
@@ -44,7 +36,7 @@ class EditPage extends Component {
 
   changeTemplate = e => {
     const page = { ...this.state.page };
-    page.template = e.target.value;
+    page.templateType    = e.target.value;
     this.setState({ page });
   };
 
@@ -71,13 +63,25 @@ class EditPage extends Component {
 
   render() {
     const { page } = this.state;
+    const { selectedProject } = this.context;
+    const pages = selectedProject.pages.filter(
+      item => item.templateType !== "TABS"
+    );
     return (
-      <React.Fragment>
+      <WidgetsContext>
         {page.templateType === "DEFAULT" && (
           <ComponentsList onModalChange={this.handleModal} />
         )}
         {page.templateType === "TABS" && (
-          <NavigationList onModalChange={this.handleModal} />
+          <NavigationList 
+          onCustomItem={this.addCustomItem}
+          pages={pages}
+          customItem={this.state.customItem}
+          // onChangeField={this.handleInput}
+          // onModalChange={this.handleModal}
+          // addToNavigation={this.addToNavigation}
+          
+          />
         )}
         <Content
           page={this.state.page}
@@ -92,7 +96,7 @@ class EditPage extends Component {
           showModal={this.state.showModalComponent}
           modalData={this.state.modalData}
         />
-      </React.Fragment>
+      </WidgetsContext>
     );
   }
 }
