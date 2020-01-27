@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-import { Form } from "react-bootstrap";
+import { Form, Modal, Button } from "react-bootstrap";
 import FontPicker from "font-picker-react";
 
 class Typography extends Component {
@@ -24,9 +24,11 @@ class Typography extends Component {
   // };
 
   render() {
+    const { onModalChange, onSaveComponent } = this.props;
     return (
-      <div className="widgetsDiv">
-        {/* <link href={this.state.fontUrl} rel="stylesheet" type="text/css" />
+      <>
+        <div className="widgetsDiv">
+          {/* <link href={this.state.fontUrl} rel="stylesheet" type="text/css" />
         <h2
           className="py-2 text-center"
           style={{ fontFamily: this.state.fontName }}
@@ -53,22 +55,39 @@ class Typography extends Component {
           />
         </Form.Group> */}
 
+          <Form.Group>
+            <FontPicker
+              apiKey="AIzaSyBN9L9tYefx2Ge4y6fybH5ymuZVjlqczYw"
+              activeFontFamily={this.state.activeFontFamily}
+              onChange={nextFont =>
+                this.setState({
+                  activeFontFamily: nextFont.family
+                })
+              }
+              limit={"all"}
+            />
+          </Form.Group>
+          <Form.Group>
+            <h4 className="apply-font">
+              The font will be applied to this text.
+            </h4>
+          </Form.Group>
+        </div>
         <Form.Group>
-          <FontPicker
-            apiKey="AIzaSyBN9L9tYefx2Ge4y6fybH5ymuZVjlqczYw"
-            activeFontFamily={this.state.activeFontFamily}
-            onChange={nextFont =>
-              this.setState({
-                activeFontFamily: nextFont.family
-              })
-            }
-            limit={"all"}
+          <Form.Check
+            id="addInternalNavigation"
+            label={"Add Internal Navigation"}
           />
         </Form.Group>
-        <Form.Group>
-          <h4 className="apply-font">The font will be applied to this text.</h4>
-        </Form.Group>
-      </div>
+        <Modal.Footer>
+          <Button onClick={onModalChange} variant="danger">
+            Cancel
+          </Button>
+          <Button onClick={onSaveComponent} variant="success">
+            Save
+          </Button>
+        </Modal.Footer>
+      </>
     );
   }
 }

@@ -16,38 +16,127 @@ import ExternalPageLinkGrid from "../../components/widgets/externalPageLinkGrid"
 import TextBlock from "../../components/widgets/textBlock";
 class ModalComponent extends Component {
   renderComponent() {
-    const { modalData } = this.props;
+    const {
+      modalData,
+      oncomponentInput,
+      onModalChange,
+      onSaveComponent
+    } = this.props;
     switch (modalData.type) {
       case "HTML":
-        return <Html />;
+        return (
+          <Html
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "TYPOGRAPHY":
-        return <Typography />;
+        return (
+          <Typography
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "ICON_GRID":
-        return <IconGrid />;
+        return (
+          <IconGrid
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "COLOR_PALETTE":
-        return <ColorPalette />;
+        return (
+          <ColorPalette
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "MULTIPLE_IMAGE":
-        return <MultipleImage />;
+        return (
+          <MultipleImage
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "IMAGE_BLOCK":
-        return <ImageBlock />;
+        return (
+          <ImageBlock
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "VIDEO_BLOCK":
-        return <VideoBlock />;
+        return (
+          <VideoBlock
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "IFRAME_BLOCK":
-        return <IframeBlock />;
+        return (
+          <IframeBlock
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "CODE_SNIPPETS":
-        return <CodeSnippets />;
+        return (
+          <CodeSnippets
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "CODE_SNIPPETS_WITH_VIEW":
-        return <CodeSnippetsWithView />;
+        return (
+          <CodeSnippetsWithView
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "EXTERNAL_PAGE_LINK_GRID":
-        return <ExternalPageLinkGrid />;
+        return (
+          <ExternalPageLinkGrid
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       case "TEXT_BLOCK":
-        return <TextBlock />;
+        return (
+          <TextBlock
+            data={modalData.content}
+            onSaveComponent={onSaveComponent}
+            oncomponentInput={oncomponentInput}
+            onModalChange={onModalChange}
+          />
+        );
       default:
         return "foo";
     }
   }
   render() {
-    const { modalData } = this.props;
+    const { modalData, oncomponentInput, onSaveComponent } = this.props;
 
     return (
       modalData !== null && (
@@ -62,33 +151,39 @@ class ModalComponent extends Component {
             <i className={modalData.icon + " fa"}></i> {modalData.label}
           </Modal.Header>
           <Modal.Body>
-            <Form>
-              <Form.Group>
-                <Form.Label>Title</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={this.props.title}
-                  placeholder="Title"
-                />
-              </Form.Group>
-              {this.renderComponent()}
-              <Form.Group>
-                <Form.Check
-                  id="addInternalNavigation"
-                  label={"Add Internal Navigation"}
-                />
-              </Form.Group>
-            </Form>
+            <Form.Group>
+              <Form.Label>Title</Form.Label>
+              <Form.Control
+                type="text"
+                value={modalData.title}
+                placeholder="Title"
+                name="title"
+                onChange={e => oncomponentInput(e)}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                value={modalData.description}
+                onChange={e => oncomponentInput(e)}
+                as="textarea"
+                rows="2"
+                name="description"
+              />
+            </Form.Group>
+            {this.renderComponent()}
           </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={() => this.props.onModalChange()} variant="danger">
+          {/* <Modal.Footer>
+            <Button onClick={onModalChange} variant="danger">
               Cancel
             </Button>
-            <Button variant="success">Save</Button>
-          </Modal.Footer>
+            <Button onClick={onSaveComponent} variant="success">
+              Save
+            </Button>
+          </Modal.Footer> */}
         </Modal>
       )
-    );   
+    );
   }
 }
 export default ModalComponent;

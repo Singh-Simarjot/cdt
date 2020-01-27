@@ -1,17 +1,34 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-import { Form } from "react-bootstrap";
+import { Form, Modal, Button } from "react-bootstrap";
 
 class IframeBlock extends Component {
   state = {};
   render() {
+    const { onSaveComponent, onModalChange } = this.props;
     return (
-      <div className="widgetsDiv">
+      <>
+        <div className="widgetsDiv">
+          <Form.Group>
+            <Form.Label>Enter Iframe</Form.Label>
+            <Form.Control as="textarea" rows="4" />
+          </Form.Group>
+        </div>
         <Form.Group>
-          <Form.Label>Enter Iframe</Form.Label>
-          <Form.Control as="textarea" rows="4" />
+          <Form.Check
+            id="addInternalNavigation"
+            label={"Add Internal Navigation"}
+          />
         </Form.Group>
-      </div>
+        <Modal.Footer>
+          <Button onClick={onModalChange} variant="danger">
+            Cancel
+          </Button>
+          <Button onClick={onSaveComponent} variant="success">
+            Save
+          </Button>
+        </Modal.Footer>
+      </>
     );
   }
 }

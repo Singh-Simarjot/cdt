@@ -27,14 +27,16 @@ class DefaultTemplate extends Component {
     }
   }
   render() {
-    const { selectedPageID, selectedPage } = this.context;
+    const { selectedPage } = this.context;
+    // console.log(this.context);
+    // console.log(selectedPage);
     return (
       <React.Fragment>
-        <PageHeader pageTitel={selectedPage.title} />
-        {selectedPage.templateType === "TABS" &&
+        {/* <PageHeader pageTitel={selectedPage.title} /> */}
+        {/* {selectedPage.templateType === "TABS" &&
           selectedPage.data.tabs.length > 0 && (
             <Tabs tabsList={selectedPage.data.tabs} />
-          )}
+          )} */}
 
         {/* <ComponentsContent /> */}
         {/* <Switch>

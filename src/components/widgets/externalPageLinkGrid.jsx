@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 
 class ExternalPageLinkGrid extends Component {
   state = {
@@ -20,50 +20,67 @@ class ExternalPageLinkGrid extends Component {
     });
   };
   render() {
+    const { onSaveComponent, onModalChange } = this.props;
     return (
-      <div className="widgetsDiv">
-        <Form.Group>
-          <Form.Label>Label</Form.Label>
-          <Form.Control placeholder="Label" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Url</Form.Label>
-          <Form.Control placeholder="URS" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Icon</Form.Label>
-          <Form.Control type="file" />
-        </Form.Group>
-        {this.state.externalLink.map(link => (
-          <Form.Group className="addIceon" key={link.id}>
-            <Form.Group>
-              <Form.Label>Label</Form.Label>
-              <Form.Control placeholder="Label" />
+      <>
+        <div className="widgetsDiv">
+          <Form.Group>
+            <Form.Label>Label</Form.Label>
+            <Form.Control placeholder="Label" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Url</Form.Label>
+            <Form.Control placeholder="URS" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Icon</Form.Label>
+            <Form.Control type="file" />
+          </Form.Group>
+          {this.state.externalLink.map(link => (
+            <Form.Group className="addIceon" key={link.id}>
+              <Form.Group>
+                <Form.Label>Label</Form.Label>
+                <Form.Control placeholder="Label" />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Url</Form.Label>
+                <Form.Control placeholder="URS" />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Icon</Form.Label>
+                <Form.Control type="file" />
+              </Form.Group>
+              <Button
+                size={"sm"}
+                variant="link"
+                className="text-danger"
+                onClick={() => this.deleteLink(link.id)}
+              >
+                <i className="fa fa-minus"></i>
+              </Button>
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Url</Form.Label>
-              <Form.Control placeholder="URS" />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Icon</Form.Label>
-              <Form.Control type="file" />
-            </Form.Group>
-            <Button
-              size={"sm"}
-              variant="link"
-              className="text-danger"
-              onClick={() => this.deleteLink(link.id)}
-            >
-              <i className="fa fa-minus"></i>
+          ))}
+          <Form.Group className="text-center">
+            <Button size={"sm"} variant={"success"} onClick={this.addMoreLink}>
+              <i className="fa fa-plus"></i> Add More
             </Button>
           </Form.Group>
-        ))}
-        <Form.Group className="text-center">
-          <Button size={"sm"} variant={"success"} onClick={this.addMoreLink}>
-            <i className="fa fa-plus"></i> Add More
-          </Button>
+        </div>
+        <Form.Group>
+          <Form.Check
+            id="addInternalNavigation"
+            label={"Add Internal Navigation"}
+          />
         </Form.Group>
-      </div>
+        <Modal.Footer>
+          <Button onClick={onModalChange} variant="danger">
+            Cancel
+          </Button>
+          <Button onClick={onSaveComponent} variant="success">
+            Save
+          </Button>
+        </Modal.Footer>
+      </>
     );
   }
 }

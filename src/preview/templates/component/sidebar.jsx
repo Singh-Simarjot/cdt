@@ -2,9 +2,29 @@ import React, { Component } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import ProjectsContext from "../../../context/projectsContext";
 
+import $ from "jquery";
+
 import { NavLink } from "react-router-dom";
 
 class Sidebar extends Component {
+  componentDidMount() {
+    $(".home-sidebar .list-group-item h5").on("click", function() {
+      if (
+        $(this)
+          .parent(".list-group-item")
+          .hasClass("active")
+      ) {
+        $(this)
+          .parent()
+          .removeClass("active");
+      } else {
+        $(".home-sidebar .list-group-item").removeClass("active");
+        $(this)
+          .parent()
+          .addClass("active");
+      }
+    });
+  }
   static contextType = ProjectsContext;
 
   render() {

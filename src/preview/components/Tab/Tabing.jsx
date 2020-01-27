@@ -15,7 +15,7 @@ class Tabs extends Component {
   }
   render() {
     const { tabsList } = this.props;
-    const { selectedTabID } = this.context;
+    // const { selectedTabID } = this.context;
     return (
       <section className="tabing-section">
         <Container>

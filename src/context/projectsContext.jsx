@@ -8,7 +8,6 @@ export class ProjectsContext extends Component {
   state = {
     selectedProjectID: null,
     selectedPageID: null,
-    // selectedTabID: null,
     allProjects: [
       {
         id: 1,
@@ -197,25 +196,22 @@ export class ProjectsContext extends Component {
             title: "Tab 4",
             url: "/tab4"
           }
-        ]
+        ],
+        widgets: [{}]
       }
     }
   };
-  
 
   onSelectProject = id => {
     this.setState({ selectedProjectID: id });
-          
   };
   onSelectPage = id => {
-    const page = this.state.selectedProject.pages.filter(item  => item.id === id);
-    this.setState({ selectedPageID: id,selectedPage:page[0]});
-
-
+    const page = this.state.selectedProject.pages.filter(
+      item => item.id === id
+    );
+    // console.log(page, id);
+    this.setState({ selectedPageID: id, selectedPage: page[0] });
   };
-  // onSelectTab = id => {
-  //   this.setState({ selectedTabID: id });
-  // };
   getAllProjects = async () => {
     // const allProjects = await  getProjects()
     // this.setState({ allProjects:allProjects.data });
@@ -234,15 +230,15 @@ export class ProjectsContext extends Component {
     const allProjects = [item, ...this.state.allProjects];
     this.setState({ allProjects });
   };
-  editProject = (selectedProject) => {
-    this.setState({selectedProject})
-  }
+  editProject = selectedProject => {
+    this.setState({ selectedProject });
+  };
 
-  editPage = (data) =>{
+  editPage = data => {
     // this.setState({data})
     console.log(data);
-  }
-  
+  };
+
   // onDeleteProject = id => {
   //   const allProjects = this.state.allProjects.filter(item => item.id !== id);
   //   this.setState({ allProjects });
@@ -271,11 +267,10 @@ export class ProjectsContext extends Component {
           getAllPages: this.getAllPages,
           updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
-          editProject:this.editProject,
+          editProject: this.editProject,
           onDeleteProject: this.onDeleteProject,
           onDeletePage: this.onDeletePage,
           onSelectPage: this.onSelectPage
-          // onSelectTab: this.onSelectTab
         }}
       >
         {this.props.children}

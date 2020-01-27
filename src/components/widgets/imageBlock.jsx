@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-// import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import Dropzone from "react-dropzone-uploader";
 
 class ImageBlock extends Component {
@@ -18,18 +18,37 @@ class ImageBlock extends Component {
     console.log(e.target.value, section);
   };
   render() {
+    const { onSaveComponent, onModalChange } = this.props;
     return (
-      <div className="widgetsDiv">
-        <label className="dropImg">
-          <Dropzone
-            getUploadParams={this.getUploadParams}
-            onChangeStatus={this.handleChangeStatus}
-            onSubmit={this.handleSubmit}
-            maxFiles={1}
-            accept="image/*,audio/*,video/*"
+      <>
+        <Form.Group>
+          <div className="widgetsDiv">
+            <label className="dropImg">
+              <Dropzone
+                getUploadParams={this.getUploadParams}
+                onChangeStatus={this.handleChangeStatus}
+                onSubmit={this.handleSubmit}
+                maxFiles={1}
+                accept="image/*,audio/*,video/*"
+              />
+            </label>
+          </div>
+        </Form.Group>
+        <Form.Group>
+          <Form.Check
+            id="addInternalNavigation"
+            label={"Add Internal Navigation"}
           />
-        </label>
-      </div>
+        </Form.Group>
+        <Modal.Footer>
+          <Button onClick={onModalChange} variant="danger">
+            Cancel
+          </Button>
+          <Button onClick={onSaveComponent} variant="success">
+            Save
+          </Button>
+        </Modal.Footer>
+      </>
     );
   }
 }

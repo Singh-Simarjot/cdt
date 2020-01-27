@@ -6,7 +6,9 @@ import ComponentsList from "../components/componentsList";
 import ModalComponent from "../containers/modal/modalComponent";
 // import ComponentsTabs from "../components/componentsTab";
 import NavigationList from "../components/navigationList";
+
 import ProjectsContext from "../context/projectsContext";
+import { WidgetsContext } from "../context/widgetsContext";
 
 class AddNewPage extends Component {
   static contextType = ProjectsContext;
@@ -25,7 +27,8 @@ class AddNewPage extends Component {
       url: ""
     },
     showModalComponent: false,
-    modalData: null
+
+    modalData: { title: "", description: "", content: "" }
   };
   changeTemplate = e => {
     const page = { ...this.state.page };
@@ -34,9 +37,13 @@ class AddNewPage extends Component {
   };
 
   handleModal = modalData => {
+    // console.log(modalData);
+    // const page = this.state.page;
+    // page.data.widgets = [...page.data.widgets, modalData];
+    // this.setState({ page });
+
     this.setState({ showModalComponent: !this.state.showModalComponent }, () =>
       this.setModalContent(modalData)
-      
     );
   };
   setModalContent = modalData => {
@@ -53,7 +60,7 @@ class AddNewPage extends Component {
     );
 
     setTimeout(() => {
-      customItem.title = ""; 
+      customItem.title = "";
       customItem.url = "";
       this.setState({ customItem });
     }, 500);
@@ -69,6 +76,19 @@ class AddNewPage extends Component {
     customItem[e.target.name] = e.target.value;
     this.setState({ customItem });
   };
+  handleComponentInput = e => {
+    const modalData = { ...this.state.modalData };
+    console.log(e.target.name, e.target.value);
+    modalData[e.target.name] = e.target.value;
+    this.setState({ modalData });
+  };
+  saveComponent = () => {
+    const page = this.state.page;
+    const modalData = { ...this.state.modalData };
+    page.data.widgets = [...page.data.widgets, modalData];
+    this.setState({ page }, () => this.handleModal());
+  };
+
   render() {
     const { page } = this.state;
     const { selectedProject } = this.context;
@@ -77,7 +97,7 @@ class AddNewPage extends Component {
       item => item.templateType !== "TABS"
     );
     return (
-      <React.Fragment>
+      <WidgetsContext>
         {page.template === "DEFAULT" && (
           <ComponentsList onModalChange={this.handleModal} />
         )}
@@ -101,8 +121,10 @@ class AddNewPage extends Component {
           onModalChange={this.handleModal}
           showModal={this.state.showModalComponent}
           modalData={this.state.modalData}
+          oncomponentInput={this.handleComponentInput}
+          onSaveComponent={this.saveComponent}
         />
-      </React.Fragment>
+      </WidgetsContext>
     );
   }
 }

@@ -30,8 +30,12 @@ class Content extends Component {
         <div className="contentData">
           <Form.Group>
             <Form.Label>Project Title</Form.Label>
-            <Form.Control type="text" name="title" value={page.title}
-            onChange={this.props.onHandle} />
+            <Form.Control
+              type="text"
+              name="title"
+              value={page.title}
+              onChange={this.props.onHandle}
+            />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlSelect1">
             <Form.Label>Select Template</Form.Label>
@@ -50,21 +54,24 @@ class Content extends Component {
               className="addTabDara"
               onDragOver={e => this.handleDragOver(e)}
             >
-              {<label className="dropImg"> { page.data.tabs.length > 0 ? (
-                page.data.tabs.map(item => <li>{item.title}</li>)
-              ) : (
-                
-                  <span>Please select Pages from left Panel</span>
-               
-              )} </label>}
+              {
+                <label className="dropImg">
+                  {" "}
+                  {page.data.tabs.length > 0 ? (
+                    page.data.tabs.map(item => <li>{item.title}</li>)
+                  ) : (
+                    <span>Please select Pages from left Panel</span>
+                  )}{" "}
+                </label>
+              }
             </div>
           )}
           {page.template === "DEFAULT" &&
             page.data.widgets.map(item => (
               <ContentItem
                 icon={item.icon + " fa"}
-                title={item.label}
-                text="Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid Icons Grid"
+                title={item.title}
+                text={item.description}
                 onModalChange={this.props.onModalChange}
               />
             ))}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 
 class IconGrid extends Component {
   state = {
@@ -20,31 +20,48 @@ class IconGrid extends Component {
     });
   };
   render() {
+    const { onModalChange, onSaveComponent } = this.props;
     return (
-      <div className="widgetsDiv">
-        <Form.Group>
-          <Form.Label>Add Icon SVG</Form.Label>
-          <Form.Control type="file" accept="image/*" />
-        </Form.Group>
-        {this.state.items.map(item => (
-          <Form.Group className="addIceon" key={item.id}>
+      <>
+        <div className="widgetsDiv">
+          <Form.Group>
+            <Form.Label>Add Icon SVG</Form.Label>
             <Form.Control type="file" accept="image/*" />
-            <Button
-              size={"sm"}
-              variant="link"
-              className="text-danger"
-              onClick={() => this.deleteIcon(item.id)}
-            >
-              <i className="fa fa-minus"></i>
+          </Form.Group>
+          {this.state.items.map(item => (
+            <Form.Group className="addIceon" key={item.id}>
+              <Form.Control type="file" accept="image/*" />
+              <Button
+                size={"sm"}
+                variant="link"
+                className="text-danger"
+                onClick={() => this.deleteIcon(item.id)}
+              >
+                <i className="fa fa-minus"></i>
+              </Button>
+            </Form.Group>
+          ))}
+          <Form.Group className="text-center">
+            <Button size={"sm"} variant="success" onClick={this.addMoreIcon}>
+              <i className="fa fa-plus"></i> Add More
             </Button>
           </Form.Group>
-        ))}
-        <Form.Group className="text-center">
-          <Button size={"sm"} variant="success" onClick={this.addMoreIcon}>
-            <i className="fa fa-plus"></i> Add More
-          </Button>
+        </div>
+        <Form.Group>
+          <Form.Check
+            id="addInternalNavigation"
+            label={"Add Internal Navigation"}
+          />
         </Form.Group>
-      </div>
+        <Modal.Footer>
+          <Button onClick={onModalChange} variant="danger">
+            Cancel
+          </Button>
+          <Button onClick={onSaveComponent} variant="success">
+            Save
+          </Button>
+        </Modal.Footer>
+      </>
     );
   }
 }

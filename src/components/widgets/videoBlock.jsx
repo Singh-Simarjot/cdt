@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-import { Form } from "react-bootstrap";
+import { Form, Modal, Button } from "react-bootstrap";
 // import FigureImage from "react-bootstrap/FigureImage";
 
 class VideoBlock extends Component {
@@ -12,31 +12,48 @@ class VideoBlock extends Component {
     this.setState({ videoType });
   };
   render() {
+    const { onSaveComponent, onModalChange } = this.props;
     return (
-      <div className="widgetsDiv">
+      <>
+        <div className="widgetsDiv">
+          <Form.Group>
+            <Form.Label>Select Video Type</Form.Label>
+            <Form.Control as="select" onChange={e => this.videoType(e)}>
+              <option value="INTERNAL_STORAGE">Internal Storage</option>
+              <option value="URL">URL</option>
+            </Form.Control>
+          </Form.Group>
+          {this.state.videoType === "URL" && (
+            <Form.Group>
+              <Form.Label>Video Url</Form.Label>
+              <Form.Control />
+            </Form.Group>
+          )}
+          {this.state.videoType === "INTERNAL_STORAGE" && (
+            <Form.Group>
+              <Form.Label>Drag & Drop Video</Form.Label>
+              <label className="dropImg">
+                <input type="file" />
+                <span>Drag & Drop Video Here</span>
+              </label>
+            </Form.Group>
+          )}
+        </div>
         <Form.Group>
-          <Form.Label>Select Video Type</Form.Label>
-          <Form.Control as="select" onChange={e => this.videoType(e)}>
-            <option value="INTERNAL_STORAGE">Internal Storage</option>
-            <option value="URL">URL</option>
-          </Form.Control>
+          <Form.Check
+            id="addInternalNavigation"
+            label={"Add Internal Navigation"}
+          />
         </Form.Group>
-        {this.state.videoType === "URL" && (
-          <Form.Group>
-            <Form.Label>Video Url</Form.Label>
-            <Form.Control />
-          </Form.Group>
-        )}
-        {this.state.videoType === "INTERNAL_STORAGE" && (
-          <Form.Group>
-            <Form.Label>Drag & Drop Video</Form.Label>
-            <label className="dropImg">
-              <input type="file" />
-              <span>Drag & Drop Video Here</span>
-            </label>
-          </Form.Group>
-        )}
-      </div>
+        <Modal.Footer>
+          <Button onClick={onModalChange} variant="danger">
+            Cancel
+          </Button>
+          <Button onClick={onSaveComponent} variant="success">
+            Save
+          </Button>
+        </Modal.Footer>
+      </>
     );
   }
 }

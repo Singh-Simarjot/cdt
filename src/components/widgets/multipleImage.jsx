@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./widgets.scss";
 // import $ from "jquery";
 // import ko from "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js";
-// import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 
 class MultipleImage extends Component {
   state = {};
@@ -30,9 +30,11 @@ class MultipleImage extends Component {
     // });
   }
   render() {
+    const { onSaveComponent, onModalChange } = this.props;
     return (
-      <div className="widgetsDiv">
-        {/* <label className="dropImg">
+      <>
+        <div className="widgetsDiv">
+          {/* <label className="dropImg">
           <span>Drag Files or Click to Browse</span>
           <input
             className="dzu-input"
@@ -41,8 +43,8 @@ class MultipleImage extends Component {
             multiple="multiple"
           />
         </label> */}
-        {/* <input type="file" multiple /> */}
-        {/* <div className="container">
+          {/* <input type="file" multiple /> */}
+          {/* <div className="container">
           <div className="well" data-bind="fileDrag: fileData">
             <div className="form-group row">
               <div className="col-md-6">
@@ -100,7 +102,22 @@ class MultipleImage extends Component {
             Debug
           </button>
         </div> */}
-      </div>
+        </div>
+        <Form.Group>
+          <Form.Check
+            id="addInternalNavigation"
+            label={"Add Internal Navigation"}
+          />
+        </Form.Group>
+        <Modal.Footer>
+          <Button onClick={onModalChange} variant="danger">
+            Cancel
+          </Button>
+          <Button onClick={onSaveComponent} variant="success">
+            Save
+          </Button>
+        </Modal.Footer>
+      </>
     );
   }
 }
