@@ -2,15 +2,11 @@ import React, { Component } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import ProjectsContext from "../../../context/projectsContext";
 
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 class Sidebar extends Component {
   static contextType = ProjectsContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     const { selectedProject } = this.context;
 
@@ -19,14 +15,26 @@ class Sidebar extends Component {
         {selectedProject.navigation.length > 0 && (
           <ListGroup className="nav-list">
             <ListGroup.Item>
-              <Link to={"/preview"}>
-                   <h5>Home</h5>
-              </Link> 
+              <NavLink to={"/preview"}>
+                <h5>Home</h5>
+              </NavLink>
             </ListGroup.Item>
             {selectedProject.navigation.map(item => (
-              <ListGroup.Item>
+              <ListGroup.Item key={item.id}>
                 <h5>
-                  {item.title}
+                  {item.children !== undefined && item.children.length > 0 ? (
+                    item.title
+                  ) : (
+                    <NavLink
+                      to={"/preview" + item.url}
+                      onClick={() => {
+                        this.context.onSelectPage(item.id);
+                      }}
+                    >
+                      {" "}
+                      {item.title}{" "}
+                    </NavLink>
+                  )}
                   {item.children !== undefined && item.children.length > 0 && (
                     <span>
                       <i className="fa fa-angle-down" aria-hidden="true"></i>
@@ -36,10 +44,15 @@ class Sidebar extends Component {
                 {item.children !== undefined && item.children.length > 0 && (
                   <ListGroup className="nav-sub-list">
                     {item.children.map(childItem => (
-                      <ListGroup.Item>
-                        <Link to={"/preview" + childItem.url}>
+                      <ListGroup.Item key={childItem.id}>
+                        <NavLink
+                          to={"/preview" + childItem.url}
+                          onClick={() => {
+                            this.context.onSelectPage(childItem.id);
+                          }}
+                        >
                           {childItem.title}
-                        </Link>
+                        </NavLink>
                       </ListGroup.Item>
                     ))}
                   </ListGroup>

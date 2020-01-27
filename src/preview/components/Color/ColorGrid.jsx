@@ -113,15 +113,15 @@ class ColorGrid extends Component {
           color: "rgb(218, 30, 40)"
         },
         {
-          id: 1,
+          id: 2,
           color: "rgb(255, 131, 43)"
         },
         {
-          id: 1,
+          id: 3,
           color: "rgb(253, 209, 58)"
         },
         {
-          id: 1,
+          id: 4,
           color: "rgb(36, 161, 72)"
         }
       ]
@@ -147,6 +147,7 @@ class ColorGrid extends Component {
           <div className="color-pattern">
             {this.state.colorPlatte.map(platte => (
               <div
+                key={platte.id}
                 className="color-grid-box"
                 style={{ background: platte.color }}
               ></div>
@@ -156,6 +157,7 @@ class ColorGrid extends Component {
           <div className="color-pattern">
             {this.state.colorPlatte2.map(platte2 => (
               <div
+                key={platte2.id}
                 className="color-grid-box"
                 style={{ background: platte2.color }}
               ></div>
@@ -165,6 +167,7 @@ class ColorGrid extends Component {
           <div className="color-pattern">
             {this.state.alertColorPlatte.map(alert => (
               <div
+                key={alert.id}
                 className="color-grid-box"
                 style={{ background: alert.color }}
               ></div>

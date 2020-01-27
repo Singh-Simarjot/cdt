@@ -7,6 +7,8 @@ const Context = React.createContext();
 export class ProjectsContext extends Component {
   state = {
     selectedProjectID: null,
+    selectedPageID: null,
+    // selectedTabID: null,
     allProjects: [
       {
         id: 1,
@@ -87,10 +89,11 @@ export class ProjectsContext extends Component {
       }
     ],
     selectedProject: {
-      title:"",
-      description:"",
-      id:"",
-      data:{},
+      title: "Page 1",
+      description:
+        "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum ",
+      id: "1",
+      data: {},
 
       pages: [
         {
@@ -128,32 +131,44 @@ export class ProjectsContext extends Component {
       ],
       navigation: [
         {
+          id: 1,
           title: "asd",
           url: "/link1",
+          templateType: "TABS",
           children: [
-            { title: "Link 1", url: "/link1" },
-            { title: "Link 2", url: "/link2" },
-            { title: "Link 3", url: "/link3" }
+            { id: "1_1", title: "Link 1", url: "/link1/page1" },
+            { id: "1_2", title: "Link 2", url: "/link1/page2" },
+            { id: "1_3", title: "Link 3", url: "/link1/page3" },
+            { id: "1_4", title: "Link 4", url: "/link1/page4" }
           ]
         },
         {
-          title: "Link 1",
+          id: 2,
+          title: "Link 2",
           subtitle: <span>test</span>,
-          url: "/link1",
+          url: "/link2",
+          templateType: "TABS",
           children: [
-            { title: "Link 4", url: "/link4" },
-            { title: "Link 5", url: "/link5" },
-            { title: "Link 6", url: "/link6" }
+            { id: "2_1", title: "Link 5", url: "/link2/page1" },
+            { id: "2_2", title: "Link 6", url: "/link2/page2" },
+            { id: "2_3", title: "Link 7", url: "/link2/page3" }
           ]
         },
         {
-          title: "Link 7",
-          url: "/link7",
+          id: 3,
+          title: "Link 3",
+          url: "/link3",
           children: [
-            { title: "Link 1", url: "/link1" },
-            { title: "Link 2", url: "/link2" },
-            { title: "Link 3", url: "/link3" }
+            { id: "3_1", title: "Link 8", url: "/link3/page1" },
+            { id: "3_2", title: "Link 9", url: "/link3/page2" },
+            { id: "3_3", title: "Link 10", url: "/link3/page3" }
           ]
+        },
+        {
+          id: 4,
+          title: "Link 4",
+          url: "/link4",
+          children: []
         }
       ]
     },
@@ -164,13 +179,43 @@ export class ProjectsContext extends Component {
       dateEdited: 1579338582,
       author: "DEV1",
       templateType: "TABS",
-      data: "asdasdasd"
+      data: {
+        tabs: [
+          {
+            id: 2,
+            title: "Tab 2",
+            url: "/tab2"
+          },
+          {
+            id: 3,
+            title: "Tab 3",
+            url: "/ltab3"
+          },
+
+          {
+            id: 4,
+            title: "Tab 4",
+            url: "/tab4"
+          }
+        ]
+      }
     }
   };
+  
 
   onSelectProject = id => {
     this.setState({ selectedProjectID: id });
+          
   };
+  onSelectPage = id => {
+    const page = this.state.selectedProject.pages.filter(item  => item.id === id);
+    this.setState({ selectedPageID: id,selectedPage:page[0]});
+
+
+  };
+  // onSelectTab = id => {
+  //   this.setState({ selectedTabID: id });
+  // };
   getAllProjects = async () => {
     // const allProjects = await  getProjects()
     // this.setState({ allProjects:allProjects.data });
@@ -189,16 +234,31 @@ export class ProjectsContext extends Component {
     const allProjects = [item, ...this.state.allProjects];
     this.setState({ allProjects });
   };
-  onDeleteProject = id => {
-    const allProjects = this.state.allProjects.filter(item => item.id !== id);
-    this.setState({ allProjects });
-  };
+  editProject = (selectedProject) => {
+    this.setState({selectedProject})
+  }
+
+  editPage = (data) =>{
+    // this.setState({data})
+    console.log(data);
+  }
+  
+  // onDeleteProject = id => {
+  //   const allProjects = this.state.allProjects.filter(item => item.id !== id);
+  //   this.setState({ allProjects });
+  // };
   onDeletePage = id => {
     const selectedProject = this.state.selectedProject;
 
     let pages = selectedProject.pages.filter(item => item.id !== id);
     selectedProject.pages = pages;
     this.setState({ selectedProject });
+  };
+
+  onDeleteProject = id => {
+    const allProjects = this.state.allProjects;
+    let projects = allProjects.filter(item => item.id !== id);
+    this.setState({ allProjects: projects });
   };
 
   render() {
@@ -211,8 +271,11 @@ export class ProjectsContext extends Component {
           getAllPages: this.getAllPages,
           updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
+          editProject:this.editProject,
           onDeleteProject: this.onDeleteProject,
-          onDeletePage: this.onDeletePage
+          onDeletePage: this.onDeletePage,
+          onSelectPage: this.onSelectPage
+          // onSelectTab: this.onSelectTab
         }}
       >
         {this.props.children}

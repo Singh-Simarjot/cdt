@@ -23,11 +23,23 @@ class Preview extends Component {
         <Sidebar />
         <div className="main">
           <Switch>
-            {selectedProject.navigation.map(item => (
-              <Route path={"/preview" + item.url} component={DefaultTemplate} />
-            ))}
-
             <Route exact path="/preview" component={Home} />
+            {selectedProject.navigation.map(
+              item => (
+                (
+                  <Route
+                    path={"/preview" + item.url}
+                    component={DefaultTemplate}
+                  />
+                ),
+                item.children.map(item => (
+                  <Route
+                    path={"/preview" + item.url}
+                    component={DefaultTemplate}
+                  />
+                ))
+              )
+            )}
           </Switch>
 
           <Footer />

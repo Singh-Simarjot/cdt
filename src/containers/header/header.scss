@@ -1,7 +1,7 @@
 @import "../../assets/scss/mixins";
 @import "../../assets/scss/variables";
 .headerMain {
-  background-color: $theme-bg;
+  background-color: rgba($theme-bg, 0.9);
   color: $theme-text;
   .headerLogo {
     padding: 15px 0;

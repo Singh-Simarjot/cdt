@@ -14,6 +14,7 @@
     grid-template-columns: repeat(2,1fr);
     background: #e0e0e0;
     margin-top:15px;
+    color:#161616;
 
     @include sm{
         grid-template-columns: repeat(4,1fr);
@@ -74,7 +75,7 @@
     }
 }
 
-.grid{
+.grid-block{
     position: absolute;
     top:0;
     width:100%;

@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone-uploader";
 import ProjectsContext from "../context/projectsContext";
 
+
+
 class EditProject extends Component {
   static contextType = ProjectsContext;
 
@@ -48,6 +50,12 @@ class EditProject extends Component {
       ]
     }
   };
+
+  componentDidMount() {
+    const project = this.context.selectedProject;
+    this.setState({project})
+  }
+
   getUploadParams = ({ meta }) => {
     return { url: "https://httpbin.org/post" };
   };
@@ -57,6 +65,11 @@ class EditProject extends Component {
   handleSubmit = (files, allFiles) => {
     console.log(files.map(f => f.meta));
   };
+  // handleChange = (e, section) => {
+  //   const project = {...this.state.project}
+  //   project[e.target.name] = e.target.value
+  //    this.setState({project})
+  // };
   handleChange = (e, section) => {
     const project = {...this.state.project}
     project[e.target.name] = e.target.value
@@ -64,8 +77,10 @@ class EditProject extends Component {
   };
   addProject = (e) => {
     e.preventDefault();
-    console.log(this.context)
-    this.context.addNewProject(this.state.project)
+     
+    this.context.editProject(this.state.project);
+    this.props.history.push("/")
+
   }
 
 //   componentDidMount(){
@@ -97,8 +112,9 @@ class EditProject extends Component {
                         <Form.Label>Title</Form.Label>
                         <Form.Control
                           type="text"
-                          name="name"
-                          value={this.state.project.name}
+                          name="title"
+                          value={this.state.project.title}
+                          // value={this.context.selectedProject.title}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
                       </Form.Group>
@@ -109,6 +125,7 @@ class EditProject extends Component {
                           rows="4"
                           name="description"
                           value={this.state.project.description}
+                          // value={this.context.selectedProject.description}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
                       </Form.Group>
