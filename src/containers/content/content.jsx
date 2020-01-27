@@ -51,7 +51,7 @@ class Content extends Component {
               <option value="GLOSSARY"> Glossary Template</option> */}
             </Form.Control>
           </Form.Group>
-          {page.template === "TABS" && page.data.widgets !== undefined && (
+          {page.templateType === "TABS" && page.data.widgets !== undefined && (
             <div
               className="addTabDara"
               onDragOver={e => this.handleDragOver(e)}
@@ -68,7 +68,7 @@ class Content extends Component {
               }
             </div>
           )}
-          {page.template === "DEFAULT" &&
+          {page.templateType === "DEFAULT" &&
             page.data.widgets !== undefined && page.data.widgets.map(item => (
               <ContentItem
                 icon={item.icon + " fa"}
@@ -78,7 +78,7 @@ class Content extends Component {
               />
             ))}
           <br />
-          <Button onClick={this.props.saveData}>Save</Button>
+          <Button type="submit" onClick={e => this.props.onSave(e)}>Save</Button>
         </div>
       </div>
     );

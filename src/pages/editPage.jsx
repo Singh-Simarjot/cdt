@@ -24,12 +24,12 @@ class EditPage extends Component {
   componentDidMount() {
       const page= this.context.selectedPage;
       this.setState({page});
+      console.log(page)
   }
 
 
   handleChange = (e, section) => {
     const page = {...this.state.page}
-    console.log(page);
     page[e.target.name] = e.target.value
     this.setState({page})
   };
@@ -53,12 +53,18 @@ class EditPage extends Component {
     }
   };
 
+  addToNavigation = item => {
+    const page = this.state.page;
+    let tabs = [...page.data.tabs, item];
+    page.data.tabs = tabs;
+    this.setState({ page });
+    console.log(page);
+  };
   
   saveData = (e) => {
     e.preventDefault();
-    
     this.context.editPage(this.state.page);
-    this.props.history.push("/project/editpage");
+    this.props.history.push("/project");
   }
 
   render() {
@@ -79,7 +85,7 @@ class EditPage extends Component {
           customItem={this.state.customItem}
           // onChangeField={this.handleInput}
           // onModalChange={this.handleModal}
-          // addToNavigation={this.addToNavigation}
+          addToNavigation={this.addToNavigation}
           
           />
         )}

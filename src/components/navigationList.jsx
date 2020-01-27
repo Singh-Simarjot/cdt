@@ -11,6 +11,7 @@ class NavigationList extends Component {
     const { customItem } = this.props;
     return customItem.title === "" || customItem.url === "" ? true : false;
   };
+  
   render() {
     const { pages, customItem } = this.props;
 

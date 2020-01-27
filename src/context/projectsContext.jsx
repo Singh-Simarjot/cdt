@@ -250,11 +250,15 @@ export class ProjectsContext extends Component {
     this.setState({ selectedProject });
   };
 
-  editPage = data => {
-    // this.setState({data})
-    console.log(data);
-  };
-
+  editPage = (selectedPage) => {
+    this.setState({selectedPage})
+    console.log(selectedPage);
+    const selectedProject= {...this.state.selectedProject};
+    selectedProject.pages.filter(item=> item.id === selectedPage.id ? (item.title = selectedPage.title,item.templateType = selectedPage.templateType ): item ) 
+    
+    this.setState({selectedProject})
+  }
+  
   // onDeleteProject = id => {
   //   const allProjects = this.state.allProjects.filter(item => item.id !== id);
   //   this.setState({ allProjects });
@@ -283,7 +287,8 @@ export class ProjectsContext extends Component {
           getAllPages: this.getAllPages,
           updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
-          editProject: this.editProject,
+          editProject:this.editProject,
+          editPage:this.editPage,
           onDeleteProject: this.onDeleteProject,
           onDeletePage: this.onDeletePage,
           onSelectPage: this.onSelectPage
