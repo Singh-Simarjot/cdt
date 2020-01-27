@@ -36,6 +36,7 @@ class AddNewPage extends Component {
   handleModal = modalData => {
     this.setState({ showModalComponent: !this.state.showModalComponent }, () =>
       this.setModalContent(modalData)
+      
     );
   };
   setModalContent = modalData => {
