@@ -6,7 +6,7 @@ class IconGrid extends Component {
   state = {
     widget: {
       id: "",
-      icon: "fa-code",
+      icon: "fa-th-large",
       type: "ICON_GRID",
       title: "",
       description: "",
@@ -21,11 +21,13 @@ class IconGrid extends Component {
     }
   };
   addMoreIcon = () => {
-    const items = this.state.items;
-    const obj = { id: items.length + 1, val: items.length + 1 };
-    this.setState({
-      items: [...this.state.items, obj]
-    });
+    const dummyid = nextId();
+    const widget = this.state.widget;
+    const obj = { id: dummyid, url: "" };
+    widget.content.icons.push(obj);
+
+    // widget.content.icons = [...widget.content.icons, obj];
+    this.setState({ widget });
   };
   deleteIcon = id => {
     const items = this.state.items.filter(m => m.id !== id);
@@ -50,12 +52,12 @@ class IconGrid extends Component {
   // };
   addIcon = e => {
     const widget = this.state.widget;
-    widget.content.icons.id = nextId();
+    widget.content.icons.id = e.target.id;
+    widget.content.icons.url = e.target.value;
+    this.setState({ widget });
   };
   onSaveContent = () => {
     const dummyid = nextId();
-
-    // let data = this.state.data;
     const widget = this.state.widget;
     widget.id = dummyid;
     this.setState({ widget });
@@ -89,11 +91,11 @@ class IconGrid extends Component {
             {this.state.widget.content.icons.map(icon => (
               <Form.Group className="addIceon" key={icon.id}>
                 <Form.Control
-                  id={icon.id}
                   type="file"
                   accept="image/*"
-                  value={icon.url}
-                  ocChange={e => this.addIcon(e)}
+                  id={icon.id}
+                  // value={icon.url}
+                  onChange={e => this.addIcon(e)}
                 />
                 <Button
                   size={"sm"}
