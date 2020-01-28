@@ -195,7 +195,7 @@ export class ProjectsContext extends Component {
       author: "DEV1",
       templateType: "TABS",
       data: {
-        tabs: [ 
+        tabs: [
           {
             id: 2,
             title: "Tab 2",
@@ -250,15 +250,20 @@ export class ProjectsContext extends Component {
     this.setState({ selectedProject });
   };
 
-  editPage = (selectedPage) => {
-    this.setState({selectedPage})
+  editPage = selectedPage => {
+    this.setState({ selectedPage });
     console.log(selectedPage);
-    const selectedProject= {...this.state.selectedProject};
-    selectedProject.pages.filter(item=> item.id === selectedPage.id ? (item.title = selectedPage.title,item.templateType = selectedPage.templateType ): item ) 
-    
-    this.setState({selectedProject})
-  }
-  
+    const selectedProject = { ...this.state.selectedProject };
+    selectedProject.pages.filter(item =>
+      item.id === selectedPage.id
+        ? ((item.title = selectedPage.title),
+          (item.templateType = selectedPage.templateType))
+        : item
+    );
+
+    this.setState({ selectedProject });
+  };
+
   // onDeleteProject = id => {
   //   const allProjects = this.state.allProjects.filter(item => item.id !== id);
   //   this.setState({ allProjects });
@@ -287,11 +292,12 @@ export class ProjectsContext extends Component {
           getAllPages: this.getAllPages,
           updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
-          editProject:this.editProject,
-          editPage:this.editPage,
+          editProject: this.editProject,
+          editPage: this.editPage,
           onDeleteProject: this.onDeleteProject,
           onDeletePage: this.onDeletePage,
-          onSelectPage: this.onSelectPage
+          onSelectPage: this.onSelectPage,
+          onSaveNewPage: this.saveNewPage
         }}
       >
         {this.props.children}

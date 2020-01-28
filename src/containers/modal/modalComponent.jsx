@@ -146,33 +146,13 @@ class ModalComponent extends Component {
           onHide={() => {
             this.props.onModalChange();
           }}
+          title={modalData.title}
+          description={modalData.description}
         >
           <Modal.Header closeButton>
             <i className={modalData.icon + " fa"}></i> {modalData.label}
           </Modal.Header>
-          <Modal.Body>
-            <Form.Group>
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                value={modalData.title}
-                placeholder="Title"
-                name="title"
-                onChange={e => oncomponentInput(e)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                value={modalData.description}
-                onChange={e => oncomponentInput(e)}
-                as="textarea"
-                rows="2"
-                name="description"
-              />
-            </Form.Group>
-            {this.renderComponent()}
-          </Modal.Body>
+          {this.renderComponent()}
           {/* <Modal.Footer>
             <Button onClick={onModalChange} variant="danger">
               Cancel

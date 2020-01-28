@@ -82,13 +82,20 @@ class AddNewPage extends Component {
     modalData[e.target.name] = e.target.value;
     this.setState({ modalData });
   };
-  saveComponent = () => {
+  saveComponent = modalData => {
+    console.log("data", modalData);
     const page = this.state.page;
-    const modalData = { ...this.state.modalData };
+    // const modalData = { ...this.state.modalData };
     page.data.widgets = [...page.data.widgets, modalData];
     this.setState({ page }, () => this.handleModal());
   };
 
+  saveData = e => {
+    e.preventDefault();
+
+    this.context.onSaveNewPage(this.state.page);
+    this.props.history.push("/project");
+  };
   render() {
     const { page } = this.state;
     const { selectedProject } = this.context;
@@ -115,6 +122,7 @@ class AddNewPage extends Component {
           page={this.state.page}
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}
+          onSaveData={this.saveData}
         />
         <ModalComponent
           title={this.props.text}

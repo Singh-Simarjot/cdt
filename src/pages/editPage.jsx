@@ -10,33 +10,33 @@ import ProjectsContext from "../context/projectsContext";
 import { WidgetsContext } from "../context/widgetsContext";
 
 class EditPage extends Component {
-    static contextType = ProjectsContext;
+  static contextType = ProjectsContext;
 
   state = {
     page: {},
     showModalComponent: false,
-    modalData: null,customItem: {
+    modalData: null,
+    customItem: {
       title: "",
       url: ""
-    },
+    }
   };
 
   componentDidMount() {
-      const page= this.context.selectedPage;
-      this.setState({page});
-      console.log(page)
+    const page = this.context.selectedPage;
+    this.setState({ page });
+    console.log(page);
   }
 
-
   handleChange = (e, section) => {
-    const page = {...this.state.page}
-    page[e.target.name] = e.target.value
-    this.setState({page})
+    const page = { ...this.state.page };
+    page[e.target.name] = e.target.value;
+    this.setState({ page });
   };
 
   changeTemplate = e => {
     const page = { ...this.state.page };
-    page.templateType    = e.target.value;
+    page.templateType = e.target.value;
     this.setState({ page });
   };
 
@@ -60,12 +60,12 @@ class EditPage extends Component {
     this.setState({ page });
     console.log(page);
   };
-  
-  saveData = (e) => {
+
+  saveData = e => {
     e.preventDefault();
     this.context.editPage(this.state.page);
     this.props.history.push("/project");
-  }
+  };
 
   render() {
     const { page } = this.state;
@@ -79,14 +79,13 @@ class EditPage extends Component {
           <ComponentsList onModalChange={this.handleModal} />
         )}
         {page.templateType === "TABS" && (
-          <NavigationList 
-          onCustomItem={this.addCustomItem}
-          pages={pages}
-          customItem={this.state.customItem}
-          // onChangeField={this.handleInput}
-          // onModalChange={this.handleModal}
-          addToNavigation={this.addToNavigation}
-          
+          <NavigationList
+            onCustomItem={this.addCustomItem}
+            pages={pages}
+            customItem={this.state.customItem}
+            // onChangeField={this.handleInput}
+            // onModalChange={this.handleModal}
+            addToNavigation={this.addToNavigation}
           />
         )}
         <Content

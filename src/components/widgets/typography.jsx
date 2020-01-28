@@ -22,13 +22,38 @@ class Typography extends Component {
   //   const fontText = eText.target.value;
   //   this.setState({ fontText });
   // };
-
   render() {
-    const { onModalChange, onSaveComponent } = this.props;
+    const {
+      onModalChange,
+      onSaveComponent,
+      title,
+      description,
+      oncomponentInput
+    } = this.props;
     return (
       <>
-        <div className="widgetsDiv">
-          {/* <link href={this.state.fontUrl} rel="stylesheet" type="text/css" />
+        <Modal.Body>
+          <Form.Group>
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              value={title}
+              name="title"
+              onChange={e => oncomponentInput(e)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              value={description}
+              onChange={e => oncomponentInput(e)}
+              as="textarea"
+              rows="2"
+              name="description"
+            />
+          </Form.Group>
+          <div className="widgetsDiv">
+            {/* <link href={this.state.fontUrl} rel="stylesheet" type="text/css" />
         <h2
           className="py-2 text-center"
           style={{ fontFamily: this.state.fontName }}
@@ -55,30 +80,31 @@ class Typography extends Component {
           />
         </Form.Group> */}
 
+            <Form.Group>
+              <FontPicker
+                apiKey="AIzaSyBN9L9tYefx2Ge4y6fybH5ymuZVjlqczYw"
+                activeFontFamily={this.state.activeFontFamily}
+                onChange={nextFont =>
+                  this.setState({
+                    activeFontFamily: nextFont.family
+                  })
+                }
+                limit={"all"}
+              />
+            </Form.Group>
+            <Form.Group>
+              <h4 className="apply-font">
+                The font will be applied to this text.
+              </h4>
+            </Form.Group>
+          </div>
           <Form.Group>
-            <FontPicker
-              apiKey="AIzaSyBN9L9tYefx2Ge4y6fybH5ymuZVjlqczYw"
-              activeFontFamily={this.state.activeFontFamily}
-              onChange={nextFont =>
-                this.setState({
-                  activeFontFamily: nextFont.family
-                })
-              }
-              limit={"all"}
+            <Form.Check
+              id="addInternalNavigation"
+              label={"Add Internal Navigation"}
             />
           </Form.Group>
-          <Form.Group>
-            <h4 className="apply-font">
-              The font will be applied to this text.
-            </h4>
-          </Form.Group>
-        </div>
-        <Form.Group>
-          <Form.Check
-            id="addInternalNavigation"
-            label={"Add Internal Navigation"}
-          />
-        </Form.Group>
+        </Modal.Body>
         <Modal.Footer>
           <Button onClick={onModalChange} variant="danger">
             Cancel

@@ -12,7 +12,6 @@ class Content extends Component {
 
   render() {
     const { page } = this.props;
-   
 
     return (
       <div className="content">
@@ -43,10 +42,16 @@ class Content extends Component {
             <Form.Control
               as="select"
               onChange={e => this.props.onChangeTemplate(e)}
-              
             >
-              <option  selected = {page.templateType === "DEFAULT"}  value="DEFAULT">Default Template</option>
-              <option selected = {page.templateType === "TABS"} value="TABS">Tabs Template</option>
+              <option
+                selected={page.templateType === "DEFAULT"}
+                value="DEFAULT"
+              >
+                Default Template
+              </option>
+              <option selected={page.templateType === "TABS"} value="TABS">
+                Tabs Template
+              </option>
               {/* <option value="GRID">Grid Template</option>
               <option value="GLOSSARY"> Glossary Template</option> */}
             </Form.Control>
@@ -69,16 +74,20 @@ class Content extends Component {
             </div>
           )}
           {page.templateType === "DEFAULT" &&
-            page.data.widgets !== undefined && page.data.widgets.map(item => (
+            page.data.widgets !== undefined &&
+            page.data.widgets.map(item => (
               <ContentItem
                 icon={item.icon + " fa"}
                 title={item.title}
                 text={item.description}
                 onModalChange={this.props.onModalChange}
+                key={item.id}
               />
             ))}
           <br />
-          <Button type="submit" onClick={e => this.props.onSave(e)}>Save</Button>
+          <Button type="submit" onClick={e => this.props.onSave(e)}>
+            Save
+          </Button>
         </div>
       </div>
     );

@@ -18,28 +18,55 @@ class ImageBlock extends Component {
     console.log(e.target.value, section);
   };
   render() {
-    const { onSaveComponent, onModalChange } = this.props;
+    const {
+      onSaveComponent,
+      onModalChange,
+      title,
+      description,
+      oncomponentInput
+    } = this.props;
     return (
       <>
-        <Form.Group>
-          <div className="widgetsDiv">
-            <label className="dropImg">
-              <Dropzone
-                getUploadParams={this.getUploadParams}
-                onChangeStatus={this.handleChangeStatus}
-                onSubmit={this.handleSubmit}
-                maxFiles={1}
-                accept="image/*,audio/*,video/*"
-              />
-            </label>
-          </div>
-        </Form.Group>
-        <Form.Group>
-          <Form.Check
-            id="addInternalNavigation"
-            label={"Add Internal Navigation"}
-          />
-        </Form.Group>
+        <Modal.Body>
+          <Form.Group>
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              value={title}
+              name="title"
+              onChange={e => oncomponentInput(e)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              value={description}
+              onChange={e => oncomponentInput(e)}
+              as="textarea"
+              rows="2"
+              name="description"
+            />
+          </Form.Group>
+          <Form.Group>
+            <div className="widgetsDiv">
+              <label className="dropImg">
+                <Dropzone
+                  getUploadParams={this.getUploadParams}
+                  onChangeStatus={this.handleChangeStatus}
+                  onSubmit={this.handleSubmit}
+                  maxFiles={1}
+                  accept="image/*,audio/*,video/*"
+                />
+              </label>
+            </div>
+          </Form.Group>
+          <Form.Group>
+            <Form.Check
+              id="addInternalNavigation"
+              label={"Add Internal Navigation"}
+            />
+          </Form.Group>
+        </Modal.Body>
         <Modal.Footer>
           <Button onClick={onModalChange} variant="danger">
             Cancel

@@ -30,11 +30,37 @@ class MultipleImage extends Component {
     // });
   }
   render() {
-    const { onSaveComponent, onModalChange } = this.props;
+    const {
+      onSaveComponent,
+      onModalChange,
+      title,
+      description,
+      oncomponentInput
+    } = this.props;
     return (
       <>
-        <div className="widgetsDiv">
-          {/* <label className="dropImg">
+        <Modal.Body>
+          <Form.Group>
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              value={title}
+              name="title"
+              onChange={e => oncomponentInput(e)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              value={description}
+              onChange={e => oncomponentInput(e)}
+              as="textarea"
+              rows="2"
+              name="description"
+            />
+          </Form.Group>
+          <div className="widgetsDiv">
+            {/* <label className="dropImg">
           <span>Drag Files or Click to Browse</span>
           <input
             className="dzu-input"
@@ -43,8 +69,8 @@ class MultipleImage extends Component {
             multiple="multiple"
           />
         </label> */}
-          {/* <input type="file" multiple /> */}
-          {/* <div className="container">
+            {/* <input type="file" multiple /> */}
+            {/* <div className="container">
           <div className="well" data-bind="fileDrag: fileData">
             <div className="form-group row">
               <div className="col-md-6">
@@ -102,13 +128,14 @@ class MultipleImage extends Component {
             Debug
           </button>
         </div> */}
-        </div>
-        <Form.Group>
-          <Form.Check
-            id="addInternalNavigation"
-            label={"Add Internal Navigation"}
-          />
-        </Form.Group>
+          </div>
+          <Form.Group>
+            <Form.Check
+              id="addInternalNavigation"
+              label={"Add Internal Navigation"}
+            />
+          </Form.Group>
+        </Modal.Body>
         <Modal.Footer>
           <Button onClick={onModalChange} variant="danger">
             Cancel
