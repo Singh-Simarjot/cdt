@@ -4,6 +4,8 @@ import "./content.scss";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import ContentItem from "./contentItem";
+import SortableTree from "react-sortable-tree";
+import "react-sortable-tree/style.css"; // This only needs to be imported once in your app
 
 class Content extends Component {
   handleDragOver = e => {
@@ -11,7 +13,7 @@ class Content extends Component {
   };
 
   render() {
-    const { page } = this.props;
+    const { page ,sortNavigation } = this.props;
 
     return (
       <div className="content">
@@ -62,13 +64,24 @@ class Content extends Component {
               onDragOver={e => this.handleDragOver(e)}
             >
               {
-                <label className="dropImg">
-                  {" "}
+                <label className="contentData contentDataNavigation dropImg">
+                  {/* <SortableTree
+                treeData={page.data.tabs}
+                // onChange={page =>
+                //   this.props.sortNavigation({ page })
+                // }
+                maxDepth="2"
+              /> */}
+
                   {page.data.tabs.length > 0 ? (
-                    page.data.tabs.map(item => <li>{item.title}</li>)
+                    <SortableTree
+                      onChange={tabs => sortNavigation({ tabs })}
+                      treeData={page.data.tabs}
+                      maxDepth="1"
+                    />
                   ) : (
                     <span>Please select Pages from left Panel</span>
-                  )}{" "}
+                  )}
                 </label>
               }
             </div>

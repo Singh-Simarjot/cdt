@@ -16,7 +16,7 @@ class AddNewPage extends Component {
   state = {
     page: {
       title: "dd",
-      template: "DEFAULT",
+      templateType: "DEFAULT",
       data: {
         widgets: [],
         tabs: []
@@ -32,7 +32,7 @@ class AddNewPage extends Component {
   };
   changeTemplate = e => {
     const page = { ...this.state.page };
-    page.template = e.target.value;
+    page.templateType = e.target.value;
     this.setState({ page });
   };
 
@@ -105,10 +105,10 @@ class AddNewPage extends Component {
     );
     return (
       <WidgetsContext>
-        {page.template === "DEFAULT" && (
+        {page.templateType === "DEFAULT" && (
           <ComponentsList onModalChange={this.handleModal} />
         )}
-        {page.template === "TABS" && (
+        {page.templateType === "TABS" && (
           <NavigationList
             onCustomItem={this.addCustomItem}
             pages={pages}

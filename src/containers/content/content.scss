@@ -234,4 +234,18 @@
 
 .addTabDara {
   margin: 15px 0 0 0;
+
+  .contentDataNavigation{
+    width:100%;
+
+  &.dropImg{
+    .rst__tree{
+    span{
+      border: 0;
+      padding: 0;
+    }
+  }
+  }
+  }
 }
+

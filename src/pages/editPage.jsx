@@ -61,11 +61,39 @@ class EditPage extends Component {
     console.log(page);
   };
 
-  saveData = e => {
+  addCustomItem = () => {
+    const customItem = { ...this.state.customItem };
+    this.setState({ customItem }, () =>
+      this.addToNavigation(this.state.customItem)
+    );
+
+    // setTimeout(() => {
+    //   customItem.title = "";
+    //   customItem.url = "";
+    //   this.setState({ customItem });
+    // }, 500);
+  };
+
+  handleInput = e => {
+    const customItem = { ...this.state.customItem };
+    customItem[e.target.name] = e.target.value;
+    this.setState({ customItem });
+  };
+  
+  saveData = (e) => {
     e.preventDefault();
     this.context.editPage(this.state.page);
     this.props.history.push("/project");
   };
+
+  sortNavigation = (tabs) => {
+
+    const page = {...this.state.page};
+    page.data.tabs = tabs.tabs;
+    console.log(page)
+    this.setState({page})
+
+  } 
 
   render() {
     const { page } = this.state;
@@ -79,13 +107,14 @@ class EditPage extends Component {
           <ComponentsList onModalChange={this.handleModal} />
         )}
         {page.templateType === "TABS" && (
-          <NavigationList
-            onCustomItem={this.addCustomItem}
-            pages={pages}
-            customItem={this.state.customItem}
-            // onChangeField={this.handleInput}
-            // onModalChange={this.handleModal}
-            addToNavigation={this.addToNavigation}
+          <NavigationList 
+          onCustomItem={this.addCustomItem}
+          pages={pages}
+          customItem={this.state.customItem}
+          onChangeField={this.handleInput}
+          // onModalChange={this.handleModal}
+          addToNavigation={this.addToNavigation}
+          
           />
         )}
         <Content
@@ -94,6 +123,7 @@ class EditPage extends Component {
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}
           onSave={this.saveData}
+          sortNavigation={this.sortNavigation}
         />
         <ModalComponent
           title={this.props.text}
