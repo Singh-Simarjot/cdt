@@ -25,7 +25,7 @@ class EditPage extends Component {
   componentDidMount() {
     const page = this.context.selectedPage;
     this.setState({ page });
-    console.log(page);
+    
   }
 
   handleChange = (e, section) => {
@@ -58,7 +58,7 @@ class EditPage extends Component {
     let tabs = [...page.data.tabs, item];
     page.data.tabs = tabs;
     this.setState({ page });
-    console.log(page);
+  
   };
 
   addCustomItem = () => {
@@ -119,6 +119,7 @@ class EditPage extends Component {
         )}
         <Content
           page={this.state.page}
+          pageLabel = "Edit Page"
           onHandle={this.handleChange}
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}

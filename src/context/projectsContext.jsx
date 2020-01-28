@@ -250,9 +250,17 @@ export class ProjectsContext extends Component {
     this.setState({ selectedProject });
   };
 
+  saveNewPage = (page) => {
+    const selectedProject = { ...this.state.selectedProject };
+    selectedProject.pages = [page,...selectedProject.pages];
+
+    this.setState({ selectedProject });
+
+  }
+
   editPage = selectedPage => {
     this.setState({ selectedPage });
-    console.log(selectedPage);
+    
     const selectedProject = { ...this.state.selectedProject };
     selectedProject.pages.filter(item =>
       item.id === selectedPage.id

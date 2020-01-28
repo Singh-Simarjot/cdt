@@ -76,6 +76,11 @@ class AddNewPage extends Component {
     customItem[e.target.name] = e.target.value;
     this.setState({ customItem });
   };
+  handleChange = (e, section) => {
+    const page = { ...this.state.page };
+    page[e.target.name] = e.target.value;
+    this.setState({ page });
+  };
   handleComponentInput = e => {
     const modalData = { ...this.state.modalData };
     console.log(e.target.name, e.target.value);
@@ -119,10 +124,12 @@ class AddNewPage extends Component {
           />
         )}
         <Content
+          pageLabel = "Create New Page"
           page={this.state.page}
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}
-          onSaveData={this.saveData}
+          onSave={this.saveData}
+          onHandle={this.handleChange}
         />
         <ModalComponent
           title={this.props.text}

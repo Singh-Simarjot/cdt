@@ -13,14 +13,14 @@ class Content extends Component {
   };
 
   render() {
-    const { page ,sortNavigation } = this.props;
+    const { page ,sortNavigation,pageLabel ,onSave } = this.props;
 
     return (
       <div className="content">
         <div className="contentTop">
           <Row>
             <Col>
-              <h2>Create new page</h2>
+              <h2>{pageLabel}</h2>
             </Col>
             <Col xs={4} className="text-right">
               <Button size="sm" variant="success">
@@ -98,7 +98,7 @@ class Content extends Component {
               />
             ))}
           <br />
-          <Button type="submit" onClick={e => this.props.onSave(e)}>
+          <Button type="submit" onClick={e => onSave(e)}>
             Save
           </Button>
         </div>
