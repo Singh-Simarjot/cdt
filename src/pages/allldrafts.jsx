@@ -5,7 +5,7 @@ import ProjectsContext from "../context/projectsContext";
 import moment from "moment";
 import ModalDelete from "../components/modalDelete/modalDelete";
 
-class AllPages extends Component {
+class Drafts extends Component {
   static contextType = ProjectsContext;
 
   state = {
@@ -33,7 +33,7 @@ class AllPages extends Component {
         <div className="contentTop">
           <Row>
             <Col>
-              <h2>Pages</h2>
+              <h2>Drafts</h2>
             </Col>
             <Col xs={4} className="text-right">
               <Link to="/project/addnew" size="sm" className="btn btn-success">
@@ -87,7 +87,7 @@ class AllPages extends Component {
                         <i className="fa fa-trash"></i>
                       </Button>
                       <Button size={"sm"} variant="warning">
-                        Mark as Draft
+                      Publish
                       </Button>
                     </td>
                     <td></td>
@@ -107,4 +107,4 @@ class AllPages extends Component {
   }
 }
 
-export default AllPages;
+export default Drafts;

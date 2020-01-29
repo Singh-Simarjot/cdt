@@ -8,6 +8,8 @@ import AddNewPage from "./addNewPage";
 import Navigation from './projectNavigation';
 import ProjectsContext  from '../context/projectsContext';
 import EditPage from "./editPage";
+ 
+import Drafts from './allldrafts';
 
 class ProjectDetail extends Component {
   static contextType = ProjectsContext;
@@ -32,7 +34,8 @@ class ProjectDetail extends Component {
             <Route exact path="/project/navigation" component={Navigation} />
               <Route exact path="/project/addnew" component={AddNewPage} />
               <Route exact path="/project/editpage" component={EditPage} />
-              EditPage
+              <Route exact path="/project/drafts" component={Drafts} />
+               
               <Route exact path="/project" component={AllPages} />
             </Switch>
           </div>

@@ -141,9 +141,8 @@ class Dashbord extends Component {
                       <th>Date Created</th>
                       <th>Date Edited</th>
                       <th>Author</th>
-                      <th>Preview</th>
-                      <th>Edit</th>
-                      <th>Delete</th>
+                      <th>Actions</th>
+                       
                     </tr>
                   </thead>
                   <tbody>
@@ -168,8 +167,6 @@ class Dashbord extends Component {
                           >
                             <i className="fa fa-eye"></i>
                           </Button>
-                        </td>
-                        <td>
                           <Button
                             size={"sm"}
                             variant="info"
@@ -177,8 +174,6 @@ class Dashbord extends Component {
                           >
                             <i className="fa fa-pencil"></i>
                           </Button>
-                        </td>
-                        <td>
                           <Button
                             // onClick={() =>
                             //   this.context.onDeleteProject(project.id)
@@ -192,6 +187,7 @@ class Dashbord extends Component {
                             <i className="fa fa-trash"></i>
                           </Button>
                         </td>
+                         
                       </tr>
                     ))}
                   </tbody>
