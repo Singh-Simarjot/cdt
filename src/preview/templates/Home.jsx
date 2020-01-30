@@ -22,11 +22,9 @@ import DeveloperResource from "./developerResource";
 import ArticlePost from "./articlePost";
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+   
   render() {
+    const {title, description, data} = this.props
     return (
       <React.Fragment>
         <section className="video-section">
@@ -71,15 +69,11 @@ class Home extends Component {
           <Container>
             <Row>
               <Col md={4}>
-                <div className="heading">Carbon Design System</div>
+                <div className="heading">{title}</div>
               </Col>
               <Col md={4} lg={8}>
                 <div className="heading-description">
-                  Carbon is IBM’s <strong> open-source </strong> design system
-                  for products and experiences. With the IBM Design Language as
-                  its foundation, the system consists of working code, design
-                  tools and resources, human interface guidelines, and a vibrant
-                  community of contributors.
+                 {description}
                 </div>
               </Col>
             </Row>

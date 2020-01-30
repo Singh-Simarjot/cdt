@@ -23,7 +23,7 @@ class Preview extends Component {
         <Sidebar />
         <div className="main">
           <Switch>
-            <Route exact path="/preview" component={Home} />
+            <Route exact path="/preview"  render={props => <Home {...props} title={selectedProject.title} description={selectedProject.description}  data= {selectedProject.data} />   } />
             {selectedProject.navigation.map(
               item => (
                 (

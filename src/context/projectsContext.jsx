@@ -275,13 +275,11 @@ export class ProjectsContext extends Component {
   };
 
   markDraftPage = page => {
-    // const selectedPage = this.state.selectedPage;
-
-    // this.context.onDeletePage(this.state.selectedPage);
-    // this.setState({ showDeleteModal: false });
-    
-    // selectedPage.saved = false;
-   console.log(selectedPage);
+    const selectedPage = {...this.state.selectedPage};
+    const selectedProject = {...this.state.selectedProject};
+    selectedProject.pages.filter(item => item.id === page.id ? item.saved = !page.saved : item )
+    selectedPage.saved =  !page.saved;
+    this.setState({selectedPage,selectedProject});
   }
 
   // onDeleteProject = id => {

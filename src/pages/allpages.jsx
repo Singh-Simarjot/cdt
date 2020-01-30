@@ -28,6 +28,7 @@ class AllPages extends Component {
 
   render() {
     const { selectedProject } = this.context;
+    const   pages = selectedProject.pages.filter(item => item.saved === true);
     return (
       <div className="content">
         <div className="contentTop">
@@ -43,7 +44,7 @@ class AllPages extends Component {
           </Row>
         </div>
         <div className="contentData mt-4">
-          {selectedProject.pages.length > 0 && (
+          {pages.length > 0 ? (
             <Table responsive="md" hover variant="">
               <thead>
                 <tr>
@@ -57,7 +58,7 @@ class AllPages extends Component {
                 </tr>
               </thead>
               <tbody>
-                {selectedProject.pages.map(project => (
+                {pages.map(project => (
                   <tr key={project.id}>
                     <td>{project.id}</td>
                     <td>{project.title}</td>
@@ -86,7 +87,7 @@ class AllPages extends Component {
                       >
                         <i className="fa fa-trash"></i>
                       </Button>
-                      <Button size={"sm"} variant="warning">
+                      <Button size={"sm"} onClick={()=>  this.context.markDraftPage(project)} variant="warning">
                         Mark as Draft
                       </Button>
                     </td>
@@ -95,7 +96,7 @@ class AllPages extends Component {
                 ))}
               </tbody>
             </Table>
-          )}
+          ): "Pages not exist, Please create a new page"}
         </div>
         <ModalDelete
           showModal={this.state.showDeleteModal}

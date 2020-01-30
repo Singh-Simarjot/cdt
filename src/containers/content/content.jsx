@@ -101,9 +101,10 @@ class Content extends Component {
           <Button type="submit" onClick={e => onSave(e)}>
             Save
           </Button>
-          <Button type="submit" className="ml-2" onClick={e => onMarkDraft(e)}>
-            Mark as Draft
+          <Button variant="warning" type="submit" className="ml-2" onClick={e => onMarkDraft(e)}>
+             {page.saved ? "Mark as Draft" : "Publish" }   
           </Button>
+          
         </div>
       </div>
     );

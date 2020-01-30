@@ -28,6 +28,7 @@ class Drafts extends Component {
 
   render() {
     const { selectedProject } = this.context;
+    const drafts =  selectedProject.pages.filter(item=> item.saved === false);
     return (
       <div className="content">
         <div className="contentTop">
@@ -36,14 +37,14 @@ class Drafts extends Component {
               <h2>Drafts</h2>
             </Col>
             <Col xs={4} className="text-right">
-              <Link to="/project/addnew" size="sm" className="btn btn-success">
-                Create New Page
+              <Link to="/project/" size="sm" className="btn btn-success">
+               All Pages
               </Link>
             </Col>
           </Row>
         </div>
         <div className="contentData mt-4">
-          {selectedProject.pages.length > 0 && (
+          {drafts.length > 0 ? (
             <Table responsive="md" hover variant="">
               <thead>
                 <tr>
@@ -57,7 +58,7 @@ class Drafts extends Component {
                 </tr>
               </thead>
               <tbody>
-                {selectedProject.pages.map(project => (
+                { drafts.map(project => (
                   <tr key={project.id}>
                     <td>{project.id}</td>
                     <td>{project.title}</td>
@@ -86,7 +87,7 @@ class Drafts extends Component {
                       >
                         <i className="fa fa-trash"></i>
                       </Button>
-                      <Button size={"sm"} variant="warning">
+                      <Button size={"sm"} onClick={()=>  this.context.markDraftPage(project)} variant="warning">
                       Publish
                       </Button>
                     </td>
@@ -95,7 +96,7 @@ class Drafts extends Component {
                 ))}
               </tbody>
             </Table>
-          )}
+          ) : "Draft is Empty"}
         </div>
         <ModalDelete
           showModal={this.state.showDeleteModal}
