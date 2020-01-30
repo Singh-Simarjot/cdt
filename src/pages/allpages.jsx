@@ -28,7 +28,7 @@ class AllPages extends Component {
 
   render() {
     const { selectedProject } = this.context;
-    const   pages = selectedProject.pages.filter(item => item.saved === true);
+    const pages = selectedProject.pages.filter(item => item.saved === true);
     return (
       <div className="content">
         <div className="contentTop">
@@ -84,10 +84,16 @@ class AllPages extends Component {
                         onClick={() => {
                           this.handleModalDelete(project.id);
                         }}
+                        className="ml-2"
                       >
                         <i className="fa fa-trash"></i>
                       </Button>
-                      <Button size={"sm"} onClick={()=>  this.context.markDraftPage(project)} variant="warning">
+                      <Button
+                        size={"sm"}
+                        onClick={() => this.context.markDraftPage(project)}
+                        variant="warning"
+                        className="ml-2"
+                      >
                         Mark as Draft
                       </Button>
                     </td>
@@ -96,7 +102,9 @@ class AllPages extends Component {
                 ))}
               </tbody>
             </Table>
-          ): "Pages not exist, Please create a new page"}
+          ) : (
+            "Pages not exist, Please create a new page"
+          )}
         </div>
         <ModalDelete
           showModal={this.state.showDeleteModal}

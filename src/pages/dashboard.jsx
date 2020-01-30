@@ -142,7 +142,6 @@ class Dashbord extends Component {
                       <th>Date Edited</th>
                       <th>Author</th>
                       <th>Actions</th>
-                       
                     </tr>
                   </thead>
                   <tbody>
@@ -171,6 +170,7 @@ class Dashbord extends Component {
                             size={"sm"}
                             variant="info"
                             onClick={() => this.onEditProject(project.id)}
+                            className="ml-2"
                           >
                             <i className="fa fa-pencil"></i>
                           </Button>
@@ -183,11 +183,11 @@ class Dashbord extends Component {
                             }}
                             size={"sm"}
                             variant="danger"
+                            className="ml-2"
                           >
                             <i className="fa fa-trash"></i>
                           </Button>
                         </td>
-                         
                       </tr>
                     ))}
                   </tbody>
