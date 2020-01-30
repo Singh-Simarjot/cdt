@@ -13,7 +13,7 @@ class Content extends Component {
   };
 
   render() {
-    const { page ,sortNavigation,pageLabel ,onSave } = this.props;
+    const { page ,sortNavigation,pageLabel ,onSave,onMarkDraft } = this.props;
 
     return (
       <div className="content">
@@ -23,9 +23,9 @@ class Content extends Component {
               <h2>{pageLabel}</h2>
             </Col>
             <Col xs={4} className="text-right">
-              <Button size="sm" variant="success">
+              {/* <Button size="sm" variant="success">
                 Preview
-              </Button>
+              </Button> */}
             </Col>
           </Row>
         </div>
@@ -100,6 +100,9 @@ class Content extends Component {
           <br />
           <Button type="submit" onClick={e => onSave(e)}>
             Save
+          </Button>
+          <Button type="submit" className="ml-2" onClick={e => onMarkDraft(e)}>
+            Mark as Draft
           </Button>
         </div>
       </div>

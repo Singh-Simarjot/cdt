@@ -86,6 +86,12 @@ class EditPage extends Component {
     this.props.history.push("/project");
   };
 
+  onMarkDraft = (e) =>{
+    e.preventDefault();
+    this.context.markDraftPage(this.state.page);
+    // this.props.history.push("/project");
+  }
+
   sortNavigation = (tabs) => {
 
     const page = {...this.state.page};
@@ -125,6 +131,7 @@ class EditPage extends Component {
           onModalChange={this.handleModal}
           onSave={this.saveData}
           sortNavigation={this.sortNavigation}
+          onMarkDraft ={this.onMarkDraft}
         />
         <ModalComponent
           title={this.props.text}

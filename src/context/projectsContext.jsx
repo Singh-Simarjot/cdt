@@ -105,7 +105,8 @@ export class ProjectsContext extends Component {
           data: {
             widgets: [],
             tabs: []
-          }
+          },
+          saved:true
         },
         {
           id: 2,
@@ -117,7 +118,8 @@ export class ProjectsContext extends Component {
           data: {
             widgets: [],
             tabs: []
-          }
+          },
+          saved:true
         },
         {
           id: 3,
@@ -129,7 +131,8 @@ export class ProjectsContext extends Component {
           data: {
             widgets: [],
             tabs: []
-          }
+          },
+          saved:true
         },
         {
           id: 4,
@@ -141,7 +144,8 @@ export class ProjectsContext extends Component {
           data: {
             widgets: [],
             tabs: []
-          }
+          },
+          saved:true
         }
       ],
       navigation: [
@@ -253,9 +257,7 @@ export class ProjectsContext extends Component {
   saveNewPage = (page) => {
     const selectedProject = { ...this.state.selectedProject };
     selectedProject.pages = [page,...selectedProject.pages];
-
     this.setState({ selectedProject });
-
   }
 
   editPage = selectedPage => {
@@ -271,6 +273,16 @@ export class ProjectsContext extends Component {
 
     this.setState({ selectedProject });
   };
+
+  markDraftPage = page => {
+    // const selectedPage = this.state.selectedPage;
+
+    // this.context.onDeletePage(this.state.selectedPage);
+    // this.setState({ showDeleteModal: false });
+    
+    // selectedPage.saved = false;
+   console.log(selectedPage);
+  }
 
   // onDeleteProject = id => {
   //   const allProjects = this.state.allProjects.filter(item => item.id !== id);
@@ -305,7 +317,8 @@ export class ProjectsContext extends Component {
           onDeleteProject: this.onDeleteProject,
           onDeletePage: this.onDeletePage,
           onSelectPage: this.onSelectPage,
-          onSaveNewPage: this.saveNewPage
+          onSaveNewPage: this.saveNewPage,
+          markDraftPage:this.markDraftPage
         }}
       >
         {this.props.children}
