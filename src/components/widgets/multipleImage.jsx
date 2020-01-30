@@ -3,40 +3,88 @@ import "./widgets.scss";
 // import $ from "jquery";
 // import ko from "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js";
 import { Button, Form, Modal } from "react-bootstrap";
+import nextId from "react-id-generator";
 
 class MultipleImage extends Component {
-  state = {};
-  componentDidMount() {
-    // $(function() {
-    //   var viewModel = {};
-    //   viewModel.fileData = ko.observable({
-    //     dataURL: ko.observable()
-    //     // base64String: ko.observable(),
-    //   });
-    //   viewModel.multiFileData = ko.observable({
-    //     dataURLArray: ko.observableArray()
-    //   });
-    //   viewModel.onClear = function(fileData) {
-    //     if (confirm("Are you sure?")) {
-    //       fileData.clear && fileData.clear();
-    //     }
-    //   };
-    //   viewModel.debug = function() {
-    //     window.viewModel = viewModel;
-    //     console.log(ko.toJSON(viewModel));
-    //     debugger;
-    //   };
-    //   ko.applyBindings(viewModel);
-    // });
+  state = {
+    items: [
+      {
+        id: "1",
+        url: "",
+        delete: null
+      }
+    ],
+    widget: {
+      id: "",
+      icon: "fa-picture-o",
+      type: "MULTIPLE_IMAGE",
+      title: "",
+      description: "",
+      internalNavigation: false,
+      content: {
+        icons: []
+      }
+    }
+  };
+
+  addMoreIcon = () => {
+    const dummyid = nextId();
+    const obj = { id: dummyid, url: "", delete: true };
+    const items = [...this.state.items, obj];
+    this.setState({ items });
+  };
+  deleteIcon = id => {
+    const items = this.state.items.filter(m => m.id !== id);
+    this.setState({ items });
+  };
+
+  //
+  titleInput = e => {
+    const widget = this.state.widget;
+    widget.title = e.target.value;
+    this.setState({ widget });
+  };
+  descriptionInput = e => {
+    const widget = this.state.widget;
+    widget.description = e.target.value;
+    this.setState({ widget });
+  };
+
+  addIcon = e => {
+    const items = this.state.items;
+    items.filter(item =>
+      item.id === e.target.id ? (item.url = e.target.value) : item
+    );
+    this.setState({ items });
+  };
+  onSaveContent = () => {
+    const dummyid = nextId();
+    const widget = this.state.widget;
+    widget.id = dummyid;
+    widget.content.icons = this.state.items;
+    this.setState({ widget });
+    this.props.onSaveComponent(widget);
+  };
+
+  internalNavigation = e => {
+    const widget = { ...this.state.widget };
+    widget.internalNavigation = !this.state.widget.internalNavigation;
+    this.setState({ widget });
+  };
+
+  disabledSave() {
+    const widget = this.state.widget;
+    const items = this.state.items;
+
+    return items.filter(item => item.url === "").length !== 0 ||
+      widget.title == "" ||
+      widget.description == ""
+      ? true
+      : false;
   }
   render() {
-    const {
-      onSaveComponent,
-      onModalChange,
-      title,
-      description,
-      oncomponentInput
-    } = this.props;
+    const { onModalChange } = this.props;
+    const { widget, items } = this.state;
     return (
       <>
         <Modal.Body>
@@ -44,95 +92,60 @@ class MultipleImage extends Component {
             <Form.Label>Title</Form.Label>
             <Form.Control
               type="text"
-              value={title}
-              name="title"
-              onChange={e => oncomponentInput(e)}
+              value={widget.title}
+              onChange={e => this.titleInput(e)}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label>Description</Form.Label>
             <Form.Control
-              value={description}
-              onChange={e => oncomponentInput(e)}
+              value={widget.description}
+              onChange={e => this.descriptionInput(e)}
               as="textarea"
               rows="2"
-              name="description"
             />
           </Form.Group>
           <div className="widgetsDiv">
-            {/* <label className="dropImg">
-          <span>Drag Files or Click to Browse</span>
-          <input
-            className="dzu-input"
-            type="file"
-            accept="image/*"
-            multiple="multiple"
-          />
-        </label> */}
-            {/* <input type="file" multiple /> */}
-            {/* <div className="container">
-          <div className="well" data-bind="fileDrag: fileData">
-            <div className="form-group row">
-              <div className="col-md-6">
-                <img
-                  style="height: 125px;"
-                  className="img-rounded  thumb"
-                  data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL"
-                />
-                <div data-bind="ifnot: fileData().dataURL">
-                  <label className="drag-label">Drag file here</label>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <input
+            {items.map(item => (
+              <Form.Group className="addIceon" key={item.id}>
+                <Form.Control
                   type="file"
-                  data-bind="fileInput: fileData, customFileInput: {
-              buttonClass: 'btn btn-success',
-              fileNameClass: 'disabled form-control',
-              onClear: onClear,
-            }"
                   accept="image/*"
+                  id={item.id}
+                  // value={item.url}
+                  onChange={e => this.addIcon(e)}
                 />
-              </div>
-            </div>
-          </div>
-
-          <h3>Multiple File Uploads</h3>
-          <div className="well" data-bind="fileDrag: multiFileData">
-            <div className="form-group row">
-              <div className="col-md-6">
-                <img
-                  style="height: 100px; margin: 5px;"
-                  className="img-rounded  thumb"
-                  data-bind="attr: { src: dataURL }, visible: dataURL"
-                />
-                <div data-bind="ifnot: fileData().dataURL">
-                  <label className="drag-label">Drag files here</label>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <input
-                  type="file"
-                  multiple
-                  data-bind="fileInput: multiFileData, customFileInput: {
-              buttonClass: 'btn btn-success',
-              fileNameClass: 'disabled form-control',
-              onClear: onClear,
-            }"
-                  accept="image/*"
-                />
-              </div>
-            </div>
-          </div>
-          <button className="btn btn-default" data-bind="click: debug">
-            Debug
-          </button>
-        </div> */}
+                <Button
+                  size={"sm"}
+                  variant="link"
+                  className={item.delete ? "text-danger" : "text-danger d-none"}
+                  onClick={() => this.deleteIcon(item.id)}
+                >
+                  <i className="fa fa-minus"></i>
+                </Button>
+              </Form.Group>
+            ))}
+            <Form.Group className="text-center">
+              <Button
+                size={"sm"}
+                variant="success"
+                onClick={this.addMoreIcon}
+                disabled={
+                  this.state.items.filter(item => item.url === "").length > 0
+                    ? true
+                    : false
+                }
+              >
+                <i className="fa fa-plus"></i> Add More
+              </Button>
+            </Form.Group>
           </div>
           <Form.Group>
             <Form.Check
               id="addInternalNavigation"
               label={"Add Internal Navigation"}
+              value={widget.internalNavigation}
+              onChange={e => this.internalNavigation(e)}
             />
           </Form.Group>
         </Modal.Body>
@@ -140,7 +153,11 @@ class MultipleImage extends Component {
           <Button onClick={onModalChange} variant="danger">
             Cancel
           </Button>
-          <Button onClick={onSaveComponent} variant="success">
+          <Button
+            onClick={this.onSaveContent}
+            variant="success"
+            disabled={this.disabledSave()}
+          >
             Save
           </Button>
         </Modal.Footer>

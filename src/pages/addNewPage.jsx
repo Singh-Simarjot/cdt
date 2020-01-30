@@ -124,7 +124,7 @@ class AddNewPage extends Component {
           />
         )}
         <Content
-          pageLabel = "Create New Page"
+          pageLabel="Create New Page"
           page={this.state.page}
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}
@@ -136,7 +136,7 @@ class AddNewPage extends Component {
           onModalChange={this.handleModal}
           showModal={this.state.showModalComponent}
           modalData={this.state.modalData}
-          oncomponentInput={this.handleComponentInput}
+          // oncomponentInput={this.handleComponentInput}
           onSaveComponent={this.saveComponent}
         />
       </WidgetsContext>

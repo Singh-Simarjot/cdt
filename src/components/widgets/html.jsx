@@ -10,6 +10,7 @@ class Html extends Component {
       type: "HTML",
       title: "",
       description: "",
+      internalNavigation: false,
       content: ""
     }
   };
@@ -28,6 +29,11 @@ class Html extends Component {
     widget.content = e.target.value;
     this.setState({ widget });
   };
+  internalNavigation = e => {
+    const widget = { ...this.state.widget };
+    widget.internalNavigation = !this.state.widget.internalNavigation;
+    this.setState({ widget });
+  };
   onSaveContent = () => {
     const dummyid = nextId();
 
@@ -37,6 +43,16 @@ class Html extends Component {
     this.setState({ widget });
     this.props.onSaveComponent(widget);
   };
+  disabledSave() {
+    const widget = this.state.widget;
+    const items = this.state.items;
+
+    return widget.content == "" ||
+      widget.title == "" ||
+      widget.description == ""
+      ? true
+      : false;
+  }
   render() {
     const { onSaveComponent, onModalChange, oncomponentInput } = this.props;
     const { widget } = this.state;
@@ -75,6 +91,8 @@ class Html extends Component {
             <Form.Check
               id="addInternalNavigation"
               label={"Add Internal Navigation"}
+              value={widget.internalNavigation}
+              onChange={e => this.internalNavigation(e)}
             />
           </Form.Group>
         </Modal.Body>
@@ -82,7 +100,11 @@ class Html extends Component {
           <Button onClick={onModalChange} variant="danger">
             Cancel
           </Button>
-          <Button onClick={this.onSaveContent} variant="success">
+          <Button
+            onClick={this.onSaveContent}
+            variant="success"
+            disabled={this.disabledSave()}
+          >
             Save
           </Button>
         </Modal.Footer>

@@ -18,6 +18,7 @@ class TextBlock extends Component {
       type: "TEXT_BLOCK",
       title: "",
       description: "",
+      internalNavigation: false,
       content: ""
     }
   };
@@ -39,6 +40,11 @@ class TextBlock extends Component {
     widget.description = description;
     this.setState({ widget });
   }
+  internalNavigation = e => {
+    const widget = { ...this.state.widget };
+    widget.internalNavigation = !this.state.widget.internalNavigation;
+    this.setState({ widget });
+  };
 
   onSaveContent = () => {
     const dummyid = nextId();
@@ -50,6 +56,17 @@ class TextBlock extends Component {
 
     this.props.onSaveComponent(widget);
   };
+
+  disabledSave() {
+    const widget = this.state.widget;
+    const items = this.state.items;
+
+    return widget.content == "" ||
+      widget.title == "" ||
+      widget.description == ""
+      ? true
+      : false;
+  }
 
   config = {
     placeholder: "",
@@ -96,6 +113,8 @@ class TextBlock extends Component {
             <Form.Check
               id="addInternalNavigation"
               label={"Add Internal Navigation"}
+              value={widget.internalNavigation}
+              onChange={e => this.internalNavigation(e)}
             />
           </Form.Group>
         </Modal.Body>
@@ -103,7 +122,11 @@ class TextBlock extends Component {
           <Button onClick={onModalChange} variant="danger">
             Cancel
           </Button>
-          <Button onClick={this.onSaveContent} variant="success">
+          <Button
+            onClick={this.onSaveContent}
+            variant="success"
+            disabled={this.disabledSave()}
+          >
             Save
           </Button>
         </Modal.Footer>

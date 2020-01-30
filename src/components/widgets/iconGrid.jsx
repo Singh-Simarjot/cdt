@@ -4,30 +4,31 @@ import { Button, Form, Modal } from "react-bootstrap";
 import nextId from "react-id-generator";
 class IconGrid extends Component {
   state = {
+    items: [
+      {
+        id: "1",
+        url: "",
+        delete: null
+      }
+    ],
     widget: {
       id: "",
       icon: "fa-th-large",
       type: "ICON_GRID",
       title: "",
       description: "",
+      internalNavigation: false,
       content: {
-        icons: [
-          {
-            id: "1",
-            url: ""
-          }
-        ]
+        icons: []
       }
     }
   };
+
   addMoreIcon = () => {
     const dummyid = nextId();
-    const widget = this.state.widget;
-    const obj = { id: dummyid, url: "" };
-    widget.content.icons.push(obj);
-
-    // widget.content.icons = [...widget.content.icons, obj];
-    this.setState({ widget });
+    const obj = { id: dummyid, url: "", delete: true };
+    const items = [...this.state.items, obj];
+    this.setState({ items });
   };
   deleteIcon = id => {
     const items = this.state.items.filter(m => m.id !== id);
@@ -45,28 +46,43 @@ class IconGrid extends Component {
     widget.description = e.target.value;
     this.setState({ widget });
   };
-  // contentInput = e => {
-  //   const widget = this.state.widget;
-  //   widget.content = e.target.value;
-  //   this.setState({ widget });
-  // };
+
   addIcon = e => {
-    const widget = this.state.widget;
-    widget.content.icons.id = e.target.id;
-    widget.content.icons.url = e.target.value;
-    this.setState({ widget });
+    const items = this.state.items;
+    items.filter(item =>
+      item.id === e.target.id ? (item.url = e.target.value) : item
+    );
+    this.setState({ items });
   };
   onSaveContent = () => {
     const dummyid = nextId();
     const widget = this.state.widget;
     widget.id = dummyid;
+    widget.content.icons = this.state.items;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
   };
-  //
+
+  internalNavigation = e => {
+    const widget = { ...this.state.widget };
+    widget.internalNavigation = !this.state.widget.internalNavigation;
+    this.setState({ widget });
+  };
+
+  disabledSave() {
+    const widget = this.state.widget;
+    const items = this.state.items;
+
+    return items.filter(item => item.url === "").length !== 0 ||
+      widget.title == "" ||
+      widget.description == ""
+      ? true
+      : false;
+  }
+
   render() {
     const { onModalChange } = this.props;
-    const { widget } = this.state;
+    const { widget, items } = this.state;
     return (
       <>
         <Modal.Body>
@@ -88,49 +104,36 @@ class IconGrid extends Component {
             />
           </Form.Group>
           <div className="widgetsDiv">
-            {this.state.widget.content.icons.map(icon => (
-              <Form.Group className="addIceon" key={icon.id}>
+            {items.map(item => (
+              <Form.Group className="addIceon" key={item.id}>
                 <Form.Control
                   type="file"
                   accept="image/*"
-                  id={icon.id}
-                  // value={icon.url}
+                  id={item.id}
+                  // value={item.url}
                   onChange={e => this.addIcon(e)}
                 />
                 <Button
                   size={"sm"}
                   variant="link"
-                  className="text-danger"
-                  onClick={() => this.deleteIcon(icon.id)}
-                >
-                  <i className="fa fa-minus"></i>
-                </Button>
-              </Form.Group>
-            ))}
-            {/* <Form.Group>
-              <Form.Label>Add Icon SVG</Form.Label>
-              <Form.Control
-                type="file"
-                accept="image/*"
-                value={widget.content}
-                onChange={e => this.contentInput(e)}
-              />
-            </Form.Group> */}
-            {/* {this.state.items.map(item => (
-              <Form.Group className="addIceon" key={item.id}>
-                <Form.Control type="file" accept="image/*" />
-                <Button
-                  size={"sm"}
-                  variant="link"
-                  className="text-danger"
+                  className={item.delete ? "text-danger" : "text-danger d-none"}
                   onClick={() => this.deleteIcon(item.id)}
                 >
                   <i className="fa fa-minus"></i>
                 </Button>
               </Form.Group>
-            ))} */}
+            ))}
             <Form.Group className="text-center">
-              <Button size={"sm"} variant="success" onClick={this.addMoreIcon}>
+              <Button
+                size={"sm"}
+                variant="success"
+                onClick={this.addMoreIcon}
+                disabled={
+                  this.state.items.filter(item => item.url === "").length > 0
+                    ? true
+                    : false
+                }
+              >
                 <i className="fa fa-plus"></i> Add More
               </Button>
             </Form.Group>
@@ -139,6 +142,8 @@ class IconGrid extends Component {
             <Form.Check
               id="addInternalNavigation"
               label={"Add Internal Navigation"}
+              value={widget.internalNavigation}
+              onChange={e => this.internalNavigation(e)}
             />
           </Form.Group>
         </Modal.Body>
@@ -146,7 +151,11 @@ class IconGrid extends Component {
           <Button onClick={onModalChange} variant="danger">
             Cancel
           </Button>
-          <Button onClick={this.onSaveContent} variant="success">
+          <Button
+            onClick={this.onSaveContent}
+            variant="success"
+            disabled={this.disabledSave()}
+          >
             Save
           </Button>
         </Modal.Footer>

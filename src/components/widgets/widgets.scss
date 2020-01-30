@@ -13,3 +13,37 @@
     }
   }
 }
+.colorPalette {
+  .colorPaletteRow {
+    background-color: rgba($theme-bg, 0.1);
+    padding: 15px 15px 0;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-right: 55px;
+    & > .row {
+      position: relative;
+      .addMoreColor {
+        display: inline-block;
+      }
+    }
+    .colorBox {
+      position: relative;
+      padding-right: 75px;
+      button {
+        position: absolute;
+        top: 0;
+        &.btn-success {
+          right: 35px;
+        }
+        &.btn-danger {
+          right: 0;
+        }
+      }
+    }
+    & > button {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+  }
+}

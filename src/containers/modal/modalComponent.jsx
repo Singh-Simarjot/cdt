@@ -18,7 +18,7 @@ class ModalComponent extends Component {
   renderComponent() {
     const {
       modalData,
-      oncomponentInput,
+      // oncomponentInput,
       onModalChange,
       onSaveComponent
     } = this.props;
@@ -28,7 +28,7 @@ class ModalComponent extends Component {
           <Html
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -37,7 +37,7 @@ class ModalComponent extends Component {
           <Typography
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -46,7 +46,7 @@ class ModalComponent extends Component {
           <IconGrid
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -55,7 +55,7 @@ class ModalComponent extends Component {
           <ColorPalette
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -64,7 +64,7 @@ class ModalComponent extends Component {
           <MultipleImage
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -73,7 +73,7 @@ class ModalComponent extends Component {
           <ImageBlock
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -82,7 +82,7 @@ class ModalComponent extends Component {
           <VideoBlock
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -91,7 +91,7 @@ class ModalComponent extends Component {
           <IframeBlock
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -100,7 +100,7 @@ class ModalComponent extends Component {
           <CodeSnippets
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -109,7 +109,7 @@ class ModalComponent extends Component {
           <CodeSnippetsWithView
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -118,7 +118,7 @@ class ModalComponent extends Component {
           <ExternalPageLinkGrid
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -127,7 +127,7 @@ class ModalComponent extends Component {
           <TextBlock
             data={modalData.content}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
+            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
