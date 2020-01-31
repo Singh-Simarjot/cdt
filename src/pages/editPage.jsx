@@ -105,6 +105,12 @@ class EditPage extends Component {
     this.setState({ page }, () => this.handleModal());
   };
 
+  deleteWidgets = id => {
+    const page = this.state.page;
+    page.data.widgets = page.data.widgets.filter(item => item.id !== id);
+    this.setState({ page });
+  };
+
   render() {
     const { page } = this.state;
     const { selectedProject } = this.context;
@@ -135,6 +141,7 @@ class EditPage extends Component {
           onSave={this.saveData}
           sortNavigation={this.sortNavigation}
           onMarkDraft={this.onMarkDraft}
+          deleteWidgets={this.deleteWidgets}
         />
         <ModalComponent
           title={this.props.text}
