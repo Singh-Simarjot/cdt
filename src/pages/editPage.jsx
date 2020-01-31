@@ -98,7 +98,7 @@ class EditPage extends Component {
   };
 
   saveComponent = modalData => {
-    console.log("Page Data", modalData);
+    // console.log("Page Data", modalData);
     const page = this.state.page;
     // const modalData = { ...this.state.modalData };
     page.data.widgets = [...page.data.widgets, modalData];

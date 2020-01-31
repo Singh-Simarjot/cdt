@@ -57,7 +57,7 @@ class ContentItem extends Component {
             </ButtonToolbar>
           </div>
         </div>
-        <Modal
+        {/* <Modal
           size={"md"}
           show={this.state.showModal}
           onHide={() => {
@@ -102,7 +102,7 @@ class ContentItem extends Component {
             </Button>
             <Button variant="success">Save</Button>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
         <ModalDelete
           showModal={this.state.showDeleteModal}
           modalAction={this.handleModalDelete}
