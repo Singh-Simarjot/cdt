@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, ButtonToolbar, Modal, Form } from "react-bootstrap";
 // import ModalComponent from "../modal/modalComponent";
 import ModalDelete from "../../components/modalDelete/modalDelete";
+import ProjectsContext from "../../context/projectsContext";
 class ContentItem extends Component {
   state = {
     showModal: false,
@@ -12,6 +13,11 @@ class ContentItem extends Component {
   }
   handleModalDelete = () => {
     this.setState({ showDeleteModal: !this.state.showDeleteModal });
+  };
+  static contextType = ProjectsContext;
+  confirmAction = () => {
+    this.props.deleteWidgets();
+    this.setState({ showDeleteModal: false });
   };
   render() {
     return (
@@ -100,6 +106,7 @@ class ContentItem extends Component {
         <ModalDelete
           showModal={this.state.showDeleteModal}
           modalAction={this.handleModalDelete}
+          onconfirm={this.confirmAction}
         />
       </React.Fragment>
     );

@@ -13,7 +13,7 @@ class Content extends Component {
   };
 
   render() {
-    const { page ,sortNavigation,pageLabel ,onSave,onMarkDraft } = this.props;
+    const { page, sortNavigation, pageLabel, onSave, onMarkDraft } = this.props;
 
     return (
       <div className="content">
@@ -95,16 +95,23 @@ class Content extends Component {
                 text={item.description}
                 onModalChange={this.props.onModalChange}
                 key={item.id}
+                id={item.id}
+                page={page}
+                deleteWidgets={() => this.props.deleteWidgets(item.id)}
               />
             ))}
           <br />
           <Button type="submit" onClick={e => onSave(e)}>
             Save
           </Button>
-          <Button variant="warning" type="submit" className="ml-2" onClick={e => onMarkDraft(e)}>
-             {page.saved ? "Mark as Draft" : "Publish" }   
+          <Button
+            variant="warning"
+            type="submit"
+            className="ml-2"
+            onClick={e => onMarkDraft(e)}
+          >
+            {page.saved ? "Mark as Draft" : "Publish"}
           </Button>
-          
         </div>
       </div>
     );

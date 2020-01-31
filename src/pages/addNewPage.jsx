@@ -105,6 +105,13 @@ class AddNewPage extends Component {
     this.props.history.push("/project");
     // console.log(this.state.page);
   };
+
+  deleteWidgets = id => {
+    const page = this.state.page;
+    page.data.widgets = page.data.widgets.filter(item => item.id !== id);
+    this.setState({ page });
+  };
+
   render() {
     const { page } = this.state;
     const { selectedProject } = this.context;
@@ -134,6 +141,7 @@ class AddNewPage extends Component {
           onModalChange={this.handleModal}
           onSave={this.saveData}
           onHandle={this.handleChange}
+          deleteWidgets={this.deleteWidgets}
         />
         <ModalComponent
           title={this.props.text}

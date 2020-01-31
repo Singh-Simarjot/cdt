@@ -318,7 +318,8 @@ export class ProjectsContext extends Component {
           onDeletePage: this.onDeletePage,
           onSelectPage: this.onSelectPage,
           onSaveNewPage: this.saveNewPage,
-          markDraftPage: this.markDraftPage
+          markDraftPage: this.markDraftPage,
+          onDeleteWidgets: this.onDeleteWidgets
         }}
       >
         {this.props.children}
