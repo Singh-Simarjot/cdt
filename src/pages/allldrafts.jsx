@@ -71,14 +71,14 @@ class Drafts extends Component {
                     <td>{project.templateType}</td>
                     <td>{project.author}</td>
                     <td>
-                      <Button
+                      <Button className="mr-2"
                         size={"sm"}
                         variant="info"
                         onClick={() => this.onEditPage(project.id)}
                       >
                         <i className="fa fa-pencil"></i>
                       </Button>
-                      <Button
+                      <Button className="mr-2"
                         size={"sm"}
                         variant="danger"
                         onClick={() => {
@@ -88,13 +88,8 @@ class Drafts extends Component {
                       >
                         <i className="fa fa-trash"></i>
                       </Button>
-                      <Button
-                        size={"sm"}
-                        onClick={() => this.context.markDraftPage(project)}
-                        variant="warning"
-                        className="ml-2"
-                      >
-                        Publish
+                      <Button className="mr-2" size={"sm"} onClick={()=>  this.context.markDraftPage(project)} variant="warning">
+                      Publish
                       </Button>
                     </td>
                     <td></td>

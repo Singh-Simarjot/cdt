@@ -31,12 +31,14 @@ class EditPage extends Component {
     const page = { ...this.state.page };
     page[e.target.name] = e.target.value;
     this.setState({ page });
+    page.btnDisable = false;
   };
 
   changeTemplate = e => {
     const page = { ...this.state.page };
     page.templateType = e.target.value;
     this.setState({ page });
+    page.btnDisable = false;
   };
 
   handleModal = modalData => {
@@ -82,6 +84,7 @@ class EditPage extends Component {
     e.preventDefault();
     this.context.editPage(this.state.page);
     this.props.history.push("/project");
+    console.log(this.state.page.title.length)
   };
 
   onMarkDraft = e => {

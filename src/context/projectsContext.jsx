@@ -106,7 +106,8 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved: true
+          saved:true,
+          btnDisable:true
         },
         {
           id: 2,
@@ -119,7 +120,8 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved: true
+          saved:true,
+          btnDisable:true
         },
         {
           id: 3,
@@ -132,7 +134,8 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved: true
+          saved:true,
+          btnDisable:true
         },
         {
           id: 4,
@@ -145,7 +148,8 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved: true
+          saved:true,
+          btnDisable:true
         }
       ],
       navigation: [
