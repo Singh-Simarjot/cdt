@@ -136,7 +136,7 @@ class ModalComponent extends Component {
     }
   }
   render() {
-    const { modalData, oncomponentInput, onSaveComponent } = this.props;
+    const { modalData } = this.props;
 
     return (
       modalData !== null && (
@@ -153,14 +153,6 @@ class ModalComponent extends Component {
             <i className={modalData.icon + " fa"}></i> {modalData.label}
           </Modal.Header>
           {this.renderComponent()}
-          {/* <Modal.Footer>
-            <Button onClick={onModalChange} variant="danger">
-              Cancel
-            </Button>
-            <Button onClick={onSaveComponent} variant="success">
-              Save
-            </Button>
-          </Modal.Footer> */}
         </Modal>
       )
     );

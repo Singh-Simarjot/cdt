@@ -28,7 +28,7 @@ class Drafts extends Component {
 
   render() {
     const { selectedProject } = this.context;
-    const drafts =  selectedProject.pages.filter(item=> item.saved === false);
+    const drafts = selectedProject.pages.filter(item => item.saved === false);
     return (
       <div className="content">
         <div className="contentTop">
@@ -38,7 +38,7 @@ class Drafts extends Component {
             </Col>
             <Col xs={4} className="text-right">
               <Link to="/project/" size="sm" className="btn btn-success">
-               All Pages
+                All Pages
               </Link>
             </Col>
           </Row>
@@ -58,7 +58,7 @@ class Drafts extends Component {
                 </tr>
               </thead>
               <tbody>
-                { drafts.map(project => (
+                {drafts.map(project => (
                   <tr key={project.id}>
                     <td>{project.id}</td>
                     <td>{project.title}</td>
@@ -84,11 +84,17 @@ class Drafts extends Component {
                         onClick={() => {
                           this.handleModalDelete(project.id);
                         }}
+                        className="ml-2"
                       >
                         <i className="fa fa-trash"></i>
                       </Button>
-                      <Button size={"sm"} onClick={()=>  this.context.markDraftPage(project)} variant="warning">
-                      Publish
+                      <Button
+                        size={"sm"}
+                        onClick={() => this.context.markDraftPage(project)}
+                        variant="warning"
+                        className="ml-2"
+                      >
+                        Publish
                       </Button>
                     </td>
                     <td></td>
@@ -96,7 +102,9 @@ class Drafts extends Component {
                 ))}
               </tbody>
             </Table>
-          ) : "Draft is Empty"}
+          ) : (
+            "Draft is Empty"
+          )}
         </div>
         <ModalDelete
           showModal={this.state.showDeleteModal}

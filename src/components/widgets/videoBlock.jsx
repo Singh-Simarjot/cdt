@@ -8,7 +8,7 @@ class VideoBlock extends Component {
   state = {
     widget: {
       id: "",
-      icon: "fa-picture-o",
+      icon: "fa-video-camera",
       type: "VIDEO_BLOCK",
       title: "",
       description: "",
@@ -36,30 +36,29 @@ class VideoBlock extends Component {
   };
   videoType = e => {
     const widget = this.state.widget;
+    widget.content.video = "";
     widget.content.videoType = e.target.value;
     this.setState({ widget });
   };
-  disabledSave() {
-    /*
+  addVideo = e => {
     const widget = this.state.widget;
-    const items = this.state.items;
-
-    return items.filter(item => item.url === "").length !== 0 ||
-      widget.title == "" ||
-      widget.description == ""
+    widget.content.video = e.target.value;
+    this.setState({ widget });
+  };
+  disabledSave() {
+    const widget = this.state.widget;
+    return widget.title === "" ||
+      widget.description === "" ||
+      widget.content.video === ""
       ? true
       : false;
-      */
   }
   onSaveContent = () => {
-    /*
     const dummyid = nextId();
     const widget = this.state.widget;
     widget.id = dummyid;
-    widget.content.icons = this.state.items;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
-    */
   };
   render() {
     const { onModalChange } = this.props;
@@ -82,7 +81,6 @@ class VideoBlock extends Component {
               onChange={e => this.descriptionInput(e)}
               as="textarea"
               rows="2"
-              name="description"
             />
           </Form.Group>
           <div className="widgetsDiv">
@@ -96,13 +94,13 @@ class VideoBlock extends Component {
             {this.state.widget.content.videoType === "URL" && (
               <Form.Group>
                 <Form.Label>Video Url</Form.Label>
-                <Form.Control />
+                <Form.Control onChange={e => this.addVideo(e)} />
               </Form.Group>
             )}
             {this.state.widget.content.videoType === "INTERNAL_STORAGE" && (
               <Form.Group>
                 <Form.Label>Add Video</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control type="file" onChange={e => this.addVideo(e)} />
                 {/* <label className="dropImg">
                   <input type="file" />
                   <span>Drag & Drop Video Here</span>

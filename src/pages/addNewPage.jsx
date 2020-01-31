@@ -20,7 +20,8 @@ class AddNewPage extends Component {
       data: {
         widgets: [],
         tabs: []
-      }
+      },
+      saved: true
     },
     customItem: {
       title: "",
@@ -81,14 +82,16 @@ class AddNewPage extends Component {
     page[e.target.name] = e.target.value;
     this.setState({ page });
   };
+  /*
   handleComponentInput = e => {
     const modalData = { ...this.state.modalData };
     console.log(e.target.name, e.target.value);
     modalData[e.target.name] = e.target.value;
     this.setState({ modalData });
   };
+  */
   saveComponent = modalData => {
-    console.log("data", modalData);
+    // console.log("Page Data", modalData);
     const page = this.state.page;
     // const modalData = { ...this.state.modalData };
     page.data.widgets = [...page.data.widgets, modalData];
@@ -100,6 +103,7 @@ class AddNewPage extends Component {
 
     this.context.onSaveNewPage(this.state.page);
     this.props.history.push("/project");
+    // console.log(this.state.page);
   };
   render() {
     const { page } = this.state;

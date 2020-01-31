@@ -106,7 +106,7 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved:true
+          saved: true
         },
         {
           id: 2,
@@ -119,7 +119,7 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved:true
+          saved: true
         },
         {
           id: 3,
@@ -132,7 +132,7 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved:true
+          saved: true
         },
         {
           id: 4,
@@ -145,7 +145,7 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved:true
+          saved: true
         }
       ],
       navigation: [
@@ -254,15 +254,15 @@ export class ProjectsContext extends Component {
     this.setState({ selectedProject });
   };
 
-  saveNewPage = (page) => {
+  saveNewPage = page => {
     const selectedProject = { ...this.state.selectedProject };
-    selectedProject.pages = [page,...selectedProject.pages];
+    selectedProject.pages = [page, ...selectedProject.pages];
     this.setState({ selectedProject });
-  }
+  };
 
   editPage = selectedPage => {
     this.setState({ selectedPage });
-    
+
     const selectedProject = { ...this.state.selectedProject };
     selectedProject.pages.filter(item =>
       item.id === selectedPage.id
@@ -275,12 +275,14 @@ export class ProjectsContext extends Component {
   };
 
   markDraftPage = page => {
-    const selectedPage = {...this.state.selectedPage};
-    const selectedProject = {...this.state.selectedProject};
-    selectedProject.pages.filter(item => item.id === page.id ? item.saved = !page.saved : item )
-    selectedPage.saved =  !page.saved;
-    this.setState({selectedPage,selectedProject});
-  }
+    const selectedPage = { ...this.state.selectedPage };
+    const selectedProject = { ...this.state.selectedProject };
+    selectedProject.pages.filter(item =>
+      item.id === page.id ? (item.saved = !page.saved) : item
+    );
+    selectedPage.saved = !page.saved;
+    this.setState({ selectedPage, selectedProject });
+  };
 
   // onDeleteProject = id => {
   //   const allProjects = this.state.allProjects.filter(item => item.id !== id);
@@ -316,7 +318,7 @@ export class ProjectsContext extends Component {
           onDeletePage: this.onDeletePage,
           onSelectPage: this.onSelectPage,
           onSaveNewPage: this.saveNewPage,
-          markDraftPage:this.markDraftPage
+          markDraftPage: this.markDraftPage
         }}
       >
         {this.props.children}

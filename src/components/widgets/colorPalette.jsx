@@ -189,7 +189,7 @@ class ColorPalette extends Component {
     this.props.onSaveComponent(widget);
   };
   render() {
-    const { onModalChange, onSaveComponent, oncomponentInput } = this.props;
+    const { onModalChange } = this.props;
     const { widget, colorsPalettes } = this.state;
     return (
       <>
