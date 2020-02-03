@@ -18,6 +18,7 @@ class MultipleImage extends Component {
       id: "",
       icon: "fa-picture-o",
       type: "MULTIPLE_IMAGE",
+      label: "Multiple Image",
       title: "",
       description: "",
       internalNavigation: false,

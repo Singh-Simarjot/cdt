@@ -16,6 +16,7 @@ class TextBlock extends Component {
       id: "",
       icon: "fa-file-text-o",
       type: "TEXT_BLOCK",
+      label: "Text Block",
       title: "",
       description: "",
       internalNavigation: false,

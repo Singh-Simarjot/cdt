@@ -10,6 +10,7 @@ class VideoBlock extends Component {
       id: "",
       icon: "fa-video-camera",
       type: "VIDEO_BLOCK",
+      label: "Video Block",
       title: "",
       description: "",
       internalNavigation: false,

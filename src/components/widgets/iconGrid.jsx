@@ -15,6 +15,7 @@ class IconGrid extends Component {
       id: "",
       icon: "fa-th-large",
       type: "ICON_GRID",
+      label: "Icons Grid",
       title: "",
       description: "",
       internalNavigation: false,

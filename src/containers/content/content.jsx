@@ -101,6 +101,7 @@ class Content extends Component {
                 key={item.id}
                 id={item.id}
                 page={page}
+                widgetContent={item}
                 deleteWidgets={() => this.props.deleteWidgets(item.id)}
               />
             ))}

@@ -15,6 +15,7 @@ class ColorPalette extends Component {
       id: "",
       icon: "fa-th",
       type: "COLOR_PALETTE",
+      label: "Color Palette",
       title: "",
       description: "",
       internalNavigation: false,
@@ -23,6 +24,13 @@ class ColorPalette extends Component {
       }
     }
   };
+
+  // componentDidMount() {
+  //   const content = this.props.data;
+  //   if (content) {
+  //     this.setState({ widget: content });
+  //   }
+  // }
 
   titleInput = e => {
     const widget = this.state.widget;
@@ -168,8 +176,6 @@ class ColorPalette extends Component {
         item.shades.filter(shade => !shade.saved).length > 0 ||
         item.shades.length === 0
     );
-
-    console.log(colorItm.length);
 
     const widget = this.state.widget;
     return widget.title == "" ||

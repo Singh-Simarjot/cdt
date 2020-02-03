@@ -29,6 +29,7 @@ class CodeSnippets extends Component {
       id: "",
       icon: "fa-codepen",
       type: "CODE_SNIPPETS",
+      label: "Code Snippets",
       title: "",
       description: "",
       internalNavigation: false,

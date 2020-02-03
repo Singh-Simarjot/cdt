@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import { Button, ButtonToolbar, Modal, Form } from "react-bootstrap";
-// import ModalComponent from "../modal/modalComponent";
+import ModalComponent from "../modal/modalComponent";
 import ModalDelete from "../../components/modalDelete/modalDelete";
 import ProjectsContext from "../../context/projectsContext";
 class ContentItem extends Component {
   state = {
-    showModal: false,
-    showDeleteModal: false
+    // showModal: false,
+    showDeleteModal: false,
+
+    showModalComponent: false,
+    modalData: { title: "", description: "", content: "" }
   };
-  handleModal() {
-    this.props.onModalChange();
-  }
+  // handleModal() {
+  //   this.props.onModalChange();
+  // }
   handleModalDelete = () => {
     this.setState({ showDeleteModal: !this.state.showDeleteModal });
   };
@@ -19,16 +22,41 @@ class ContentItem extends Component {
     this.props.deleteWidgets();
     this.setState({ showDeleteModal: false });
   };
+
+  // edit
+
+  handleModal = modalData => {
+    // console.log(modalData);
+
+    this.setState({ showModalComponent: !this.state.showModalComponent }, () =>
+      this.setModalContent(modalData)
+    );
+  };
+  setModalContent = modalData => {
+    if (this.state.showModalComponent) {
+      this.setState({ modalData });
+    } else {
+      this.setState({ modalData: null });
+    }
+  };
+  // saveComponent = modalData => {
+  //   // console.log("Page Data", modalData);
+  //   const page = this.state.page;
+  //   // const modalData = { ...this.state.modalData };
+  //   page.data.widgets = [...page.data.widgets, modalData];
+  //   this.setState({ page }, () => this.handleModal());
+  // };
   render() {
+    const { widgetContent } = this.props;
     return (
       <React.Fragment>
         <div className="media border p-3">
           <div className="mediaIcon border">
-            <i className={this.props.icon}></i>
+            <i className={"fa " + widgetContent.icon}></i>
           </div>
           <div className="media-body">
-            <h4>{this.props.title}</h4>
-            <p>{this.props.text}</p>
+            <h4>{widgetContent.title}</h4>
+            <p>{widgetContent.description}</p>
           </div>
           <div className="moveIcon">
             <i className="fa fa-arrows-v"></i>
@@ -39,7 +67,7 @@ class ContentItem extends Component {
                 variant="dark"
                 size="sm"
                 onClick={() => {
-                  this.handleModal();
+                  this.handleModal(widgetContent);
                 }}
               >
                 <i className="fa fa-pencil"></i>
@@ -57,56 +85,16 @@ class ContentItem extends Component {
             </ButtonToolbar>
           </div>
         </div>
-        {/* <Modal
-          size={"md"}
-          show={this.state.showModal}
-          onHide={() => {
-            this.handleModal();
-          }}
-        >
-          <Modal.Header closeButton>{this.props.title}</Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group>
-                <Form.Label>Title</Form.Label>
-                <Form.Control type="text" value={this.props.title} />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Image</Form.Label>
-                <label className="dropImg">
-                  <input type="file" />
-                  <span>Drag & Drop Image Here</span>
-                </label>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Video</Form.Label>
-                <label className="dropImg">
-                  <input type="file" />
-                  <span>Drag & Drop Video Here</span>
-                </label>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Description</Form.Label>
-                <Form.Control value={this.props.text} as="textarea" rows="4" />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              onClick={() => {
-                this.handleModal();
-              }}
-              variant="danger"
-            >
-              Cancel
-            </Button>
-            <Button variant="success">Save</Button>
-          </Modal.Footer>
-        </Modal> */}
         <ModalDelete
           showModal={this.state.showDeleteModal}
           modalAction={this.handleModalDelete}
           onconfirm={this.confirmAction}
+        />
+        <ModalComponent
+          onModalChange={this.handleModal}
+          showModal={this.state.showModalComponent}
+          modalData={this.state.modalData}
+          onSaveComponent={this.saveComponent}
         />
       </React.Fragment>
     );

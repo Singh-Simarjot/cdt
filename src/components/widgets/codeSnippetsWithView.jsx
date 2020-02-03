@@ -9,6 +9,7 @@ class CodeSnippetsWithView extends Component {
       id: "",
       icon: "fa-codepen",
       type: "CODE_SNIPPETS_WITH_VIEW",
+      label: "Code Snippets With View",
       title: "",
       description: "",
       internalNavigation: false,

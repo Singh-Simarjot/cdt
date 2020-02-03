@@ -10,6 +10,7 @@ class ImageBlock extends Component {
       id: "",
       icon: "fa-picture-o",
       type: "IMAGE_BLOCK",
+      label: "Image Block",
       title: "",
       description: "",
       internalNavigation: false,

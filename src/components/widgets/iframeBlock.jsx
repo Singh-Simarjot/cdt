@@ -9,6 +9,7 @@ class IframeBlock extends Component {
       id: "",
       icon: "fa-file-code-o",
       type: "IFRAME_BLOCK",
+      label: "Iframe Block",
       title: "",
       description: "",
       internalNavigation: false,

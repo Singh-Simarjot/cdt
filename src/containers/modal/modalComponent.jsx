@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./modalComponent.scss";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 // widgets
 import Html from "../../components/widgets/html";
 import ColorPalette from "../../components/widgets/colorPalette";
@@ -16,118 +16,101 @@ import ExternalPageLinkGrid from "../../components/widgets/externalPageLinkGrid"
 import TextBlock from "../../components/widgets/textBlock";
 class ModalComponent extends Component {
   renderComponent() {
-    const {
-      modalData,
-      // oncomponentInput,
-      onModalChange,
-      onSaveComponent
-    } = this.props;
+    const { modalData, onModalChange, onSaveComponent } = this.props;
     switch (modalData.type) {
       case "HTML":
         return (
           <Html
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "TYPOGRAPHY":
         return (
           <Typography
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "ICON_GRID":
         return (
           <IconGrid
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "COLOR_PALETTE":
         return (
           <ColorPalette
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "MULTIPLE_IMAGE":
         return (
           <MultipleImage
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "IMAGE_BLOCK":
         return (
           <ImageBlock
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "VIDEO_BLOCK":
         return (
           <VideoBlock
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "IFRAME_BLOCK":
         return (
           <IframeBlock
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "CODE_SNIPPETS":
         return (
           <CodeSnippets
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "CODE_SNIPPETS_WITH_VIEW":
         return (
           <CodeSnippetsWithView
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "EXTERNAL_PAGE_LINK_GRID":
         return (
           <ExternalPageLinkGrid
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
       case "TEXT_BLOCK":
         return (
           <TextBlock
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            //oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
           />
         );
@@ -137,7 +120,7 @@ class ModalComponent extends Component {
   }
   render() {
     const { modalData } = this.props;
-
+    // console.log(modalData);
     return (
       modalData !== null && (
         <Modal

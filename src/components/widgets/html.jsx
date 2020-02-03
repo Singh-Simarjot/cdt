@@ -8,24 +8,32 @@ class Html extends Component {
       id: "",
       icon: "fa-code",
       type: "HTML",
+      label: "HTML Component",
       title: "",
       description: "",
       internalNavigation: false,
       content: ""
     }
   };
+  componentDidMount() {
+    const content = this.props.data;
+    // const widget = this.state.widget;
+    if (content) {
+      this.setState({ widget: content });
+    }
+  }
   titleInput = e => {
-    const widget = this.state.widget;
+    const widget = { ...this.state.widget };
     widget.title = e.target.value;
     this.setState({ widget });
   };
   descriptionInput = e => {
-    const widget = this.state.widget;
+    const widget = { ...this.state.widget };
     widget.description = e.target.value;
     this.setState({ widget });
   };
   contentInput = e => {
-    const widget = this.state.widget;
+    const widget = { ...this.state.widget };
     widget.content = e.target.value;
     this.setState({ widget });
   };
@@ -38,15 +46,13 @@ class Html extends Component {
     const dummyid = nextId();
 
     // let data = this.state.data;
-    const widget = this.state.widget;
+    const widget = { ...this.state.widget };
     widget.id = dummyid;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
   };
   disabledSave() {
-    const widget = this.state.widget;
-    const items = this.state.items;
-
+    const widget = { ...this.state.widget };
     return widget.content == "" ||
       widget.title == "" ||
       widget.description == ""
@@ -93,6 +99,7 @@ class Html extends Component {
               label={"Add Internal Navigation"}
               value={widget.internalNavigation}
               onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>
