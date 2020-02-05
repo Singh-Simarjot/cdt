@@ -92,7 +92,90 @@ export class ProjectsContext extends Component {
       description:
         "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum ",
       id: "1",
-      data: {},
+      data: {
+        headerSection: {
+          videoUrl: {
+            mobile: {
+              webm: require("../preview/templates/assets/video/bannerVideoMob.webm"),
+              mp4: require("../preview/templates/assets/video/bannerVideoMob.mp4")
+            },
+
+            desktop: {
+              webm: require("../preview/templates/assets/video/bannerVideo.webm"),
+              mp4: require("../preview/templates/assets/video/bannerVideo.webm")
+            }
+          },
+          videoThumb: require("../preview/templates/assets/video/bannerVideoImg.jpg"),
+          link: {
+            linkTopText: "Read",
+            linkTitle: "Migrate to v10",
+            link: "/#"
+          }
+        },
+        section: {
+          designing: {
+            image:require("../preview/templates/assets/images/designers.jpg"),
+            linkTopText: "Start",
+            linkTitle: "Designing",
+            link: "/#"
+
+          },
+          development: {
+            image:require("../preview/templates/assets/images/developing.jpg"),
+            linkTopText: "Start",
+            linkTitle: "Developing",
+            link: "/#"
+
+          }
+        },
+        resource:{
+          title:"Other resources",
+          description:"The component libraries give developers a collection of reusable components for building websites and user interfaces. See a complete list of resources.",
+          resourceComponets:[
+            {
+              title:"Sketch libraries",
+              link:"/#"
+            },
+            {
+              title:"Carbon Components",
+              link:"/#"
+            },
+          ]
+        },
+
+        laetstTrends:{
+          sectionTitle:"Do you multitask or not? Is it a good practice to multitask at work? Give reasons and examples.",
+          article:[
+            {
+              image:require("../preview/templates/assets/images/xd_kit_img.jpg"),
+              title:"Adobe XD Carbon starter kit announced at Max",
+              PublishSubtitle:"Lauren Rice",
+              publishDate:"November 4, 2019",
+              link:"/#"
+            },
+            {
+              image:require("../preview/templates/assets/images/v10.7-release.jpg"),
+              title:"New in Carbon: October 2019",
+              PublishSubtitle:"Lauren Rice",
+              publishDate:"November 4, 2019",
+              link:"/#"
+            },
+            {
+              image:require("../preview/templates/assets/images/hacktoberfest.jpg"),
+              title:"Help build Carbon — Hacktoberfest 2019",
+              PublishSubtitle:"Lauren Rice",
+              publishDate:"November 4, 2019",
+              link:"/#"
+            }
+          ]
+        },
+        contribute:{
+          title:"Wondering how to contribute?",
+          description:"We welcome all feedback, designs, or ideas in order to produce the best possible experience for our users. If you’re interested in contributing, check out our contributing guidelines to get started.",
+          linkText:"Start contributing",
+          link:"/#"
+        }
+      },
 
       pages: [
         {
@@ -106,8 +189,8 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved:true,
-          btnDisable:true
+          saved: true,
+          btnDisable: true
         },
         {
           id: 2,
@@ -120,8 +203,8 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved:true,
-          btnDisable:true
+          saved: true,
+          btnDisable: true
         },
         {
           id: 3,
@@ -134,8 +217,8 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved:true,
-          btnDisable:true
+          saved: true,
+          btnDisable: true
         },
         {
           id: 4,
@@ -148,8 +231,8 @@ export class ProjectsContext extends Component {
             widgets: [],
             tabs: []
           },
-          saved:true,
-          btnDisable:true
+          saved: true,
+          btnDisable: true
         }
       ],
       navigation: [

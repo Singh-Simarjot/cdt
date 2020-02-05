@@ -120,6 +120,7 @@ class EditPage extends Component {
     const pages = selectedProject.pages.filter(
       item => item.templateType !== "TABS"
     );
+    console.log(this.props.location.state.pageType);
     return (
       <WidgetsContext>
         {page.templateType === "DEFAULT" && (
@@ -138,6 +139,7 @@ class EditPage extends Component {
         <Content
           page={this.state.page}
           pageLabel="Edit Page"
+          btnTitle={this.props.location.state.pageType}
           onHandle={this.handleChange}
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}

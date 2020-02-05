@@ -139,6 +139,7 @@ class AddNewPage extends Component {
         )}
         <Content
           pageLabel="Create New Page"
+          btnTitle="Save"
           page={this.state.page}
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}

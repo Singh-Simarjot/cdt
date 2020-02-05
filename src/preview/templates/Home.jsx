@@ -12,50 +12,59 @@ import carbonImage from "./assets/images/v10.7-release.jpg";
 import hackImage from "./assets/images/hacktoberfest.jpg";
 
 // video
-import videoImg from "./assets/video/bannerVideoImg.jpg";
-import videoMobMp4 from "./assets/video/bannerVideoMob.mp4";
-import videoMobWebm from "./assets/video/bannerVideoMob.webm";
-import videoMp4 from "./assets/video/bannerVideo.webm";
-import videoWebm from "./assets/video/bannerVideo.webm";
-
+// import videoImg from "./assets/video/bannerVideoImg.jpg";
+// import videoMobMp4 from "./assets/video/bannerVideoMob.mp4";
+// import videoMobWebm from "./assets/video/bannerVideoMob.webm";
+// import videoMp4 from "./assets/video/bannerVideo.webm";
+// import videoWebm from "./assets/video/bannerVideo.webm";
 import DeveloperResource from "./developerResource";
 import ArticlePost from "./articlePost";
 
+import ProjectsContext from "../../context/projectsContext";
+
+
 class Home extends Component {
+  static contextType = ProjectsContext;
+
+  componentDidMount() {
+    console.log(this.context.selectedProject);
+  }
    
   render() {
     const {title, description, data} = this.props
+    const { selectedProject } = this.context;
+    const homeData = selectedProject.data;
     return (
       <React.Fragment>
         <section className="video-section">
           {/* <iframe src="https://www.youtube.com/embed/9No-FiEInLA?autoplay=1&controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen Autoplay ></iframe> */}
 
           <video
-            poster={videoImg}
+            poster={homeData.headerSection.videoThumb}
             muted
             autoPlay="autoplay"
             playsInline=""
             loop
           >
             <source
-              src={videoMobWebm}
+              src={homeData.headerSection.videoUrl.mobile.webm}
               type="video/webm"
               media="all and (max-width: 600px)"
             />
             <source
-              src={videoMobMp4}
+              src={homeData.headerSection.videoUrl.mobile.mp4}
               type="video/mp4"
               media="all and (max-width: 600px)"
             />
-            <source src={videoWebm} type="video/webm" />
-            <source src={videoMp4} type="video/mp4" />
+            <source src={homeData.headerSection.videoUrl.desktop.webm} type="video/webm" />
+            <source src={homeData.headerSection.videoUrl.desktop.webm} type="video/mp4" />
           </video>
           <Container className="position-relative">
             <div className="more d-flex ml-auto">
-              <a href="#;" className="d-flex flex-column">
+              <a href={homeData.headerSection.link.link} className="d-flex flex-column">
                 <div className="more-text">
-                  <span>Read</span>
-                  <h4>Migrate to v10</h4>
+                  <span>{homeData.headerSection.link.linkTopText}</span>
+                  <h4>{homeData.headerSection.link.linkTitle}</h4>
                 </div>
                 <span className="arrow-icon mt-auto">
                   <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -82,14 +91,14 @@ class Home extends Component {
 
         <section className="designing-section">
           <Container className="position-relative">
-            <a href="#;">
+            <a href={homeData.section.designing.link}>
               <div className="bx-ratio-section">
-                <img src={designImage} alt="" className="img-fluid top-img" />
+                <img src={homeData.section.designing.image} alt="" className="img-fluid top-img" />
               </div>
               <div className="more d-flex ml-auto flex-column">
                 <div className="more-text">
-                  <span>Start</span>
-                  <h4>Designing</h4>
+                  <span>{homeData.section.designing.linkTopText}</span>
+                  <h4>{homeData.section.designing.linkTitle}</h4>
                 </div>
                 <span className="arrow-icon mt-auto">
                   <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -99,16 +108,16 @@ class Home extends Component {
           </Container>
         </section>
 
-        <section className="developing-section">
+        <section className="designing-section">
           <Container className="position-relative">
-            <a href="#;">
+            <a href={homeData.section.development.link}>
               <div className="bx-ratio-section">
-                <img src={developImage} alt="" className="img-fluid top-img" />
+                <img src={homeData.section.development.image} alt="" className="img-fluid top-img" />
               </div>
               <div className="more d-flex ml-auto flex-column">
                 <div className="more-text">
-                  <span>Start</span>
-                  <h4>Developing</h4>
+                  <span>{homeData.section.development.linkTopText}</span>
+                  <h4>{homeData.section.development.linkTitle}</h4>
                 </div>
                 <span className="arrow-icon mt-auto">
                   <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -121,20 +130,23 @@ class Home extends Component {
         <section className="other-resource">
           <Container>
             <div className="resource-wrap">
-              <h5 className="main-head">Other resources</h5>
+              <h5 className="main-head">{homeData.resource.title}</h5>
               <p>
-                The component libraries give developers a collection of reusable
-                components for building websites and user interfaces. See a{" "}
-                <Link>complete list of resources.</Link>{" "}
+                {homeData.resource.description}
               </p>
 
               <div className="resource-list">
                 <Row>
-                  <DeveloperResource title="Sketch libraries" />
+
+                {homeData.resource.resourceComponets.map(items => (
+                  <DeveloperResource title={items.title} />
+                ))}
+
+                  {/* <DeveloperResource title="Sketch libraries" />
                   <DeveloperResource title="Carbon Components" />
                   <DeveloperResource title="Carbon Components React" />
                   <DeveloperResource title="Carbon Components Angular" />
-                  <DeveloperResource title="Carbon Components Vue" />
+                  <DeveloperResource title="Carbon Components Vue" /> */}
                 </Row>
               </div>
             </div>
@@ -144,11 +156,20 @@ class Home extends Component {
         <section className="latest-post">
           <Container>
             <div className="resource-wrap">
-              <h5 className="main-head">Latest news and articles</h5>
+              <h5 className="main-head">{homeData.laetstTrends.sectionTitle}</h5>
 
               <div className="resource-list">
                 <Row>
-                  <ArticlePost
+                {
+                  homeData.laetstTrends.article.map(items => (
+                    <ArticlePost
+                    title={items.title}
+                    topimage={items.image}
+                  />
+                  ))
+                }
+
+                  {/* <ArticlePost
                     title="Adobe XD Carbon starter kit announced at Max"
                     topimage={xdImage}
                   />
@@ -159,7 +180,7 @@ class Home extends Component {
                   <ArticlePost
                     title="Help build Carbon — Hacktoberfest 2019"
                     topimage={hackImage}
-                  />
+                  /> */}
                 </Row>
               </div>
             </div>
@@ -170,18 +191,15 @@ class Home extends Component {
           <Container>
             <Row>
               <Col md={4}>
-                <div className="heading">Wondering how to contribute?</div>
+                <div className="heading">{homeData.contribute.title}</div>
               </Col>
               <Col md={4} lg={8}>
                 <div className="heading-description">
                   <p>
-                    We welcome all feedback, designs, or ideas in order to
-                    produce the best possible experience for our users. If
-                    you’re interested in contributing, check out our
-                    contributing guidelines to get started.
+                    {homeData.contribute.description}
                   </p>
-                  <Link to="https://www.carbondesignsystem.com/how-to-contribute/overview/">
-                    Start contributing
+                  <Link to={homeData.contribute.link}>
+                    {homeData.contribute.linkText}
                   </Link>
                 </div>
               </Col>

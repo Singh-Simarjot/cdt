@@ -24,9 +24,9 @@ class Content extends Component {
             </Col>
             <Col xs={4} className="text-right">
 
-          <Button variant="warning" type="submit" className="ml-2" onClick={e => onMarkDraft(e)} >
+          {/* <Button variant="warning" type="submit" className="ml-2" onClick={e => onMarkDraft(e)} >
              {page.saved ? "Mark as Draft" : "Publish" }   
-          </Button>
+          </Button> */}
               {/* <Button size="sm" variant="success">
                 Preview
               </Button> */}
@@ -107,7 +107,7 @@ class Content extends Component {
             ))}
           <br />
           <Button type="submit" onClick={e => onSave(e)} disabled ={page.btnDisable}>
-            Save
+           {this.props.btnTitle}
           </Button>
           
         </div>
