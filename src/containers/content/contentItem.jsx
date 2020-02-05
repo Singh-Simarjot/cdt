@@ -67,7 +67,7 @@ class ContentItem extends Component {
                 variant="dark"
                 size="sm"
                 onClick={() => {
-                  this.handleModal(widgetContent);
+                  this.props.onModalChange(widgetContent);
                 }}
               >
                 <i className="fa fa-pencil"></i>
@@ -89,12 +89,6 @@ class ContentItem extends Component {
           showModal={this.state.showDeleteModal}
           modalAction={this.handleModalDelete}
           onconfirm={this.confirmAction}
-        />
-        <ModalComponent
-          onModalChange={this.handleModal}
-          showModal={this.state.showModalComponent}
-          modalData={this.state.modalData}
-          onSaveComponent={this.saveComponent}
         />
       </React.Fragment>
     );
