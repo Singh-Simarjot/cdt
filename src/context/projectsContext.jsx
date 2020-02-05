@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-// import { getProjects, getPages } from "../services/projects";
+import { getProjects, getPages ,createProject } from "../services/projects";
 
 const Context = React.createContext();
 
@@ -237,8 +237,8 @@ export class ProjectsContext extends Component {
     this.setState({ selectedPageID: id, selectedPage: page[0] });
   };
   getAllProjects = async () => {
-    // const allProjects = await  getProjects()
-    // this.setState({ allProjects:allProjects.data });
+    const allProjects = await  getProjects()
+    this.setState({ allProjects:allProjects.data });
   };
   getAllPages = async () => {
     // const pages = await  getPages(this.state.selectedProjectID)
@@ -250,8 +250,9 @@ export class ProjectsContext extends Component {
     selectedProject.navigation = navigation;
     this.setState({ selectedProject });
   };
-  addNewProject = item => {
+  addNewProject = async (item ) => {
     const allProjects = [item, ...this.state.allProjects];
+    await  createProject()
     this.setState({ allProjects });
   };
   editProject = selectedProject => {

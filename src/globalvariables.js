@@ -1,15 +1,15 @@
 var localGlobalConstants = {
-  BASE_URL: "https://jsonplaceholder.typicode.com/posts",
+  BASE_URL: "http://dev.evantiv.com/carbon_design/public/api/",
   
 };
 
 var testingGlobalConstants = {
-  BASE_URL: "https://jsonplaceholder.typicode.com/posts",
+  BASE_URL: "http://dev.evantiv.com/carbon_design/public/api/",
  
 };
 
 var productionGlobalConstants = {
-  BASE_URL: "https://jsonplaceholder.typicode.com/posts",
+  BASE_URL: "http://dev.evantiv.com/carbon_design/public/api/",
   
 };
 
