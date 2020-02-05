@@ -252,7 +252,7 @@ export class ProjectsContext extends Component {
   };
   addNewProject = async (item ) => {
     const allProjects = [item, ...this.state.allProjects];
-    await  createProject()
+    await  createProject(item)
     this.setState({ allProjects });
   };
   editProject = selectedProject => {
