@@ -3,20 +3,20 @@ import apiService from "./httpServices";
 import { globalConstants } from "../globalvariables";
 const APIBASEURL = globalConstants.BASE_URL;
 
+export function getProjects() {
+  const projectsEndpoint = APIBASEURL + "project";
 
-export function getProjects( ) {
-   const projectsEndpoint = APIBASEURL+"project";
-  
   return apiService.get(projectsEndpoint);
 }
 
 export function createProject(data) {
-  const projectsEndpoint = APIBASEURL+"project/store";
- 
- return apiService.post(projectsEndpoint,data);
-} 
+  const projectsEndpoint = APIBASEURL + "project/store";
+
+  return apiService.post(projectsEndpoint, data);
+}
 export function getPages(id) {
-    var pagesUrl = "https://jsonplaceholder.typicode.com/posts/"+id+"/comments"
-     
+  var pagesUrl =
+    "https://jsonplaceholder.typicode.com/posts/" + id + "/comments";
+
   return apiService.get(pagesUrl);
 }
