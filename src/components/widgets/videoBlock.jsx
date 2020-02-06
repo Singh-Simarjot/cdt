@@ -20,6 +20,13 @@ class VideoBlock extends Component {
       }
     }
   };
+  componentDidMount() {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
+      this.setState({ widget: content });
+    }
+  }
   internalNavigation = e => {
     const widget = { ...this.state.widget };
     widget.internalNavigation = !this.state.widget.internalNavigation;
@@ -55,8 +62,14 @@ class VideoBlock extends Component {
       : false;
   }
   onSaveContent = () => {
-    const dummyid = nextId();
-    const widget = this.state.widget;
+    let dummyid;
+    const widget = { ...this.state.widget };
+
+    if (this.props.modalOpenType === "edit") {
+      dummyid = widget.id;
+    } else {
+      dummyid = nextId();
+    }
     widget.id = dummyid;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
@@ -88,20 +101,41 @@ class VideoBlock extends Component {
             <Form.Group>
               <Form.Label>Select Video Type</Form.Label>
               <Form.Control as="select" onChange={e => this.videoType(e)}>
-                <option value="INTERNAL_STORAGE">Internal Storage</option>
-                <option value="URL">URL</option>
+                <option
+                  selected={
+                    widget.content.videoType === "INTERNAL_STORAGE"
+                      ? true
+                      : false
+                  }
+                  value="INTERNAL_STORAGE"
+                >
+                  Internal Storage
+                </option>
+                <option
+                  value="URL"
+                  selected={widget.content.videoType === "URL" ? true : false}
+                >
+                  URL
+                </option>
               </Form.Control>
             </Form.Group>
             {this.state.widget.content.videoType === "URL" && (
               <Form.Group>
                 <Form.Label>Video Url</Form.Label>
-                <Form.Control onChange={e => this.addVideo(e)} />
+                <Form.Control
+                  value={widget.content.video}
+                  onChange={e => this.addVideo(e)}
+                />
               </Form.Group>
             )}
             {this.state.widget.content.videoType === "INTERNAL_STORAGE" && (
               <Form.Group>
                 <Form.Label>Add Video</Form.Label>
-                <Form.Control type="file" onChange={e => this.addVideo(e)} />
+                <Form.Control
+                  type="file"
+                  value={widget.content.video}
+                  onChange={e => this.addVideo(e)}
+                />
                 {/* <label className="dropImg">
                   <input type="file" />
                   <span>Drag & Drop Video Here</span>
@@ -115,6 +149,7 @@ class VideoBlock extends Component {
               label={"Add Internal Navigation"}
               value={widget.internalNavigation}
               onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>

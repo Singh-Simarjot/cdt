@@ -9,9 +9,6 @@ import nextId from "react-id-generator";
 
 class TextBlock extends Component {
   state = {
-    // title: "",
-    // description: "",
-    // content: "",
     widget: {
       id: "",
       icon: "fa-file-text-o",
@@ -23,6 +20,13 @@ class TextBlock extends Component {
       content: ""
     }
   };
+  componentDidMount() {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
+      this.setState({ widget: content });
+    }
+  }
   updateContent(content) {
     const widget = this.state.widget;
     widget.content = content;
@@ -48,10 +52,14 @@ class TextBlock extends Component {
   };
 
   onSaveContent = () => {
-    const dummyid = nextId();
+    let dummyid;
+    const widget = { ...this.state.widget };
 
-    // let data = this.state.data;
-    const widget = this.state.widget;
+    if (this.props.modalOpenType === "edit") {
+      dummyid = widget.id;
+    } else {
+      dummyid = nextId();
+    }
     widget.id = dummyid;
     this.setState({ widget });
 
@@ -76,7 +84,7 @@ class TextBlock extends Component {
   };
 
   render() {
-    const { onModalChange, oncomponentInput, onSaveComponent } = this.props;
+    const { onModalChange } = this.props;
     const { widget } = this.state;
     return (
       <>
@@ -116,6 +124,7 @@ class TextBlock extends Component {
               label={"Add Internal Navigation"}
               value={widget.internalNavigation}
               onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>

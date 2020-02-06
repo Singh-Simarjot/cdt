@@ -25,12 +25,14 @@ class ColorPalette extends Component {
     }
   };
 
-  // componentDidMount() {
-  //   const content = this.props.data;
-  //   if (content) {
-  //     this.setState({ widget: content });
-  //   }
-  // }
+  componentDidMount() {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
+      this.setState({ widget: content });
+      this.setState({ colorsPalettes: content.content.colorsPalettes });
+    }
+  }
 
   titleInput = e => {
     const widget = this.state.widget;
@@ -187,8 +189,14 @@ class ColorPalette extends Component {
       : false;
   }
   onSaveContent = () => {
-    const dummyid = nextId();
-    const widget = this.state.widget;
+    let dummyid;
+    const widget = { ...this.state.widget };
+
+    if (this.props.modalOpenType === "edit") {
+      dummyid = widget.id;
+    } else {
+      dummyid = nextId();
+    }
     widget.id = dummyid;
     widget.content.colorsPalettes = this.state.colorsPalettes;
     this.setState({ widget });
@@ -313,6 +321,7 @@ class ColorPalette extends Component {
               label={"Add Internal Navigation"}
               value={widget.internalNavigation}
               onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>

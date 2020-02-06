@@ -18,6 +18,13 @@ class CodeSnippetsWithView extends Component {
       }
     }
   };
+  componentDidMount() {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
+      this.setState({ widget: content });
+    }
+  }
   internalNavigation = e => {
     const widget = { ...this.state.widget };
     widget.internalNavigation = !this.state.widget.internalNavigation;
@@ -49,8 +56,14 @@ class CodeSnippetsWithView extends Component {
       : false;
   }
   onSaveContent = () => {
-    const dummyid = nextId();
-    const widget = this.state.widget;
+    let dummyid;
+    const widget = { ...this.state.widget };
+
+    if (this.props.modalOpenType === "edit") {
+      dummyid = widget.id;
+    } else {
+      dummyid = nextId();
+    }
     widget.id = dummyid;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
@@ -85,6 +98,7 @@ class CodeSnippetsWithView extends Component {
                 as="textarea"
                 rows="4"
                 onChange={e => this.addIframe(e)}
+                value={widget.content.iframe}
               />
               {/* <iframe
                 style={style}
@@ -99,6 +113,7 @@ class CodeSnippetsWithView extends Component {
               label={"Add Internal Navigation"}
               value={widget.internalNavigation}
               onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>

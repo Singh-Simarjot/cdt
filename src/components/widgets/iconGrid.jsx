@@ -25,6 +25,15 @@ class IconGrid extends Component {
     }
   };
 
+  componentDidMount() {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
+      this.setState({ widget: content });
+      // this.setState({ items: content.content.icons });
+    }
+  }
+
   addMoreIcon = () => {
     const dummyid = nextId();
     const obj = { id: dummyid, url: "", delete: true };
@@ -56,8 +65,14 @@ class IconGrid extends Component {
     this.setState({ items });
   };
   onSaveContent = () => {
-    const dummyid = nextId();
-    const widget = this.state.widget;
+    let dummyid;
+    const widget = { ...this.state.widget };
+    if (this.props.modalOpenType === "edit") {
+      dummyid = widget.id;
+    } else {
+      dummyid = nextId();
+    }
+
     widget.id = dummyid;
     widget.content.icons = this.state.items;
     this.setState({ widget });
@@ -145,6 +160,7 @@ class IconGrid extends Component {
               label={"Add Internal Navigation"}
               value={widget.internalNavigation}
               onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>
