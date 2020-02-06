@@ -11,9 +11,26 @@ class NavigationList extends Component {
     const { customItem } = this.props;
     return customItem.title === "" || customItem.url === "" ? true : false;
   };
-  
+
   render() {
     const { pages, customItem } = this.props;
+
+    let publishedPages = pages.filter(items => {
+      return items.saved === true;
+    });
+
+    let navPages = publishedPages.map((menuPage, i) => {
+      return (
+        <li key={i}>
+          {" "}
+          {menuPage.title}{" "}
+          <i
+            onClick={() => this.props.addToNavigation(menuPage)}
+            className="fa fa-plus"
+          ></i>
+        </li>
+      );
+    });
 
     return (
       <div className="componentsList">
@@ -30,7 +47,8 @@ class NavigationList extends Component {
         <div className="componentsListItms">
           <div className="navigationList">
             <ul>
-              {pages.map(item => (
+              {navPages}
+              {/* {pages.map(item => (
                 <li>
                   {" "}
                   {item.title}{" "}
@@ -39,7 +57,7 @@ class NavigationList extends Component {
                     className="fa fa-plus"
                   ></i>{" "}
                 </li>
-              ))}
+              ))} */}
             </ul>
           </div>
           {/* customLickCreate */}

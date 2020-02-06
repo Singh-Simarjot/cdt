@@ -23,7 +23,10 @@ class Drafts extends Component {
 
   onEditPage = id => {
     this.context.onSelectPage(id);
-    this.props.history.push("/project/editpage");
+    this.props.history.push({
+      pathname: "/project/editpage",
+      state: { pageType: "Save Draft" }
+    });
   };
 
   render() {
@@ -71,25 +74,31 @@ class Drafts extends Component {
                     <td>{project.templateType}</td>
                     <td>{project.author}</td>
                     <td>
-                      <Button className="mr-2"
+                      <Button
+                        className="mr-2"
                         size={"sm"}
                         variant="info"
                         onClick={() => this.onEditPage(project.id)}
                       >
                         <i className="fa fa-pencil"></i>
                       </Button>
-                      <Button className="mr-2"
+                      <Button
+                        className="mr-2"
                         size={"sm"}
                         variant="danger"
                         onClick={() => {
                           this.handleModalDelete(project.id);
                         }}
-                        className="ml-2"
                       >
                         <i className="fa fa-trash"></i>
                       </Button>
-                      <Button className="mr-2" size={"sm"} onClick={()=>  this.context.markDraftPage(project)} variant="warning">
-                      Publish
+                      <Button
+                        className="mr-2"
+                        size={"sm"}
+                        onClick={() => this.context.markDraftPage(project)}
+                        variant="warning"
+                      >
+                        Publish
                       </Button>
                     </td>
                     <td></td>

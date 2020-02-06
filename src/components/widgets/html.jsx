@@ -21,6 +21,7 @@ class Html extends Component {
     if (content) {
       this.setState({ widget: content });
     }
+    console.log(this.props.data);
   }
   titleInput = e => {
     const widget = { ...this.state.widget };
@@ -43,10 +44,12 @@ class Html extends Component {
     this.setState({ widget });
   };
   onSaveContent = () => {
-    const dummyid = nextId();
-
-    // let data = this.state.data;
+    let dummyid = nextId();
     const widget = { ...this.state.widget };
+    if (widget.id) {
+      dummyid = widget.id;
+    }
+
     widget.id = dummyid;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
@@ -60,7 +63,7 @@ class Html extends Component {
       : false;
   }
   render() {
-    const { onSaveComponent, onModalChange, oncomponentInput } = this.props;
+    const { onModalChange } = this.props;
     const { widget } = this.state;
     return (
       <>

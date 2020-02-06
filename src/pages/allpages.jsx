@@ -23,7 +23,10 @@ class AllPages extends Component {
 
   onEditPage = id => {
     this.context.onSelectPage(id);
-    this.props.history.push("/project/editpage");
+    this.props.history.push({
+      pathname: "/project/editpage",
+      state: { pageType: "Save" }
+    });
   };
 
   render() {

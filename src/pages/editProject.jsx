@@ -145,7 +145,8 @@ class EditProject extends Component {
                   <Col>
                     <div className="addNewProjectData">
                       <Form.Group>
-                        <Form.Label>Video Section</Form.Label>
+                        {/* <Form.Label>Video Section</Form.Label> */}
+                        <Form.Label>Header Section</Form.Label>
                         <label className="dropImg">
                           <Dropzone
                             getUploadParams={this.getUploadParams}

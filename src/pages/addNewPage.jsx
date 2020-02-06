@@ -22,7 +22,7 @@ class AddNewPage extends Component {
         tabs: []
       },
       saved: true,
-      btnDisable:true
+      btnDisable: true
     },
     customItem: {
       title: "",
@@ -44,7 +44,6 @@ class AddNewPage extends Component {
     // const page = this.state.page;
     // page.data.widgets = [...page.data.widgets, modalData];
     // this.setState({ page });
-    
 
     this.setState({ showModalComponent: !this.state.showModalComponent }, () =>
       this.setModalContent(modalData)
@@ -140,6 +139,7 @@ class AddNewPage extends Component {
         )}
         <Content
           pageLabel="Create New Page"
+          btnTitle="Save"
           page={this.state.page}
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}
@@ -152,7 +152,6 @@ class AddNewPage extends Component {
           onModalChange={this.handleModal}
           showModal={this.state.showModalComponent}
           modalData={this.state.modalData}
-          // oncomponentInput={this.handleComponentInput}
           onSaveComponent={this.saveComponent}
         />
       </WidgetsContext>
