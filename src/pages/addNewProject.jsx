@@ -49,7 +49,12 @@ class AddNewProject extends Component {
     }
   };
   getUploadParams = ({ meta }) => {
-    return { url: "https://httpbin.org/post" };
+      
+    console.log(meta)
+    let file = {file:meta.previewUrl }
+
+    return { url:  this.context.onUploadFile(file) };
+           
   };
   handleChangeStatus = ({ meta, file }, status) => {
     console.log(status, meta, file);

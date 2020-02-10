@@ -20,3 +20,10 @@ export function getPages(id) {
 
   return apiService.get(pagesUrl);
 }
+
+export function uploadFile(file) {
+  const projectsEndpoint = APIBASEURL + "project/file";
+
+
+  return apiService.post(projectsEndpoint, file);
+}

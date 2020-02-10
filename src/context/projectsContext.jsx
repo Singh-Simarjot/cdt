@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { getProjects, getPages ,createProject } from "../services/projects";
+import { getProjects, getPages ,createProject ,uploadFile } from "../services/projects";
 
 const Context = React.createContext();
 
@@ -390,6 +390,10 @@ export class ProjectsContext extends Component {
     this.setState({ allProjects: projects });
   };
 
+  handleUploadFile = async (file) => {
+    await uploadFile(file)
+  }
+
   render() {
     return (
       <Context.Provider
@@ -406,7 +410,8 @@ export class ProjectsContext extends Component {
           onDeletePage: this.onDeletePage,
           onSelectPage: this.onSelectPage,
           onSaveNewPage: this.saveNewPage,
-          markDraftPage: this.markDraftPage
+          markDraftPage: this.markDraftPage,
+          onUploadFile:this.handleUploadFile
         }}
       >
         {this.props.children}
