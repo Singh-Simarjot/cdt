@@ -67,7 +67,7 @@ class ContentItem extends Component {
                 variant="dark"
                 size="sm"
                 onClick={() => {
-                  this.props.onModalChange(widgetContent);
+                  this.props.onModalChange(widgetContent, "edit");
                 }}
               >
                 <i className="fa fa-pencil"></i>

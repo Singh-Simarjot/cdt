@@ -25,6 +25,14 @@ class ExternalPageLinkGrid extends Component {
       }
     }
   };
+  componentDidMount() {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
+      this.setState({ widget: content });
+      this.setState({ externalLink: content.content.externalLink });
+    }
+  }
   internalNavigation = e => {
     const widget = { ...this.state.widget };
     widget.internalNavigation = !this.state.widget.internalNavigation;
@@ -114,8 +122,14 @@ class ExternalPageLinkGrid extends Component {
       : false;
   }
   onSaveContent = () => {
-    const dummyid = nextId();
-    const widget = this.state.widget;
+    let dummyid;
+    const widget = { ...this.state.widget };
+
+    if (this.props.modalOpenType === "edit") {
+      dummyid = widget.id;
+    } else {
+      dummyid = nextId();
+    }
     widget.id = dummyid;
     widget.content.externalLink = this.state.externalLink;
     this.setState({ widget });
@@ -182,7 +196,7 @@ class ExternalPageLinkGrid extends Component {
                     <Form.Label>Icon</Form.Label>
                     <Form.Control
                       type="file"
-                      value={link.icon}
+                      // value={link.icon}
                       onChange={e => this.addIcon(e, link.id)}
                     />
                   </Form.Group>
@@ -214,6 +228,7 @@ class ExternalPageLinkGrid extends Component {
               label={"Add Internal Navigation"}
               value={widget.internalNavigation}
               onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>

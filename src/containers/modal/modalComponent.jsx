@@ -16,7 +16,12 @@ import ExternalPageLinkGrid from "../../components/widgets/externalPageLinkGrid"
 import TextBlock from "../../components/widgets/textBlock";
 class ModalComponent extends Component {
   renderComponent() {
-    const { modalData, onModalChange, onSaveComponent } = this.props;
+    const {
+      modalData,
+      onModalChange,
+      onSaveComponent,
+      modalOpenType
+    } = this.props;
     switch (modalData.type) {
       case "HTML":
         return (
@@ -24,6 +29,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "TYPOGRAPHY":
@@ -32,6 +38,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "ICON_GRID":
@@ -40,6 +47,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "COLOR_PALETTE":
@@ -48,6 +56,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "MULTIPLE_IMAGE":
@@ -56,6 +65,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "IMAGE_BLOCK":
@@ -64,6 +74,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "VIDEO_BLOCK":
@@ -72,6 +83,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "IFRAME_BLOCK":
@@ -80,6 +92,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "CODE_SNIPPETS":
@@ -88,6 +101,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "CODE_SNIPPETS_WITH_VIEW":
@@ -96,6 +110,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "EXTERNAL_PAGE_LINK_GRID":
@@ -104,6 +119,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "TEXT_BLOCK":
@@ -112,6 +128,7 @@ class ModalComponent extends Component {
             data={modalData}
             onSaveComponent={onSaveComponent}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       default:

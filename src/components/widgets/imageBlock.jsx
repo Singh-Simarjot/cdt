@@ -19,6 +19,13 @@ class ImageBlock extends Component {
       }
     }
   };
+  componentDidMount() {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
+      this.setState({ widget: content });
+    }
+  }
   getUploadParams = ({ meta }) => {
     return { url: "https://httpbin.org/post" };
   };
@@ -61,10 +68,15 @@ class ImageBlock extends Component {
       : false;
   }
   onSaveContent = () => {
-    const dummyid = nextId();
-    const widget = this.state.widget;
+    let dummyid;
+    const widget = { ...this.state.widget };
+
+    if (this.props.modalOpenType === "edit") {
+      dummyid = widget.id;
+    } else {
+      dummyid = nextId();
+    }
     widget.id = dummyid;
-    // widget.content.externalLink = this.state.externalLink;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
   };
@@ -108,6 +120,9 @@ class ImageBlock extends Component {
             <Form.Check
               id="addInternalNavigation"
               label={"Add Internal Navigation"}
+              value={widget.internalNavigation}
+              onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>

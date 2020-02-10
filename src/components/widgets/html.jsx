@@ -16,12 +16,11 @@ class Html extends Component {
     }
   };
   componentDidMount() {
-    const content = this.props.data;
-    // const widget = this.state.widget;
-    if (content) {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
       this.setState({ widget: content });
     }
-    console.log(this.props.data);
   }
   titleInput = e => {
     const widget = { ...this.state.widget };
@@ -44,10 +43,13 @@ class Html extends Component {
     this.setState({ widget });
   };
   onSaveContent = () => {
-    let dummyid = nextId();
+    let dummyid;
     const widget = { ...this.state.widget };
-    if (widget.id) {
+
+    if (this.props.modalOpenType === "edit") {
       dummyid = widget.id;
+    } else {
+      dummyid = nextId();
     }
 
     widget.id = dummyid;

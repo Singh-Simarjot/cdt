@@ -30,7 +30,8 @@ class AddNewPage extends Component {
     },
     showModalComponent: false,
 
-    modalData: { title: "", description: "", content: "" }
+    modalData: { title: "", description: "", content: "" },
+    modalOpenType: ""
   };
   changeTemplate = e => {
     const page = { ...this.state.page };
@@ -39,11 +40,8 @@ class AddNewPage extends Component {
     page.btnDisable = false;
   };
 
-  handleModal = modalData => {
-    // console.log(modalData);
-    // const page = this.state.page;
-    // page.data.widgets = [...page.data.widgets, modalData];
-    // this.setState({ page });
+  handleModal = (modalData, edit) => {
+    this.setState({ modalOpenType: edit });
 
     this.setState({ showModalComponent: !this.state.showModalComponent }, () =>
       this.setModalContent(modalData)
@@ -94,10 +92,24 @@ class AddNewPage extends Component {
   };
   */
   saveComponent = modalData => {
-    // console.log("Page Data", modalData);
-    const page = this.state.page;
-    // const modalData = { ...this.state.modalData };
-    page.data.widgets = [...page.data.widgets, modalData];
+    const page = { ...this.state.page };
+    if (this.state.modalOpenType === "edit") {
+      const saveType = page.data.widgets.filter(function(item) {
+        if (item.id === modalData.id && item.type === modalData.type) {
+          item.title = modalData.title;
+          item.description = modalData.description;
+          item.internalNavigation = modalData.internalNavigation;
+          item.content = modalData.content;
+          return item;
+        } else {
+          return item;
+        }
+      });
+      page.data.widgets = saveType;
+    } else {
+      page.data.widgets = [modalData, ...page.data.widgets];
+    }
+
     this.setState({ page }, () => this.handleModal());
   };
 
@@ -153,6 +165,7 @@ class AddNewPage extends Component {
           showModal={this.state.showModalComponent}
           modalData={this.state.modalData}
           onSaveComponent={this.saveComponent}
+          modalOpenType={this.state.modalOpenType}
         />
       </WidgetsContext>
     );

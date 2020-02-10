@@ -19,7 +19,8 @@ class EditPage extends Component {
     customItem: {
       title: "",
       url: ""
-    }
+    },
+    modalOpenType: ""
   };
 
   componentDidMount() {
@@ -41,7 +42,8 @@ class EditPage extends Component {
     page.btnDisable = false;
   };
 
-  handleModal = modalData => {
+  handleModal = (modalData, edit) => {
+    this.setState({ modalOpenType: edit });
     this.setState({ showModalComponent: !this.state.showModalComponent }, () =>
       this.setModalContent(modalData)
     );
@@ -84,7 +86,7 @@ class EditPage extends Component {
     e.preventDefault();
     this.context.editPage(this.state.page);
     this.props.history.push("/project");
-    console.log(this.state.page.title.length)
+    console.log(this.state.page.title.length);
   };
 
   onMarkDraft = e => {
@@ -100,11 +102,32 @@ class EditPage extends Component {
     this.setState({ page });
   };
 
+  // saveComponent = modalData => {
+  //   // console.log("Page Data", modalData);
+  //   const page = this.state.page;
+  //   // const modalData = { ...this.state.modalData };
+  //   page.data.widgets = [...page.data.widgets, modalData];
+  //   this.setState({ page }, () => this.handleModal());
+  // };
   saveComponent = modalData => {
-    // console.log("Page Data", modalData);
-    const page = this.state.page;
-    // const modalData = { ...this.state.modalData };
-    page.data.widgets = [...page.data.widgets, modalData];
+    const page = { ...this.state.page };
+    if (this.state.modalOpenType === "edit") {
+      const saveType = page.data.widgets.filter(function(item) {
+        if (item.id === modalData.id && item.type === modalData.type) {
+          item.title = modalData.title;
+          item.description = modalData.description;
+          item.internalNavigation = modalData.internalNavigation;
+          item.content = modalData.content;
+          return item;
+        } else {
+          return item;
+        }
+      });
+      page.data.widgets = saveType;
+    } else {
+      page.data.widgets = [modalData, ...page.data.widgets];
+    }
+
     this.setState({ page }, () => this.handleModal());
   };
 
@@ -154,6 +177,7 @@ class EditPage extends Component {
           showModal={this.state.showModalComponent}
           modalData={this.state.modalData}
           onSaveComponent={this.saveComponent}
+          modalOpenType={this.state.modalOpenType}
         />
       </WidgetsContext>
     );

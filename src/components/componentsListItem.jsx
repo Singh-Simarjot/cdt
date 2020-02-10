@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 class ComponentsListItem extends Component {
   handleModal(item) {
-    this.props.onModalChange(item);
+    this.props.onModalChange(item, "new");
   }
 
   render() {
