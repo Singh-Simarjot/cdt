@@ -54,3 +54,117 @@
     margin-bottom: 1rem;
   }
 }
+
+// maltiple select
+.ui.dropdown {
+  position: relative;
+  padding: 0 30px 12px 0;
+  background-color: rgba($theme-bg, 0.1);
+  z-index: 9;
+  margin-bottom: 15px;
+  .ui.label {
+    padding: 5px 25px 6px 6px;
+    background-color: $theme-text;
+    position: relative;
+    margin-left: 12px;
+    margin-top: 12px;
+    display: inline-block;
+    border-radius: 4px;
+    font-size: $drfault-size - 2;
+    .delete.icon {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      background-color: $color-red;
+      text-align: center;
+      border-radius: 50%;
+      cursor: pointer;
+      &:after {
+        content: "\f00d";
+        font-family: FontAwesome;
+        color: $theme-text;
+        font-size: $drfault-size - 6;
+        line-height: 1;
+        position: relative;
+        top: -5px;
+        font-style: normal;
+      }
+    }
+  }
+  .search {
+    outline: 0;
+    border: 0;
+    line-height: 1.5;
+    box-shadow: 0 0 0 transparent;
+    background-color: transparent;
+    margin-left: 12px;
+    margin-top: 12px;
+    padding: 0;
+  }
+  .sizer {
+    display: none;
+  }
+  .default.text {
+    position: absolute;
+    top: 6px;
+    left: 12px;
+    display: none;
+  }
+  .dropdown.icon {
+    position: absolute;
+    top: 16px;
+    right: 12px;
+    font-style: normal;
+    cursor: pointer;
+    &:after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-left: 1px solid $theme-bg;
+      border-bottom: 1px solid $theme-bg;
+      display: block;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
+  }
+  &.active {
+    .dropdown.icon {
+      top: 20px;
+      &:after {
+        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
+      }
+    }
+  }
+  .menu.transition {
+    // position: absolute;
+    // top: 100%;
+    // left: 0;
+    // right: 0;
+    // padding: 6px 12px;
+    // padding: 12px;
+    margin-top: 12px;
+    background-color: rgba($color-white-gray, 1);
+    max-height: 150px;
+    overflow: auto;
+    display: none;
+    margin-bottom: -12px;
+    margin-right: -30px;
+    .item {
+      padding: 5px 15px;
+      background-color: rgba($color-white-gray, 1);
+      border-top: 1px solid rgba($theme-bg, 0.1);
+      cursor: pointer;
+      &:hover {
+        background-color: rgba($theme-bg, 0.1);
+      }
+    }
+    &.visible {
+      display: block;
+    }
+  }
+}

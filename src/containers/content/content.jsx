@@ -23,8 +23,7 @@ class Content extends Component {
               <h2>{pageLabel}</h2>
             </Col>
             <Col xs={4} className="text-right">
-
-          {/* <Button variant="warning" type="submit" className="ml-2" onClick={e => onMarkDraft(e)} >
+              {/* <Button variant="warning" type="submit" className="ml-2" onClick={e => onMarkDraft(e)} >
              {page.saved ? "Mark as Draft" : "Publish" }   
           </Button> */}
               {/* <Button size="sm" variant="success">
@@ -106,10 +105,13 @@ class Content extends Component {
               />
             ))}
           <br />
-          <Button type="submit" onClick={e => onSave(e)} disabled ={page.btnDisable}>
-           {this.props.btnTitle}
+          <Button
+            type="submit"
+            onClick={e => onSave(e)}
+            disabled={page.btnDisable}
+          >
+            {this.props.btnTitle}
           </Button>
-          
         </div>
       </div>
     );

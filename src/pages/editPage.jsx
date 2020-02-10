@@ -143,7 +143,7 @@ class EditPage extends Component {
     const pages = selectedProject.pages.filter(
       item => item.templateType !== "TABS"
     );
-    console.log(this.props.location.state.pageType);
+    // console.log(this.props.location.state.pageType);
     return (
       <WidgetsContext>
         {page.templateType === "DEFAULT" && (
