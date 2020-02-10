@@ -16,6 +16,7 @@ class Preview extends Component {
 
   render() {
     const { selectedProject } = this.context;
+    // console.log(selectedProject);
 
     return (
       <div className="home-wrap">
@@ -23,7 +24,18 @@ class Preview extends Component {
         <Sidebar />
         <div className="main">
           <Switch>
-            <Route exact path="/preview"  render={props => <Home {...props} title={selectedProject.title} description={selectedProject.description}  data= {selectedProject.data} />   } />
+            <Route
+              exact
+              path="/preview"
+              render={props => (
+                <Home
+                  {...props}
+                  title={selectedProject.title}
+                  description={selectedProject.description}
+                  data={selectedProject.data}
+                />
+              )}
+            />
             {selectedProject.navigation.map(
               item => (
                 (
@@ -32,9 +44,9 @@ class Preview extends Component {
                     component={DefaultTemplate}
                   />
                 ),
-                item.children.map(item => (
+                item.children.map(clildItem => (
                   <Route
-                    path={"/preview" + item.url}
+                    path={"/preview" + clildItem.url}
                     component={DefaultTemplate}
                   />
                 ))

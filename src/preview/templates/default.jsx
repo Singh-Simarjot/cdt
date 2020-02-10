@@ -28,18 +28,17 @@ class DefaultTemplate extends Component {
   }
   render() {
     const { selectedPage } = this.context;
-    // console.log(this.context);
-    // console.log(selectedPage);
+
     return (
       <React.Fragment>
-        {/* <PageHeader pageTitel={selectedPage.title} /> */}
-        {/* {selectedPage.templateType === "TABS" &&
+        <PageHeader pageTitel={selectedPage.title} />
+        {selectedPage.templateType === "TABS" &&
           selectedPage.data.tabs.length > 0 && (
             <Tabs tabsList={selectedPage.data.tabs} />
-          )} */}
+          )}
 
-        {/* <ComponentsContent /> */}
-        {/* <Switch>
+        <ComponentsContent />
+        <Switch>
           {selectedPage.data.tabs.map(item => (
             <Route
               key={item.id}
@@ -47,8 +46,8 @@ class DefaultTemplate extends Component {
               component={ComponentsContent}
             />
           ))}
-          <Redirect to={this.props.match.url + selectedPage.data.tabs[0].url} />
-        </Switch> */}
+          {/* <Redirect to={this.props.match.url + selectedPage.data.tabs[0].url} /> */}
+        </Switch>
       </React.Fragment>
     );
   }

@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
-import { getProjects, getPages ,createProject ,uploadFile } from "../services/projects";
+import {
+  getProjects,
+  getPages,
+  createProject,
+  uploadFile
+} from "../services/projects";
 
 const Context = React.createContext();
 
@@ -114,66 +119,67 @@ export class ProjectsContext extends Component {
         },
         section: {
           designing: {
-            image:require("../preview/templates/assets/images/designers.jpg"),
+            image: require("../preview/templates/assets/images/designers.jpg"),
             linkTopText: "Start",
             linkTitle: "Designing",
             link: "/#"
-
           },
           development: {
-            image:require("../preview/templates/assets/images/developing.jpg"),
+            image: require("../preview/templates/assets/images/developing.jpg"),
             linkTopText: "Start",
             linkTitle: "Developing",
             link: "/#"
-
           }
         },
-        resource:{
-          title:"Other resources",
-          description:"The component libraries give developers a collection of reusable components for building websites and user interfaces. See a complete list of resources.",
-          resourceComponets:[
+        resource: {
+          title: "Other resources",
+          description:
+            "The component libraries give developers a collection of reusable components for building websites and user interfaces. See a complete list of resources.",
+          resourceComponets: [
             {
-              title:"Sketch libraries",
-              link:"/#"
+              title: "Sketch libraries",
+              link: "/#"
             },
             {
-              title:"Carbon Components",
-              link:"/#"
-            },
-          ]
-        },
-
-        laetstTrends:{
-          sectionTitle:"Do you multitask or not? Is it a good practice to multitask at work? Give reasons and examples.",
-          article:[
-            {
-              image:require("../preview/templates/assets/images/xd_kit_img.jpg"),
-              title:"Adobe XD Carbon starter kit announced at Max",
-              PublishSubtitle:"Lauren Rice",
-              publishDate:"November 4, 2019",
-              link:"/#"
-            },
-            {
-              image:require("../preview/templates/assets/images/v10.7-release.jpg"),
-              title:"New in Carbon: October 2019",
-              PublishSubtitle:"Lauren Rice",
-              publishDate:"November 4, 2019",
-              link:"/#"
-            },
-            {
-              image:require("../preview/templates/assets/images/hacktoberfest.jpg"),
-              title:"Help build Carbon — Hacktoberfest 2019",
-              PublishSubtitle:"Lauren Rice",
-              publishDate:"November 4, 2019",
-              link:"/#"
+              title: "Carbon Components",
+              link: "/#"
             }
           ]
         },
-        contribute:{
-          title:"Wondering how to contribute?",
-          description:"We welcome all feedback, designs, or ideas in order to produce the best possible experience for our users. If you’re interested in contributing, check out our contributing guidelines to get started.",
-          linkText:"Start contributing",
-          link:"/#"
+
+        laetstTrends: {
+          sectionTitle:
+            "Do you multitask or not? Is it a good practice to multitask at work? Give reasons and examples.",
+          article: [
+            {
+              image: require("../preview/templates/assets/images/xd_kit_img.jpg"),
+              title: "Adobe XD Carbon starter kit announced at Max",
+              PublishSubtitle: "Lauren Rice",
+              publishDate: "November 4, 2019",
+              link: "/#"
+            },
+            {
+              image: require("../preview/templates/assets/images/v10.7-release.jpg"),
+              title: "New in Carbon: October 2019",
+              PublishSubtitle: "Lauren Rice",
+              publishDate: "November 4, 2019",
+              link: "/#"
+            },
+            {
+              image: require("../preview/templates/assets/images/hacktoberfest.jpg"),
+              title: "Help build Carbon — Hacktoberfest 2019",
+              PublishSubtitle: "Lauren Rice",
+              publishDate: "November 4, 2019",
+              link: "/#"
+            }
+          ]
+        },
+        contribute: {
+          title: "Wondering how to contribute?",
+          description:
+            "We welcome all feedback, designs, or ideas in order to produce the best possible experience for our users. If you’re interested in contributing, check out our contributing guidelines to get started.",
+          linkText: "Start contributing",
+          link: "/#"
         }
       },
 
@@ -242,10 +248,10 @@ export class ProjectsContext extends Component {
           url: "/link1",
           templateType: "TABS",
           children: [
-            { id: "1_1", title: "Link 1", url: "/link1/page1" },
-            { id: "1_2", title: "Link 2", url: "/link1/page2" },
-            { id: "1_3", title: "Link 3", url: "/link1/page3" },
-            { id: "1_4", title: "Link 4", url: "/link1/page4" }
+            { id: 1, title: "Link 1", url: "/link1/page1" },
+            { id: 2, title: "Link 2", url: "/link1/page2" },
+            { id: 3, title: "Link 3", url: "/link1/page3" },
+            { id: 4, title: "Link 4", url: "/link1/page4" }
           ]
         },
         {
@@ -312,16 +318,17 @@ export class ProjectsContext extends Component {
   onSelectProject = id => {
     this.setState({ selectedProjectID: id });
   };
+
   onSelectPage = id => {
     const page = this.state.selectedProject.pages.filter(
       item => item.id === id
     );
-    // console.log(page, id);
+
     this.setState({ selectedPageID: id, selectedPage: page[0] });
   };
   getAllProjects = async () => {
-    const allProjects = await  getProjects()
-    this.setState({ allProjects:allProjects.data });
+    const allProjects = await getProjects();
+    this.setState({ allProjects: allProjects.data });
   };
   getAllPages = async () => {
     // const pages = await  getPages(this.state.selectedProjectID)
@@ -333,9 +340,9 @@ export class ProjectsContext extends Component {
     selectedProject.navigation = navigation;
     this.setState({ selectedProject });
   };
-  addNewProject = async (item ) => {
+  addNewProject = async item => {
     const allProjects = [item, ...this.state.allProjects];
-    await  createProject(item)
+    await createProject(item);
     this.setState({ allProjects });
   };
   editProject = selectedProject => {
@@ -390,9 +397,9 @@ export class ProjectsContext extends Component {
     this.setState({ allProjects: projects });
   };
 
-  handleUploadFile = async (file) => {
-    await uploadFile(file)
-  }
+  handleUploadFile = async file => {
+    await uploadFile(file);
+  };
 
   render() {
     return (
@@ -411,7 +418,7 @@ export class ProjectsContext extends Component {
           onSelectPage: this.onSelectPage,
           onSaveNewPage: this.saveNewPage,
           markDraftPage: this.markDraftPage,
-          onUploadFile:this.handleUploadFile
+          onUploadFile: this.handleUploadFile
         }}
       >
         {this.props.children}

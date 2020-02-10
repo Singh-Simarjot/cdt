@@ -19,7 +19,17 @@ class NavigationList extends Component {
       return items.saved === true;
     });
 
-    let navPages = publishedPages.map((menuPage, i) => {
+    let processedPages = pages.filter(items => {
+      items.url =
+        "/" +
+        items.title
+          .toLowerCase()
+          .split(" ")
+          .join("");
+      return items;
+    });
+
+    let navPages = processedPages.map((menuPage, i) => {
       return (
         <li key={i}>
           {" "}
