@@ -36,7 +36,7 @@ class Preview extends Component {
                 />
               )}
             />
-            {selectedProject.navigation.map(
+            {/* {selectedProject.navigation.map(
               item => (
                 (
                   <Route
@@ -51,9 +51,23 @@ class Preview extends Component {
                   />
                 ))
               )
-            )}
+            )} */}
+            {selectedProject.navigation.map(item => (
+              <>
+                <Route
+                  path={"/preview" + item.url}
+                  component={DefaultTemplate}
+                />
+                {item.children !== undefined &&
+                  item.children.map(clildItem => (
+                    <Route
+                      path={"/preview" + clildItem.url}
+                      component={DefaultTemplate}
+                    />
+                  ))}
+              </>
+            ))}
           </Switch>
-
           <Footer />
         </div>
       </div>

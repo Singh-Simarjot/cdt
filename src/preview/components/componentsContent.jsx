@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./ComponentsContent.scss";
 import { Container } from "react-bootstrap";
-import ProjectsContext from "../../context/projectsContext";
 
 // components
 import TableData from "./TableData/TableData";
@@ -9,22 +8,57 @@ import ColorGrid from "./Color/ColorGrid";
 import IconGrid from "./Icons/IconGrid";
 import Theme from "./Theme/Theme";
 import TextBlock from "./Content/Content";
+import Html from "./Html/html";
+import CodeSnippetsWithView from "./codeSnippetsWithView/codeSnippetsWithView";
+import CodeSnippets from "./codeSnippets/codeSnippets";
+import IframeBlock from "./iframeBlock/iframeBlock";
 class ComponentsContent extends Component {
-  static contextType = ProjectsContext;
-
   state = {};
+  renderPreview(item) {
+    const { content } = item;
+    // data.map(item => item.type);
+    switch (item.type) {
+      case "HTML":
+        // return <Html data={content} />;
+        return <Html data={item} />;
+      case "TYPOGRAPHY":
+        // return <Typography data={item} />;
+        return <TableData data={item} />;
+      case "ICON_GRID":
+        return <IconGrid data={item} />;
+      case "COLOR_PALETTE":
+        // return <ColorPalette data={item} />;
+        return <ColorGrid data={item} />;
+      case "MULTIPLE_IMAGE":
+        // return <MultipleImage data={item} />;
+        return <TableData data={item} />;
+      case "IMAGE_BLOCK":
+        // return <ImageBlock data={item} />;
+        return <TableData data={item} />;
+      case "VIDEO_BLOCK":
+        // return <VideoBlock data={item} />;
+        return <TableData data={item} />;
+      case "IFRAME_BLOCK":
+        return <IframeBlock data={item} />;
+      case "CODE_SNIPPETS":
+        return <CodeSnippets data={item} />;
+      case "CODE_SNIPPETS_WITH_VIEW":
+        return <CodeSnippetsWithView data={item} />;
+      case "EXTERNAL_PAGE_LINK_GRID":
+        // return <ExternalPageLinkGrid data={item} />;
+        return <TableData data={item} />;
+      case "TEXT_BLOCK":
+        return <TextBlock data={item} />;
+      default:
+        return "foo";
+    }
+  }
   render() {
-    const { selectedPage } = this.context;
-    console.log(selectedPage);
+    const { data } = this.props;
+    // console.log("data: ", data);
     return (
       <section className="componentsContent">
-        <Container>
-          <TableData />
-          <ColorGrid />
-          <TextBlock />
-          <IconGrid />
-          <Theme />
-        </Container>
+        <Container>{data.map(item => this.renderPreview(item))}</Container>
       </section>
     );
   }

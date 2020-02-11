@@ -15,7 +15,7 @@ class AddNewPage extends Component {
 
   state = {
     page: {
-      title: "dd",
+      title: "",
       templateType: "DEFAULT",
       data: {
         widgets: [],

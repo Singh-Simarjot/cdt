@@ -27,8 +27,8 @@ class DefaultTemplate extends Component {
     }
   }
   render() {
-    const { selectedPage } = this.context;
-
+    const { selectedPage, subPage } = this.context;
+    console.log(selectedPage);
     return (
       <React.Fragment>
         <PageHeader pageTitel={selectedPage.title} />
@@ -36,18 +36,25 @@ class DefaultTemplate extends Component {
           selectedPage.data.tabs.length > 0 && (
             <Tabs tabsList={selectedPage.data.tabs} />
           )}
-
-        <ComponentsContent />
-        <Switch>
-          {selectedPage.data.tabs.map(item => (
-            <Route
-              key={item.id}
-              path={this.props.match.url + item.url}
-              component={ComponentsContent}
-            />
-          ))}
-          {/* <Redirect to={this.props.match.url + selectedPage.data.tabs[0].url} /> */}
-        </Switch>
+        {selectedPage.templateType === "TABS" ? (
+          <Switch>
+            {selectedPage.data.tabs.map(item => (
+              <Route
+                key={item.id}
+                path={this.props.match.url + item.url}
+                render={props => (
+                  <ComponentsContent
+                    {...this.props}
+                    data={subPage.data.widgets}
+                  />
+                )}
+              />
+            ))}
+            {/* <Redirect to={this.props.match.url + selectedPage.data.tabs[0].url} /> */}
+          </Switch>
+        ) : (
+          <ComponentsContent data={selectedPage.data.widgets} />
+        )}
       </React.Fragment>
     );
   }

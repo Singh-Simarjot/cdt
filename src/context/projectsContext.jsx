@@ -192,7 +192,226 @@ export class ProjectsContext extends Component {
           author: "DEV1",
           templateType: "DEFAULT",
           data: {
-            widgets: [],
+            widgets: [
+              {
+                id: 4,
+                icon: "fa-th",
+                label: "Color Palette",
+                type: "COLOR_PALETTE",
+                title: "Color Palette Title",
+                description: "Color Palette Description",
+                content: {
+                  colorsPalettes: [
+                    {
+                      id: "1",
+                      title: "",
+                      shades: [
+                        {
+                          id: "id1",
+                          color: "rgb(0,0,0)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id2",
+                          color: "rgb(0, 17, 65",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id3",
+                          color: "rgb(0, 29, 108)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id4",
+                          color: "rgb(0, 45, 156)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id5",
+                          color: "rgb(0, 67, 206)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id6",
+                          color: "rgb(15, 98, 254)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id7",
+                          color: "rgb(69, 137, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id8",
+                          color: "rgb(120, 169, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id9",
+                          color: "rgb(166, 200, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id10",
+                          color: "rgb(208, 226, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id11",
+                          color: "rgb(237, 245, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id12",
+                          color: "rgb(255, 255, 255)",
+                          saved: true,
+                          parentId: "1"
+                        }
+                      ]
+                    },
+                    {
+                      id: "2",
+                      title: "Alerts Colors",
+                      shades: [
+                        {
+                          id: "id1",
+                          color: "rgb(0,0,0)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id2",
+                          color: "rgb(0, 17, 65",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id3",
+                          color: "rgb(0, 29, 108)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id4",
+                          color: "rgb(0, 45, 156)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id5",
+                          color: "rgb(0, 67, 206)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id6",
+                          color: "rgb(15, 98, 254)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id7",
+                          color: "rgb(69, 137, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id8",
+                          color: "rgb(120, 169, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id9",
+                          color: "rgb(166, 200, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id10",
+                          color: "rgb(208, 226, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id11",
+                          color: "rgb(237, 245, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id12",
+                          color: "rgb(255, 255, 255)",
+                          saved: true,
+                          parentId: "2"
+                        }
+                      ]
+                    },
+                    {
+                      id: "3",
+                      title: "Alerts Colors",
+                      shades: [
+                        {
+                          id: "id1",
+                          color: "rgb(0,0,0)",
+                          saved: true,
+                          parentId: "3"
+                        },
+                        {
+                          id: "id2",
+                          color: "rgb(0, 17, 65",
+                          saved: true,
+                          parentId: "3"
+                        },
+                        {
+                          id: "id3",
+                          color: "rgb(0, 29, 108)",
+                          saved: true,
+                          parentId: "3"
+                        },
+                        {
+                          id: "id4",
+                          color: "rgb(0, 45, 156)",
+                          saved: true,
+                          parentId: "3"
+                        },
+                        {
+                          id: "id5",
+                          color: "rgb(0, 67, 206)",
+                          saved: true,
+                          parentId: "3"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                internalNavigation: false
+              },
+              {
+                id: 10,
+                icon: "fa-codepen",
+                label: "Code Snippets With View",
+                type: "CODE_SNIPPETS_WITH_VIEW",
+                title: "Code Snippets With View Titel",
+                description: "Code Snippets With View Description",
+                content: {
+                  iframe:
+                    '<iframe src="https://codepen.io/chriscoyier/embed/BdYmjz?height=300&amp;theme-id=1&amp;slug-hash=BdYmjz&amp;default-tab=css%2Cresult&amp;user=chriscoyier&amp;embed-version=2&amp;pen-title=caret-color&amp;editable=true&amp;name=cp_embed_1" frameBorder="0"></iframe>'
+                },
+                internalNavigation: false
+              }
+            ],
             tabs: []
           },
           saved: true,
@@ -312,6 +531,14 @@ export class ProjectsContext extends Component {
         ],
         widgets: []
       }
+    },
+    subPage: {
+      id: "",
+      title: "",
+      dateCreated: "",
+      dateEdited: "",
+      author: "",
+      widgets: []
     }
   };
 
@@ -325,6 +552,12 @@ export class ProjectsContext extends Component {
     );
 
     this.setState({ selectedPageID: id, selectedPage: page[0] });
+  };
+  handleSelectSubPage = id => {
+    const subpage = this.state.selectedProject.pages.filter(
+      item => item.id === id
+    );
+    this.setState({ subPage: subpage[0] });
   };
   getAllProjects = async () => {
     const allProjects = await getProjects();
@@ -418,7 +651,8 @@ export class ProjectsContext extends Component {
           onSelectPage: this.onSelectPage,
           onSaveNewPage: this.saveNewPage,
           markDraftPage: this.markDraftPage,
-          onUploadFile: this.handleUploadFile
+          onUploadFile: this.handleUploadFile,
+          onSelectSubPage: this.handleSelectSubPage
         }}
       >
         {this.props.children}

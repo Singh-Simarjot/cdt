@@ -15,6 +15,7 @@ class Tabs extends Component {
   }
   render() {
     const { tabsList } = this.props;
+    const { onSelectSubPage } = this.context;
     // const { selectedTabID } = this.context;
     return (
       <section className="tabing-section">
@@ -28,9 +29,9 @@ class Tabs extends Component {
                 {/* <Nav.Link href={item.url}>{item.title}</Nav.Link> */}
                 <NavLink
                   to={"/preview/link1/page1" + item.url}
-                  //   onClick={() => {
-                  //     this.context.onSelectTab(item.id);
-                  //   }}
+                  onClick={() => {
+                    onSelectSubPage(item.id);
+                  }}
                 >
                   {item.title}
                 </NavLink>
