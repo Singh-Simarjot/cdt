@@ -12,6 +12,7 @@ import Html from "./Html/html";
 import CodeSnippetsWithView from "./codeSnippetsWithView/codeSnippetsWithView";
 import CodeSnippets from "./codeSnippets/codeSnippets";
 import IframeBlock from "./iframeBlock/iframeBlock";
+import VideoBlock from "./videoBlock/videoBlock";
 class ComponentsContent extends Component {
   state = {};
   renderPreview(item) {
@@ -36,8 +37,7 @@ class ComponentsContent extends Component {
         // return <ImageBlock data={item} />;
         return <TableData data={item} />;
       case "VIDEO_BLOCK":
-        // return <VideoBlock data={item} />;
-        return <TableData data={item} />;
+        return <VideoBlock data={item} />;
       case "IFRAME_BLOCK":
         return <IframeBlock data={item} />;
       case "CODE_SNIPPETS":

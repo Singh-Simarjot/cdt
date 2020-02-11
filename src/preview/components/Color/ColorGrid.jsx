@@ -129,7 +129,6 @@ class ColorGrid extends Component {
   }
   render() {
     const { data } = this.props;
-    console.log("IconGrid", data);
     return (
       <React.Fragment>
         <div className="color-grid">

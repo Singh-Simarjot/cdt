@@ -49,12 +49,10 @@ class AddNewProject extends Component {
     }
   };
   getUploadParams = ({ meta }) => {
-      
-    console.log(meta)
-    let file = {file:meta.previewUrl }
+    console.log(meta);
+    let file = { file: meta.previewUrl };
 
-    return { url:  this.context.onUploadFile(file) };
-           
+    return { url: this.context.onUploadFile(file) };
   };
   handleChangeStatus = ({ meta, file }, status) => {
     console.log(status, meta, file);
@@ -63,16 +61,16 @@ class AddNewProject extends Component {
     console.log(files.map(f => f.meta));
   };
   handleChange = (e, section) => {
-    const project = {...this.state.project}
-    project[e.target.name] = e.target.value
-     this.setState({project})
+    const project = { ...this.state.project };
+    project[e.target.name] = e.target.value;
+    this.setState({ project });
   };
-  addProject = (e) => {
+  addProject = e => {
     e.preventDefault();
-  
+
     this.context.addNewProject(this.state.project);
-    this.props.history.push("/")
-  }
+    this.props.history.push("/");
+  };
   render() {
     return (
       <main className="main">
@@ -252,7 +250,12 @@ class AddNewProject extends Component {
                         />
                       </Form.Group>
                       <div className="text-right mb-4">
-                        <Button variant="primary" size="lg" type="submit" onClick={(e)=> this.addProject(e)}>
+                        <Button
+                          variant="primary"
+                          size="lg"
+                          type="submit"
+                          onClick={e => this.addProject(e)}
+                        >
                           Submit
                         </Button>
                       </div>
