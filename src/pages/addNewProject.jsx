@@ -9,43 +9,76 @@ class AddNewProject extends Component {
   static contextType = ProjectsContext;
 
   state = {
-    project: {
-      name: "",
-      description: "",
-      coverPhoto: "",
-      videoSection: {
-        videoType: "",
-        videoTitle: "",
-        videoUrl: "",
-        videoLink: ""
-      },
-      designSection: {
-        title: "",
-        link: "",
-        image: ""
-      },
-      developSection: {
-        title: "",
-        link: "",
-        image: ""
-      },
-      otherresources: [
-        {
-          title: "",
-          desc: "",
-          link: ""
+    newProject: {
+      title: "",
+      description:
+        "",
+      id: "",
+      data: {
+        headerSection: {
+          videoUrl: { 
+            mobile: {
+              webm: "",
+              mp4: ""
+            },
+
+            desktop: {
+              webm: "",
+              mp4: ""
+            }
+          },
+          videoThumb: "",
+          link: {
+            linkTopText: "",
+            linkTitle: "",
+            link: ""
+          }
         },
-        {
-          title: "",
-          desc: "",
-          link: ""
+        section: {
+          designing: {
+            image:"",
+            linkTopText: "",
+            linkTitle: "",
+            link: ""
+
+          },
+          development: {
+            image:"",
+            linkTopText: "",
+            linkTitle: "",
+            link: ""
+          }
+        },
+        resource:{
+          title:"",
+          description:"",
+          resourceComponets:[
+            {
+              title:"",
+              link:""
+            }
+          ]
+        },
+
+        laetstTrends:{
+          sectionTitle:"",
+          article:[
+            {
+              image:"",
+              title:"",
+              author:"",
+              publishDate:"",
+              link:""
+            }
+          ]
+        },
+        contribute:{
+          title:"",
+          description:"",
+          linkText:"",
+          link:""
         }
-      ],
-      relatedArticles: [
-        { title: "", Desc: "", image: "", url: "" },
-        { title: "", Desc: "", image: "", url: "" },
-        { title: "", Desc: "", image: "", url: "" }
-      ]
+      }
     }
   };
   getUploadParams = ({ meta }) => {
@@ -59,18 +92,26 @@ class AddNewProject extends Component {
   };
   handleSubmit = (files, allFiles) => {
     console.log(files.map(f => f.meta));
+    allFiles.forEach(f => f.remove())
   };
   handleChange = (e, section) => {
-    const project = { ...this.state.project };
-    project[e.target.name] = e.target.value;
-    this.setState({ project });
-  };
-  addProject = e => {
-    e.preventDefault();
 
-    this.context.addNewProject(this.state.project);
-    this.props.history.push("/");
+    const newProject = {...this.state.newProject}
+     
+    newProject[e.target.name] = e.target.value
+    this.setState({newProject})
+
+
   };
+  // handleHeaderSection(){
+
+  // }
+  addProject = (e) => {
+    e.preventDefault();
+  
+    this.context.addNewProject(this.state.newProject);
+    this.props.history.push("/");
+  }
   render() {
     return (
       <main className="main">
@@ -95,8 +136,8 @@ class AddNewProject extends Component {
                         <Form.Label>Title</Form.Label>
                         <Form.Control
                           type="text"
-                          name="name"
-                          value={this.state.project.name}
+                          name="title"
+                          value={this.state.newProject.title}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
                       </Form.Group>
@@ -106,7 +147,7 @@ class AddNewProject extends Component {
                           as="textarea"
                           rows="4"
                           name="description"
-                          value={this.state.project.description}
+                          value={this.state.newProject.description}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
                       </Form.Group>
@@ -127,7 +168,7 @@ class AddNewProject extends Component {
                   <Col>
                     <div className="addNewProjectData">
                       <Form.Group>
-                        <Form.Label>Video Section</Form.Label>
+                        <Form.Label>Header Section</Form.Label>
                         <label className="dropImg">
                           <Dropzone
                             getUploadParams={this.getUploadParams}
@@ -136,6 +177,14 @@ class AddNewProject extends Component {
                             accept="image/*,audio/*,video/*"
                           />
                         </label>
+                        <Form.Control
+                          type="text"
+                          name="linkTopText"
+                          placeholder="Top Title Text"
+                          onChange={(e) =>
+                            this.handleChange(e,"headerSection")
+                          }
+                        />
                         <Form.Control
                           type="text"
                           placeholder="Video Title"
@@ -152,7 +201,7 @@ class AddNewProject extends Component {
                         />
                         <Form.Control
                           type="text"
-                          placeholder="Video Link"
+                          placeholder="Redirection Link"
                           onChange={(e, section) =>
                             this.handleChange(e, "VIDEOSECTION")
                           }
@@ -160,7 +209,7 @@ class AddNewProject extends Component {
                       </Form.Group>
 
                       <Form.Group>
-                        <Form.Label>Image Section</Form.Label>
+                        <Form.Label>Designing Section</Form.Label>
                         <label className="dropImg">
                           <Dropzone
                             getUploadParams={this.getUploadParams}
@@ -169,6 +218,13 @@ class AddNewProject extends Component {
                             accept="image/*,audio/*,video/*"
                           />
                         </label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Top Title Text"
+                          onChange={(e, section) =>
+                            this.handleChange(e, "DESIGNSECTION")
+                          }
+                        />
                         <Form.Control
                           type="text"
                           placeholder="Image Title"
@@ -185,7 +241,47 @@ class AddNewProject extends Component {
                         />
                         <Form.Control
                           type="text"
-                          placeholder="Image Link"
+                          placeholder="Redirection Link"
+                          onChange={(e, section) =>
+                            this.handleChange(e, "DESIGNSECTION")
+                          }
+                        />
+                      </Form.Group>
+
+                      <Form.Group>
+                        <Form.Label>Developing Section</Form.Label>
+                        <label className="dropImg">
+                          <Dropzone
+                            getUploadParams={this.getUploadParams}
+                            onChangeStatus={this.handleChangeStatus}
+                            onSubmit={this.handleSubmit}
+                            accept="image/*,audio/*,video/*"
+                          />
+                        </label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Top Title Text"
+                          onChange={(e, section) =>
+                            this.handleChange(e, "DESIGNSECTION")
+                          }
+                        />
+                        <Form.Control
+                          type="text"
+                          placeholder="Image Title"
+                          onChange={(e, section) =>
+                            this.handleChange(e, "DESIGNSECTION")
+                          }
+                        />
+                        <Form.Control
+                          type="text"
+                          placeholder="Image Url"
+                          onChange={(e, section) =>
+                            this.handleChange(e, "DESIGNSECTION")
+                          }
+                        />
+                        <Form.Control
+                          type="text"
+                          placeholder="Redirection Link"
                           onChange={(e, section) =>
                             this.handleChange(e, "DESIGNSECTION")
                           }
@@ -227,6 +323,13 @@ class AddNewProject extends Component {
                             accept="image/*,audio/*,video/*"
                           />
                         </label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Author"
+                          onChange={(e, section) =>
+                            this.handleChange(e, "DESIGNSECTION")
+                          }
+                        />
                         <Form.Control
                           type="text"
                           placeholder="Title"

@@ -152,25 +152,25 @@ export class ProjectsContext extends Component {
             "Do you multitask or not? Is it a good practice to multitask at work? Give reasons and examples.",
           article: [
             {
-              image: require("../preview/templates/assets/images/xd_kit_img.jpg"),
-              title: "Adobe XD Carbon starter kit announced at Max",
-              PublishSubtitle: "Lauren Rice",
-              publishDate: "November 4, 2019",
-              link: "/#"
+              image:require("../preview/templates/assets/images/xd_kit_img.jpg"),
+              title:"Adobe XD Carbon starter kit announced at Max",
+              author:"Lauren Rice",
+              publishDate:"November 4, 2019",
+              link:"/#"
             },
             {
-              image: require("../preview/templates/assets/images/v10.7-release.jpg"),
-              title: "New in Carbon: October 2019",
-              PublishSubtitle: "Lauren Rice",
-              publishDate: "November 4, 2019",
-              link: "/#"
+              image:require("../preview/templates/assets/images/v10.7-release.jpg"),
+              title:"New in Carbon: October 2019",
+              author:"Lauren Rice",
+              publishDate:"November 4, 2019",
+              link:"/#"
             },
             {
-              image: require("../preview/templates/assets/images/hacktoberfest.jpg"),
-              title: "Help build Carbon — Hacktoberfest 2019",
-              PublishSubtitle: "Lauren Rice",
-              publishDate: "November 4, 2019",
-              link: "/#"
+              image:require("../preview/templates/assets/images/hacktoberfest.jpg"),
+              title:"Help build Carbon — Hacktoberfest 2019",
+              author:"Lauren Rice",
+              publishDate:"November 4, 2019",
+              link:"/#"
             }
           ]
         },
@@ -573,10 +573,11 @@ export class ProjectsContext extends Component {
     selectedProject.navigation = navigation;
     this.setState({ selectedProject });
   };
-  addNewProject = async item => {
-    const allProjects = [item, ...this.state.allProjects];
-    await createProject(item);
+  addNewProject = async (item ) => {
+    const allProjects = [...this.state.allProjects];
+    // await  createProject(item)
     this.setState({ allProjects });
+    console.log(allProjects);
   };
   editProject = selectedProject => {
     this.setState({ selectedProject });

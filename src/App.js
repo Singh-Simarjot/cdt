@@ -35,7 +35,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/" component={Dashboard} />
+        <Route path="/"  component={Dashboard} />
         {/* <Route path="/" component={Content} /> */}
       </Switch>
 
