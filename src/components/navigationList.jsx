@@ -15,9 +15,11 @@ class NavigationList extends Component {
   render() {
     const { pages, customItem } = this.props;
 
-    let publishedPages = pages.filter(items => {
-      return items.saved === true;
-    });
+    let publishedPages =
+      pages !== undefined &&
+      pages.filter(items => {
+        return items.saved === true;
+      });
 
     let processedPages = pages.filter(items => {
       items.url =

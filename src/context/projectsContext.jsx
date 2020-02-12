@@ -27,69 +27,8 @@ export class ProjectsContext extends Component {
         name: "Item name 2",
         dateCreated: 1579325185,
         dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-      {
-        id: 3,
-        name: "Item name 3",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-      {
-        id: 4,
-        name: "Item name 4",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 5,
-        name: "Item name 5",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 6,
-        name: "Item name 6",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 7,
-        name: "Item name 7",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 8,
-        name: "Item name 8",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 9,
-        name: "Item name 9",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 10,
-        name: "Item name 10",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
+        authour: "Authour Name",
+        thumbnail: "ada"
       }
     ],
     selectedProject: {
@@ -152,25 +91,25 @@ export class ProjectsContext extends Component {
             "Do you multitask or not? Is it a good practice to multitask at work? Give reasons and examples.",
           article: [
             {
-              image:require("../preview/templates/assets/images/xd_kit_img.jpg"),
-              title:"Adobe XD Carbon starter kit announced at Max",
-              author:"Lauren Rice",
-              publishDate:"November 4, 2019",
-              link:"/#"
+              image: require("../preview/templates/assets/images/xd_kit_img.jpg"),
+              title: "Adobe XD Carbon starter kit announced at Max",
+              PublishSubtitle: "Lauren Rice",
+              publishDate: "November 4, 2019",
+              link: "/#"
             },
             {
-              image:require("../preview/templates/assets/images/v10.7-release.jpg"),
-              title:"New in Carbon: October 2019",
-              author:"Lauren Rice",
-              publishDate:"November 4, 2019",
-              link:"/#"
+              image: require("../preview/templates/assets/images/v10.7-release.jpg"),
+              title: "New in Carbon: October 2019",
+              PublishSubtitle: "Lauren Rice",
+              publishDate: "November 4, 2019",
+              link: "/#"
             },
             {
-              image:require("../preview/templates/assets/images/hacktoberfest.jpg"),
-              title:"Help build Carbon — Hacktoberfest 2019",
-              author:"Lauren Rice",
-              publishDate:"November 4, 2019",
-              link:"/#"
+              image: require("../preview/templates/assets/images/hacktoberfest.jpg"),
+              title: "Help build Carbon — Hacktoberfest 2019",
+              PublishSubtitle: "Lauren Rice",
+              publishDate: "November 4, 2019",
+              link: "/#"
             }
           ]
         },
@@ -503,35 +442,7 @@ export class ProjectsContext extends Component {
         }
       ]
     },
-    selectedPage: {
-      id: 4,
-      title: "Page 4",
-      dateCreated: 1579338582,
-      dateEdited: 1579338582,
-      author: "DEV1",
-      templateType: "TABS",
-      data: {
-        tabs: [
-          {
-            id: 2,
-            title: "Tab 2",
-            url: "/tab2"
-          },
-          {
-            id: 3,
-            title: "Tab 3",
-            url: "/ltab3"
-          },
-
-          {
-            id: 4,
-            title: "Tab 4",
-            url: "/tab4"
-          }
-        ],
-        widgets: []
-      }
-    },
+    selectedPage: {},
     subPage: {
       id: "",
       title: "",
@@ -563,9 +474,11 @@ export class ProjectsContext extends Component {
     const allProjects = await getProjects();
     this.setState({ allProjects: allProjects.data });
   };
-  getAllPages = async () => {
-    // const pages = await  getPages(this.state.selectedProjectID)
-    // this.setState({ pages:pages.data });
+  getAllPages = async id => {
+    const selectedProject = this.state.selectedProject;
+
+    selectedProject.pages = [];
+    this.setState({ selectedProject });
   };
 
   updateNavigation = navigation => {
@@ -573,9 +486,10 @@ export class ProjectsContext extends Component {
     selectedProject.navigation = navigation;
     this.setState({ selectedProject });
   };
-  addNewProject = async (item ) => {
-    const allProjects = [...this.state.allProjects];
-    // await  createProject(item)
+  addNewProject = async item => {
+    // console.log(item);
+    await createProject(JSON.stringify(item));
+    const allProjects = [item, ...this.state.allProjects];
     this.setState({ allProjects });
     console.log(allProjects);
   };

@@ -131,9 +131,9 @@ class AddNewPage extends Component {
     const { page } = this.state;
     const { selectedProject } = this.context;
 
-    const pages = selectedProject.pages.filter(
-      item => item.templateType !== "TABS"
-    );
+    const pages =
+      selectedProject.pages !== undefined &&
+      selectedProject.pages.filter(item => item.templateType !== "TABS");
     return (
       <WidgetsContext>
         {page.templateType === "DEFAULT" && (

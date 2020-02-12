@@ -27,7 +27,13 @@
     }
     tbody {
       tr {
+        counter-increment: section;
         td {
+          &.count {
+            &:after {
+              content: counter(section);
+            }
+          }
           a {
             color: $theme-bg;
           }

@@ -13,3 +13,16 @@
     }
   }
 }
+
+.resourceItem {
+  border: 1px solid rgba($theme-bg, 0.1);
+  padding: 10px;
+  .resourceItemInner {
+    padding: 10px 10px 0;
+    margin-bottom: 10px;
+    background-color: rgba($theme-bg, 0.1);
+    .form-control {
+      margin-bottom: 10px;
+    }
+  }
+}

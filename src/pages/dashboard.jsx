@@ -64,7 +64,6 @@ class Dashbord extends Component {
                   </Col>
                 </Row>
                 <Row>
-                  {}
                   {allProjects.slice(0, 4).map(item => (
                     <Col sm={6} md={4} lg={3} key={item.id}>
                       <Card bg="light" key={item.id}>
@@ -147,7 +146,7 @@ class Dashbord extends Component {
                   <tbody>
                     {allProjects.map(project => (
                       <tr key={project.id}>
-                        <td>{project.id}</td>
+                        <td className="count"></td>
                         <td>
                           <Link to="/project">{project.name}</Link>
                         </td>

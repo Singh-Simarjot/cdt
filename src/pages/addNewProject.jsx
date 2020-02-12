@@ -4,79 +4,62 @@ import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone-uploader";
 import ProjectsContext from "../context/projectsContext";
-
+import nextId from "react-id-generator";
 class AddNewProject extends Component {
   static contextType = ProjectsContext;
-
   state = {
     newProject: {
-      title: "",
-      description:
-        "",
+      name: "",
+      description: "",
       id: "",
+      thumbnail: "",
       data: {
         headerSection: {
-          videoUrl: { 
-            mobile: {
-              webm: "",
-              mp4: ""
-            },
-
-            desktop: {
-              webm: "",
-              mp4: ""
-            }
-          },
+          video: "",
+          videoType: "URL",
           videoThumb: "",
-          link: {
-            linkTopText: "",
-            linkTitle: "",
-            link: ""
-          }
+          linkTopText: "",
+          linkTitle: "",
+          link: ""
         },
-        section: {
-          designing: {
-            image:"",
-            linkTopText: "",
-            linkTitle: "",
-            link: ""
-
-          },
-          development: {
-            image:"",
-            linkTopText: "",
-            linkTitle: "",
-            link: ""
-          }
+        designing: {
+          image: "",
+          linkTopText: "",
+          linkTitle: "",
+          link: ""
         },
-        resource:{
-          title:"",
-          description:"",
-          resourceComponets:[
+        development: {
+          image: "",
+          linkTopText: "",
+          linkTitle: "",
+          link: "",
+          redirectionLink: ""
+        },
+        resource: {
+          title: "",
+          description: "",
+          resourceComponets: [
             {
-              title:"",
-              link:""
+              id: "1",
+              title: "",
+              link: "",
+              icon: ""
             }
           ]
         },
 
-        laetstTrends:{
-          sectionTitle:"",
-          article:[
+        latestTrends: {
+          title: "",
+          article: [
             {
-              image:"",
-              title:"",
-              author:"",
-              publishDate:"",
-              link:""
+              id: "1",
+              image: "",
+              title: "",
+              author: "",
+              publishDate: "1234567890",
+              link: ""
             }
           ]
-        },
-        contribute:{
-          title:"",
-          description:"",
-          linkText:"",
-          link:""
         }
       }
     }
@@ -87,32 +70,232 @@ class AddNewProject extends Component {
 
     return { url: this.context.onUploadFile(file) };
   };
-  handleChangeStatus = ({ meta, file }, status) => {
-    console.log(status, meta, file);
+  // handleChangeStatus = ({ file }, status) => {
+  //   // console.log(status, meta, file);
+  //   const fileName = file.name;
+  //   const newProject = this.state.newProject;
+  //   newProject.thumbnail = fileName;
+  //   this.setState({ newProject });
+  //   // console.log("section", section);
+  // };
+
+  addMoreResourceLink = () => {
+    const dummyId = nextId();
+    const obj = {
+      id: dummyId,
+      title: "",
+      link: "",
+      icon: ""
+    };
+    const newProject = { ...this.state.newProject };
+    newProject.data.resource.resourceComponets = [
+      ...newProject.data.resource.resourceComponets,
+      obj
+    ];
+    this.setState({ newProject });
+  };
+
+  disabledAddMoreResourceLink() {
+    const newProject = { ...this.state.newProject };
+    const result = newProject.data.resource.resourceComponets.filter(i =>
+      i.title === "" || i.link === "" || i.icon === "" ? true : false
+    );
+    if (result.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  addResourceLinkTitle = (e, id) => {
+    const title = e.target.value;
+    const newProject = { ...this.state.newProject };
+    newProject.data.resource.resourceComponets.filter(item =>
+      item.id === id ? (item.title = title) : item
+    );
+    this.setState({ newProject });
+  };
+  addResourceLinkLink = (e, id) => {
+    const link = e.target.value;
+    const newProject = { ...this.state.newProject };
+    newProject.data.resource.resourceComponets.filter(item =>
+      item.id === id ? (item.link = link) : item
+    );
+    this.setState({ newProject });
+  };
+  addResourceLinkIcon = (e, id) => {
+    const icon = e.target.value;
+    const newProject = { ...this.state.newProject };
+    newProject.data.resource.resourceComponets.filter(item =>
+      item.id === id ? (item.icon = icon) : item
+    );
+    this.setState({ newProject });
+  };
+
+  // addMoreArticles
+  addMoreArticles = () => {
+    const dummyId = nextId();
+    const obj = {
+      id: dummyId,
+      image: "",
+      title: "",
+      author: "",
+      publishDate: "1234567890",
+      link: ""
+    };
+    const newProject = { ...this.state.newProject };
+    newProject.data.latestTrends.article = [
+      ...newProject.data.latestTrends.article,
+      obj
+    ];
+    this.setState({ newProject });
+  };
+  disabledAddMoreArticles() {
+    const newProject = { ...this.state.newProject };
+    const result = newProject.data.latestTrends.article.filter(i =>
+      i.image === "" || i.title === "" || i.author === "" || i.link === ""
+        ? true
+        : false
+    );
+    if (result.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  addMoreArticlesTitle = (e, id) => {
+    const newProject = { ...this.state.newProject };
+    newProject.data.latestTrends.article.filter(item =>
+      item.id === id ? (item.title = e.target.value) : item
+    );
+    this.setState({ newProject });
+  };
+  addMoreArticlesAuthor = (e, id) => {
+    const newProject = { ...this.state.newProject };
+    newProject.data.latestTrends.article.filter(item =>
+      item.id === id ? (item.author = e.target.value) : item
+    );
+    this.setState({ newProject });
+  };
+  addMoreArticlesLink = (e, id) => {
+    const newProject = { ...this.state.newProject };
+    newProject.data.latestTrends.article.filter(item =>
+      item.id === id ? (item.link = e.target.value) : item
+    );
+    this.setState({ newProject });
+  };
+  addMoreArticlesImage = (e, id) => {
+    const newProject = { ...this.state.newProject };
+    newProject.data.latestTrends.article.filter(item =>
+      item.id === id ? (item.image = e.target.value) : item
+    );
+    this.setState({ newProject });
+  };
+
+  handleChangeStatus = ({ meta, file }, status, name) => {
+    const newProject = this.state.newProject;
+    const fileName = file.name;
+    if (status === null) {
+      newProject.thumbnail = fileName;
+    } else {
+      newProject.data[status][name] = fileName;
+    }
+    this.setState({ newProject });
   };
   handleSubmit = (files, allFiles) => {
     console.log(files.map(f => f.meta));
-    allFiles.forEach(f => f.remove())
+    allFiles.forEach(f => f.remove());
   };
   handleChange = (e, section) => {
-
-    const newProject = {...this.state.newProject}
-     
-    newProject[e.target.name] = e.target.value
-    this.setState({newProject})
-
-
+    const newProject = { ...this.state.newProject };
+    if (section === null) {
+      newProject[e.target.name] = e.target.value;
+    } else {
+      newProject.data[section][e.target.name] = e.target.value;
+    }
+    this.setState({ newProject });
   };
   // handleHeaderSection(){
 
   // }
-  addProject = (e) => {
-    e.preventDefault();
-  
-    this.context.addNewProject(this.state.newProject);
-    this.props.history.push("/");
+
+  // disabledAddProject
+  disabledAddProject() {
+    const newProject = { ...this.state.newProject };
+
+    const name = newProject.name;
+    const Description = newProject.description;
+    const Thumbnail = newProject.thumbnail;
+
+    const video = newProject.data.headerSection.video;
+    const videoThumb = newProject.data.headerSection.videoThumb;
+    const linkTopText = newProject.data.headerSection.linkTopText;
+    const link = newProject.data.headerSection.link;
+    const linkTitle = newProject.data.headerSection.linkTitle;
+
+    const DesignImage = newProject.data.designing.image;
+    const DesignLinkTopText = newProject.data.designing.linkTopText;
+    const DesignLinkTitle = newProject.data.designing.linkTitle;
+    const DesignLink = newProject.data.designing.link;
+
+    const devImage = newProject.data.development.image;
+    const devLinkTopText = newProject.data.development.linkTopText;
+    const devLinkTitle = newProject.data.development.linkTitle;
+    const devLink = newProject.data.development.link;
+    const devRedirectionLink = newProject.data.development.redirectionLink;
+
+    const articleTitle = newProject.data.latestTrends.title;
+
+    const article = newProject.data.latestTrends.article.filter(i =>
+      i.image === "" || i.title === "" || i.author === "" || i.link === ""
+        ? true
+        : false
+    );
+    const resourceTitle = newProject.data.resource.title;
+    const resourceDescription = newProject.data.resource.description;
+    const resource = newProject.data.resource.resourceComponets.filter(i =>
+      i.title === "" || i.link === "" || i.icon === "" ? true : false
+    );
+    if (
+      name === "" ||
+      Description === "" ||
+      Thumbnail === "" ||
+      video === "" ||
+      videoThumb === "" ||
+      linkTopText === "" ||
+      link === "" ||
+      linkTitle === "" ||
+      DesignImage === "" ||
+      DesignLinkTopText === "" ||
+      DesignLinkTitle === "" ||
+      DesignLink === "" ||
+      devImage === "" ||
+      devLinkTopText === "" ||
+      devLinkTitle === "" ||
+      devLink === "" ||
+      devRedirectionLink === "" ||
+      article.length > 0 ||
+      articleTitle === "" ||
+      resource.length > 0 ||
+      resourceTitle === "" ||
+      resourceDescription === ""
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  addProject = e => {
+    e.preventDefault();
+    const newProject = this.state.newProject;
+    newProject.id = nextId();
+    this.context.addNewProject(newProject);
+    this.props.history.push("/");
+  };
   render() {
+    const newProject = this.state.newProject;
     return (
       <main className="main">
         <section className="addNewProject">
@@ -136,8 +319,8 @@ class AddNewProject extends Component {
                         <Form.Label>Title</Form.Label>
                         <Form.Control
                           type="text"
-                          name="title"
-                          value={this.state.newProject.title}
+                          name="name"
+                          value={newProject.name}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
                       </Form.Group>
@@ -147,7 +330,7 @@ class AddNewProject extends Component {
                           as="textarea"
                           rows="4"
                           name="description"
-                          value={this.state.newProject.description}
+                          value={newProject.description}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
                       </Form.Group>
@@ -156,7 +339,9 @@ class AddNewProject extends Component {
                         <label className="dropImg">
                           <Dropzone
                             getUploadParams={this.getUploadParams}
-                            onChangeStatus={this.handleChangeStatus}
+                            onChangeStatus={(e, section, name) =>
+                              this.handleChangeStatus(e, null, null)
+                            }
                             onSubmit={this.handleSubmit}
                             maxFiles={1}
                             accept="image/*,audio/*,video/*"
@@ -170,40 +355,97 @@ class AddNewProject extends Component {
                       <Form.Group>
                         <Form.Label>Header Section</Form.Label>
                         <label className="dropImg">
+                          Video Thumb
+                          <br />
                           <Dropzone
                             getUploadParams={this.getUploadParams}
-                            onChangeStatus={this.handleChangeStatus}
+                            onChangeStatus={(e, section, name) =>
+                              this.handleChangeStatus(
+                                e,
+                                "headerSection",
+                                "videoThumb"
+                              )
+                            }
                             onSubmit={this.handleSubmit}
                             accept="image/*,audio/*,video/*"
                           />
                         </label>
                         <Form.Control
+                          as="select"
+                          name="videoType"
+                          onChange={(e, section) =>
+                            this.handleChange(e, "headerSection")
+                          }
+                        >
+                          <option
+                            value="INTERNAL_STORAGE"
+                            selected={
+                              newProject.data.headerSection.videoType ===
+                              "INTERNAL_STORAGE"
+                                ? true
+                                : false
+                            }
+                          >
+                            Internal Storager
+                          </option>
+                          <option
+                            value="URL"
+                            selected={
+                              newProject.data.headerSection.videoType === "URL"
+                                ? true
+                                : false
+                            }
+                          >
+                            URL
+                          </option>
+                        </Form.Control>
+                        <Form.Control
                           type="text"
                           name="linkTopText"
                           placeholder="Top Title Text"
-                          onChange={(e) =>
-                            this.handleChange(e,"headerSection")
+                          value={newProject.data.headerSection.linkTopText}
+                          onChange={(e, section) =>
+                            this.handleChange(e, "headerSection")
                           }
                         />
                         <Form.Control
                           type="text"
+                          name="linkTitle"
                           placeholder="Video Title"
+                          value={newProject.data.headerSection.linkTitle}
                           onChange={(e, section) =>
-                            this.handleChange(e, "VIDEOSECTION")
+                            this.handleChange(e, "headerSection")
                           }
                         />
+                        {newProject.data.headerSection.videoType ===
+                        "INTERNAL_STORAGE" ? (
+                          <Form.Control
+                            type="file"
+                            name="video"
+                            value={newProject.data.headerSection.video}
+                            onChange={(e, section) =>
+                              this.handleChange(e, "headerSection")
+                            }
+                            className="form-control"
+                          />
+                        ) : (
+                          <Form.Control
+                            type="text"
+                            name="video"
+                            placeholder="Video Url"
+                            value={newProject.data.headerSection.video}
+                            onChange={(e, section) =>
+                              this.handleChange(e, "headerSection")
+                            }
+                          />
+                        )}
                         <Form.Control
                           type="text"
-                          placeholder="Video Url"
-                          onChange={(e, section) =>
-                            this.handleChange(e, "VIDEOSECTION")
-                          }
-                        />
-                        <Form.Control
-                          type="text"
+                          name="link"
                           placeholder="Redirection Link"
+                          value={newProject.data.headerSection.link}
                           onChange={(e, section) =>
-                            this.handleChange(e, "VIDEOSECTION")
+                            this.handleChange(e, "headerSection")
                           }
                         />
                       </Form.Group>
@@ -213,37 +455,38 @@ class AddNewProject extends Component {
                         <label className="dropImg">
                           <Dropzone
                             getUploadParams={this.getUploadParams}
-                            onChangeStatus={this.handleChangeStatus}
                             onSubmit={this.handleSubmit}
                             accept="image/*,audio/*,video/*"
+                            onChangeStatus={(e, section, name) =>
+                              this.handleChangeStatus(e, "designing", "image")
+                            }
                           />
                         </label>
                         <Form.Control
                           type="text"
                           placeholder="Top Title Text"
+                          value={newProject.data.designing.linkTopText}
+                          name="linkTopText"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "designing")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Image Title"
+                          value={newProject.data.designing.linkTitle}
+                          name="linkTitle"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
-                          }
-                        />
-                        <Form.Control
-                          type="text"
-                          placeholder="Image Url"
-                          onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "designing")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Redirection Link"
+                          value={newProject.data.designing.link}
+                          name="link"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "designing")
                           }
                         />
                       </Form.Group>
@@ -253,37 +496,47 @@ class AddNewProject extends Component {
                         <label className="dropImg">
                           <Dropzone
                             getUploadParams={this.getUploadParams}
-                            onChangeStatus={this.handleChangeStatus}
                             onSubmit={this.handleSubmit}
                             accept="image/*,audio/*,video/*"
+                            onChangeStatus={(e, section, name) =>
+                              this.handleChangeStatus(e, "development", "image")
+                            }
                           />
                         </label>
                         <Form.Control
                           type="text"
                           placeholder="Top Title Text"
+                          value={newProject.data.development.linkTopText}
+                          name="linkTopText"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "development")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Image Title"
+                          value={newProject.data.development.linkTitle}
+                          name="linkTitle"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "development")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Image Url"
+                          value={newProject.data.development.link}
+                          name="link"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "development")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Redirection Link"
+                          value={newProject.data.development.redirectionLink}
+                          name="redirectionLink"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "development")
                           }
                         />
                       </Form.Group>
@@ -293,71 +546,150 @@ class AddNewProject extends Component {
                         <Form.Control
                           type="text"
                           placeholder="Title"
+                          name="title"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "resource")
                           }
                         />
                         <Form.Control
-                          type="text"
-                          placeholder="Icon"
+                          as="textarea"
+                          placeholder="Description"
+                          name="description"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "resource")
                           }
                         />
-                        <Form.Control
-                          type="text"
-                          placeholder="Link"
-                          onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
-                          }
-                        />
+                        <div className="resourceItem">
+                          <Form.Label>Add Links</Form.Label>
+                          {newProject.data.resource.resourceComponets.map(
+                            item => (
+                              <div className="resourceItemInner">
+                                <Row key={item.id}>
+                                  <Col md={4}>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="title"
+                                      value={item.title}
+                                      name="title"
+                                      onChange={e =>
+                                        this.addResourceLinkTitle(e, item.id)
+                                      }
+                                    />
+                                  </Col>
+                                  <Col md={4}>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Link"
+                                      value={item.link}
+                                      name="link"
+                                      onChange={e =>
+                                        this.addResourceLinkLink(e, item.id)
+                                      }
+                                    />
+                                  </Col>
+                                  <Col md={4}>
+                                    <Form.Control
+                                      type="file"
+                                      value={item.icon}
+                                      name="icon"
+                                      onChange={e =>
+                                        this.addResourceLinkIcon(e, item.id)
+                                      }
+                                    />
+                                  </Col>
+                                </Row>
+                              </div>
+                            )
+                          )}
+                          <Button
+                            size="sm"
+                            variant="info"
+                            onClick={this.addMoreResourceLink}
+                            disabled={this.disabledAddMoreResourceLink()}
+                          >
+                            Add More Row
+                          </Button>
+                        </div>
                       </Form.Group>
 
                       <Form.Group>
                         <Form.Label>Latest news and articles</Form.Label>
-                        <label className="dropImg">
-                          <Dropzone
-                            getUploadParams={this.getUploadParams}
-                            onChangeStatus={this.handleChangeStatus}
-                            onSubmit={this.handleSubmit}
-                            accept="image/*,audio/*,video/*"
-                          />
-                        </label>
-                        <Form.Control
-                          type="text"
-                          placeholder="Author"
-                          onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
-                          }
-                        />
                         <Form.Control
                           type="text"
                           placeholder="Title"
+                          name="title"
                           onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
+                            this.handleChange(e, "latestTrends")
                           }
                         />
-                        <Form.Control
-                          type="text"
-                          placeholder="Image Url"
-                          onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
-                          }
-                        />
-                        <Form.Control
-                          type="text"
-                          placeholder="Link"
-                          onChange={(e, section) =>
-                            this.handleChange(e, "DESIGNSECTION")
-                          }
-                        />
+
+                        <div className="resourceItem">
+                          <Form.Label>Add Article</Form.Label>
+                          {newProject.data.latestTrends.article.map(item => (
+                            <div className="resourceItemInner" key={item.id}>
+                              <Row>
+                                <Col md={3}>
+                                  <Form.Control
+                                    type="text"
+                                    value={item.title}
+                                    placeholder="Title"
+                                    name="title"
+                                    onChange={e =>
+                                      this.addMoreArticlesTitle(e, item.id)
+                                    }
+                                  />
+                                </Col>
+                                <Col md={3}>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Author"
+                                    name="author"
+                                    value={item.author}
+                                    onChange={e =>
+                                      this.addMoreArticlesAuthor(e, item.id)
+                                    }
+                                  />
+                                </Col>
+                                <Col md={3}>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Link"
+                                    name="link"
+                                    value={item.link}
+                                    onChange={e =>
+                                      this.addMoreArticlesLink(e, item.id)
+                                    }
+                                  />
+                                </Col>
+                                <Col md={3}>
+                                  <Form.Control
+                                    type="file"
+                                    value={item.image}
+                                    onChange={e =>
+                                      this.addMoreArticlesImage(e, item.id)
+                                    }
+                                  />
+                                </Col>
+                              </Row>
+                            </div>
+                          ))}
+                          <Button
+                            size="sm"
+                            variant="info"
+                            n
+                            onClick={this.addMoreArticles}
+                            disabled={this.disabledAddMoreArticles()}
+                          >
+                            Add More Articles
+                          </Button>
+                        </div>
                       </Form.Group>
                       <div className="text-right mb-4">
                         <Button
                           variant="primary"
                           size="lg"
-                          type="submit"
                           onClick={e => this.addProject(e)}
+                          disabled={this.disabledAddProject()}
                         >
                           Submit
                         </Button>

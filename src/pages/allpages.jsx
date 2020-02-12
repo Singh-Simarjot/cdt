@@ -31,7 +31,9 @@ class AllPages extends Component {
 
   render() {
     const { selectedProject } = this.context;
-    const pages = selectedProject.pages.filter(item => item.saved === true);
+    const pages =
+      selectedProject.pages !== undefined &&
+      selectedProject.pages.filter(item => item.saved === true);
     return (
       <div className="content">
         <div className="contentTop">
