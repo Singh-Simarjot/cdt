@@ -11,7 +11,7 @@ class SidebarNav extends Component {
             <h4>Pages</h4>
             <ul>
               <li>
-                <NavLink to="/project">Pages</NavLink>
+                <NavLink exact to="/project">Pages</NavLink>
               </li>
               <li>
                 <NavLink to="/project/addnew">Create New Page</NavLink>

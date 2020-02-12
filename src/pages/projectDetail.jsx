@@ -31,12 +31,13 @@ class ProjectDetail extends Component {
           <SidebarNav />
           <div className="containerMainContent">
             <Switch>
-            <Route exact path="/project/navigation" component={Navigation} />
-              <Route exact path="/project/addnew" component={AddNewPage} />
-              <Route exact path="/project/editpage" component={EditPage} />
-              <Route exact path="/project/drafts" component={Drafts} />
+              <Route path="/project/navigation" component={Navigation} />
+              <Route path="/project/addnew" component={AddNewPage} />
+              <Route path="/project/addnew" component={AddNewPage} />
+              <Route path="/project/editpage" component={EditPage} />
+              <Route path="/project/drafts" component={Drafts} />
                
-              <Route exact path="/project" component={AllPages} />
+              <Route path="/project" component={AllPages} />
             </Switch>
           </div>
         </div>
