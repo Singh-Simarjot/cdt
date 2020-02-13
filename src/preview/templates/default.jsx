@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import ProjectsContext from "../../context/projectsContext";
 import { Switch, Route, Redirect } from "react-router-dom";
-
-// components
-// import TableData from "../components/TableData/TableData";
-// import ColorGrid from "../components/Color/ColorGrid";
-// import TextBlock from "../../components/widgets/textBlock2";
-// import IconGrid from "../components/Icons/IconGrid";
-// import Theme from "../components/Theme/Theme";
+ 
 import PageHeader from "../components/PageHeader/PageHeader";
 import Tabs from "../components/Tab/Tabing";
 
@@ -20,25 +14,33 @@ class DefaultTemplate extends Component {
     this.state = {};
   }
   componentDidMount() {
-    const { selectedPageID } = this.context;
+    const { selectedPageID ,selectedPage ,onSelectSubPage } = this.context;
     if (selectedPageID !== null) {
     } else {
       this.props.history.push("/preview");
     }
+    if(selectedPage.templateType === "TABS" && selectedPage.data.tabs.length>0 ){
+      onSelectSubPage(selectedPage.data.tabs[0].id);
+      console.log(this.props.match.url + selectedPage.data.tabs[0].url)
+      this.props.history.push(this.props.match.url + selectedPage.data.tabs[0].url);
+    }
   }
+   
   render() {
     const { selectedPage, subPage } = this.context;
-    console.log(selectedPage);
+    
     return (
+      selectedPage !== undefined  ?
       <React.Fragment>
         <PageHeader pageTitel={selectedPage.title} />
         {selectedPage.templateType === "TABS" &&
-          selectedPage.data.tabs.length > 0 && (
+           
             <Tabs tabsList={selectedPage.data.tabs} />
-          )}
+          }
         {selectedPage.templateType === "TABS" ? (
           <Switch>
             {selectedPage.data.tabs.map(item => (
+              
               <Route
                 key={item.id}
                 path={this.props.match.url + item.url}
@@ -55,7 +57,8 @@ class DefaultTemplate extends Component {
         ) : (
           <ComponentsContent data={selectedPage.data.widgets} />
         )}
-      </React.Fragment>
+      </React.Fragment> 
+      :"Page Not FOund"
     );
   }
 }

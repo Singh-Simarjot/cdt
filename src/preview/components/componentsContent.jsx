@@ -58,7 +58,7 @@ class ComponentsContent extends Component {
     // console.log("data: ", data);
     return (
       <section className="componentsContent">
-        <Container>{data.map(item => this.renderPreview(item))}</Container>
+        <Container>{data.length>0 ? data.map(item => this.renderPreview(item)): "Please Add Widgets for this page" }</Container>
       </section>
     );
   }

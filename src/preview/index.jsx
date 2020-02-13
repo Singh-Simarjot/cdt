@@ -54,17 +54,19 @@ class Preview extends Component {
             )} */}
             {selectedProject.navigation.map(item => (
               <>
+              {console.log("/preview" + item.url)}
                 <Route
-                  path={"/preview" + item.url}
+                  path={"/preview" }
                   component={DefaultTemplate}
                 />
-                {item.children !== undefined &&
+                {/* {item.children !== undefined &&
                   item.children.map(clildItem => (
+                    (console.log("/preview" + clildItem.url)),
                     <Route
                       path={"/preview" + clildItem.url}
                       component={DefaultTemplate}
                     />
-                  ))}
+                  ))} */}
               </>
             ))}
           </Switch>

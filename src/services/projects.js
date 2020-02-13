@@ -10,6 +10,7 @@ export function getProjects() {
 }
 
 export function createProject(data) {
+  console.log(data)
   const projectsEndpoint = APIBASEURL + "project/store";
 
   return apiService.post(projectsEndpoint, data);

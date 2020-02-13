@@ -16,15 +16,17 @@ class Tabs extends Component {
   render() {
     const { tabsList } = this.props;
     const { onSelectSubPage } = this.context;
+    console.log(this.props)
     // const { selectedTabID } = this.context;
     return (
       <section className="tabing-section">
         <Container>
+          
           <Nav
           // activeKey="/home"
           // onSelect={selectedKey => alert(`selected ${selectedKey}`)}
           >
-            {tabsList.map(item => (
+            {tabsList.length>0 ? tabsList.map(item => (
               <Nav.Item key={item.id}>
                 {/* <Nav.Link href={item.url}>{item.title}</Nav.Link> */}
                 <NavLink
@@ -36,7 +38,7 @@ class Tabs extends Component {
                   {item.title}
                 </NavLink>
               </Nav.Item>
-            ))}
+            )) :   "Please Add A tab" }
           </Nav>
         </Container>
       </section>

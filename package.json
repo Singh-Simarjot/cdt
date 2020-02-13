@@ -30,6 +30,7 @@
     "react-scripts": "3.3.0",
     "react-simple-code-editor": "^0.11.0",
     "react-sortable-tree": "^2.7.1",
+    "react-toastify": "^5.5.0",
     "semantic-ui-react": "^0.88.2",
     "server": "^1.0.21"
   },

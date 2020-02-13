@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {   toast } from 'react-toastify';
 
 import {
   getProjects,
@@ -399,48 +400,7 @@ export class ProjectsContext extends Component {
           btnDisable: true
         }
       ],
-      navigation: [
-        {
-          id: 1,
-          title: "asd",
-          url: "/link1",
-          templateType: "TABS",
-          children: [
-            { id: 1, title: "Link 1", url: "/link1/page1" },
-            { id: 2, title: "Link 2", url: "/link1/page2" },
-            { id: 3, title: "Link 3", url: "/link1/page3" },
-            { id: 4, title: "Link 4", url: "/link1/page4" }
-          ]
-        },
-        {
-          id: 2,
-          title: "Link 2",
-          subtitle: <span>test</span>,
-          url: "/link2",
-          templateType: "TABS",
-          children: [
-            { id: "2_1", title: "Link 5", url: "/link2/page1" },
-            { id: "2_2", title: "Link 6", url: "/link2/page2" },
-            { id: "2_3", title: "Link 7", url: "/link2/page3" }
-          ]
-        },
-        {
-          id: 3,
-          title: "Link 3",
-          url: "/link3",
-          children: [
-            { id: "3_1", title: "Link 8", url: "/link3/page1" },
-            { id: "3_2", title: "Link 9", url: "/link3/page2" },
-            { id: "3_3", title: "Link 10", url: "/link3/page3" }
-          ]
-        },
-        {
-          id: 4,
-          title: "Link 4",
-          url: "/link4",
-          children: []
-        }
-      ]
+      navigation: [  ]
     },
     selectedPage: {},
     subPage: {
@@ -484,22 +444,25 @@ export class ProjectsContext extends Component {
   updateNavigation = navigation => {
     const selectedProject = { ...this.state.selectedProject };
     selectedProject.navigation = navigation;
+    toast.success("Navigation Updated !"  );
     this.setState({ selectedProject });
   };
   addNewProject = async item => {
     // console.log(item);
     await createProject(JSON.stringify(item));
     const allProjects = [item, ...this.state.allProjects];
+    toast.success("Project Added!"  );
     this.setState({ allProjects });
-    console.log(allProjects);
-  };
+   };
   editProject = selectedProject => {
     this.setState({ selectedProject });
+    toast.success("Project Updated!"  );
   };
 
   saveNewPage = page => {
     const selectedProject = { ...this.state.selectedProject };
     selectedProject.pages = [page, ...selectedProject.pages];
+    toast.success("Page  Added!"  );
     this.setState({ selectedProject });
   };
 
@@ -515,6 +478,7 @@ export class ProjectsContext extends Component {
     );
 
     this.setState({ selectedProject });
+    toast.success("Page Updated!"  );
   };
 
   markDraftPage = page => {
@@ -525,6 +489,7 @@ export class ProjectsContext extends Component {
     );
     selectedPage.saved = !page.saved;
     this.setState({ selectedPage, selectedProject });
+     toast.success(selectedPage.saved ?"Marked as Draft !"  :  "Page is Live Now !" );
   };
 
   // onDeleteProject = id => {
@@ -537,12 +502,14 @@ export class ProjectsContext extends Component {
     let pages = selectedProject.pages.filter(item => item.id !== id);
     selectedProject.pages = pages;
     this.setState({ selectedProject });
+    toast.success(  "Page Deleted!" );
   };
 
   onDeleteProject = id => {
     const allProjects = this.state.allProjects;
     let projects = allProjects.filter(item => item.id !== id);
     this.setState({ allProjects: projects });
+    toast.success(  "Project Deleted!" );
   };
 
   handleUploadFile = async file => {
