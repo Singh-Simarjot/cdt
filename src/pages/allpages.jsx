@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./allpages.scss";
 import { Row, Col, Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProjectsContext from "../context/projectsContext";
@@ -50,7 +51,7 @@ class AllPages extends Component {
         </div>
         <div className="contentData mt-4">
           {pages.length > 0 ? (
-            <Table responsive="md" hover variant="">
+            <Table responsive="md" hover variant="" className="allpagesTable">
               <thead>
                 <tr>
                   <th>#</th>
@@ -65,7 +66,7 @@ class AllPages extends Component {
               <tbody>
                 {pages.map(project => (
                   <tr key={project.id}>
-                    <td>{project.id}</td>
+                    <td className="count"></td>
                     <td>{project.title}</td>
                     <td>
                       {moment(project.dateCreated).format("YYYY//MM//DD")}{" "}
