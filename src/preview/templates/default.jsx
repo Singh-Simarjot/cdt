@@ -19,7 +19,7 @@ class DefaultTemplate extends Component {
     } else {
       this.props.history.push("/preview");
     }
-    if(selectedPage.templateType === "TABS" && selectedPage.data.tabs.length>0 ){
+    if(selectedPage !== undefined && selectedPage.templateType === "TABS" && selectedPage.data.tabs.length>0 ){
       onSelectSubPage(selectedPage.data.tabs[0].id);
       console.log(this.props.match.url + selectedPage.data.tabs[0].url)
       this.props.history.push(this.props.match.url + selectedPage.data.tabs[0].url);

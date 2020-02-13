@@ -444,7 +444,7 @@ export class ProjectsContext extends Component {
   updateNavigation = navigation => {
     const selectedProject = { ...this.state.selectedProject };
     selectedProject.navigation = navigation;
-    toast.success("Navigation Updated !"  );
+    toast.success("Navigation Updated!"  );
     this.setState({ selectedProject });
   };
   addNewProject = async item => {
