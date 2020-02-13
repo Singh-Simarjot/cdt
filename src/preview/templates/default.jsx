@@ -15,10 +15,9 @@ class DefaultTemplate extends Component {
   }
   componentDidMount() {
     const { selectedPageID ,selectedPage ,onSelectSubPage } = this.context;
-    if (selectedPageID !== null) {
-    } else {
+    if (selectedPageID === null || selectedPage ===undefined ) {
       this.props.history.push("/preview");
-    }
+    }  
     if(selectedPage !== undefined && selectedPage.templateType === "TABS" && selectedPage.data.tabs.length>0 ){
       onSelectSubPage(selectedPage.data.tabs[0].id);
       console.log(this.props.match.url + selectedPage.data.tabs[0].url)
