@@ -124,4 +124,12 @@ h2 {
 .dropImg + .form-control {
   margin-top: 10px;
 }
+
+.btn.disabled {
+  cursor: default;
+}
+
+.btn:disabled {
+  cursor: default;
+}
 /*# sourceMappingURL=common.css.map */
