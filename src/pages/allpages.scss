@@ -1,0 +1,15 @@
+@import "../assets/scss/variables";
+@import "../assets/scss/mixins";
+.allpagesTable {
+  tbody {
+    counter-reset: section;
+    tr {
+      counter-increment: section;
+      .count {
+        &:after {
+          content: counter(section);
+        }
+      }
+    }
+  }
+}

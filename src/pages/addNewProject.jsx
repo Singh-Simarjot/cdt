@@ -22,13 +22,13 @@ class AddNewProject extends Component {
           linkTitle: "",
           link: ""
         },
-        designing: {
+        designingSection: {
           image: "",
           linkTopText: "",
           linkTitle: "",
           link: ""
         },
-        development: {
+        developmentSection: {
           image: "",
           linkTopText: "",
           linkTitle: "",
@@ -36,9 +36,9 @@ class AddNewProject extends Component {
           redirectionLink: ""
         },
         resource: {
-          title: "",
-          description: "",
-          resourceComponets: [
+          otherResourceTitle: "",
+          otherResourceDescription: "",
+          otherResourceComponets: [
             {
               id: "1",
               title: "",
@@ -49,8 +49,8 @@ class AddNewProject extends Component {
         },
 
         latestTrends: {
-          title: "",
-          article: [
+          latestTrendSectionTitle: "",
+          latestTrendSectionArticle: [
             {
               id: "1",
               image: "",
@@ -88,8 +88,8 @@ class AddNewProject extends Component {
       icon: ""
     };
     const newProject = { ...this.state.newProject };
-    newProject.data.resource.resourceComponets = [
-      ...newProject.data.resource.resourceComponets,
+    newProject.data.resource.otherResourceComponets = [
+      ...newProject.data.resource.otherResourceComponets,
       obj
     ];
     this.setState({ newProject });
@@ -97,7 +97,7 @@ class AddNewProject extends Component {
 
   disabledAddMoreResourceLink() {
     const newProject = { ...this.state.newProject };
-    const result = newProject.data.resource.resourceComponets.filter(i =>
+    const result = newProject.data.resource.otherResourceComponets.filter(i =>
       i.title === "" || i.link === "" || i.icon === "" ? true : false
     );
     if (result.length > 0) {
@@ -110,7 +110,7 @@ class AddNewProject extends Component {
   addResourceLinkTitle = (e, id) => {
     const title = e.target.value;
     const newProject = { ...this.state.newProject };
-    newProject.data.resource.resourceComponets.filter(item =>
+    newProject.data.resource.otherResourceComponets.filter(item =>
       item.id === id ? (item.title = title) : item
     );
     this.setState({ newProject });
@@ -118,7 +118,7 @@ class AddNewProject extends Component {
   addResourceLinkLink = (e, id) => {
     const link = e.target.value;
     const newProject = { ...this.state.newProject };
-    newProject.data.resource.resourceComponets.filter(item =>
+    newProject.data.resource.otherResourceComponets.filter(item =>
       item.id === id ? (item.link = link) : item
     );
     this.setState({ newProject });
@@ -126,8 +126,16 @@ class AddNewProject extends Component {
   addResourceLinkIcon = (e, id) => {
     const icon = e.target.value;
     const newProject = { ...this.state.newProject };
-    newProject.data.resource.resourceComponets.filter(item =>
+    newProject.data.resource.otherResourceComponets.filter(item =>
       item.id === id ? (item.icon = icon) : item
+    );
+    this.setState({ newProject });
+  };
+
+  deleteResource = id => {
+    const newProject = this.state.newProject;
+    newProject.data.resource.otherResourceComponets = newProject.data.resource.otherResourceComponets.filter(
+      i => i.id !== id
     );
     this.setState({ newProject });
   };
@@ -144,18 +152,19 @@ class AddNewProject extends Component {
       link: ""
     };
     const newProject = { ...this.state.newProject };
-    newProject.data.latestTrends.article = [
-      ...newProject.data.latestTrends.article,
+    newProject.data.latestTrends.latestTrendSectionArticle = [
+      ...newProject.data.latestTrends.latestTrendSectionArticle,
       obj
     ];
     this.setState({ newProject });
   };
   disabledAddMoreArticles() {
     const newProject = { ...this.state.newProject };
-    const result = newProject.data.latestTrends.article.filter(i =>
-      i.image === "" || i.title === "" || i.author === "" || i.link === ""
-        ? true
-        : false
+    const result = newProject.data.latestTrends.latestTrendSectionArticle.filter(
+      i =>
+        i.image === "" || i.title === "" || i.author === "" || i.link === ""
+          ? true
+          : false
     );
     if (result.length > 0) {
       return true;
@@ -166,29 +175,37 @@ class AddNewProject extends Component {
 
   addMoreArticlesTitle = (e, id) => {
     const newProject = { ...this.state.newProject };
-    newProject.data.latestTrends.article.filter(item =>
+    newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
       item.id === id ? (item.title = e.target.value) : item
     );
     this.setState({ newProject });
   };
   addMoreArticlesAuthor = (e, id) => {
     const newProject = { ...this.state.newProject };
-    newProject.data.latestTrends.article.filter(item =>
+    newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
       item.id === id ? (item.author = e.target.value) : item
     );
     this.setState({ newProject });
   };
   addMoreArticlesLink = (e, id) => {
     const newProject = { ...this.state.newProject };
-    newProject.data.latestTrends.article.filter(item =>
+    newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
       item.id === id ? (item.link = e.target.value) : item
     );
     this.setState({ newProject });
   };
   addMoreArticlesImage = (e, id) => {
     const newProject = { ...this.state.newProject };
-    newProject.data.latestTrends.article.filter(item =>
+    newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
       item.id === id ? (item.image = e.target.value) : item
+    );
+    this.setState({ newProject });
+  };
+
+  deleteArticles = id => {
+    const newProject = this.state.newProject;
+    newProject.data.latestTrends.latestTrendSectionArticle = newProject.data.latestTrends.latestTrendSectionArticle.filter(
+      i => i.id !== id
     );
     this.setState({ newProject });
   };
@@ -234,27 +251,34 @@ class AddNewProject extends Component {
     const link = newProject.data.headerSection.link;
     const linkTitle = newProject.data.headerSection.linkTitle;
 
-    const DesignImage = newProject.data.designing.image;
-    const DesignLinkTopText = newProject.data.designing.linkTopText;
-    const DesignLinkTitle = newProject.data.designing.linkTitle;
-    const DesignLink = newProject.data.designing.link;
+    const DesignImage = newProject.data.designingSection.image;
+    const DesignLinkTopText = newProject.data.designingSection.linkTopText;
+    const DesignLinkTitle = newProject.data.designingSection.linkTitle;
+    const DesignLink = newProject.data.designingSection.link;
 
-    const devImage = newProject.data.development.image;
-    const devLinkTopText = newProject.data.development.linkTopText;
-    const devLinkTitle = newProject.data.development.linkTitle;
-    const devLink = newProject.data.development.link;
-    const devRedirectionLink = newProject.data.development.redirectionLink;
+    const devImage = newProject.data.developmentSection.image;
+    const devLinkTopText = newProject.data.developmentSection.linkTopText;
+    const devLinkTitle = newProject.data.developmentSection.linkTitle;
+    const devLink = newProject.data.developmentSection.link;
+    const devRedirectionLink =
+      newProject.data.developmentSection.redirectionLink;
 
     const articleTitle = newProject.data.latestTrends.title;
+    const articleLength =
+      newProject.data.latestTrends.latestTrendSectionArticle.length;
 
-    const article = newProject.data.latestTrends.article.filter(i =>
-      i.image === "" || i.title === "" || i.author === "" || i.link === ""
-        ? true
-        : false
+    const article = newProject.data.latestTrends.latestTrendSectionArticle.filter(
+      i =>
+        i.image === "" || i.title === "" || i.author === "" || i.link === ""
+          ? true
+          : false
     );
-    const resourceTitle = newProject.data.resource.title;
-    const resourceDescription = newProject.data.resource.description;
-    const resource = newProject.data.resource.resourceComponets.filter(i =>
+    const resourceLength =
+      newProject.data.resource.otherResourceComponets.length;
+    const resourceTitle = newProject.data.resource.otherResourceTitle;
+    const resourceDescription =
+      newProject.data.resource.otherResourceDescription;
+    const resource = newProject.data.resource.otherResourceComponets.filter(i =>
       i.title === "" || i.link === "" || i.icon === "" ? true : false
     );
     if (
@@ -276,6 +300,8 @@ class AddNewProject extends Component {
       devLink === "" ||
       devRedirectionLink === "" ||
       article.length > 0 ||
+      resourceLength === 0 ||
+      articleLength === 0 ||
       articleTitle === "" ||
       resource.length > 0 ||
       resourceTitle === "" ||
@@ -458,35 +484,39 @@ class AddNewProject extends Component {
                             onSubmit={this.handleSubmit}
                             accept="image/*,audio/*,video/*"
                             onChangeStatus={(e, section, name) =>
-                              this.handleChangeStatus(e, "designing", "image")
+                              this.handleChangeStatus(
+                                e,
+                                "designingSection",
+                                "image"
+                              )
                             }
                           />
                         </label>
                         <Form.Control
                           type="text"
                           placeholder="Top Title Text"
-                          value={newProject.data.designing.linkTopText}
+                          value={newProject.data.designingSection.linkTopText}
                           name="linkTopText"
                           onChange={(e, section) =>
-                            this.handleChange(e, "designing")
+                            this.handleChange(e, "designingSection")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Image Title"
-                          value={newProject.data.designing.linkTitle}
+                          value={newProject.data.designingSection.linkTitle}
                           name="linkTitle"
                           onChange={(e, section) =>
-                            this.handleChange(e, "designing")
+                            this.handleChange(e, "designingSection")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Redirection Link"
-                          value={newProject.data.designing.link}
+                          value={newProject.data.designingSection.link}
                           name="link"
                           onChange={(e, section) =>
-                            this.handleChange(e, "designing")
+                            this.handleChange(e, "designingSection")
                           }
                         />
                       </Form.Group>
@@ -499,44 +529,50 @@ class AddNewProject extends Component {
                             onSubmit={this.handleSubmit}
                             accept="image/*,audio/*,video/*"
                             onChangeStatus={(e, section, name) =>
-                              this.handleChangeStatus(e, "development", "image")
+                              this.handleChangeStatus(
+                                e,
+                                "developmentSection",
+                                "image"
+                              )
                             }
                           />
                         </label>
                         <Form.Control
                           type="text"
                           placeholder="Top Title Text"
-                          value={newProject.data.development.linkTopText}
+                          value={newProject.data.developmentSection.linkTopText}
                           name="linkTopText"
                           onChange={(e, section) =>
-                            this.handleChange(e, "development")
+                            this.handleChange(e, "developmentSection")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Image Title"
-                          value={newProject.data.development.linkTitle}
+                          value={newProject.data.developmentSection.linkTitle}
                           name="linkTitle"
                           onChange={(e, section) =>
-                            this.handleChange(e, "development")
+                            this.handleChange(e, "developmentSection")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Image Url"
-                          value={newProject.data.development.link}
+                          value={newProject.data.developmentSection.link}
                           name="link"
                           onChange={(e, section) =>
-                            this.handleChange(e, "development")
+                            this.handleChange(e, "developmentSection")
                           }
                         />
                         <Form.Control
                           type="text"
                           placeholder="Redirection Link"
-                          value={newProject.data.development.redirectionLink}
+                          value={
+                            newProject.data.developmentSection.redirectionLink
+                          }
                           name="redirectionLink"
                           onChange={(e, section) =>
-                            this.handleChange(e, "development")
+                            this.handleChange(e, "developmentSection")
                           }
                         />
                       </Form.Group>
@@ -546,7 +582,8 @@ class AddNewProject extends Component {
                         <Form.Control
                           type="text"
                           placeholder="Title"
-                          name="title"
+                          value={newProject.data.resource.otherResourceTitle}
+                          name="otherResourceTitle"
                           onChange={(e, section) =>
                             this.handleChange(e, "resource")
                           }
@@ -554,14 +591,17 @@ class AddNewProject extends Component {
                         <Form.Control
                           as="textarea"
                           placeholder="Description"
-                          name="description"
+                          value={
+                            newProject.data.resource.otherResourceDescription
+                          }
+                          name="otherResourceDescription"
                           onChange={(e, section) =>
                             this.handleChange(e, "resource")
                           }
                         />
                         <div className="resourceItem">
                           <Form.Label>Add Links</Form.Label>
-                          {newProject.data.resource.resourceComponets.map(
+                          {newProject.data.resource.otherResourceComponets.map(
                             item => (
                               <div className="resourceItemInner">
                                 <Row key={item.id}>
@@ -598,17 +638,27 @@ class AddNewProject extends Component {
                                     />
                                   </Col>
                                 </Row>
+                                <Button
+                                  size="sm"
+                                  variant="danger"
+                                  onClick={() => this.deleteResource(item.id)}
+                                >
+                                  {" "}
+                                  <i className="fa fa-trash"></i>
+                                </Button>
                               </div>
                             )
                           )}
-                          <Button
-                            size="sm"
-                            variant="info"
-                            onClick={this.addMoreResourceLink}
-                            disabled={this.disabledAddMoreResourceLink()}
-                          >
-                            Add More Row
-                          </Button>
+                          <div>
+                            <Button
+                              size="sm"
+                              variant="info"
+                              onClick={this.addMoreResourceLink}
+                              disabled={this.disabledAddMoreResourceLink()}
+                            >
+                              Add More Row
+                            </Button>
+                          </div>
                         </div>
                       </Form.Group>
 
@@ -617,7 +667,10 @@ class AddNewProject extends Component {
                         <Form.Control
                           type="text"
                           placeholder="Title"
-                          name="title"
+                          name="latestTrendSectionTitle"
+                          value={
+                            newProject.data.latestTrends.latestTrendSectionTitle
+                          }
                           onChange={(e, section) =>
                             this.handleChange(e, "latestTrends")
                           }
@@ -625,63 +678,74 @@ class AddNewProject extends Component {
 
                         <div className="resourceItem">
                           <Form.Label>Add Article</Form.Label>
-                          {newProject.data.latestTrends.article.map(item => (
-                            <div className="resourceItemInner" key={item.id}>
-                              <Row>
-                                <Col md={3}>
-                                  <Form.Control
-                                    type="text"
-                                    value={item.title}
-                                    placeholder="Title"
-                                    name="title"
-                                    onChange={e =>
-                                      this.addMoreArticlesTitle(e, item.id)
-                                    }
-                                  />
-                                </Col>
-                                <Col md={3}>
-                                  <Form.Control
-                                    type="text"
-                                    placeholder="Author"
-                                    name="author"
-                                    value={item.author}
-                                    onChange={e =>
-                                      this.addMoreArticlesAuthor(e, item.id)
-                                    }
-                                  />
-                                </Col>
-                                <Col md={3}>
-                                  <Form.Control
-                                    type="text"
-                                    placeholder="Link"
-                                    name="link"
-                                    value={item.link}
-                                    onChange={e =>
-                                      this.addMoreArticlesLink(e, item.id)
-                                    }
-                                  />
-                                </Col>
-                                <Col md={3}>
-                                  <Form.Control
-                                    type="file"
-                                    value={item.image}
-                                    onChange={e =>
-                                      this.addMoreArticlesImage(e, item.id)
-                                    }
-                                  />
-                                </Col>
-                              </Row>
-                            </div>
-                          ))}
-                          <Button
-                            size="sm"
-                            variant="info"
-                            n
-                            onClick={this.addMoreArticles}
-                            disabled={this.disabledAddMoreArticles()}
-                          >
-                            Add More Articles
-                          </Button>
+                          {newProject.data.latestTrends.latestTrendSectionArticle.map(
+                            item => (
+                              <div className="resourceItemInner" key={item.id}>
+                                <Row>
+                                  <Col md={3}>
+                                    <Form.Control
+                                      type="text"
+                                      value={item.title}
+                                      placeholder="Title"
+                                      name="title"
+                                      onChange={e =>
+                                        this.addMoreArticlesTitle(e, item.id)
+                                      }
+                                    />
+                                  </Col>
+                                  <Col md={3}>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Author"
+                                      name="author"
+                                      value={item.author}
+                                      onChange={e =>
+                                        this.addMoreArticlesAuthor(e, item.id)
+                                      }
+                                    />
+                                  </Col>
+                                  <Col md={3}>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Link"
+                                      name="link"
+                                      value={item.link}
+                                      onChange={e =>
+                                        this.addMoreArticlesLink(e, item.id)
+                                      }
+                                    />
+                                  </Col>
+                                  <Col md={3}>
+                                    <Form.Control
+                                      type="file"
+                                      value={item.image}
+                                      onChange={e =>
+                                        this.addMoreArticlesImage(e, item.id)
+                                      }
+                                    />
+                                  </Col>
+                                </Row>
+                                <Button
+                                  size="sm"
+                                  variant="danger"
+                                  onClick={() => this.deleteArticles(item.id)}
+                                >
+                                  <i className="fa fa-trash"></i>
+                                </Button>
+                              </div>
+                            )
+                          )}
+                          <div>
+                            <Button
+                              size="sm"
+                              variant="info"
+                              n
+                              onClick={this.addMoreArticles}
+                              disabled={this.disabledAddMoreArticles()}
+                            >
+                              Add More Articles
+                            </Button>
+                          </div>
                         </div>
                       </Form.Group>
                       <div className="text-right mb-4">

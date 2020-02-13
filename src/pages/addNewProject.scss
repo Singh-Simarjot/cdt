@@ -18,11 +18,17 @@
   border: 1px solid rgba($theme-bg, 0.1);
   padding: 10px;
   .resourceItemInner {
-    padding: 10px 10px 0;
+    padding: 10px 50px 0 10px;
     margin-bottom: 10px;
     background-color: rgba($theme-bg, 0.1);
+    position: relative;
     .form-control {
       margin-bottom: 10px;
+    }
+    button.btn-danger {
+      position: absolute;
+      top: 13px;
+      right: 10px;
     }
   }
 }
