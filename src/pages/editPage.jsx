@@ -19,28 +19,31 @@ class EditPage extends Component {
     customItem: {
       title: "",
       url: ""
-    }
+    },
+    modalOpenType: ""
   };
 
   componentDidMount() {
     const page = this.context.selectedPage;
     this.setState({ page });
-    
   }
 
   handleChange = (e, section) => {
     const page = { ...this.state.page };
     page[e.target.name] = e.target.value;
     this.setState({ page });
+    page.btnDisable = false;
   };
 
   changeTemplate = e => {
     const page = { ...this.state.page };
     page.templateType = e.target.value;
     this.setState({ page });
+    page.btnDisable = false;
   };
 
-  handleModal = modalData => {
+  handleModal = (modalData, edit) => {
+    this.setState({ modalOpenType: edit });
     this.setState({ showModalComponent: !this.state.showModalComponent }, () =>
       this.setModalContent(modalData)
     );
@@ -58,7 +61,6 @@ class EditPage extends Component {
     let tabs = [...page.data.tabs, item];
     page.data.tabs = tabs;
     this.setState({ page });
-  
   };
 
   addCustomItem = () => {
@@ -79,21 +81,61 @@ class EditPage extends Component {
     customItem[e.target.name] = e.target.value;
     this.setState({ customItem });
   };
-  
-  saveData = (e) => {
+
+  saveData = e => {
     e.preventDefault();
     this.context.editPage(this.state.page);
     this.props.history.push("/project");
+    console.log(this.state.page.title.length);
   };
 
-  sortNavigation = (tabs) => {
+  onMarkDraft = e => {
+    e.preventDefault();
+    this.context.markDraftPage(this.state.page);
+    // this.props.history.push("/project");
+  };
 
-    const page = {...this.state.page};
+  sortNavigation = tabs => {
+    const page = { ...this.state.page };
     page.data.tabs = tabs.tabs;
-    console.log(page)
-    this.setState({page})
+    console.log(page);
+    this.setState({ page });
+  };
 
-  } 
+  // saveComponent = modalData => {
+  //   // console.log("Page Data", modalData);
+  //   const page = this.state.page;
+  //   // const modalData = { ...this.state.modalData };
+  //   page.data.widgets = [...page.data.widgets, modalData];
+  //   this.setState({ page }, () => this.handleModal());
+  // };
+  saveComponent = modalData => {
+    const page = { ...this.state.page };
+    if (this.state.modalOpenType === "edit") {
+      const saveType = page.data.widgets.filter(function(item) {
+        if (item.id === modalData.id && item.type === modalData.type) {
+          item.title = modalData.title;
+          item.description = modalData.description;
+          item.internalNavigation = modalData.internalNavigation;
+          item.content = modalData.content;
+          return item;
+        } else {
+          return item;
+        }
+      });
+      page.data.widgets = saveType;
+    } else {
+      page.data.widgets = [modalData, ...page.data.widgets];
+    }
+
+    this.setState({ page }, () => this.handleModal());
+  };
+
+  deleteWidgets = id => {
+    const page = this.state.page;
+    page.data.widgets = page.data.widgets.filter(item => item.id !== id);
+    this.setState({ page });
+  };
 
   render() {
     const { page } = this.state;
@@ -101,36 +143,41 @@ class EditPage extends Component {
     const pages = selectedProject.pages.filter(
       item => item.templateType !== "TABS"
     );
+    // console.log(this.props.location.state.pageType);
     return (
       <WidgetsContext>
         {page.templateType === "DEFAULT" && (
           <ComponentsList onModalChange={this.handleModal} />
         )}
         {page.templateType === "TABS" && (
-          <NavigationList 
-          onCustomItem={this.addCustomItem}
-          pages={pages}
-          customItem={this.state.customItem}
-          onChangeField={this.handleInput}
-          // onModalChange={this.handleModal}
-          addToNavigation={this.addToNavigation}
-          
+          <NavigationList
+            onCustomItem={this.addCustomItem}
+            pages={pages}
+            customItem={this.state.customItem}
+            onChangeField={this.handleInput}
+            // onModalChange={this.handleModal}
+            addToNavigation={this.addToNavigation}
           />
         )}
         <Content
           page={this.state.page}
-          pageLabel = "Edit Page"
+          pageLabel="Edit Page"
+          btnTitle={this.props.location.state.pageType}
           onHandle={this.handleChange}
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}
           onSave={this.saveData}
           sortNavigation={this.sortNavigation}
+          onMarkDraft={this.onMarkDraft}
+          deleteWidgets={this.deleteWidgets}
         />
         <ModalComponent
           title={this.props.text}
           onModalChange={this.handleModal}
           showModal={this.state.showModalComponent}
           modalData={this.state.modalData}
+          onSaveComponent={this.saveComponent}
+          modalOpenType={this.state.modalOpenType}
         />
       </WidgetsContext>
     );

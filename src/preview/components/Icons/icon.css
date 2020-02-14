@@ -36,6 +36,7 @@ $theme-light: false;
       grid-template-columns: repeat(2, 1fr);
   background: #e0e0e0;
   margin-top: 15px;
+  color: #161616;
 }
 
 @media (min-width: 600px) {
@@ -91,7 +92,7 @@ $theme-light: false;
   }
 }
 
-.grid {
+.grid-block {
   position: absolute;
   top: 0;
   width: 100%;
@@ -107,14 +108,14 @@ $theme-light: false;
   background: #fff;
 }
 
-.grid .icon-name {
+.grid-block .icon-name {
   font-size: 12px;
   line-height: 16px;
   font-weight: 400;
   position: absolute;
 }
 
-.grid .icon-preview {
+.grid-block .icon-preview {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./allpages.scss";
 import { Row, Col, Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProjectsContext from "../context/projectsContext";
@@ -23,11 +24,17 @@ class AllPages extends Component {
 
   onEditPage = id => {
     this.context.onSelectPage(id);
-    this.props.history.push("/project/editpage");
+    this.props.history.push({
+      pathname: "/project/editpage",
+      state: { pageType: "Save" }
+    });
   };
 
   render() {
     const { selectedProject } = this.context;
+    const pages =
+      selectedProject.pages !== undefined &&
+      selectedProject.pages.filter(item => item.saved === true);
     return (
       <div className="content">
         <div className="contentTop">
@@ -43,8 +50,8 @@ class AllPages extends Component {
           </Row>
         </div>
         <div className="contentData mt-4">
-          {selectedProject.pages.length > 0 && (
-            <Table responsive="md" hover variant="">
+          {pages.length > 0 ? (
+            <Table responsive="md" hover variant="" className="allpagesTable">
               <thead>
                 <tr>
                   <th>#</th>
@@ -53,14 +60,13 @@ class AllPages extends Component {
                   <th>Date Edited</th>
                   <th>Template Type</th>
                   <th>Author</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {selectedProject.pages.map(project => (
+                {pages.map(project => (
                   <tr key={project.id}>
-                    <td>{project.id}</td>
+                    <td className="count"></td>
                     <td>{project.title}</td>
                     <td>
                       {moment(project.dateCreated).format("YYYY//MM//DD")}{" "}
@@ -71,27 +77,39 @@ class AllPages extends Component {
                     <td>{project.templateType}</td>
                     <td>{project.author}</td>
                     <td>
-                      <Button size={"sm"} variant="info" 
-                      onClick={() => this.onEditPage(project.id)}
+                      <Button
+                        size={"sm"}
+                        variant="info"
+                        onClick={() => this.onEditPage(project.id)}
                       >
                         <i className="fa fa-pencil"></i>
                       </Button>
-                    </td>
-                    <td>
                       <Button
                         size={"sm"}
                         variant="danger"
                         onClick={() => {
                           this.handleModalDelete(project.id);
                         }}
+                        className="ml-2"
                       >
                         <i className="fa fa-trash"></i>
                       </Button>
+                      <Button
+                        size={"sm"}
+                        onClick={() => this.context.markDraftPage(project)}
+                        variant="warning"
+                        className="ml-2"
+                      >
+                        Mark as Draft
+                      </Button>
                     </td>
+                    <td></td>
                   </tr>
                 ))}
               </tbody>
             </Table>
+          ) : (
+            "Pages not exist, Please create a new page"
           )}
         </div>
         <ModalDelete

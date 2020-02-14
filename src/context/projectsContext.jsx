@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
 
-// import { getProjects, getPages } from "../services/projects";
+import {
+  getProjects,
+  getPages,
+  createProject,
+  uploadFile
+} from "../services/projects";
 
 const Context = React.createContext();
 
@@ -22,69 +28,8 @@ export class ProjectsContext extends Component {
         name: "Item name 2",
         dateCreated: 1579325185,
         dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-      {
-        id: 3,
-        name: "Item name 3",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-      {
-        id: 4,
-        name: "Item name 4",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 5,
-        name: "Item name 5",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 6,
-        name: "Item name 6",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 7,
-        name: "Item name 7",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 8,
-        name: "Item name 8",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 9,
-        name: "Item name 9",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
-      },
-
-      {
-        id: 10,
-        name: "Item name 10",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name"
+        authour: "Authour Name",
+        thumbnail: "ada"
       }
     ],
     selectedProject: {
@@ -92,7 +37,91 @@ export class ProjectsContext extends Component {
       description:
         "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum ",
       id: "1",
-      data: {},
+      data: {
+        headerSection: {
+          videoUrl: {
+            mobile: {
+              webm: require("../preview/templates/assets/video/bannerVideoMob.webm"),
+              mp4: require("../preview/templates/assets/video/bannerVideoMob.mp4")
+            },
+
+            desktop: {
+              webm: require("../preview/templates/assets/video/bannerVideo.webm"),
+              mp4: require("../preview/templates/assets/video/bannerVideo.webm")
+            }
+          },
+          videoThumb: require("../preview/templates/assets/video/bannerVideoImg.jpg"),
+          link: {
+            linkTopText: "Read",
+            linkTitle: "Migrate to v10",
+            link: "/#"
+          }
+        },
+        section: {
+          designing: {
+            image: require("../preview/templates/assets/images/designers.jpg"),
+            linkTopText: "Start",
+            linkTitle: "Designing",
+            link: "/#"
+          },
+          development: {
+            image: require("../preview/templates/assets/images/developing.jpg"),
+            linkTopText: "Start",
+            linkTitle: "Developing",
+            link: "/#"
+          }
+        },
+        resource: {
+          title: "Other resources",
+          description:
+            "The component libraries give developers a collection of reusable components for building websites and user interfaces. See a complete list of resources.",
+          resourceComponets: [
+            {
+              title: "Sketch libraries",
+              link: "/#"
+            },
+            {
+              title: "Carbon Components",
+              link: "/#"
+            }
+          ]
+        },
+
+        laetstTrends: {
+          sectionTitle:
+            "Do you multitask or not? Is it a good practice to multitask at work? Give reasons and examples.",
+          article: [
+            {
+              image: require("../preview/templates/assets/images/xd_kit_img.jpg"),
+              title: "Adobe XD Carbon starter kit announced at Max",
+              PublishSubtitle: "Lauren Rice",
+              publishDate: "November 4, 2019",
+              link: "/#"
+            },
+            {
+              image: require("../preview/templates/assets/images/v10.7-release.jpg"),
+              title: "New in Carbon: October 2019",
+              PublishSubtitle: "Lauren Rice",
+              publishDate: "November 4, 2019",
+              link: "/#"
+            },
+            {
+              image: require("../preview/templates/assets/images/hacktoberfest.jpg"),
+              title: "Help build Carbon — Hacktoberfest 2019",
+              PublishSubtitle: "Lauren Rice",
+              publishDate: "November 4, 2019",
+              link: "/#"
+            }
+          ]
+        },
+        contribute: {
+          title: "Wondering how to contribute?",
+          description:
+            "We welcome all feedback, designs, or ideas in order to produce the best possible experience for our users. If you’re interested in contributing, check out our contributing guidelines to get started.",
+          linkText: "Start contributing",
+          link: "/#"
+        }
+      },
 
       pages: [
         {
@@ -103,9 +132,230 @@ export class ProjectsContext extends Component {
           author: "DEV1",
           templateType: "DEFAULT",
           data: {
-            widgets: [],
+            widgets: [
+              {
+                id: 4,
+                icon: "fa-th",
+                label: "Color Palette",
+                type: "COLOR_PALETTE",
+                title: "Color Palette Title",
+                description: "Color Palette Description",
+                content: {
+                  colorsPalettes: [
+                    {
+                      id: "1",
+                      title: "",
+                      shades: [
+                        {
+                          id: "id1",
+                          color: "rgb(0,0,0)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id2",
+                          color: "rgb(0, 17, 65",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id3",
+                          color: "rgb(0, 29, 108)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id4",
+                          color: "rgb(0, 45, 156)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id5",
+                          color: "rgb(0, 67, 206)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id6",
+                          color: "rgb(15, 98, 254)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id7",
+                          color: "rgb(69, 137, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id8",
+                          color: "rgb(120, 169, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id9",
+                          color: "rgb(166, 200, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id10",
+                          color: "rgb(208, 226, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id11",
+                          color: "rgb(237, 245, 255)",
+                          saved: true,
+                          parentId: "1"
+                        },
+                        {
+                          id: "id12",
+                          color: "rgb(255, 255, 255)",
+                          saved: true,
+                          parentId: "1"
+                        }
+                      ]
+                    },
+                    {
+                      id: "2",
+                      title: "Alerts Colors",
+                      shades: [
+                        {
+                          id: "id1",
+                          color: "rgb(0,0,0)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id2",
+                          color: "rgb(0, 17, 65",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id3",
+                          color: "rgb(0, 29, 108)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id4",
+                          color: "rgb(0, 45, 156)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id5",
+                          color: "rgb(0, 67, 206)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id6",
+                          color: "rgb(15, 98, 254)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id7",
+                          color: "rgb(69, 137, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id8",
+                          color: "rgb(120, 169, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id9",
+                          color: "rgb(166, 200, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id10",
+                          color: "rgb(208, 226, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id11",
+                          color: "rgb(237, 245, 255)",
+                          saved: true,
+                          parentId: "2"
+                        },
+                        {
+                          id: "id12",
+                          color: "rgb(255, 255, 255)",
+                          saved: true,
+                          parentId: "2"
+                        }
+                      ]
+                    },
+                    {
+                      id: "3",
+                      title: "Alerts Colors",
+                      shades: [
+                        {
+                          id: "id1",
+                          color: "rgb(0,0,0)",
+                          saved: true,
+                          parentId: "3"
+                        },
+                        {
+                          id: "id2",
+                          color: "rgb(0, 17, 65",
+                          saved: true,
+                          parentId: "3"
+                        },
+                        {
+                          id: "id3",
+                          color: "rgb(0, 29, 108)",
+                          saved: true,
+                          parentId: "3"
+                        },
+                        {
+                          id: "id4",
+                          color: "rgb(0, 45, 156)",
+                          saved: true,
+                          parentId: "3"
+                        },
+                        {
+                          id: "id5",
+                          color: "rgb(0, 67, 206)",
+                          saved: true,
+                          parentId: "3"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                internalNavigation: false
+              },
+              {
+                id: 10,
+                icon: "fa-codepen",
+                label: "Code Snippets With View",
+                type: "CODE_SNIPPETS_WITH_VIEW",
+                title: "Code Snippets With View Titel",
+                description: "Code Snippets With View Description",
+                content: {
+                  iframe:
+                    '<iframe src="https://codepen.io/chriscoyier/embed/BdYmjz?height=300&amp;theme-id=1&amp;slug-hash=BdYmjz&amp;default-tab=css%2Cresult&amp;user=chriscoyier&amp;embed-version=2&amp;pen-title=caret-color&amp;editable=true&amp;name=cp_embed_1" frameBorder="0"></iframe>'
+                },
+                internalNavigation: false
+              }
+            ],
             tabs: []
-          }
+          },
+          saved: true,
+          btnDisable: true
         },
         {
           id: 2,
@@ -117,7 +367,9 @@ export class ProjectsContext extends Component {
           data: {
             widgets: [],
             tabs: []
-          }
+          },
+          saved: true,
+          btnDisable: true
         },
         {
           id: 3,
@@ -129,7 +381,9 @@ export class ProjectsContext extends Component {
           data: {
             widgets: [],
             tabs: []
-          }
+          },
+          saved: true,
+          btnDisable: true
         },
         {
           id: 4,
@@ -141,126 +395,83 @@ export class ProjectsContext extends Component {
           data: {
             widgets: [],
             tabs: []
-          }
+          },
+          saved: true,
+          btnDisable: true
         }
       ],
-      navigation: [
-        {
-          id: 1,
-          title: "asd",
-          url: "/link1",
-          templateType: "TABS",
-          children: [
-            { id: "1_1", title: "Link 1", url: "/link1/page1" },
-            { id: "1_2", title: "Link 2", url: "/link1/page2" },
-            { id: "1_3", title: "Link 3", url: "/link1/page3" },
-            { id: "1_4", title: "Link 4", url: "/link1/page4" }
-          ]
-        },
-        {
-          id: 2,
-          title: "Link 2",
-          subtitle: <span>test</span>,
-          url: "/link2",
-          templateType: "TABS",
-          children: [
-            { id: "2_1", title: "Link 5", url: "/link2/page1" },
-            { id: "2_2", title: "Link 6", url: "/link2/page2" },
-            { id: "2_3", title: "Link 7", url: "/link2/page3" }
-          ]
-        },
-        {
-          id: 3,
-          title: "Link 3",
-          url: "/link3",
-          children: [
-            { id: "3_1", title: "Link 8", url: "/link3/page1" },
-            { id: "3_2", title: "Link 9", url: "/link3/page2" },
-            { id: "3_3", title: "Link 10", url: "/link3/page3" }
-          ]
-        },
-        {
-          id: 4,
-          title: "Link 4",
-          url: "/link4",
-          children: []
-        }
-      ]
+      navigation: []
     },
-    selectedPage: {
-      id: 4,
-      title: "Page 4",
-      dateCreated: 1579338582,
-      dateEdited: 1579338582,
-      author: "DEV1",
-      templateType: "TABS",
-      data: {
-        tabs: [
-          {
-            id: 2,
-            title: "Tab 2",
-            url: "/tab2"
-          },
-          {
-            id: 3,
-            title: "Tab 3",
-            url: "/ltab3"
-          },
-
-          {
-            id: 4,
-            title: "Tab 4",
-            url: "/tab4"
-          }
-        ],
-        widgets: []
-      }
+    selectedPage: {},
+    subPage: {
+      id: "",
+      title: "",
+      dateCreated: "",
+      dateEdited: "",
+      author: "",
+      widgets: []
     }
   };
 
   onSelectProject = id => {
     this.setState({ selectedProjectID: id });
   };
+
   onSelectPage = id => {
     const page = this.state.selectedProject.pages.filter(
       item => item.id === id
     );
-    // console.log(page, id);
+
     this.setState({ selectedPageID: id, selectedPage: page[0] });
   };
-  getAllProjects = async () => {
-    // const allProjects = await  getProjects()
-    // this.setState({ allProjects:allProjects.data });
+  handleSelectSubPage = id => {
+    const subpage = this.state.selectedProject.pages.filter(
+      item => item.id === id
+    );
+    this.setState({ subPage: subpage[0] });
   };
-  getAllPages = async () => {
-    // const pages = await  getPages(this.state.selectedProjectID)
-    // this.setState({ pages:pages.data });
+  getAllProjects = async () => {
+    const allProjects = await getProjects();
+    this.setState({ allProjects: allProjects.data });
+  };
+  getAllPages = async id => {
+    const selectedProject = this.state.selectedProject;
+
+    selectedProject.pages = [];
+    this.setState({ selectedProject });
   };
 
   updateNavigation = navigation => {
     const selectedProject = { ...this.state.selectedProject };
     selectedProject.navigation = navigation;
+    toast.success("Navigation Updated!");
     this.setState({ selectedProject });
   };
-  addNewProject = item => {
+  addNewProject = async item => {
+    // console.log(item);
+    await createProject(JSON.stringify(item));
     const allProjects = [item, ...this.state.allProjects];
+    toast.success("Project Added!");
     this.setState({ allProjects });
   };
   editProject = selectedProject => {
     this.setState({ selectedProject });
+    toast.success("Project Updated!");
   };
 
-  saveNewPage = (page) => {
+  saveNewPage = page => {
+    // saveNewPage = async page => {
+    const data = { projectID: this.state.selectedProjectID, page: page };
+    // await createProject(JSON.stringify(data));
     const selectedProject = { ...this.state.selectedProject };
-    selectedProject.pages = [page,...selectedProject.pages];
-
+    selectedProject.pages = [page, ...selectedProject.pages];
+    toast.success("Page  Added!");
     this.setState({ selectedProject });
-
-  }
+  };
 
   editPage = selectedPage => {
     this.setState({ selectedPage });
-    
+
     const selectedProject = { ...this.state.selectedProject };
     selectedProject.pages.filter(item =>
       item.id === selectedPage.id
@@ -270,6 +481,20 @@ export class ProjectsContext extends Component {
     );
 
     this.setState({ selectedProject });
+    toast.success("Page Updated!");
+  };
+
+  markDraftPage = page => {
+    const selectedPage = { ...this.state.selectedPage };
+    const selectedProject = { ...this.state.selectedProject };
+    selectedProject.pages.filter(item =>
+      item.id === page.id ? (item.saved = !page.saved) : item
+    );
+    selectedPage.saved = !page.saved;
+    this.setState({ selectedPage, selectedProject });
+    toast.success(
+      selectedPage.saved ? "Marked as Draft !" : "Page is Live Now !"
+    );
   };
 
   // onDeleteProject = id => {
@@ -282,12 +507,18 @@ export class ProjectsContext extends Component {
     let pages = selectedProject.pages.filter(item => item.id !== id);
     selectedProject.pages = pages;
     this.setState({ selectedProject });
+    toast.success("Page Deleted!");
   };
 
   onDeleteProject = id => {
     const allProjects = this.state.allProjects;
     let projects = allProjects.filter(item => item.id !== id);
     this.setState({ allProjects: projects });
+    toast.success("Project Deleted!");
+  };
+
+  handleUploadFile = async file => {
+    await uploadFile(file);
   };
 
   render() {
@@ -305,7 +536,10 @@ export class ProjectsContext extends Component {
           onDeleteProject: this.onDeleteProject,
           onDeletePage: this.onDeletePage,
           onSelectPage: this.onSelectPage,
-          onSaveNewPage: this.saveNewPage
+          onSaveNewPage: this.saveNewPage,
+          markDraftPage: this.markDraftPage,
+          onUploadFile: this.handleUploadFile,
+          onSelectSubPage: this.handleSelectSubPage
         }}
       >
         {this.props.children}

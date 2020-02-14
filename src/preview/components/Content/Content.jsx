@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 
+import ReactHtmlParser, {
+  processNodes,
+  convertNodeToElement,
+  htmlparser2
+} from "react-html-parser";
+
 import "./content.scss";
 
 class TextBlock extends Component {
@@ -10,8 +16,12 @@ class TextBlock extends Component {
     this.state = {};
   }
   render() {
+    const { data } = this.props;
     return (
       <div className="content-block">
+        <h1>{data.title}</h1>
+        <p>{data.description}</p>
+        {ReactHtmlParser(data.content)}
         <p>
           Carbon is IBM’s open-source design system for digital products and
           experiences. With the IBM Design Language as its foundation, the

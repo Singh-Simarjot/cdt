@@ -13,7 +13,7 @@ class Content extends Component {
   };
 
   render() {
-    const { page ,sortNavigation,pageLabel ,onSave } = this.props;
+    const { page, sortNavigation, pageLabel, onSave, onMarkDraft } = this.props;
 
     return (
       <div className="content">
@@ -23,9 +23,12 @@ class Content extends Component {
               <h2>{pageLabel}</h2>
             </Col>
             <Col xs={4} className="text-right">
-              <Button size="sm" variant="success">
+              {/* <Button variant="warning" type="submit" className="ml-2" onClick={e => onMarkDraft(e)} >
+             {page.saved ? "Mark as Draft" : "Publish" }   
+          </Button> */}
+              {/* <Button size="sm" variant="success">
                 Preview
-              </Button>
+              </Button> */}
             </Col>
           </Row>
         </div>
@@ -95,11 +98,19 @@ class Content extends Component {
                 text={item.description}
                 onModalChange={this.props.onModalChange}
                 key={item.id}
+                id={item.id}
+                page={page}
+                widgetContent={item}
+                deleteWidgets={() => this.props.deleteWidgets(item.id)}
               />
             ))}
           <br />
-          <Button type="submit" onClick={e => onSave(e)}>
-            Save
+          <Button
+            type="submit"
+            onClick={e => onSave(e)}
+            disabled={page.btnDisable}
+          >
+            {this.props.btnTitle}
           </Button>
         </div>
       </div>

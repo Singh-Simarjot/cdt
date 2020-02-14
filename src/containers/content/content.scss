@@ -67,12 +67,16 @@
       }
     }
     &.contentDataNavigation {
-      height: -webkit-calc(100vh - 185px);
-      height: calc(100vh - 185px);
+      // height: -webkit-calc(100vh - 185px);
+      // height: calc(100vh - 185px);
+      height: -webkit-calc(100vh - 410px);
+      height: calc(100vh - 410px);
       overflow: auto;
       @include lg {
-        height: -webkit-calc(100vh - 120px);
-        height: calc(100vh - 120px);
+        // height: -webkit-calc(100vh - 120px);
+        // height: calc(100vh - 120px);
+        height: -webkit-calc(100vh - 350px);
+        height: calc(100vh - 350px);
       }
       .rst__rowContents {
         .rst__rowLabel {
@@ -235,17 +239,16 @@
 .addTabDara {
   margin: 15px 0 0 0;
 
-  .contentDataNavigation{
-    width:100%;
+  .contentDataNavigation {
+    width: 100%;
 
-  &.dropImg{
-    .rst__tree{
-    span{
-      border: 0;
-      padding: 0;
+    &.dropImg {
+      .rst__tree {
+        span {
+          border: 0;
+          padding: 0;
+        }
+      }
     }
   }
-  }
-  }
 }
-

@@ -41,6 +41,7 @@ $theme-light: false;
 
 .table-data table {
   font-size: 14px;
+  background: #f4f4f4;
 }
 
 .table-data table thead {

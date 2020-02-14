@@ -9,18 +9,24 @@ import nextId from "react-id-generator";
 
 class TextBlock extends Component {
   state = {
-    // title: "",
-    // description: "",
-    // content: "",
     widget: {
       id: "",
       icon: "fa-file-text-o",
       type: "TEXT_BLOCK",
+      label: "Text Block",
       title: "",
       description: "",
+      internalNavigation: false,
       content: ""
     }
   };
+  componentDidMount() {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
+      this.setState({ widget: content });
+    }
+  }
   updateContent(content) {
     const widget = this.state.widget;
     widget.content = content;
@@ -39,17 +45,37 @@ class TextBlock extends Component {
     widget.description = description;
     this.setState({ widget });
   }
+  internalNavigation = e => {
+    const widget = { ...this.state.widget };
+    widget.internalNavigation = !this.state.widget.internalNavigation;
+    this.setState({ widget });
+  };
 
   onSaveContent = () => {
-    const dummyid = nextId();
+    let dummyid;
+    const widget = { ...this.state.widget };
 
-    // let data = this.state.data;
-    const widget = this.state.widget;
+    if (this.props.modalOpenType === "edit") {
+      dummyid = widget.id;
+    } else {
+      dummyid = nextId();
+    }
     widget.id = dummyid;
     this.setState({ widget });
 
     this.props.onSaveComponent(widget);
   };
+
+  disabledSave() {
+    const widget = this.state.widget;
+    const items = this.state.items;
+
+    return widget.content == "" ||
+      widget.title == "" ||
+      widget.description == ""
+      ? true
+      : false;
+  }
 
   config = {
     placeholder: "",
@@ -58,7 +84,7 @@ class TextBlock extends Component {
   };
 
   render() {
-    const { onModalChange, oncomponentInput, onSaveComponent } = this.props;
+    const { onModalChange } = this.props;
     const { widget } = this.state;
     return (
       <>
@@ -96,6 +122,9 @@ class TextBlock extends Component {
             <Form.Check
               id="addInternalNavigation"
               label={"Add Internal Navigation"}
+              value={widget.internalNavigation}
+              onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>
@@ -103,7 +132,11 @@ class TextBlock extends Component {
           <Button onClick={onModalChange} variant="danger">
             Cancel
           </Button>
-          <Button onClick={this.onSaveContent} variant="success">
+          <Button
+            onClick={this.onSaveContent}
+            variant="success"
+            disabled={this.disabledSave()}
+          >
             Save
           </Button>
         </Modal.Footer>

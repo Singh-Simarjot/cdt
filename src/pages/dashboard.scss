@@ -26,8 +26,15 @@
       background-color: rgba($theme-bg, 0.1);
     }
     tbody {
+      counter-reset: section;
       tr {
+        counter-increment: section;
         td {
+          &.count {
+            &:after {
+              content: counter(section);
+            }
+          }
           a {
             color: $theme-bg;
           }

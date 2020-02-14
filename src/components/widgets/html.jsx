@@ -8,37 +8,64 @@ class Html extends Component {
       id: "",
       icon: "fa-code",
       type: "HTML",
+      label: "HTML Component",
       title: "",
       description: "",
+      internalNavigation: false,
       content: ""
     }
   };
+  componentDidMount() {
+    const modalOpenType = this.props.modalOpenType;
+    if (modalOpenType === "edit") {
+      const content = this.props.data;
+      this.setState({ widget: content });
+    }
+  }
   titleInput = e => {
-    const widget = this.state.widget;
+    const widget = { ...this.state.widget };
     widget.title = e.target.value;
     this.setState({ widget });
   };
   descriptionInput = e => {
-    const widget = this.state.widget;
+    const widget = { ...this.state.widget };
     widget.description = e.target.value;
     this.setState({ widget });
   };
   contentInput = e => {
-    const widget = this.state.widget;
+    const widget = { ...this.state.widget };
     widget.content = e.target.value;
     this.setState({ widget });
   };
+  internalNavigation = e => {
+    const widget = { ...this.state.widget };
+    widget.internalNavigation = !this.state.widget.internalNavigation;
+    this.setState({ widget });
+  };
   onSaveContent = () => {
-    const dummyid = nextId();
+    let dummyid;
+    const widget = { ...this.state.widget };
 
-    // let data = this.state.data;
-    const widget = this.state.widget;
+    if (this.props.modalOpenType === "edit") {
+      dummyid = widget.id;
+    } else {
+      dummyid = nextId();
+    }
+
     widget.id = dummyid;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
   };
+  disabledSave() {
+    const widget = { ...this.state.widget };
+    return widget.content == "" ||
+      widget.title == "" ||
+      widget.description == ""
+      ? true
+      : false;
+  }
   render() {
-    const { onSaveComponent, onModalChange, oncomponentInput } = this.props;
+    const { onModalChange } = this.props;
     const { widget } = this.state;
     return (
       <>
@@ -75,6 +102,9 @@ class Html extends Component {
             <Form.Check
               id="addInternalNavigation"
               label={"Add Internal Navigation"}
+              value={widget.internalNavigation}
+              onChange={e => this.internalNavigation(e)}
+              checked={widget.internalNavigation ? true : false}
             />
           </Form.Group>
         </Modal.Body>
@@ -82,7 +112,11 @@ class Html extends Component {
           <Button onClick={onModalChange} variant="danger">
             Cancel
           </Button>
-          <Button onClick={this.onSaveContent} variant="success">
+          <Button
+            onClick={this.onSaveContent}
+            variant="success"
+            disabled={this.disabledSave()}
+          >
             Save
           </Button>
         </Modal.Footer>

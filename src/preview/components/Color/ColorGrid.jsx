@@ -128,11 +128,14 @@ class ColorGrid extends Component {
     };
   }
   render() {
+    const { data } = this.props;
     return (
       <React.Fragment>
         <div className="color-grid">
-          <h2>Color anatomy</h2>
-          <p>
+          <h3>{data.title}</h3>
+          <p>{data.description}</p>
+          {/* <h2>Color anatomy</h2> */}
+          {/* <p>
             Carbon’s default themes are derived from the IBM Design Language
             color palette. The Neutral Gray family is dominant in the default
             themes, making use of subtle shifts in value to help organize
@@ -142,9 +145,32 @@ class ColorGrid extends Component {
             The core Blue family serves as the primary action color across all
             IBM products and experiences. Additional colors are used sparingly
             and purposefully.
-          </p>
+          </p> */}
 
-          <div className="color-pattern">
+          {data.content.colorsPalettes.map(row => (
+            <div key={row.id}>
+              <div className="color-pattern">
+                {row.shades.map(item => (
+                  <div
+                    className="color-grid-box"
+                    style={{ backgroundColor: item.color }}
+                    key={item.id}
+                  ></div>
+                ))}
+              </div>
+              <p>{row.title}</p>
+            </div>
+          ))}
+
+          {/* <div className="color-pattern">
+            {this.state.colorPlatte.map(platte => (
+              <div
+                key={platte.id}
+                className="color-grid-box"
+                style={{ background: platte.color }}
+              ></div>
+            ))}
+
             {this.state.colorPlatte.map(platte => (
               <div
                 key={platte.id}
@@ -172,8 +198,8 @@ class ColorGrid extends Component {
                 style={{ background: alert.color }}
               ></div>
             ))}
-          </div>
-          <p>Alerts Colors</p>
+          </div> 
+          <p>Alerts Colors</p>*/}
         </div>
       </React.Fragment>
     );

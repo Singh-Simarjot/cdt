@@ -10,17 +10,22 @@ import NavigationList from "../components/navigationList";
 import ProjectsContext from "../context/projectsContext";
 import { WidgetsContext } from "../context/widgetsContext";
 
+import nextId from "react-id-generator";
+
 class AddNewPage extends Component {
   static contextType = ProjectsContext;
 
   state = {
     page: {
-      title: "dd",
+      id: "",
+      title: "",
       templateType: "DEFAULT",
       data: {
         widgets: [],
         tabs: []
-      }
+      },
+      saved: true,
+      btnDisable: true
     },
     customItem: {
       title: "",
@@ -28,19 +33,18 @@ class AddNewPage extends Component {
     },
     showModalComponent: false,
 
-    modalData: { title: "", description: "", content: "" }
+    modalData: { title: "", description: "", content: "" },
+    modalOpenType: ""
   };
   changeTemplate = e => {
     const page = { ...this.state.page };
     page.templateType = e.target.value;
     this.setState({ page });
+    page.btnDisable = false;
   };
 
-  handleModal = modalData => {
-    // console.log(modalData);
-    // const page = this.state.page;
-    // page.data.widgets = [...page.data.widgets, modalData];
-    // this.setState({ page });
+  handleModal = (modalData, edit) => {
+    this.setState({ modalOpenType: edit });
 
     this.setState({ showModalComponent: !this.state.showModalComponent }, () =>
       this.setModalContent(modalData)
@@ -80,34 +84,59 @@ class AddNewPage extends Component {
     const page = { ...this.state.page };
     page[e.target.name] = e.target.value;
     this.setState({ page });
+    page.btnDisable = false;
   };
+  /*
   handleComponentInput = e => {
     const modalData = { ...this.state.modalData };
     console.log(e.target.name, e.target.value);
     modalData[e.target.name] = e.target.value;
     this.setState({ modalData });
   };
+  */
   saveComponent = modalData => {
-    console.log("data", modalData);
-    const page = this.state.page;
-    // const modalData = { ...this.state.modalData };
-    page.data.widgets = [...page.data.widgets, modalData];
+    const page = { ...this.state.page };
+    if (this.state.modalOpenType === "edit") {
+      const saveType = page.data.widgets.filter(function(item) {
+        if (item.id === modalData.id && item.type === modalData.type) {
+          item.title = modalData.title;
+          item.description = modalData.description;
+          item.internalNavigation = modalData.internalNavigation;
+          item.content = modalData.content;
+          return item;
+        } else {
+          return item;
+        }
+      });
+      page.data.widgets = saveType;
+    } else {
+      page.data.widgets = [modalData, ...page.data.widgets];
+    }
     this.setState({ page }, () => this.handleModal());
   };
 
   saveData = e => {
     e.preventDefault();
-
-    this.context.onSaveNewPage(this.state.page);
+    const page = this.state.page;
+    page.id = nextId();
+    this.context.onSaveNewPage(page);
     this.props.history.push("/project");
+    // console.log(this.state.page);
   };
+
+  deleteWidgets = id => {
+    const page = this.state.page;
+    page.data.widgets = page.data.widgets.filter(item => item.id !== id);
+    this.setState({ page });
+  };
+
   render() {
     const { page } = this.state;
     const { selectedProject } = this.context;
 
-    const pages = selectedProject.pages.filter(
-      item => item.templateType !== "TABS"
-    );
+    const pages =
+      selectedProject.pages !== undefined &&
+      selectedProject.pages.filter(item => item.templateType !== "TABS");
     return (
       <WidgetsContext>
         {page.templateType === "DEFAULT" && (
@@ -124,20 +153,22 @@ class AddNewPage extends Component {
           />
         )}
         <Content
-          pageLabel = "Create New Page"
+          pageLabel="Create New Page"
+          btnTitle="Save"
           page={this.state.page}
           onChangeTemplate={this.changeTemplate}
           onModalChange={this.handleModal}
           onSave={this.saveData}
           onHandle={this.handleChange}
+          deleteWidgets={this.deleteWidgets}
         />
         <ModalComponent
           title={this.props.text}
           onModalChange={this.handleModal}
           showModal={this.state.showModalComponent}
           modalData={this.state.modalData}
-          oncomponentInput={this.handleComponentInput}
           onSaveComponent={this.saveComponent}
+          modalOpenType={this.state.modalOpenType}
         />
       </WidgetsContext>
     );

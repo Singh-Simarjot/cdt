@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./modalComponent.scss";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 // widgets
 import Html from "../../components/widgets/html";
 import ColorPalette from "../../components/widgets/colorPalette";
@@ -18,117 +18,117 @@ class ModalComponent extends Component {
   renderComponent() {
     const {
       modalData,
-      oncomponentInput,
       onModalChange,
-      onSaveComponent
+      onSaveComponent,
+      modalOpenType
     } = this.props;
     switch (modalData.type) {
       case "HTML":
         return (
           <Html
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "TYPOGRAPHY":
         return (
           <Typography
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "ICON_GRID":
         return (
           <IconGrid
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "COLOR_PALETTE":
         return (
           <ColorPalette
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "MULTIPLE_IMAGE":
         return (
           <MultipleImage
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "IMAGE_BLOCK":
         return (
           <ImageBlock
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "VIDEO_BLOCK":
         return (
           <VideoBlock
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "IFRAME_BLOCK":
         return (
           <IframeBlock
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "CODE_SNIPPETS":
         return (
           <CodeSnippets
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "CODE_SNIPPETS_WITH_VIEW":
         return (
           <CodeSnippetsWithView
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "EXTERNAL_PAGE_LINK_GRID":
         return (
           <ExternalPageLinkGrid
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       case "TEXT_BLOCK":
         return (
           <TextBlock
-            data={modalData.content}
+            data={modalData}
             onSaveComponent={onSaveComponent}
-            oncomponentInput={oncomponentInput}
             onModalChange={onModalChange}
+            modalOpenType={modalOpenType}
           />
         );
       default:
@@ -136,8 +136,8 @@ class ModalComponent extends Component {
     }
   }
   render() {
-    const { modalData, oncomponentInput, onSaveComponent } = this.props;
-
+    const { modalData } = this.props;
+    // console.log(modalData);
     return (
       modalData !== null && (
         <Modal
@@ -153,14 +153,6 @@ class ModalComponent extends Component {
             <i className={modalData.icon + " fa"}></i> {modalData.label}
           </Modal.Header>
           {this.renderComponent()}
-          {/* <Modal.Footer>
-            <Button onClick={onModalChange} variant="danger">
-              Cancel
-            </Button>
-            <Button onClick={onSaveComponent} variant="success">
-              Save
-            </Button>
-          </Modal.Footer> */}
         </Modal>
       )
     );

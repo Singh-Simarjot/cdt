@@ -94,13 +94,13 @@ $theme-light: false;
 }
 
 .content .contentData.contentDataNavigation {
-  height: calc(100vh - 185px);
+  height: calc(100vh - 410px);
   overflow: auto;
 }
 
 @media (min-width: 1200px) {
   .content .contentData.contentDataNavigation {
-    height: calc(100vh - 120px);
+    height: calc(100vh - 350px);
   }
 }
 
@@ -279,5 +279,14 @@ $theme-light: false;
 
 .addTabDara {
   margin: 15px 0 0 0;
+}
+
+.addTabDara .contentDataNavigation {
+  width: 100%;
+}
+
+.addTabDara .contentDataNavigation.dropImg .rst__tree span {
+  border: 0;
+  padding: 0;
 }
 /*# sourceMappingURL=content.css.map */

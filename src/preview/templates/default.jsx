@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import ProjectsContext from "../../context/projectsContext";
 import { Switch, Route, Redirect } from "react-router-dom";
-
-// components
-// import TableData from "../components/TableData/TableData";
-// import ColorGrid from "../components/Color/ColorGrid";
-// import TextBlock from "../../components/widgets/textBlock2";
-// import IconGrid from "../components/Icons/IconGrid";
-// import Theme from "../components/Theme/Theme";
+ 
 import PageHeader from "../components/PageHeader/PageHeader";
 import Tabs from "../components/Tab/Tabing";
 
@@ -20,36 +14,50 @@ class DefaultTemplate extends Component {
     this.state = {};
   }
   componentDidMount() {
-    const { selectedPageID } = this.context;
-    if (selectedPageID !== null) {
-    } else {
+    const { selectedPageID ,selectedPage ,onSelectSubPage } = this.context;
+    if (selectedPageID === null || selectedPage ===undefined ) {
       this.props.history.push("/preview");
+    }  
+    if(selectedPage !== undefined && selectedPage.templateType === "TABS" && selectedPage.data.tabs.length>0 ){
+      onSelectSubPage(selectedPage.data.tabs[0].id);
+      console.log(this.props.match.url + selectedPage.data.tabs[0].url)
+      this.props.history.push(this.props.match.url + selectedPage.data.tabs[0].url);
     }
   }
+   
   render() {
-    const { selectedPage } = this.context;
-    // console.log(this.context);
-    // console.log(selectedPage);
+    const { selectedPage, subPage } = this.context;
+    
     return (
+      selectedPage !== undefined  ?
       <React.Fragment>
-        {/* <PageHeader pageTitel={selectedPage.title} /> */}
-        {/* {selectedPage.templateType === "TABS" &&
-          selectedPage.data.tabs.length > 0 && (
+        <PageHeader pageTitel={selectedPage.title} />
+        {selectedPage.templateType === "TABS" &&
+           
             <Tabs tabsList={selectedPage.data.tabs} />
-          )} */}
-
-        {/* <ComponentsContent /> */}
-        {/* <Switch>
-          {selectedPage.data.tabs.map(item => (
-            <Route
-              key={item.id}
-              path={this.props.match.url + item.url}
-              component={ComponentsContent}
-            />
-          ))}
-          <Redirect to={this.props.match.url + selectedPage.data.tabs[0].url} />
-        </Switch> */}
-      </React.Fragment>
+          }
+        {selectedPage.templateType === "TABS" ? (
+          <Switch>
+            {selectedPage.data.tabs.map(item => (
+              
+              <Route
+                key={item.id}
+                path={this.props.match.url + item.url}
+                render={props => (
+                  <ComponentsContent
+                    {...this.props}
+                    data={subPage.data.widgets}
+                  />
+                )}
+              />
+            ))}
+            {/* <Redirect to={this.props.match.url + selectedPage.data.tabs[0].url} /> */}
+          </Switch>
+        ) : (
+          <ComponentsContent data={selectedPage.data.widgets} />
+        )}
+      </React.Fragment> 
+      :"Page Not FOund"
     );
   }
 }

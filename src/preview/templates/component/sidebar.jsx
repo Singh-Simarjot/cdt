@@ -40,6 +40,8 @@ class Sidebar extends Component {
               </NavLink>
             </ListGroup.Item>
             {selectedProject.navigation.map(item => (
+             
+             
               <ListGroup.Item key={item.id}>
                 <h5>
                   {item.children !== undefined && item.children.length > 0 ? (
@@ -47,6 +49,7 @@ class Sidebar extends Component {
                   ) : (
                     <NavLink
                       to={"/preview" + item.url}
+                      exact
                       onClick={() => {
                         this.context.onSelectPage(item.id);
                       }}
@@ -62,11 +65,12 @@ class Sidebar extends Component {
                   )}
                 </h5>
                 {item.children !== undefined && item.children.length > 0 && (
+                   
                   <ListGroup className="nav-sub-list">
-                    {item.children.map(childItem => (
+                    {item.children.map(childItem => ( 
                       <ListGroup.Item key={childItem.id}>
                         <NavLink
-                          to={"/preview" + childItem.url}
+                          to={"/preview" + childItem.url} exact
                           onClick={() => {
                             this.context.onSelectPage(childItem.id);
                           }}

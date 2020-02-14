@@ -14,63 +14,118 @@ export class WidgetsContext extends Component {
         type: "HTML",
         title: "",
         description: "",
-        content: ""
+        content: "",
+        internalNavigation: false
       },
       {
         id: 2,
         icon: "fa-keyboard-o",
         label: "Typography Block",
-        type: "TYPOGRAPHY"
+        type: "TYPOGRAPHY",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
       },
-      { id: 3, icon: "fa-th-large", label: "Icons Grid", type: "ICON_GRID" },
-      { id: 4, icon: "fa-th", label: "Color Palette", type: "COLOR_PALETTE" },
+      {
+        id: 3,
+        icon: "fa-th-large",
+        label: "Icons Grid",
+        type: "ICON_GRID",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
+      },
+      {
+        id: 4,
+        icon: "fa-th",
+        label: "Color Palette",
+        type: "COLOR_PALETTE",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
+      },
       {
         id: 5,
         icon: "fa-picture-o",
         label: "Multiple Image",
-        type: "MULTIPLE_IMAGE"
+        type: "MULTIPLE_IMAGE",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
       },
       {
         id: 6,
         icon: "fa-picture-o",
         label: "Image Block",
-        type: "IMAGE_BLOCK"
+        type: "IMAGE_BLOCK",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
       },
       {
         id: 7,
         icon: "fa-video-camera",
         label: "Video Block",
-        type: "VIDEO_BLOCK"
+        type: "VIDEO_BLOCK",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
       },
       {
         id: 8,
         icon: "fa-file-code-o",
         label: "Iframe Block",
-        type: "IFRAME_BLOCK"
+        type: "IFRAME_BLOCK",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
       },
       {
         id: 9,
         icon: "fa-codepen",
         label: "Code Snippets",
-        type: "CODE_SNIPPETS"
+        type: "CODE_SNIPPETS",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
       },
       {
         id: 10,
         icon: "fa-codepen",
         label: "Code Snippets With View",
-        type: "CODE_SNIPPETS_WITH_VIEW"
+        type: "CODE_SNIPPETS_WITH_VIEW",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
       },
       {
         id: 11,
         icon: "fa-file-o",
         label: "External Page Link Grid",
-        type: "EXTERNAL_PAGE_LINK_GRID"
+        type: "EXTERNAL_PAGE_LINK_GRID",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
       },
       {
         id: 12,
         icon: "fa-file-text-o",
         label: "Text Block",
-        type: "TEXT_BLOCK"
+        type: "TEXT_BLOCK",
+        title: "",
+        description: "",
+        content: "",
+        internalNavigation: false
       }
     ]
   };

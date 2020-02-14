@@ -64,7 +64,6 @@ class Dashbord extends Component {
                   </Col>
                 </Row>
                 <Row>
-                  {}
                   {allProjects.slice(0, 4).map(item => (
                     <Col sm={6} md={4} lg={3} key={item.id}>
                       <Card bg="light" key={item.id}>
@@ -141,15 +140,13 @@ class Dashbord extends Component {
                       <th>Date Created</th>
                       <th>Date Edited</th>
                       <th>Author</th>
-                      <th>Preview</th>
-                      <th>Edit</th>
-                      <th>Delete</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {allProjects.map(project => (
                       <tr key={project.id}>
-                        <td>{project.id}</td>
+                        <td className="count"></td>
                         <td>
                           <Link to="/project">{project.name}</Link>
                         </td>
@@ -168,17 +165,14 @@ class Dashbord extends Component {
                           >
                             <i className="fa fa-eye"></i>
                           </Button>
-                        </td>
-                        <td>
                           <Button
                             size={"sm"}
                             variant="info"
                             onClick={() => this.onEditProject(project.id)}
+                            className="ml-2"
                           >
                             <i className="fa fa-pencil"></i>
                           </Button>
-                        </td>
-                        <td>
                           <Button
                             // onClick={() =>
                             //   this.context.onDeleteProject(project.id)
@@ -188,6 +182,7 @@ class Dashbord extends Component {
                             }}
                             size={"sm"}
                             variant="danger"
+                            className="ml-2"
                           >
                             <i className="fa fa-trash"></i>
                           </Button>
