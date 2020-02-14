@@ -58,9 +58,9 @@ class ContentItem extends Component {
             <h4>{widgetContent.title}</h4>
             <p>{widgetContent.description}</p>
           </div>
-          <div className="moveIcon">
+          {/* <div className="moveIcon">
             <i className="fa fa-arrows-v"></i>
-          </div>
+          </div> */}
           <div className="contentItemAction">
             <ButtonToolbar>
               <Button

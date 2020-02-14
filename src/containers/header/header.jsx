@@ -22,7 +22,7 @@ class Header extends Component {
                 <i className="fa fa-bars"></i>
               </Button>
               <Link to="/" className="headerLogo">
-                Carbon <b>Design System</b> Testing
+                Carbon <b>Design System</b>  
               </Link>
             </Col>
             <Col xs={4} md={2} className="text-right">

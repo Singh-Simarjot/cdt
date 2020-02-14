@@ -5,7 +5,9 @@ import {
   getProjects,
   getPages,
   createProject,
-  uploadFile
+  uploadFile,
+  deleteProject,
+  updateProject
 } from "../services/projects";
 
 const Context = React.createContext();
@@ -402,7 +404,7 @@ export class ProjectsContext extends Component {
       ],
       navigation: [  ]
     },
-    selectedPage: {},
+    selectedPage: null,
     subPage: {
       id: "",
       title: "",
@@ -449,12 +451,15 @@ export class ProjectsContext extends Component {
   };
   addNewProject = async item => {
     // console.log(item);
-    await createProject(JSON.stringify(item));
+    const result = await createProject(JSON.stringify(item));
+    item.id = result.data.projectId;
+    console.log(result)
     const allProjects = [item, ...this.state.allProjects];
     toast.success("Project Added!"  );
     this.setState({ allProjects });
    };
-  editProject = selectedProject => {
+  editProject = async selectedProject => {
+    //await  updateProject(selectedProject)
     this.setState({ selectedProject });
     toast.success("Project Updated!"  );
   };
@@ -505,8 +510,9 @@ export class ProjectsContext extends Component {
     toast.success(  "Page Deleted!" );
   };
 
-  onDeleteProject = id => {
+  onDeleteProject = async id => {
     const allProjects = this.state.allProjects;
+    //await deleteProject(id)
     let projects = allProjects.filter(item => item.id !== id);
     this.setState({ allProjects: projects });
     toast.success(  "Project Deleted!" );

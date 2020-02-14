@@ -11,7 +11,7 @@ class AddNewProject extends Component {
     newProject: {
       name: "",
       description: "",
-      id: "",
+     
       thumbnail: "",
       data: {
         headerSection: {
@@ -316,7 +316,6 @@ class AddNewProject extends Component {
   addProject = e => {
     e.preventDefault();
     const newProject = this.state.newProject;
-    newProject.id = nextId();
     this.context.addNewProject(newProject);
     this.props.history.push("/");
   };
@@ -753,7 +752,7 @@ class AddNewProject extends Component {
                           variant="primary"
                           size="lg"
                           onClick={e => this.addProject(e)}
-                          disabled={this.disabledAddProject()}
+                          // disabled={this.disabledAddProject()}
                         >
                           Submit
                         </Button>
