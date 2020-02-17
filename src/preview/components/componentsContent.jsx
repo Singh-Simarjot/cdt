@@ -13,6 +13,8 @@ import CodeSnippetsWithView from "./codeSnippetsWithView/codeSnippetsWithView";
 import CodeSnippets from "./codeSnippets/codeSnippets";
 import IframeBlock from "./iframeBlock/iframeBlock";
 import VideoBlock from "./videoBlock/videoBlock";
+import TypoGraphy from "./typoGraphy/typography";
+import ExternalPageLinkGrid from "./externalPageLinkGrid/externalPageLinkGrid";
 class ComponentsContent extends Component {
   state = {};
   renderPreview(item) {
@@ -23,8 +25,7 @@ class ComponentsContent extends Component {
         // return <Html data={content} />;
         return <Html data={item} />;
       case "TYPOGRAPHY":
-        // return <Typography data={item} />;
-        return <TableData data={item} />;
+        return <TypoGraphy data={item} />;
       case "ICON_GRID":
         return <IconGrid data={item} />;
       case "COLOR_PALETTE":
@@ -45,8 +46,7 @@ class ComponentsContent extends Component {
       case "CODE_SNIPPETS_WITH_VIEW":
         return <CodeSnippetsWithView data={item} />;
       case "EXTERNAL_PAGE_LINK_GRID":
-        // return <ExternalPageLinkGrid data={item} />;
-        return <TableData data={item} />;
+        return <ExternalPageLinkGrid data={item} />;
       case "TEXT_BLOCK":
         return <TextBlock data={item} />;
       default:
@@ -58,7 +58,11 @@ class ComponentsContent extends Component {
     // console.log("data: ", data);
     return (
       <section className="componentsContent">
-        <Container>{data.length>0 ? data.map(item => this.renderPreview(item)): "Please Add Widgets for this page" }</Container>
+        <Container>
+          {data.length > 0
+            ? data.map(item => this.renderPreview(item))
+            : "Please Add Widgets for this page"}
+        </Container>
       </section>
     );
   }

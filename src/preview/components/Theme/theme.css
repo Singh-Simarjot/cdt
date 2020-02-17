@@ -65,6 +65,10 @@ $theme-light: false;
   padding: 15px;
 }
 
+.theme .light {
+  color: #161616;
+}
+
 .theme .dark {
   color: #fff;
 }

@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import "./content.scss";
-// import ReactDOM from "react-dom";
+import ReactDOM from "react-dom";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import ContentItem from "./contentItem";
 import SortableTree from "react-sortable-tree";
 import "react-sortable-tree/style.css"; // This only needs to be imported once in your app
-
+import DragDrop from "./widgetsDragDrop";
 class Content extends Component {
   handleDragOver = e => {
     console.log(e);
   };
-
+  onDrag = data => {
+    console.log("data", data);
+  };
   render() {
     const { page, sortNavigation, pageLabel, onSave, onMarkDraft } = this.props;
-
     return (
       <div className="content">
         <div className="contentTop">
@@ -89,21 +90,30 @@ class Content extends Component {
               }
             </div>
           )}
-          {page.templateType === "DEFAULT" &&
-            page.data.widgets !== undefined &&
-            page.data.widgets.map(item => (
-              <ContentItem
-                icon={item.icon + " fa"}
-                title={item.title}
-                text={item.description}
-                onModalChange={this.props.onModalChange}
-                key={item.id}
-                id={item.id}
-                page={page}
-                widgetContent={item}
-                deleteWidgets={() => this.props.deleteWidgets(item.id)}
-              />
-            ))}
+          <div className="pageWidgets">
+            {page.templateType === "DEFAULT" &&
+              page.data.widgets !== undefined &&
+              page.data.widgets.map(item => (
+                <ContentItem
+                  icon={item.icon + " fa"}
+                  title={item.title}
+                  text={item.description}
+                  onModalChange={this.props.onModalChange}
+                  key={item.id}
+                  id={item.id}
+                  page={page}
+                  widgetContent={item}
+                  deleteWidgets={() => this.props.deleteWidgets(item.id)}
+                />
+              ))}
+
+            {page.templateType === "DEFAULT" && (
+              <div>
+                <h2>Drag Drop</h2>
+                <DragDrop data={page.data.widgets} onDrag={this.onDrag} />
+              </div>
+            )}
+          </div>
           <br />
           <Button
             type="submit"

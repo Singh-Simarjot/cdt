@@ -10,11 +10,14 @@ import NavigationList from "../components/navigationList";
 import ProjectsContext from "../context/projectsContext";
 import { WidgetsContext } from "../context/widgetsContext";
 
+import nextId from "react-id-generator";
+
 class AddNewPage extends Component {
   static contextType = ProjectsContext;
 
   state = {
     page: {
+      id: "",
       title: "",
       templateType: "DEFAULT",
       data: {
@@ -109,14 +112,14 @@ class AddNewPage extends Component {
     } else {
       page.data.widgets = [modalData, ...page.data.widgets];
     }
-
     this.setState({ page }, () => this.handleModal());
   };
 
   saveData = e => {
     e.preventDefault();
-
-    this.context.onSaveNewPage(this.state.page);
+    const page = this.state.page;
+    page.id = nextId();
+    this.context.onSaveNewPage(page);
     this.props.history.push("/project");
     // console.log(this.state.page);
   };
