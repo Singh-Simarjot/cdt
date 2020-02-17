@@ -6,7 +6,7 @@ import Home from "./templates/Home";
 import { Switch, Route } from "react-router-dom";
 import DefaultTemplate from "./templates/default";
 import ProjectsContext from "../context/projectsContext";
-
+import Gloassary from "./templates/gloassary/gloassaryTemplate";
 class Preview extends Component {
   static contextType = ProjectsContext;
 
@@ -20,9 +20,11 @@ class Preview extends Component {
 
     return (
       <div className="home-wrap">
+       
         <span className="homepage-dots"></span>
         <Sidebar />
         <div className="main">
+       
           <Switch>
             <Route
               exact
@@ -34,6 +36,7 @@ class Preview extends Component {
                   description={selectedProject.description}
                   data={selectedProject.data}
                 />
+                // <Gloassary/>
               )}
             />
             {/* {selectedProject.navigation.map(
