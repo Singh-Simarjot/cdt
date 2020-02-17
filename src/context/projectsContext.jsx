@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import {
   getProjects,
-  getPages,
+  getProjectDetail,
   createProject,
   uploadFile,
   deleteProject,
@@ -16,24 +16,7 @@ export class ProjectsContext extends Component {
   state = {
     selectedProjectID: null,
     selectedPageID: null,
-    allProjects: [
-      {
-        id: 1,
-        name: "Item name 1",
-        dateCreated: 1578657273,
-        dateEdited: 1578657273,
-        authour: "Authour Name",
-        thumbnail: "ada"
-      },
-      {
-        id: 2,
-        name: "Item name 2",
-        dateCreated: 1579325185,
-        dateEdited: 1578657273,
-        authour: "Authour Name",
-        thumbnail: "ada"
-      }
-    ],
+    allProjects:[],
     selectedProject: {
       title: "Page 1",
       description:
@@ -415,8 +398,12 @@ export class ProjectsContext extends Component {
     }
   };
 
-  onSelectProject = id => {
-    this.setState({ selectedProjectID: id });
+  onSelectProject = async id => {
+    const selectedProject = await getProjectDetail(id);
+    this.setState({
+      selectedProjectID: selectedProject.data.id,
+      selectedProject: selectedProject.data
+    });
   };
 
   onSelectPage = id => {
@@ -453,13 +440,13 @@ export class ProjectsContext extends Component {
     // console.log(item);
     const result = await createProject(JSON.stringify(item));
     item.id = result.data.projectId;
-    console.log(result)
+    console.log(result);
     const allProjects = [item, ...this.state.allProjects];
     toast.success("Project Added!");
     this.setState({ allProjects });
-   };
-  editProject = async selectedProject => {
-    //await  updateProject(selectedProject)
+  };
+  updateProject = async selectedProject => {
+    await  updateProject(selectedProject)
     this.setState({ selectedProject });
     toast.success("Project Updated!");
   };
@@ -537,7 +524,7 @@ export class ProjectsContext extends Component {
           getAllPages: this.getAllPages,
           updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
-          editProject: this.editProject,
+          onUpdateProject: this.updateProject,
           editPage: this.editPage,
           onDeleteProject: this.onDeleteProject,
           onDeletePage: this.onDeletePage,

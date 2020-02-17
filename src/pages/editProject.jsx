@@ -77,7 +77,7 @@ class EditProject extends Component {
   };
   addProject = (e) => {
     e.preventDefault();
-    this.context.editProject(this.state.project);
+    this.context.onUpdateProject(this.state.project);
     this.props.history.push("/")
 
   }

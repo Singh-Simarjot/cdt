@@ -34,7 +34,7 @@ class AllPages extends Component {
     const { selectedProject } = this.context;
     const pages =
       selectedProject.pages !== undefined &&
-      selectedProject.pages.filter(item => item.saved === true);
+      selectedProject.pages.filter(item => item.saved === true || item.saved === 1 );
     return (
       <div className="content">
         <div className="contentTop">
