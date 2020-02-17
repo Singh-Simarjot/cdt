@@ -3,9 +3,10 @@ import { toast } from "react-toastify";
 
 import {
   getProjects,
-  getPages,
+  getSinglePage,
   createProject,
-  uploadFile
+  uploadFile,
+  getProjectDetail
 } from "../services/projects";
 
 const Context = React.createContext();
@@ -413,16 +414,19 @@ export class ProjectsContext extends Component {
     }
   };
 
-  onSelectProject = id => {
+  onSelectProject = async id => {
     this.setState({ selectedProjectID: id });
+    const selectedProject = await getProjectDetail(id);
+    this.setState({ selectedProject: selectedProject.data });
   };
 
-  onSelectPage = id => {
-    const page = this.state.selectedProject.pages.filter(
-      item => item.id === id
-    );
+  onSelectPage = async id => {
+    const selectedPage = await getSinglePage();
 
-    this.setState({ selectedPageID: id, selectedPage: page[0] });
+    this.setState({
+      selectedPageID: selectedPage.id,
+      selectedPage: selectedPage.data
+    });
   };
   handleSelectSubPage = id => {
     const subpage = this.state.selectedProject.pages.filter(

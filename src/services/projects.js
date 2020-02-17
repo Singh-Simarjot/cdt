@@ -5,17 +5,20 @@ const APIBASEURL = globalConstants.BASE_URL;
 
 export function getProjects() {
   const projectsEndpoint = APIBASEURL + "project";
-
   return apiService.get(projectsEndpoint);
 }
-
+export function getProjectDetail(id) {
+   const projectsEndpoint = APIBASEURL + "project/" + id;
+   return apiService.get(projectsEndpoint);
+}
 export function createProject(data) {
-  console.log(data)
+  console.log(data);
   const projectsEndpoint = APIBASEURL + "project/store";
 
   return apiService.post(projectsEndpoint, data);
 }
-export function getPages(id) {
+
+export function getSinglePage(id) {
   var pagesUrl =
     "https://jsonplaceholder.typicode.com/posts/" + id + "/comments";
 
@@ -24,7 +27,6 @@ export function getPages(id) {
 
 export function uploadFile(file) {
   const projectsEndpoint = APIBASEURL + "project/file";
-
 
   return apiService.post(projectsEndpoint, file);
 }
