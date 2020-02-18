@@ -17,7 +17,6 @@ export function createProject(data) {
   return apiService.post(projectsEndpoint, data);
 }
 
-
 export function deleteProject(id) {
   const projectsEndpoint = APIBASEURL + "project/" + id;
   return apiService.post(projectsEndpoint);
@@ -26,6 +25,16 @@ export function deleteProject(id) {
 export function updateProject(data) {
   const projectsEndpoint = APIBASEURL + "project/" + data.id;
   return apiService.put(projectsEndpoint, data);
+}
+
+export function createPage(data) {
+  const pageEndpoint = APIBASEURL + "page/store";
+  return apiService.post(pageEndpoint, data);
+}
+
+export function deletePage(id) {
+  const pageEndpoint = APIBASEURL + "page/" + id;
+  return apiService.post(pageEndpoint);
 }
 
 export function uploadFile(file) {

@@ -211,6 +211,7 @@ class AddNewProject extends Component {
   };
 
   handleChangeStatus = ({ meta, file }, status, name) => {
+    console.log({ meta, file }, status, name)
     const newProject = this.state.newProject;
     const fileName = file.name;
     if (status === null) {
