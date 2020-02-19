@@ -10,20 +10,22 @@ import ProjectsContext from "../context/projectsContext";
 import EditPage from "./editPage";
 
 import Drafts from "./allldrafts";
-
+ 
+import Loader from '../components/loader/loader';
 class ProjectDetail extends Component {
   static contextType = ProjectsContext;
 
   state = {};
-  // componentDidMount() {
-  //   if (this.context.selectedProjectID !== null) {
-  //     this.context.getAllPages(this.context.selectedProjectID);
-  //   } else {
-  //     this.props.history.push("/");
-  //   }
-  // }
+  componentDidMount() {
+    if (this.context.selectedProjectID !== null) {
+      this.context.onProjectDetail(this.context.selectedProjectID);
+    } else {
+      this.props.history.push("/");
+    }
+  }
   render() {
-    if (!this.context.loading || this.context.selectedProjectID === null) {
+    const {isloading, } = this.context;
+    if (isloading) {
       return (
         <main className="main">
           <div className="containerMain">
@@ -46,7 +48,7 @@ class ProjectDetail extends Component {
         </main>
       );
     } else {
-      return "Loading";
+      return <Loader />;
     }
   }
 }

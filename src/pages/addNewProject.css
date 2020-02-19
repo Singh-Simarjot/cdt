@@ -33,4 +33,26 @@ $theme-light: false;
   padding: 20px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+.resourceItem {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.resourceItem .resourceItemInner {
+  padding: 10px 50px 0 10px;
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.resourceItem .resourceItemInner .form-control {
+  margin-bottom: 10px;
+}
+
+.resourceItem .resourceItemInner button.btn-danger {
+  position: absolute;
+  top: 13px;
+  right: 10px;
+}
 /*# sourceMappingURL=addNewProject.css.map */

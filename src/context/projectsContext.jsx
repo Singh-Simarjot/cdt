@@ -21,9 +21,7 @@ export class ProjectsContext extends Component {
     selectedProjectID: null,
     selectedPageID: null,
     allProjects: [],
-    selectedProject: {
-      pages: []
-    },
+    selectedProject: null,
     selectedPage: null,
     subPage: {
       id: "",
@@ -32,39 +30,23 @@ export class ProjectsContext extends Component {
       dateEdited: "",
       author: "",
       widgets: [],
-      isloading:false
+      isloading: false
     }
   };
 
   getAllProjects = async () => {
     try {
-      await getProjects().then( response => {
+      await getProjects().then(response => {
         if (response.status === 200) {
-          const allProjects =  response.data;
-          this.setState({ allProjects: allProjects,isloading:true }); 
-         }
-      });
-     
-    }
-    catch(err){
-
-    }
-   
-  };
-
-  onSelectProject = async id => {
-    try {
-      await getProjectDetail(id).then(response => {
-        if (response.status === 200) {
-          const selectedProject = response.data;
-          this.setState({
-            loading:false,
-            selectedProjectID: selectedProject.id,
-            selectedProject: selectedProject
-          });
+          const allProjects = response.data;
+          this.setState({ allProjects: allProjects, isloading: true });
         }
       });
     } catch (err) {}
+  };
+
+  onSelectProject = async id => {
+    this.setState({ selectedProjectID: id });
   };
 
   onSelectPage = id => {
@@ -80,12 +62,25 @@ export class ProjectsContext extends Component {
     );
     this.setState({ subPage: subpage[0] });
   };
- 
-  getAllPages = async id => {
-    const selectedProject = this.state.selectedProject;
 
-    selectedProject.pages = [];
-    this.setState({ selectedProject });
+  handleProjectDetail = async id => {
+    this.setState({isloading: false})
+    const selectedProject = this.state.selectedProject;
+    try {
+      await getProjectDetail(id).then(response => {
+        if (response.status === 200) {
+          const selectedProject = response.data;
+          this.setState({
+            isloading: true,
+            selectedProjectID: selectedProject.id,
+            selectedProject: selectedProject
+          });
+
+          return true
+        }
+      });
+    } catch (err) {}
+     
   };
 
   addNewProject = async item => {
@@ -223,7 +218,7 @@ export class ProjectsContext extends Component {
           ...this.state,
           onSelectProject: this.onSelectProject,
           getAllProjects: this.getAllProjects,
-          getAllPages: this.getAllPages,
+          onProjectDetail: this.handleProjectDetail,
           updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
           onUpdateProject: this.updateProject,

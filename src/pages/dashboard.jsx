@@ -6,6 +6,8 @@ import ProjectsContext from "../context/projectsContext";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import ModalDelete from "../components/modalDelete/modalDelete";
+ 
+import Loader from '../components/loader/loader';
 
 class Dashbord extends Component {
   state = {
@@ -44,7 +46,6 @@ class Dashbord extends Component {
 
   render() {
     const { allProjects,isloading } = this.context;
-    console.log(isloading)
     if(isloading){
      return (
       <main className="main">
@@ -205,7 +206,7 @@ class Dashbord extends Component {
     );
   }
   else{
-    return "Loading";
+    return  <Loader />;
   }
   }
 }

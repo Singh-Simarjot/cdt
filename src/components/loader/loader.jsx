@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./loder.scss";
-class Loder extends Component {
-  state = {};
+class Loader extends Component {
+ 
   render() {
     return (
       <div className="loder">
@@ -24,4 +24,4 @@ class Loder extends Component {
   }
 }
 
-export default Loder;
+export default Loader;

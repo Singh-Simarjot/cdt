@@ -102,13 +102,7 @@ class EditPage extends Component {
     this.setState({ page });
   };
 
-  // saveComponent = modalData => {
-  //   // console.log("Page Data", modalData);
-  //   const page = this.state.page;
-  //   // const modalData = { ...this.state.modalData };
-  //   page.data.widgets = [...page.data.widgets, modalData];
-  //   this.setState({ page }, () => this.handleModal());
-  // };
+   
   saveComponent = modalData => {
     const page = { ...this.state.page };
     if (this.state.modalOpenType === "edit") {

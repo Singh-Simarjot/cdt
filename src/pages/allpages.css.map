@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "ACiBA;;;;;;;;;;;;;EAaE;ACsCF;;;;;;;;;;EAUE;AF5EF,AACE,cADY,CACZ,KAAK,CAAC;EACJ,aAAa,EAAE,OAAO;CASvB;;AAXH,AAGI,cAHU,CACZ,KAAK,CAEH,EAAE,CAAC;EACD,iBAAiB,EAAE,OAAO;CAM3B;;AAVL,AAMQ,cANM,CACZ,KAAK,CAEH,EAAE,CAEA,MAAM,AACH,MAAM,CAAC;EACN,OAAO,EAAE,gBAAgB;CAC1B",
+    "sources": [
+        "allpages.scss",
+        "../assets/scss/_variables.scss",
+        "../assets/scss/_mixins.scss"
+    ],
+    "names": [],
+    "file": "allpages.css"
+}
