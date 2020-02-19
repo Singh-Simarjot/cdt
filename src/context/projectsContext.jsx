@@ -21,8 +21,8 @@ export class ProjectsContext extends Component {
     selectedProjectID: null,
     selectedPageID: null,
     allProjects: [],
-    selectedProject: { 
-      pages:[],
+    selectedProject: {
+      pages: []
     },
     selectedPage: null,
     subPage: {
@@ -31,16 +31,40 @@ export class ProjectsContext extends Component {
       dateCreated: "",
       dateEdited: "",
       author: "",
-      widgets: []
+      widgets: [],
+      isloading:false
     }
   };
 
+  getAllProjects = async () => {
+    try {
+      await getProjects().then( response => {
+        if (response.status === 200) {
+          const allProjects =  response.data;
+          this.setState({ allProjects: allProjects,isloading:true }); 
+         }
+      });
+     
+    }
+    catch(err){
+
+    }
+   
+  };
+
   onSelectProject = async id => {
-    const selectedProject = await getProjectDetail(id);
-    this.setState({
-      selectedProjectID: selectedProject.data.id,
-      selectedProject: selectedProject.data
-    });
+    try {
+      await getProjectDetail(id).then(response => {
+        if (response.status === 200) {
+          const selectedProject = response.data;
+          this.setState({
+            loading:false,
+            selectedProjectID: selectedProject.id,
+            selectedProject: selectedProject
+          });
+        }
+      });
+    } catch (err) {}
   };
 
   onSelectPage = id => {
@@ -56,10 +80,7 @@ export class ProjectsContext extends Component {
     );
     this.setState({ subPage: subpage[0] });
   };
-  getAllProjects = async () => {
-    const allProjects = await getProjects();
-    this.setState({ allProjects: allProjects.data });
-  };
+ 
   getAllPages = async id => {
     const selectedProject = this.state.selectedProject;
 
@@ -147,42 +168,41 @@ export class ProjectsContext extends Component {
     await uploadFile(file);
   };
   updateNavigation = async navigation => {
-     const newNav = [ 
-         { 
-            "title":"Navigation Data",
-            "pageID":"1",
-            "id":"",
-            "linkType":"",
-            "linkUrl":"",
-            "children":[ 
-               { 
-                  "id":"1_1",
-                  "title":"Link 1",
-                  "pageId":"",
-                  "linkType":"CUSTOM"
-               },
-               { 
-                  "id":"1_2",
-                  "title":"Link 2",
-                  "pageId":"",
-                  "linkType":"CUSTOM"
-               },
-               { 
-                  "id":"1_3",
-                  "title":"Link 3",
-                  "pageId":"",
-                  "linkType":"CUSTOM"
-               },
-               { 
-                  "id":"1_4",
-                  "title":"Link 4",
-                  "pageId":"",
-                  "linkType":"CUSTOM"
-               }
-            ]
-         }
-      ]
-   
+    const newNav = [
+      {
+        title: "Navigation Data",
+        pageID: "1",
+        id: "",
+        linkType: "",
+        linkUrl: "",
+        children: [
+          {
+            id: "1_1",
+            title: "Link 1",
+            pageId: "",
+            linkType: "CUSTOM"
+          },
+          {
+            id: "1_2",
+            title: "Link 2",
+            pageId: "",
+            linkType: "CUSTOM"
+          },
+          {
+            id: "1_3",
+            title: "Link 3",
+            pageId: "",
+            linkType: "CUSTOM"
+          },
+          {
+            id: "1_4",
+            title: "Link 4",
+            pageId: "",
+            linkType: "CUSTOM"
+          }
+        ]
+      }
+    ];
 
     const selectedProject = { ...this.state.selectedProject };
     if (selectedProject.navigation.length > 0) {

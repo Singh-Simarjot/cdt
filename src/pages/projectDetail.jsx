@@ -15,31 +15,39 @@ class ProjectDetail extends Component {
   static contextType = ProjectsContext;
 
   state = {};
-  componentDidMount() {
-    if (this.context.selectedProjectID !== null) {
-      this.context.getAllPages(this.context.selectedProjectID);
-    } else {
-      this.props.history.push("/");
-    }
-  }
+  // componentDidMount() {
+  //   if (this.context.selectedProjectID !== null) {
+  //     this.context.getAllPages(this.context.selectedProjectID);
+  //   } else {
+  //     this.props.history.push("/");
+  //   }
+  // }
   render() {
-    return (
-      <main className="main">
-        <div className="containerMain">
-          <SidebarNav />
-          <div className="containerMainContent">
-            <Switch>
-              <Route exact path="/project/navigation" component={Navigation} />
-              <Route exact path="/project/addnew" component={AddNewPage} />
-              <Route exact path="/project/editpage" component={EditPage} />
-              <Route exact path="/project/drafts" component={Drafts} />
+    if (!this.context.loading || this.context.selectedProjectID === null) {
+      return (
+        <main className="main">
+          <div className="containerMain">
+            <SidebarNav />
+            <div className="containerMainContent">
+              <Switch>
+                <Route
+                  exact
+                  path="/project/navigation"
+                  component={Navigation}
+                />
+                <Route exact path="/project/addnew" component={AddNewPage} />
+                <Route exact path="/project/editpage" component={EditPage} />
+                <Route exact path="/project/drafts" component={Drafts} />
 
-              <Route exact path="/project" component={AllPages} />
-            </Switch>
+                <Route exact path="/project" component={AllPages} />
+              </Switch>
+            </div>
           </div>
-        </div>
-      </main>
-    );
+        </main>
+      );
+    } else {
+      return "Loading";
+    }
   }
 }
 

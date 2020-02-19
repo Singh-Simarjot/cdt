@@ -43,9 +43,10 @@ class Dashbord extends Component {
   };
 
   render() {
-    const { allProjects } = this.context;
-
-    return (
+    const { allProjects,isloading } = this.context;
+    console.log(isloading)
+    if(isloading){
+     return (
       <main className="main">
         <section className="dashboard">
           <Container fluid>
@@ -202,6 +203,10 @@ class Dashbord extends Component {
         />
       </main>
     );
+  }
+  else{
+    return "Loading";
+  }
   }
 }
 

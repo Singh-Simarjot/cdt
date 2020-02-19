@@ -19,12 +19,13 @@ import { ProjectsContext } from "./context/projectsContext";
 import Preview from "./preview/index";
 import EditProject from "./pages/editProject";
 
+
 import Login from "./components/account/login";
+ 
 import SignUp from "./components/account/signup";
 import ForgotPassword from "./components/account/forgotpassword";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Loder from "./components/loder/loder";
 
 function App() {
   return (
