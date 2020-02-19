@@ -12,7 +12,9 @@ class Content extends Component {
     console.log(e);
   };
   onDrag = data => {
-    console.log("data", data);
+    // console.log("data: ", data);
+    const page = this.props.page;
+    page.data.widgets = data;
   };
   render() {
     const { page, sortNavigation, pageLabel, onSave, onMarkDraft } = this.props;
@@ -86,7 +88,7 @@ class Content extends Component {
             </div>
           )}
           <div className="pageWidgets">
-            {page.templateType === "DEFAULT" &&
+            {/* {page.templateType === "DEFAULT" &&
               page.data.widgets !== undefined &&
               page.data.widgets.map(item => (
                 <ContentItem
@@ -100,14 +102,18 @@ class Content extends Component {
                   widgetContent={item}
                   deleteWidgets={() => this.props.deleteWidgets(item.id)}
                 />
-              ))}
+              ))} */}
 
-            {page.templateType === "DEFAULT" && (
-              <div>
-                <h2>Drag Drop</h2>
-                <DragDrop data={page.data.widgets} onDrag={this.onDrag} />
-              </div>
-            )}
+            {page.templateType === "DEFAULT" &&
+              page.data.widgets !== undefined && (
+                <DragDrop
+                  data={page.data.widgets}
+                  onDrag={this.onDrag}
+                  onModalChange={this.props.onModalChange}
+                  deleteWidgets={this.props.deleteWidgets}
+                  page={page}
+                />
+              )}
           </div>
           <br />
           <Button
