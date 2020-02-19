@@ -39,8 +39,8 @@ class DragDrop extends Component {
     const items = this.props.data;
     this.setState({ items });
   }
-  componentWillReceiveProps() {
-    const items = this.props.data;
+  componentWillReceiveProps(props) {
+    const items = props.data;
     this.setState({ items });
   }
 
@@ -96,32 +96,6 @@ class DragDrop extends Component {
                         deleteWidgets={() => this.props.deleteWidgets(item.id)}
                         page={this.props.page}
                       />
-
-                      {/* <div class="media border p-3">
-                        <div class="mediaIcon border">
-                          <i class={"fa " + item.icon}></i>
-                        </div>
-                        <div class="media-body">
-                          <h4>{item.title}</h4>
-                          <p>{item.description}</p>
-                        </div>
-                        <div class="moveIcon">
-                          <i class="fa fa-arrows-v"></i>
-                        </div>
-                        <div class="contentItemAction">
-                          <div role="toolbar" class="btn-toolbar">
-                            <button type="button" class="btn btn-dark btn-sm">
-                              <i class="fa fa-pencil"></i>
-                            </button>
-                            <button
-                              type="button"
-                              class="ml-2 btn btn-dark btn-sm"
-                            >
-                              <i class="fa fa-trash"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   )}
                 </Draggable>

@@ -28,6 +28,9 @@ class ImageBlock extends Component {
   }
   getUploadParams = ({ meta }) => {
     return { url: "https://httpbin.org/post" };
+    // return {
+    //   url: "http://dev.evantiv.com/carbon_design/public/api/project/file"
+    // };
   };
   handleChangeStatus = ({ meta, file }, status) => {
     console.log(status, meta, file);
@@ -37,6 +40,12 @@ class ImageBlock extends Component {
     const widget = this.state.widget;
     widget.content.image = files.map(f => f.meta);
     this.setState({ widget });
+
+    // console.log("files: ", files);
+    console.log(
+      "meta",
+      files.map(f => f.meta)
+    );
   };
   handleChange = (e, section) => {
     console.log(e.target.value, section);

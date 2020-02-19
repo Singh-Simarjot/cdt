@@ -22,9 +22,9 @@ import EditProject from "./pages/editProject";
 import Login from "./components/account/login";
 import SignUp from "./components/account/signup";
 import ForgotPassword from "./components/account/forgotpassword";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loder from "./components/loder/loder";
 
 function App() {
   return (
@@ -38,10 +38,10 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/"  component={Dashboard} />
+        <Route path="/" component={Dashboard} />
         {/* <Route path="/" component={Content} /> */}
-      </Switch> 
-      <ToastContainer/>
+      </Switch>
+      <ToastContainer />
 
       {/* <Page /> */}
     </ProjectsContext>
