@@ -37,6 +37,17 @@ export function deletePage(id) {
   return apiService.post(pageEndpoint);
 }
 
+export function createNav(data) {
+  console.log("create");
+  const navigationEndpoint = APIBASEURL + "navigation/store";
+  return apiService.post(navigationEndpoint, data);
+}
+export function updateNav(data) {
+  console.log("update");
+  const navigationEndpoint = APIBASEURL + "navigation/store";
+  return apiService.put(navigationEndpoint, data);
+}
+
 export function uploadFile(file) {
   const projectsEndpoint = APIBASEURL + "project/file";
   return apiService.post(projectsEndpoint, file);

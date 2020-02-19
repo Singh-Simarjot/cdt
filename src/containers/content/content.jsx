@@ -16,6 +16,7 @@ class Content extends Component {
   };
   render() {
     const { page, sortNavigation, pageLabel, onSave, onMarkDraft } = this.props;
+   console.log(page)
     return (
       <div className="content">
         <div className="contentTop">
@@ -69,19 +70,13 @@ class Content extends Component {
             >
               {
                 <label className="contentData contentDataNavigation dropImg">
-                  {/* <SortableTree
-                treeData={page.data.tabs}
-                // onChange={page =>
-                //   this.props.sortNavigation({ page })
-                // }
-                maxDepth="2"
-              /> */}
+                  
 
                   {page.data.tabs.length > 0 ? (
                     <SortableTree
                       onChange={tabs => sortNavigation({ tabs })}
                       treeData={page.data.tabs}
-                      maxDepth="1"
+                      maxDepth={1}
                     />
                   ) : (
                     <span>Please select Pages from left Panel</span>

@@ -14,14 +14,14 @@ class NavigationList extends Component {
 
   render() {
     const { pages, customItem } = this.props;
-
+   
     let publishedPages =
       pages !== undefined &&
       pages.filter(items => {
         return items.saved === true;
       });
 
-    let processedPages = pages.filter(items => {
+    let processedPages = pages!==undefined ? pages.filter(items => {
       items.url =
         "/" +
         items.title
@@ -29,9 +29,9 @@ class NavigationList extends Component {
           .split(" ")
           .join("");
       return items;
-    });
+    }): null ;
 
-    let navPages = processedPages.map((menuPage, i) => {
+    let navPages = processedPages !== null && processedPages.map((menuPage, i) => {
       return (
         <li key={i}>
           {" "}
@@ -59,17 +59,7 @@ class NavigationList extends Component {
         <div className="componentsListItms">
           <div className="navigationList">
             <ul>
-              {navPages}
-              {/* {pages.map(item => (
-                <li>
-                  {" "}
-                  {item.title}{" "}
-                  <i
-                    onClick={() => this.props.addToNavigation(item)}
-                    className="fa fa-plus"
-                  ></i>{" "}
-                </li>
-              ))} */}
+              {navPages} 
             </ul>
           </div>
           {/* customLickCreate */}

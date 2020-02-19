@@ -81,10 +81,8 @@ class Navigation extends Component {
     this.setState({ navigation: result });
   };
 
-  componentWillReceiveProps(nextProps) {
-    console.log("NEW", nextProps.itemkey, nextProps.itemsubKey);
-  }
-  saveLabel = (id, parentid,title) => {
+   
+  saveLabel = (id, parentid, title) => {
     const { navigation } = this.state;
     if (parentid !== null) {
       // navigation[key].children[subkey].title = e.target.value;
@@ -93,12 +91,9 @@ class Navigation extends Component {
       navigation.filter(item =>
         item.dummyid === id ? (item.title = title) : item
       );
-       
-       this.setState({ navigation });
 
+      this.setState({ navigation });
     }
-    
-   
   };
   sortNavigation = nav => {
     nav.navigation.filter(
@@ -132,6 +127,7 @@ class Navigation extends Component {
   };
   addToNavigation = item => {
     const dummyid = nextId();
+    console.log(item)
 
     item.subtitle = (
       <NavigationControls
@@ -165,7 +161,17 @@ class Navigation extends Component {
   };
 
   saveNavigation = () => {
-    this.context.updateNavigation(this.state.navigation);
+    const {selectedProjectID} =this.context;   
+    const navigation = this.state.navigation.filter(function(item){
+    item.subtitle = " ";
+    item.pageId = item.id;
+    item.projectId =selectedProjectID;
+    item.children =  item.children !== undefined ? item.children : []; 
+    item.linkType=item.templateType;
+    item.navigationURL = item.url
+     return item
+   });
+   this.context.updateNavigation(navigation);
   };
 
   render() {
