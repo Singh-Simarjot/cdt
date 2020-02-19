@@ -50,9 +50,9 @@ class EditProject extends Component {
     }
   };
 
-  componentDidMount() {
+  componentWillMount() {
+    console.log("componentWillMount", this.context.selectedProject);
     if (this.context.selectedProjectID !== null) {
-      this.context.onProjectDetail(this.context.selectedProjectID);
       if (this.context.selectedProject !== null) {
         this.setState({ project: this.context.selectedProject });
       }
@@ -86,15 +86,10 @@ class EditProject extends Component {
     this.props.history.push("/");
   };
 
-  //   componentDidMount(){
-
-  //       this.setState({})
-  //   }
-
   render() {
-    const { isloading } = this.context;
-    console.log(this.state.project);
-    if (isloading) {
+    const { isloading, selectedProject } = this.context;
+    console.log(this.state.project, selectedProject);
+    if (isloading || this.state.project !== null) {
       return (
         <main className="main">
           <section className="addNewProject">
@@ -119,8 +114,7 @@ class EditProject extends Component {
                           <Form.Control
                             type="text"
                             name="name"
-                            value={this.state.project.title}
-                            // value={this.context.selectedProject.title}
+                            value={this.state.project.name}
                             onChange={(e, section) =>
                               this.handleChange(e, null)
                             }

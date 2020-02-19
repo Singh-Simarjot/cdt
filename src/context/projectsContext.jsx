@@ -33,7 +33,7 @@ export class ProjectsContext extends Component {
       isloading: false
     }
   };
-
+   
   getAllProjects = async () => {
     try {
       await getProjects().then(response => {
@@ -64,33 +64,44 @@ export class ProjectsContext extends Component {
   };
 
   handleProjectDetail = async id => {
-    this.setState({isloading: false})
+    this.setState({ isloading: false });
     const selectedProject = this.state.selectedProject;
+    var result;
     try {
-      await getProjectDetail(id).then(response => {
+      result = await getProjectDetail(id).then(response => {
         if (response.status === 200) {
           const selectedProject = response.data;
           this.setState({
-            isloading: true,
+           
             selectedProjectID: selectedProject.id,
-            selectedProject: selectedProject
-          });
+            selectedProject: selectedProject,
+            isloading: true,
+          },()=> {return selectedProject} );
 
-          return true
+          return selectedProject;
         }
       });
-    } catch (err) {}
      
+    } catch (err) {}
+  
+     return result;
+    
   };
 
   addNewProject = async item => {
     // console.log(item);
-    const result = await createProject(JSON.stringify(item));
-    item.id = result.data.projectId;
-    console.log(result);
-    const allProjects = [item, ...this.state.allProjects];
-    toast.success("Project Added!");
-    this.setState({ allProjects });
+
+    try {
+      await createProject(JSON.stringify(item)).then(response => {
+        if (response.status === 200) {
+          const result = response.data;
+          item.id = result.data.projectId;
+          const allProjects = [item, ...this.state.allProjects];
+          toast.success("Project Added!");
+          this.setState({ allProjects });
+        }
+      });
+    } catch (err) {}
   };
   updateProject = async selectedProject => {
     await updateProject(selectedProject);

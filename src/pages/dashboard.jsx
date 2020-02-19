@@ -25,6 +25,7 @@ class Dashbord extends Component {
 
   onSelectProject = id => {
     this.context.onSelectProject(id);
+    this.context.onProjectDetail(this.context.selectedProjectID);
     this.props.history.push("/project");
   };
   componentDidMount() {
