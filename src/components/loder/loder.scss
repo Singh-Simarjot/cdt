@@ -2,6 +2,13 @@
 @import "../../assets/scss/mixins";
 .loder {
   background-color: rgba($theme-bg, 0.8);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  z-index: 9999;
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
