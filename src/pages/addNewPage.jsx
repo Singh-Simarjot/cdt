@@ -9,6 +9,7 @@ import NavigationList from "../components/navigationList";
 
 import ProjectsContext from "../context/projectsContext";
 import { WidgetsContext } from "../context/widgetsContext";
+import PreviewModal from "../containers/previewModal/previewModal";
 
 import nextId from "react-id-generator";
 
@@ -34,7 +35,8 @@ class AddNewPage extends Component {
     showModalComponent: false,
 
     modalData: { title: "", description: "", content: "" },
-    modalOpenType: ""
+    modalOpenType: "",
+    showPreviewModal: false
   };
   changeTemplate = e => {
     const page = { ...this.state.page };
@@ -130,6 +132,12 @@ class AddNewPage extends Component {
     this.setState({ page });
   };
 
+  // preview
+  handlePreviewModal = () => {
+    this.setState({ showPreviewModal: !this.state.showPreviewModal });
+  };
+  // end preview
+
   render() {
     const { page } = this.state;
     const { selectedProject } = this.context;
@@ -161,6 +169,7 @@ class AddNewPage extends Component {
           onSave={this.saveData}
           onHandle={this.handleChange}
           deleteWidgets={this.deleteWidgets}
+          handlePreviewModal={this.handlePreviewModal}
         />
         <ModalComponent
           title={this.props.text}
@@ -169,6 +178,11 @@ class AddNewPage extends Component {
           modalData={this.state.modalData}
           onSaveComponent={this.saveComponent}
           modalOpenType={this.state.modalOpenType}
+        />
+        <PreviewModal
+          showModal={this.state.showPreviewModal}
+          handlePreviewModal={this.handlePreviewModal}
+          page={this.state.page}
         />
       </WidgetsContext>
     );

@@ -18,7 +18,7 @@ class Content extends Component {
   };
   render() {
     const { page, sortNavigation, pageLabel, onSave, onMarkDraft } = this.props;
-   console.log(page)
+    console.log(page);
     return (
       <div className="content">
         <div className="contentTop">
@@ -30,9 +30,15 @@ class Content extends Component {
               {/* <Button variant="warning" type="submit" className="ml-2" onClick={e => onMarkDraft(e)} >
              {page.saved ? "Mark as Draft" : "Publish" }   
           </Button> */}
-              {/* <Button size="sm" variant="success">
+              <Button
+                size="sm"
+                variant="success"
+                onClick={() => {
+                  this.props.handlePreviewModal();
+                }}
+              >
                 Preview
-              </Button> */}
+              </Button>
             </Col>
           </Row>
         </div>
@@ -72,8 +78,6 @@ class Content extends Component {
             >
               {
                 <label className="contentData contentDataNavigation dropImg">
-                  
-
                   {page.data.tabs.length > 0 ? (
                     <SortableTree
                       onChange={tabs => sortNavigation({ tabs })}

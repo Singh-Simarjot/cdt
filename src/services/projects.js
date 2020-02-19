@@ -52,3 +52,11 @@ export function uploadFile(file) {
   const projectsEndpoint = APIBASEURL + "project/file";
   return apiService.post(projectsEndpoint, file);
 }
+
+// export function uploadFile(file) {
+//   const projectsEndpoint = APIBASEURL + "project/file";
+//   return apiService.post(projectsEndpoint, file, {
+//     headers: { "content-type": "application/x-www-form-urlencoded" }
+//   });
+
+// }

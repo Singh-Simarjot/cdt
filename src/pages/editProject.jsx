@@ -47,15 +47,23 @@ class EditProject extends Component {
         { title: "", Desc: "", image: "", url: "" },
         { title: "", Desc: "", image: "", url: "" }
       ]
-    }
+    },
+    isLoading: false
   };
 
   componentWillMount() {
     console.log("componentWillMount", this.context.selectedProject);
     if (this.context.selectedProjectID !== null) {
-      if (this.context.selectedProject !== null) {
-        this.setState({ project: this.context.selectedProject });
-      }
+      this.context.onProjectDetail(this.context.selectedProjectID);
+      setTimeout(
+        function() {
+          this.setState({
+            project: this.context.selectedProject,
+            isLoading: true
+          });
+        }.bind(this),
+        2000
+      );
     } else {
       this.props.history.push("/");
     }
@@ -89,7 +97,7 @@ class EditProject extends Component {
   render() {
     const { isloading, selectedProject } = this.context;
     console.log(this.state.project, selectedProject);
-    if (isloading || this.state.project !== null) {
+    if (this.state.isLoading) {
       return (
         <main className="main">
           <section className="addNewProject">

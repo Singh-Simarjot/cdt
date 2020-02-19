@@ -11,7 +11,7 @@ class AddNewProject extends Component {
     newProject: {
       name: "",
       description: "",
-     
+
       thumbnail: "",
       data: {
         headerSection: {
@@ -68,7 +68,10 @@ class AddNewProject extends Component {
     console.log(meta);
     let file = { file: meta.previewUrl };
 
-    return { url: this.context.onUploadFile(file) };
+    // return { url: this.context.onUploadFile(file) };
+    return {
+      url: "http://dev.evantiv.com/carbon_design/public/api/project/file"
+    };
   };
   // handleChangeStatus = ({ file }, status) => {
   //   // console.log(status, meta, file);
@@ -211,7 +214,7 @@ class AddNewProject extends Component {
   };
 
   handleChangeStatus = ({ meta, file }, status, name) => {
-    console.log({ meta, file }, status, name)
+    console.log({ meta, file }, status, name);
     const newProject = this.state.newProject;
     const fileName = file.name;
     if (status === null) {
@@ -237,6 +240,10 @@ class AddNewProject extends Component {
   // handleHeaderSection(){
 
   // }
+  fileUpload = file => {
+    // console.log("file: ", file);
+    this.context.onUploadFile(file.target.file);
+  };
 
   // disabledAddProject
   disabledAddProject() {
@@ -338,6 +345,11 @@ class AddNewProject extends Component {
                 </Col>
               </Row>
               <Form className="pt-3">
+                <input
+                  type="file"
+                  name="file"
+                  onChange={e => this.fileUpload(e)}
+                />
                 <Row>
                   <Col sm={5}>
                     <div className="addNewProjectDetail mb-3 mb-sm-0">
@@ -492,6 +504,7 @@ class AddNewProject extends Component {
                             }
                           />
                         </label>
+
                         <Form.Control
                           type="text"
                           placeholder="Top Title Text"

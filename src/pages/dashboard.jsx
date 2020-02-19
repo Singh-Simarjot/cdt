@@ -6,8 +6,8 @@ import ProjectsContext from "../context/projectsContext";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import ModalDelete from "../components/modalDelete/modalDelete";
- 
-import Loader from '../components/loader/loader';
+
+import Loader from "../components/loader/loader";
 
 class Dashbord extends Component {
   state = {
@@ -25,7 +25,6 @@ class Dashbord extends Component {
 
   onSelectProject = id => {
     this.context.onSelectProject(id);
-    this.context.onProjectDetail(this.context.selectedProjectID);
     this.props.history.push("/project");
   };
   componentDidMount() {
@@ -46,169 +45,168 @@ class Dashbord extends Component {
   };
 
   render() {
-    const { allProjects,isloading } = this.context;
-    if(isloading){
-     return (
-      <main className="main">
-        <section className="dashboard">
-          <Container fluid>
-            {allProjects.length > 0 ? (
-              <div className="pt-5">
-                <Row>
-                  <Col>
-                    <div className="titelTop">
-                      <h2>Recent Projects</h2>
-                    </div>
-                  </Col>
-                  <Col xs={4} className="text-right">
-                    <Link to="/addnew" size="sm" className="btn btn-success">
-                      Create New Project
-                    </Link>
-                  </Col>
-                </Row>
-                <Row>
-                  {allProjects.slice(0, 4).map(item => (
-                    <Col sm={6} md={4} lg={3} key={item.id}>
-                      <Card bg="light" key={item.id}>
-                        <Card.Body
-                          className="text-center"
-                          onClick={() => this.onSelectProject(item.id)}
-                        >
-                          <Card.Img
-                            variant="top"
-                            src={ProjectLogo1}
-                            alt={item.title}
-                          />
-                        </Card.Body>
-                        <Card.Footer>
-                          <Row noGutters>
-                            <Col>{item.name} </Col>
-                            <Col
-                              style={{ maxWidth: "120px" }}
-                              className="text-right"
-                            >
-                              <Button
-                                onClick={() => this.onEditProject(item.id)}
-                                size={"sm"}
-                                variant={"dark"}
-                                className="ml-2"
-                              >
-                                <i className={"fa fa-edit"}></i>
-                              </Button>
-                              <Button
-                                onClick={() => this.onPreview(item.id)}
-                                size={"sm"}
-                                variant={"dark"}
-                                className="ml-2"
-                              >
-                                <i className="fa fa-eye"></i>
-                              </Button>
-                              <Button
-                                size={"sm"}
-                                variant={"dark"}
-                                className="ml-2"
-                                onClick={() => {
-                                  this.handleModalDelete(item.id);
-                                }}
-                              >
-                                <i className="fa fa-trash-o"></i>
-                              </Button>
-                            </Col>
-                          </Row>
-                        </Card.Footer>
-                      </Card>
+    const { allProjects, isloading } = this.context;
+    if (isloading) {
+      return (
+        <main className="main">
+          <section className="dashboard">
+            <Container fluid>
+              {allProjects.length > 0 ? (
+                <div className="pt-5">
+                  <Row>
+                    <Col>
+                      <div className="titelTop">
+                        <h2>Recent Projects</h2>
+                      </div>
                     </Col>
-                  ))}
-                </Row>
-              </div>
-            ) : (
-              <div className="p5 text-center">
-                <br />
-                <br />
-                <Link to="/addnew" size="sm" className="btn btn-success">
-                  Create New Project
-                </Link>
-              </div>
-            )}
-            {allProjects.length > 0 && (
-              <div className="pt-5">
-                <div className="titelTop mb-3">
-                  <h2>All Projects</h2>
-                </div>
-                <Table responsive="md" hover variant="">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Project Name</th>
-                      <th>Date Created</th>
-                      <th>Date Edited</th>
-                      <th>Author</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {allProjects.map(project => (
-                      <tr key={project.id}>
-                        <td className="count"></td>
-                        <td>
-                          <Link to="/project">{project.name}</Link>
-                        </td>
-                        <td>
-                          {moment(project.dateCreated).format("YYYY//MM//DD")}
-                        </td>
-                        <td>
-                          {moment(project.dateEdited).format("YYYY//MM//DD")}
-                        </td>
-                        <td>{project.authour}</td>
-                        <td>
-                          <Button
-                            size={"sm"}
-                            variant="success"
-                            onClick={() => this.onPreview(project.id)}
+                    <Col xs={4} className="text-right">
+                      <Link to="/addnew" size="sm" className="btn btn-success">
+                        Create New Project
+                      </Link>
+                    </Col>
+                  </Row>
+                  <Row>
+                    {allProjects.slice(0, 4).map(item => (
+                      <Col sm={6} md={4} lg={3} key={item.id}>
+                        <Card bg="light" key={item.id}>
+                          <Card.Body
+                            className="text-center"
+                            onClick={() => this.onSelectProject(item.id)}
                           >
-                            <i className="fa fa-eye"></i>
-                          </Button>
-                          <Button
-                            size={"sm"}
-                            variant="info"
-                            onClick={() => this.onEditProject(project.id)}
-                            className="ml-2"
-                          >
-                            <i className="fa fa-pencil"></i>
-                          </Button>
-                          <Button
-                            // onClick={() =>
-                            //   this.context.onDeleteProject(project.id)
-                            // }
-                            onClick={() => {
-                              this.handleModalDelete(project.id);
-                            }}
-                            size={"sm"}
-                            variant="danger"
-                            className="ml-2"
-                          >
-                            <i className="fa fa-trash"></i>
-                          </Button>
-                        </td>
-                      </tr>
+                            <Card.Img
+                              variant="top"
+                              src={ProjectLogo1}
+                              alt={item.title}
+                            />
+                          </Card.Body>
+                          <Card.Footer>
+                            <Row noGutters>
+                              <Col>{item.name} </Col>
+                              <Col
+                                style={{ maxWidth: "120px" }}
+                                className="text-right"
+                              >
+                                <Button
+                                  onClick={() => this.onEditProject(item.id)}
+                                  size={"sm"}
+                                  variant={"dark"}
+                                  className="ml-2"
+                                >
+                                  <i className={"fa fa-edit"}></i>
+                                </Button>
+                                <Button
+                                  onClick={() => this.onPreview(item.id)}
+                                  size={"sm"}
+                                  variant={"dark"}
+                                  className="ml-2"
+                                >
+                                  <i className="fa fa-eye"></i>
+                                </Button>
+                                <Button
+                                  size={"sm"}
+                                  variant={"dark"}
+                                  className="ml-2"
+                                  onClick={() => {
+                                    this.handleModalDelete(item.id);
+                                  }}
+                                >
+                                  <i className="fa fa-trash-o"></i>
+                                </Button>
+                              </Col>
+                            </Row>
+                          </Card.Footer>
+                        </Card>
+                      </Col>
                     ))}
-                  </tbody>
-                </Table>
-              </div>
-            )}
-          </Container>
-        </section>
-        <ModalDelete
-          showModal={this.state.showDeleteModal}
-          modalAction={this.handleModalDelete}
-          onconfirm={this.confirmAction}
-        />
-      </main>
-    );
-  }
-  else{
-    return  <Loader />;
-  }
+                  </Row>
+                </div>
+              ) : (
+                <div className="p5 text-center">
+                  <br />
+                  <br />
+                  <Link to="/addnew" size="sm" className="btn btn-success">
+                    Create New Project
+                  </Link>
+                </div>
+              )}
+              {allProjects.length > 0 && (
+                <div className="pt-5">
+                  <div className="titelTop mb-3">
+                    <h2>All Projects</h2>
+                  </div>
+                  <Table responsive="md" hover variant="">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Project Name</th>
+                        <th>Date Created</th>
+                        <th>Date Edited</th>
+                        <th>Author</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {allProjects.map(project => (
+                        <tr key={project.id}>
+                          <td className="count"></td>
+                          <td>
+                            <Link to="/project">{project.name}</Link>
+                          </td>
+                          <td>
+                            {moment(project.dateCreated).format("YYYY//MM//DD")}
+                          </td>
+                          <td>
+                            {moment(project.dateEdited).format("YYYY//MM//DD")}
+                          </td>
+                          <td>{project.authour}</td>
+                          <td>
+                            <Button
+                              size={"sm"}
+                              variant="success"
+                              onClick={() => this.onPreview(project.id)}
+                            >
+                              <i className="fa fa-eye"></i>
+                            </Button>
+                            <Button
+                              size={"sm"}
+                              variant="info"
+                              onClick={() => this.onEditProject(project.id)}
+                              className="ml-2"
+                            >
+                              <i className="fa fa-pencil"></i>
+                            </Button>
+                            <Button
+                              // onClick={() =>
+                              //   this.context.onDeleteProject(project.id)
+                              // }
+                              onClick={() => {
+                                this.handleModalDelete(project.id);
+                              }}
+                              size={"sm"}
+                              variant="danger"
+                              className="ml-2"
+                            >
+                              <i className="fa fa-trash"></i>
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
+              )}
+            </Container>
+          </section>
+          <ModalDelete
+            showModal={this.state.showDeleteModal}
+            modalAction={this.handleModalDelete}
+            onconfirm={this.confirmAction}
+          />
+        </main>
+      );
+    } else {
+      return <Loader />;
+    }
   }
 }
 

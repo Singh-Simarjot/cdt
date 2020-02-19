@@ -102,7 +102,6 @@ class EditPage extends Component {
     this.setState({ page });
   };
 
-   
   saveComponent = modalData => {
     const page = { ...this.state.page };
     if (this.state.modalOpenType === "edit") {
@@ -137,7 +136,9 @@ class EditPage extends Component {
     const pages = selectedProject.pages.filter(
       item => item.templateType !== "TABS"
     );
-     
+
+    // console.log(page);
+
     return (
       <WidgetsContext>
         {page.templateType === "DEFAULT" && (
