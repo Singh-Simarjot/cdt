@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import ContentItem from "./contentItem";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -11,24 +12,15 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const grid = 8;
-
 const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
   userSelect: "none",
-  //   padding: grid * 2,
-  //   margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
+  marginTop: "15px",
+  background: isDragging ? "#f5f5f5" : "#fff",
   ...draggableStyle
 });
 
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid
+  background: isDraggingOver ? "#fff" : "#fff"
 });
 
 class DragDrop extends Component {
@@ -52,9 +44,13 @@ class DragDrop extends Component {
     this.setState({ items });
   }
 
+  // componentDidUpdate() {
+  //   const items = this.props.data;
+  //   this.setState({ items });
+  // }
+
   onDragEnd(result) {
     // dropped outside the list
-    this.props.onDrag(result);
     if (!result.destination) {
       return;
     }
@@ -68,6 +64,7 @@ class DragDrop extends Component {
     this.setState({
       items
     });
+    this.props.onDrag(items);
   }
   render() {
     return (
@@ -91,7 +88,16 @@ class DragDrop extends Component {
                         provided.draggableProps.style
                       )}
                     >
-                      <div class="media border p-3">
+                      <ContentItem
+                        onModalChange={this.props.onModalChange}
+                        key={item.id}
+                        id={item.id}
+                        widgetContent={item}
+                        deleteWidgets={() => this.props.deleteWidgets(item.id)}
+                        page={this.props.page}
+                      />
+
+                      {/* <div class="media border p-3">
                         <div class="mediaIcon border">
                           <i class={"fa " + item.icon}></i>
                         </div>
@@ -115,7 +121,7 @@ class DragDrop extends Component {
                             </button>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   )}
                 </Draggable>
