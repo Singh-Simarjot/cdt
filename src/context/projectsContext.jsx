@@ -33,7 +33,7 @@ export class ProjectsContext extends Component {
       isloading: false
     }
   };
-   
+
   getAllProjects = async () => {
     try {
       await getProjects().then(response => {
@@ -71,21 +71,23 @@ export class ProjectsContext extends Component {
       result = await getProjectDetail(id).then(response => {
         if (response.status === 200) {
           const selectedProject = response.data;
-          this.setState({
-           
-            selectedProjectID: selectedProject.id,
-            selectedProject: selectedProject,
-            isloading: true,
-          },()=> {return selectedProject} );
+          this.setState(
+            {
+              selectedProjectID: selectedProject.id,
+              selectedProject: selectedProject,
+              isloading: true
+            },
+            () => {
+              return selectedProject;
+            }
+          );
 
           return selectedProject;
         }
       });
-     
     } catch (err) {}
-  
-     return result;
-    
+
+    return result;
   };
 
   addNewProject = async item => {

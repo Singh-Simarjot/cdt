@@ -11,7 +11,7 @@ class Html extends Component {
     const { data } = this.props;
     return (
       <div className="htmlPreview">
-        <h1>{data.title}</h1>
+        <h3>{data.title}</h3>
         <p>{data.description}</p>
         {ReactHtmlParser(data.content)}
       </div>

@@ -8,7 +8,7 @@ import ModalComponent from "../containers/modal/modalComponent";
 import NavigationList from "../components/navigationList";
 import ProjectsContext from "../context/projectsContext";
 import { WidgetsContext } from "../context/widgetsContext";
-
+import PreviewModal from "../containers/previewModal/previewModal";
 class EditPage extends Component {
   static contextType = ProjectsContext;
 
@@ -20,7 +20,8 @@ class EditPage extends Component {
       title: "",
       url: ""
     },
-    modalOpenType: ""
+    modalOpenType: "",
+    showPreviewModal: false
   };
 
   componentDidMount() {
@@ -130,6 +131,12 @@ class EditPage extends Component {
     this.setState({ page });
   };
 
+  // preview
+  handlePreviewModal = () => {
+    this.setState({ showPreviewModal: !this.state.showPreviewModal });
+  };
+  // end preview
+
   render() {
     const { page } = this.state;
     const { selectedProject } = this.context;
@@ -165,6 +172,7 @@ class EditPage extends Component {
           sortNavigation={this.sortNavigation}
           onMarkDraft={this.onMarkDraft}
           deleteWidgets={this.deleteWidgets}
+          handlePreviewModal={this.handlePreviewModal}
         />
         <ModalComponent
           title={this.props.text}
@@ -173,6 +181,11 @@ class EditPage extends Component {
           modalData={this.state.modalData}
           onSaveComponent={this.saveComponent}
           modalOpenType={this.state.modalOpenType}
+        />
+        <PreviewModal
+          showModal={this.state.showPreviewModal}
+          handlePreviewModal={this.handlePreviewModal}
+          page={this.state.page}
         />
       </WidgetsContext>
     );

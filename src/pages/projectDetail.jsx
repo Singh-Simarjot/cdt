@@ -10,8 +10,8 @@ import ProjectsContext from "../context/projectsContext";
 import EditPage from "./editPage";
 
 import Drafts from "./allldrafts";
- 
-import Loader from '../components/loader/loader';
+
+import Loader from "../components/loader/loader";
 class ProjectDetail extends Component {
   static contextType = ProjectsContext;
 
@@ -24,7 +24,7 @@ class ProjectDetail extends Component {
     }
   }
   render() {
-    const {isloading, } = this.context;
+    const { isloading } = this.context;
     if (isloading) {
       return (
         <main className="main">

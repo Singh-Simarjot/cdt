@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone-uploader";
 import ProjectsContext from "../context/projectsContext";
 import nextId from "react-id-generator";
+import FileBase64 from "react-file-base64";
 class AddNewProject extends Component {
   static contextType = ProjectsContext;
   state = {
@@ -240,10 +241,21 @@ class AddNewProject extends Component {
   // handleHeaderSection(){
 
   // }
-  fileUpload = file => {
-    // console.log("file: ", file);
-    this.context.onUploadFile(file.target.file);
+
+  fileUpload = e => {
+    let files = e.target.files;
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = e => {
+      console.log("Image Data: ", e.target.result);
+    };
+    // this.context.onUploadFile(file.target.files[0]);
   };
+  getFiles(files) {
+    // this.setState({ files });
+    this.context.onUploadFile(files);
+    console.log(files);
+  }
 
   // disabledAddProject
   disabledAddProject() {
@@ -350,6 +362,9 @@ class AddNewProject extends Component {
                   name="file"
                   onChange={e => this.fileUpload(e)}
                 />
+                <br />
+                <br />
+                <FileBase64 multiple={true} onDone={this.getFiles.bind(this)} />
                 <Row>
                   <Col sm={5}>
                     <div className="addNewProjectDetail mb-3 mb-sm-0">

@@ -27,6 +27,8 @@ class ImageBlock extends Component {
     }
   }
   getUploadParams = ({ meta }) => {
+    console.log("mettt", meta);
+
     return { url: "https://httpbin.org/post" };
     // return {
     //   url: "http://dev.evantiv.com/carbon_design/public/api/project/file"

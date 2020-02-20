@@ -1,29 +1,83 @@
 import React, { Component } from "react";
 import "./previewModal.scss";
 import { Modal, Button } from "react-bootstrap";
+
+// components
+import Html from "../../preview/components/Html/html";
+import TypoGraphy from "../../preview/components/typoGraphy/typography";
+import IconGrid from "../../preview/components/Icons/IconGrid";
+import ColorGrid from "../../preview/components/Color/ColorGrid";
+import TableData from "../../preview/components/TableData/TableData";
+import VideoBlock from "../../preview/components/videoBlock/videoBlock";
+import IframeBlock from "../../preview/components/iframeBlock/iframeBlock";
+import CodeSnippets from "../../preview/components/codeSnippets/codeSnippets";
+import CodeSnippetsWithView from "../../preview/components/codeSnippetsWithView/codeSnippetsWithView";
+import ExternalPageLinkGrid from "../../preview/components/externalPageLinkGrid/externalPageLinkGrid";
+import TextBlock from "../../preview/components/Content/Content";
+// end components
 class PreviewModal extends Component {
-  state = {};
+  renderPreview(item) {
+    // data.map(item => item.type);
+    switch (item.type) {
+      case "HTML":
+        return <Html data={item} />;
+      case "TYPOGRAPHY":
+        return <TypoGraphy data={item} />;
+      case "ICON_GRID":
+        return <IconGrid data={item} />;
+      case "COLOR_PALETTE":
+        return <ColorGrid data={item} />;
+      case "MULTIPLE_IMAGE":
+        // return <MultipleImage data={item} />;
+        return <TableData data={item} />;
+      case "IMAGE_BLOCK":
+        // return <ImageBlock data={item} />;
+        return <TableData data={item} />;
+      case "VIDEO_BLOCK":
+        return <VideoBlock data={item} />;
+      case "IFRAME_BLOCK":
+        return <IframeBlock data={item} />;
+      case "CODE_SNIPPETS":
+        return <CodeSnippets data={item} />;
+      case "CODE_SNIPPETS_WITH_VIEW":
+        return <CodeSnippetsWithView data={item} />;
+      case "EXTERNAL_PAGE_LINK_GRID":
+        return <ExternalPageLinkGrid data={item} />;
+      case "TEXT_BLOCK":
+        return <TextBlock data={item} />;
+      default:
+        return "foo";
+    }
+  }
   render() {
     const { showModal, page } = this.props;
-    console.log("page: ", page);
-    // console.log("page: ", page.data.widgets);
     return (
       <Modal
         size={"xl"}
         show={showModal}
+        dialogClassName="previewModal"
         onHide={() => {
           this.props.handlePreviewModal();
         }}
-        // title={modalData.title}
-        // description={modalData.description}
+        centered
       >
-        <Modal.Header closeButton>{page.title}</Modal.Header>
-        <Modal.Body>Hello</Modal.Body>
+        <Modal.Header closeButton>
+          {page.title ? page.title : "Title Undefined"}
+        </Modal.Header>
+        <Modal.Body>
+          {/* {page.data.widgets.length > 0
+            ? page.data.widgets.map(item => this.renderPreview(item))
+            : "Please Add Widgets for this page"} */}
+          {page.data.widgets.map(item => this.renderPreview(item))}
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="info" size={"sm"}>
+          <Button
+            variant="info"
+            size={"sm"}
+            onClick={this.props.handlePreviewModal}
+          >
             Close
           </Button>
-          {/* <Button variant="success">Done</Button> */}
         </Modal.Footer>
       </Modal>
     );

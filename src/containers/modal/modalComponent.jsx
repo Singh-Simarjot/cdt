@@ -141,6 +141,7 @@ class ModalComponent extends Component {
     return (
       modalData !== null && (
         <Modal
+          centered
           size={"lg"}
           show={this.props.showModal}
           onHide={() => {
