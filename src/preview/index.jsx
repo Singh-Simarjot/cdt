@@ -7,6 +7,7 @@ import { Switch, Route } from "react-router-dom";
 import DefaultTemplate from "./templates/default";
 import ProjectsContext from "../context/projectsContext";
 import Gloassary from "./templates/gloassary/gloassaryTemplate";
+import BuildingBlock from './templates/buildingblocks/buildingBlocks'
 class Preview extends Component {
   static contextType = ProjectsContext;
 
@@ -36,7 +37,8 @@ class Preview extends Component {
                   description={selectedProject.description}
                   data={selectedProject.data}
                 />
-                // <Gloassary/>
+               // <Gloassary/>
+                //<BuildingBlock/>
               )}
             />
             {/* {selectedProject.navigation.map(
