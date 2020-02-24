@@ -55,20 +55,22 @@ class PreviewModal extends Component {
       <Modal
         size={"xl"}
         show={showModal}
-        dialogClassName="previewModal"
+        className="previewModa"
+        backdropClassName="previewModalBackdrop"
         onHide={() => {
           this.props.handlePreviewModal();
         }}
-        centered
+        // centered
+        // animation={false}
       >
         <Modal.Header closeButton>
           {page.title ? page.title : "Title Undefined"}
         </Modal.Header>
         <Modal.Body>
-          {/* {page.data.widgets.length > 0
+          {page.data.widgets.length > 0
             ? page.data.widgets.map(item => this.renderPreview(item))
-            : "Please Add Widgets for this page"} */}
-          {page.data.widgets.map(item => this.renderPreview(item))}
+            : "Please Add Widgets for this page"}
+          {/* {page.data.widgets.map(item => this.renderPreview(item))} */}
         </Modal.Body>
         <Modal.Footer>
           <Button

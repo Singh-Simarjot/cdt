@@ -25,6 +25,9 @@
     .form-control {
       margin-bottom: 10px;
     }
+    input[type="file"] {
+      width: 100%;
+    }
     button.btn-danger {
       position: absolute;
       top: 13px;

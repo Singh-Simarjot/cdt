@@ -3,6 +3,8 @@ import "./widgets.scss";
 import { Button, Form, Modal } from "react-bootstrap";
 import nextId from "react-id-generator";
 import Dropzone from "react-dropzone-uploader";
+import FileBase64 from "react-file-base64";
+import { uploadFile } from "../../services/projects";
 
 class ImageBlock extends Component {
   state = {
@@ -91,6 +93,28 @@ class ImageBlock extends Component {
     this.setState({ widget });
     this.props.onSaveComponent(widget);
   };
+
+  getImage = async files => {
+    // const widget = this.state.widget;
+    // widget.content.image = files.map(f => f.meta);
+    // this.setState({ widget });
+    /*
+    const newProject = this.state.newProject;
+    const projectThum = [files];
+    try {
+      await uploadFile(JSON.stringify(projectThum)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.thumbnail = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+    */
+  };
   render() {
     const { onModalChange } = this.props;
     const { widget } = this.state;
@@ -116,7 +140,7 @@ class ImageBlock extends Component {
           </Form.Group>
           <Form.Group>
             <div className="widgetsDiv">
-              <label className="dropImg">
+              {/* <label className="dropImg">
                 <Dropzone
                   getUploadParams={this.getUploadParams}
                   onChangeStatus={this.handleChangeStatus}
@@ -124,7 +148,11 @@ class ImageBlock extends Component {
                   maxFiles={1}
                   accept="image/*,audio/*,video/*"
                 />
-              </label>
+              </label> */}
+              <FileBase64
+                // multiple={true}
+                onDone={this.getImage.bind(this)}
+              />
             </div>
           </Form.Group>
           <Form.Group>

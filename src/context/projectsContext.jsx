@@ -6,7 +6,6 @@ import {
   getProjectDetail,
   getPageDetail,
   createProject,
-  uploadFile,
   deleteProject,
   updateProject,
   createPage,
@@ -180,9 +179,6 @@ export class ProjectsContext extends Component {
     toast.success("Project Deleted!");
   };
 
-  handleUploadFile = async file => {
-    await uploadFile(file);
-  };
   updateNavigation = async navigation => {
     const newNav = [
       {

@@ -6,6 +6,8 @@ import Dropzone from "react-dropzone-uploader";
 import ProjectsContext from "../context/projectsContext";
 import nextId from "react-id-generator";
 import FileBase64 from "react-file-base64";
+
+import { uploadFile } from "../services/projects";
 class AddNewProject extends Component {
   static contextType = ProjectsContext;
   state = {
@@ -127,14 +129,14 @@ class AddNewProject extends Component {
     );
     this.setState({ newProject });
   };
-  addResourceLinkIcon = (e, id) => {
-    const icon = e.target.value;
-    const newProject = { ...this.state.newProject };
-    newProject.data.resource.otherResourceComponets.filter(item =>
-      item.id === id ? (item.icon = icon) : item
-    );
-    this.setState({ newProject });
-  };
+  // addResourceLinkIcon = (e, id) => {
+  //   const icon = e.target.value;
+  //   const newProject = { ...this.state.newProject };
+  //   newProject.data.resource.otherResourceComponets.filter(item =>
+  //     item.id === id ? (item.icon = icon) : item
+  //   );
+  //   this.setState({ newProject });
+  // };
 
   deleteResource = id => {
     const newProject = this.state.newProject;
@@ -198,13 +200,13 @@ class AddNewProject extends Component {
     );
     this.setState({ newProject });
   };
-  addMoreArticlesImage = (e, id) => {
-    const newProject = { ...this.state.newProject };
-    newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
-      item.id === id ? (item.image = e.target.value) : item
-    );
-    this.setState({ newProject });
-  };
+  // addMoreArticlesImage = (e, id) => {
+  //   const newProject = { ...this.state.newProject };
+  //   newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
+  //     item.id === id ? (item.image = e.target.value) : item
+  //   );
+  //   this.setState({ newProject });
+  // };
 
   deleteArticles = id => {
     const newProject = this.state.newProject;
@@ -238,24 +240,143 @@ class AddNewProject extends Component {
     }
     this.setState({ newProject });
   };
-  // handleHeaderSection(){
-
-  // }
-
-  fileUpload = e => {
-    let files = e.target.files;
-    let reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onload = e => {
-      console.log("Image Data: ", e.target.result);
-    };
-    // this.context.onUploadFile(file.target.files[0]);
+  /*
+  getFiles = async files => {
+    try {
+      await uploadFile(JSON.stringify(files)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            data.file
+            console.log("data ", data);
+          }
+        }
+      });
+    } catch (err) {}
+    // const result = this.context.onUploadFile(JSON.stringify(files));
   };
-  getFiles(files) {
-    // this.setState({ files });
-    this.context.onUploadFile(files);
-    console.log(files);
-  }
+  */
+  getProjectThum = async files => {
+    const newProject = this.state.newProject;
+    const projectThum = [files];
+    try {
+      await uploadFile(JSON.stringify(projectThum)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.thumbnail = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+    // const result = this.context.onUploadFile(JSON.stringify(files));
+  };
+
+  getVideoThum = async files => {
+    const newProject = this.state.newProject;
+    const videoThum = [files];
+    try {
+      await uploadFile(JSON.stringify(videoThum)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.headerSection.videoThumb = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  getProjectVideo = async files => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.headerSection.video = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+  getDesigningImage = async files => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.designingSection.image = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  getDevelopingImage = async files => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.developmentSection.image = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  getLinksIcon = async (files, id) => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            newProject.data.resource.otherResourceComponets.filter(item =>
+              item.id === id ? (item.icon = data.file.toString()) : item
+            );
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  getArticleImage = async (files, id) => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            newProject.data.latestTrends.latestTrendSectionArticle.filter(
+              item =>
+                item.id === id ? (item.image = data.file.toString()) : item
+            );
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
 
   // disabledAddProject
   disabledAddProject() {
@@ -357,14 +478,6 @@ class AddNewProject extends Component {
                 </Col>
               </Row>
               <Form className="pt-3">
-                <input
-                  type="file"
-                  name="file"
-                  onChange={e => this.fileUpload(e)}
-                />
-                <br />
-                <br />
-                <FileBase64 multiple={true} onDone={this.getFiles.bind(this)} />
                 <Row>
                   <Col sm={5}>
                     <div className="addNewProjectDetail mb-3 mb-sm-0">
@@ -389,7 +502,13 @@ class AddNewProject extends Component {
                       </Form.Group>
                       <Form.Group>
                         <Form.Label>Project Cover Photo</Form.Label>
-                        <label className="dropImg">
+                        <div>
+                          <FileBase64
+                            // multiple={true}
+                            onDone={this.getProjectThum.bind(this)}
+                          />
+                        </div>
+                        {/* <label className="dropImg">
                           <Dropzone
                             getUploadParams={this.getUploadParams}
                             onChangeStatus={(e, section, name) =>
@@ -399,7 +518,7 @@ class AddNewProject extends Component {
                             maxFiles={1}
                             accept="image/*,audio/*,video/*"
                           />
-                        </label>
+                        </label> */}
                       </Form.Group>
                     </div>
                   </Col>
@@ -407,7 +526,7 @@ class AddNewProject extends Component {
                     <div className="addNewProjectData">
                       <Form.Group>
                         <Form.Label>Header Section</Form.Label>
-                        <label className="dropImg">
+                        {/* <label className="dropImg">
                           Video Thumb
                           <br />
                           <Dropzone
@@ -422,7 +541,16 @@ class AddNewProject extends Component {
                             onSubmit={this.handleSubmit}
                             accept="image/*,audio/*,video/*"
                           />
-                        </label>
+                        </label> */}
+                        <div style={{ marginBottom: "15px" }}>
+                          <div>
+                            <small>Video thumbnail image</small>
+                          </div>
+                          <FileBase64
+                            // multiple={true}
+                            onDone={this.getVideoThum.bind(this)}
+                          />
+                        </div>
                         <Form.Control
                           as="select"
                           name="videoType"
@@ -452,6 +580,29 @@ class AddNewProject extends Component {
                             URL
                           </option>
                         </Form.Control>
+                        {newProject.data.headerSection.videoType ===
+                        "INTERNAL_STORAGE" ? (
+                          <div style={{ marginBottom: "15px" }}>
+                            <div>
+                              <small>Select Video</small>
+                            </div>
+                            <FileBase64
+                              // multiple={true}
+                              onDone={this.getProjectVideo.bind(this)}
+                              // accept="video/*"
+                            />
+                          </div>
+                        ) : (
+                          <Form.Control
+                            type="text"
+                            name="video"
+                            placeholder="Video Url"
+                            value={newProject.data.headerSection.video}
+                            onChange={(e, section) =>
+                              this.handleChange(e, "headerSection")
+                            }
+                          />
+                        )}
                         <Form.Control
                           type="text"
                           name="linkTopText"
@@ -470,28 +621,6 @@ class AddNewProject extends Component {
                             this.handleChange(e, "headerSection")
                           }
                         />
-                        {newProject.data.headerSection.videoType ===
-                        "INTERNAL_STORAGE" ? (
-                          <Form.Control
-                            type="file"
-                            name="video"
-                            value={newProject.data.headerSection.video}
-                            onChange={(e, section) =>
-                              this.handleChange(e, "headerSection")
-                            }
-                            className="form-control"
-                          />
-                        ) : (
-                          <Form.Control
-                            type="text"
-                            name="video"
-                            placeholder="Video Url"
-                            value={newProject.data.headerSection.video}
-                            onChange={(e, section) =>
-                              this.handleChange(e, "headerSection")
-                            }
-                          />
-                        )}
                         <Form.Control
                           type="text"
                           name="link"
@@ -505,7 +634,16 @@ class AddNewProject extends Component {
 
                       <Form.Group>
                         <Form.Label>Designing Section</Form.Label>
-                        <label className="dropImg">
+                        <div style={{ marginBottom: "15px" }}>
+                          <div>
+                            <small>Select Image</small>
+                          </div>
+                          <FileBase64
+                            // multiple={true}
+                            onDone={this.getDesigningImage.bind(this)}
+                          />
+                        </div>
+                        {/* <label className="dropImg">
                           <Dropzone
                             getUploadParams={this.getUploadParams}
                             onSubmit={this.handleSubmit}
@@ -518,7 +656,7 @@ class AddNewProject extends Component {
                               )
                             }
                           />
-                        </label>
+                        </label> */}
 
                         <Form.Control
                           type="text"
@@ -551,7 +689,16 @@ class AddNewProject extends Component {
 
                       <Form.Group>
                         <Form.Label>Developing Section</Form.Label>
-                        <label className="dropImg">
+                        <div style={{ marginBottom: "15px" }}>
+                          <div>
+                            <small>Select Image</small>
+                          </div>
+                          <FileBase64
+                            // multiple={true}
+                            onDone={this.getDevelopingImage.bind(this)}
+                          />
+                        </div>
+                        {/* <label className="dropImg">
                           <Dropzone
                             getUploadParams={this.getUploadParams}
                             onSubmit={this.handleSubmit}
@@ -564,7 +711,7 @@ class AddNewProject extends Component {
                               )
                             }
                           />
-                        </label>
+                        </label> */}
                         <Form.Control
                           type="text"
                           placeholder="Top Title Text"
@@ -656,12 +803,18 @@ class AddNewProject extends Component {
                                     />
                                   </Col>
                                   <Col md={4}>
-                                    <Form.Control
+                                    {/* <Form.Control
                                       type="file"
                                       value={item.icon}
                                       name="icon"
                                       onChange={e =>
                                         this.addResourceLinkIcon(e, item.id)
+                                      }
+                                    /> */}
+                                    <FileBase64
+                                      // multiple={true}
+                                      onDone={e =>
+                                        this.getLinksIcon(e, item.id)
                                       }
                                     />
                                   </Col>
@@ -744,11 +897,17 @@ class AddNewProject extends Component {
                                     />
                                   </Col>
                                   <Col md={3}>
-                                    <Form.Control
+                                    {/* <Form.Control
                                       type="file"
                                       value={item.image}
                                       onChange={e =>
                                         this.addMoreArticlesImage(e, item.id)
+                                      }
+                                    /> */}
+                                    <FileBase64
+                                      // multiple={true}
+                                      onDone={e =>
+                                        this.getArticleImage(e, item.id)
                                       }
                                     />
                                   </Col>
