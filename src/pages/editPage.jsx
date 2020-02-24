@@ -31,9 +31,8 @@ class EditPage extends Component {
     this.getPageDetail();
   }
   getPageDetail = async () => {
-    this.context.onSelectPage(this.context.selectedProjectID).then(response => {
-      
-      this.setState({
+    this.context.onPageDetail(this.context.selectedProjectID).then(response => {
+       this.setState({
         page: response,
         isLoading: false
       });

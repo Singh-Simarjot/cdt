@@ -31,7 +31,7 @@ class Drafts extends Component {
 
   render() {
     const { selectedProject } = this.context;
-    const drafts = selectedProject.pages.filter(item => item.saved === false);
+    const drafts = selectedProject.pages.filter(item => item.saved === 0 || item.saved === false );
     return (
       <div className="content">
         <div className="contentTop">

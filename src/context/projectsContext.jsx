@@ -10,6 +10,7 @@ import {
   updateProject,
   createPage,
   deletePage,
+  updatePageStatus,
   createNav,
   updateNav
 } from "../services/projects";
@@ -50,12 +51,13 @@ export class ProjectsContext extends Component {
   };
   handleProjectDetail = async id => {
     this.setState({ isloading: false });
-    const selectedProject = this.state.selectedProject;
+   
     var result;
     try {
       result = await getProjectDetail(id).then(response => {
         if (response.status === 200) {
           const selectedProject = response.data;
+          console.log(selectedProject);
           this.setState(
             {
               selectedProjectID: selectedProject.id,
@@ -75,17 +77,25 @@ export class ProjectsContext extends Component {
   };
 
   onSelectPage = async selectedPageID => {
-    var result; 
+    this.setState({ selectedPageID });
+  };
+
+  handlePageDetail = async () => {
+    var result;
     try {
-      result =  await getPageDetail(selectedPageID).then(response => {
+      result = await getPageDetail(this.state.selectedPageID).then(response => {
         if (response.status === 200) {
           const selectedPage = response.data;
-          this.setState({
-            selectedPage,
-            selectedPageID: selectedPageID
-          } ,() => {
-            return selectedPage;
-          });return selectedPage;
+          this.setState(
+            {
+              selectedPage,
+              selectedPageID: selectedPage.id
+            },
+            () => {
+              return selectedPage;
+            }
+          );
+          return selectedPage;
         }
       });
     } catch (err) {}
@@ -145,23 +155,28 @@ export class ProjectsContext extends Component {
     toast.success("Page Updated!");
   };
 
-  markDraftPage = page => {
+  markDraftPage = async page => {
     const selectedPage = { ...this.state.selectedPage };
     const selectedProject = { ...this.state.selectedProject };
-    selectedProject.pages.filter(item =>
-      item.id === page.id ? (item.saved = !page.saved) : item
-    );
-    selectedPage.saved = !page.saved;
-    this.setState({ selectedPage, selectedProject });
-    toast.success(
-      selectedPage.saved ? "Marked as Draft !" : "Page is Live Now !"
-    );
+    let data = {};
+
+    data.saved = page.saved === 1 ? false : true;
+    try {
+      await updatePageStatus(page.id, data).then(response => {
+        if (response.status === 200) {
+          selectedProject.pages.filter(item =>
+            item.id === page.id ? (item.saved = data.saved) : item
+          );
+          selectedPage.saved = data.saved;
+          this.setState({ selectedPage, selectedProject });
+          toast.success(
+            selectedPage.saved ? "Marked as Draft !" : "Page is Live Now !"
+          );
+        }
+      });
+    } catch (err) {}
   };
 
-  // onDeleteProject = id => {
-  //   const allProjects = this.state.allProjects.filter(item => item.id !== id);
-  //   this.setState({ allProjects });
-  // };
   onDeletePage = async id => {
     const selectedProject = this.state.selectedProject;
     const result = await deletePage(id);
@@ -236,6 +251,7 @@ export class ProjectsContext extends Component {
           onSelectProject: this.onSelectProject,
           getAllProjects: this.getAllProjects,
           onProjectDetail: this.handleProjectDetail,
+          onPageDetail: this.handlePageDetail,
           updateNavigation: this.updateNavigation,
           addNewProject: this.addNewProject,
           onUpdateProject: this.updateProject,

@@ -24,10 +24,10 @@ class AllPages extends Component {
   };
 
   onEditPage = id => {
-    this.context.onSelectPage(id);
+
     this.props.history.push({
-      pathname: "/project/editpage",
-      state: { pageType: "Save" }
+      pathname: "/project/editpage" 
+    
     });
   };
 
@@ -35,7 +35,7 @@ class AllPages extends Component {
     const { selectedProject,isloading } = this.context;
     const pages =
     selectedProject !== null &&  selectedProject.pages !== undefined &&
-      selectedProject.pages.filter(item => item.saved === "Draft" || item.saved === 1 );
+      selectedProject.pages.filter(item => item.saved === 1 || item.saved === true );
       if(isloading ){ return (
         <div className="content">
           <div className="contentTop">

@@ -46,11 +46,11 @@ class Content extends Component {
         </div>
         <div className="contentData">
           <Form.Group>
-            <Form.Label>Project Title</Form.Label>
+            <Form.Label>Page Title</Form.Label>
             <Form.Control
               type="text"
               name="title"
-              value={page.name}
+              value={page.title}
               onChange={this.props.onHandle}
             />
           </Form.Group>

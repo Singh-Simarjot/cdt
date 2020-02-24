@@ -17,8 +17,6 @@ export function getPageDetail(id) {
   return apiService.get(pageEndpoint);
 }
 
-
-
 export function createProject(data) {
   const projectsEndpoint = APIBASEURL + "project/store";
   return apiService.post(projectsEndpoint, data);
@@ -43,9 +41,16 @@ export function deletePage(id) {
   const pageEndpoint = APIBASEURL + "page/" + id;
   return apiService.post(pageEndpoint);
 }
+export function updatePageStatus(id,data) {
+   
+  const pageEndpoint = APIBASEURL + "page/updatepagestatus/" + id;
+  
+  
+  return apiService.post(pageEndpoint,JSON.stringify(data));
+}
 
 export function createNav(data) {
-  console.log("create");
+  
   const navigationEndpoint = APIBASEURL + "navigation/store";
   return apiService.post(navigationEndpoint, data);
 }

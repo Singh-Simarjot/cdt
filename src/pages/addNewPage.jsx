@@ -25,7 +25,7 @@ class AddNewPage extends Component {
         widgets: [],
         tabs: []
       },
-      saved: true,
+      saved: false,
       btnDisable: true
     },
     customItem: {
