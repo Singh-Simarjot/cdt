@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import {
   getProjects,
   getProjectDetail,
+  getPageDetail,
   createProject,
   uploadFile,
   deleteProject,
@@ -48,21 +49,6 @@ export class ProjectsContext extends Component {
   onSelectProject = async id => {
     this.setState({ selectedProjectID: id });
   };
-
-  onSelectPage = id => {
-    const page = this.state.selectedProject.pages.filter(
-      item => item.id === id
-    );
-
-    this.setState({ selectedPageID: id, selectedPage: page[0] });
-  };
-  handleSelectSubPage = id => {
-    const subpage = this.state.selectedProject.pages.filter(
-      item => item.id === id
-    );
-    this.setState({ subPage: subpage[0] });
-  };
-
   handleProjectDetail = async id => {
     this.setState({ isloading: false });
     const selectedProject = this.state.selectedProject;
@@ -86,13 +72,35 @@ export class ProjectsContext extends Component {
         }
       });
     } catch (err) {}
-
     return result;
   };
 
-  addNewProject = async item => {
-    // console.log(item);
+  onSelectPage = async selectedPageID => {
+    var result; 
+    try {
+      result =  await getPageDetail(selectedPageID).then(response => {
+        if (response.status === 200) {
+          const selectedPage = response.data;
+          this.setState({
+            selectedPage,
+            selectedPageID: selectedPageID
+          } ,() => {
+            return selectedPage;
+          });return selectedPage;
+        }
+      });
+    } catch (err) {}
+    return result;
+  };
 
+  handleSelectSubPage = id => {
+    const subpage = this.state.selectedProject.pages.filter(
+      item => item.id === id
+    );
+    this.setState({ subPage: subpage[0] });
+  };
+
+  addNewProject = async item => {
     try {
       await createProject(JSON.stringify(item)).then(response => {
         if (response.status === 200) {

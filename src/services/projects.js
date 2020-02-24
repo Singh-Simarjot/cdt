@@ -12,6 +12,13 @@ export function getProjectDetail(id) {
   return apiService.get(projectsEndpoint);
 }
 
+export function getPageDetail(id) {
+  const pageEndpoint = APIBASEURL + "page/" + id;
+  return apiService.get(pageEndpoint);
+}
+
+
+
 export function createProject(data) {
   const projectsEndpoint = APIBASEURL + "project/store";
   return apiService.post(projectsEndpoint, data);

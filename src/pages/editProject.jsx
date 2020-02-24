@@ -51,23 +51,25 @@ class EditProject extends Component {
     isLoading: false
   };
 
-  componentWillMount() {
-    console.log("componentWillMount", this.context.selectedProject);
+  componentDidMount() {
+   
     if (this.context.selectedProjectID !== null) {
-      this.context.onProjectDetail(this.context.selectedProjectID);
-      setTimeout(
-        function() {
-          this.setState({
-            project: this.context.selectedProject,
-            isLoading: true
-          });
-        }.bind(this),
-        2000
-      );
+      this.getProjectDetail();
     } else {
       this.props.history.push("/");
     }
   }
+
+  getProjectDetail = async () => {
+    this.context
+      .onProjectDetail(this.context.selectedProjectID)
+      .then(response => {
+        this.setState({
+          project: response,
+          isLoading: true
+        });
+      });
+  };
 
   getUploadParams = ({ meta }) => {
     return { url: "https://httpbin.org/post" };
@@ -78,11 +80,7 @@ class EditProject extends Component {
   handleSubmit = (files, allFiles) => {
     console.log(files.map(f => f.meta));
   };
-  // handleChange = (e, section) => {
-  //   const project = {...this.state.project}
-  //   project[e.target.name] = e.target.value
-  //    this.setState({project})
-  // };
+   
   handleChange = (e, section) => {
     const project = { ...this.state.project };
     project[e.target.name] = e.target.value;

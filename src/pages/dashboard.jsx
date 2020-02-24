@@ -28,6 +28,7 @@ class Dashbord extends Component {
     this.props.history.push("/project");
   };
   componentDidMount() {
+    
     this.context.getAllProjects();
   }
   onPreview = id => {

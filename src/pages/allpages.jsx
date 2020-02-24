@@ -35,7 +35,7 @@ class AllPages extends Component {
     const { selectedProject,isloading } = this.context;
     const pages =
     selectedProject !== null &&  selectedProject.pages !== undefined &&
-      selectedProject.pages.filter(item => item.saved === true || item.saved === 1 );
+      selectedProject.pages.filter(item => item.saved === "Draft" || item.saved === 1 );
       if(isloading ){ return (
         <div className="content">
           <div className="contentTop">

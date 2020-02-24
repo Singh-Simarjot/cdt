@@ -18,7 +18,9 @@ class Content extends Component {
   };
   render() {
     const { page, sortNavigation, pageLabel, onSave, onMarkDraft } = this.props;
-    console.log(page);
+    console.log(page)
+    if(page!==undefined){
+
     return (
       <div className="content">
         <div className="contentTop">
@@ -48,7 +50,7 @@ class Content extends Component {
             <Form.Control
               type="text"
               name="title"
-              value={page.title}
+              value={page.name}
               onChange={this.props.onHandle}
             />
           </Form.Group>
@@ -109,7 +111,7 @@ class Content extends Component {
               ))} */}
 
             {page.templateType === "DEFAULT" &&
-              page.data.widgets !== undefined && (
+              page!== undefined && (
                 <DragDrop
                   data={page.data.widgets}
                   onDrag={this.onDrag}
@@ -129,7 +131,10 @@ class Content extends Component {
           </Button>
         </div>
       </div>
-    );
+    ) }
+    else{
+       return "Loading"
+    }
   }
 }
 
