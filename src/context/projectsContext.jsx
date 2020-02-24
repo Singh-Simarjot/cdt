@@ -69,11 +69,26 @@ export class ProjectsContext extends Component {
             }
           );
 
+          /*
+        let resourceComponent = selectedProject.data.resource.otherResourceComponets;
+        const newResourceComponent = JSON.parse(resourceComponent);
+        
+        this.setState({
+          resourceComponent : newResourceComponent
+        });
+
+        */
+        
+            
           return selectedProject;
         }
       });
-    } catch (err) {}
+    } catch (err) {}   
+
     return result;
+
+    
+    
   };
 
   onSelectPage = async selectedPageID => {

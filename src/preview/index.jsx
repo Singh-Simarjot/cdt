@@ -8,17 +8,58 @@ import DefaultTemplate from "./templates/default";
 import ProjectsContext from "../context/projectsContext";
 import Gloassary from "./templates/gloassary/gloassaryTemplate";
 import BuildingBlock from './templates/buildingblocks/buildingBlocks'
+import Loader from "../components/loader/loader";
+
 class Preview extends Component {
   static contextType = ProjectsContext;
 
-  state = {};
+  state = {
+    isLoading:false
+  };
 
-  componentDidMount() {}
+  // componentDidMount() {}
+
+  componentDidMount() {
+   
+    if (this.context.selectedProjectID !== null) {
+      this.getProjectDetail();
+    } else {
+      this.props.history.push("/");
+    }
+    
+  }
+
+
+  getProjectDetail = async () => {
+    this.context
+      .onProjectDetail(this.context.selectedProjectID)
+      .then(response => {
+        this.setState({
+          isLoading: true
+        });
+      });
+
+
+      console.log(this.context.selectedProject);
+
+
+      // let resourceComponent = this.context.selectedProject.data.resource.otherResourceComponets;
+      //   const newResourceComponent = JSON.parse(resourceComponent);
+        
+      //   this.setState({
+      //     resourceComponent : newResourceComponent
+      //   });
+
+      // console.log(resourceComponent);
+      
+      
+  };
 
   render() {
     const { selectedProject } = this.context;
-    // console.log(selectedProject);
+    console.log(selectedProject);
 
+    if(this.state.isLoading){
     return (
       <div className="home-wrap">
        
@@ -79,7 +120,10 @@ class Preview extends Component {
         </div>
       </div>
     );
-  }
+    }else {
+      return <Loader />;
+    }
+}
 }
 
 export default Preview;
