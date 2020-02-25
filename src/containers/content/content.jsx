@@ -132,14 +132,14 @@ class Content extends Component {
               {this.props.btnTitle}
             </Button>
           </div>
-          <br />
+          {/* <br />
           <Button
             type="submit"
             onClick={e => onSave(e)}
             disabled={page.btnDisable}
           >
             {this.props.btnTitle}
-          </Button>
+          </Button> */}
 
           {/* <Button
             type="submit"
