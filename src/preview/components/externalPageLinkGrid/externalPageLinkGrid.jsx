@@ -17,7 +17,7 @@ class ExternalPageLinkGrid extends Component {
               <Link to={tag.url} target="_blank" key={tag.id}>
                 <Card>
                   <Card.Body>
-                    <Card.Text>{tag.title}</Card.Text>
+                    <Card.Text>{tag.label}</Card.Text>
                     <img src={tag.icon} alt={tag.label} />
                     <i className={tag.iconpackage}></i>
                     <i className={tag.iconlink}></i>
