@@ -158,7 +158,7 @@ class Home extends Component {
               <div className="resource-list">
                 <Row>
                   {homeData.resource.otherResourceComponets.map(items => (
-                    <DeveloperResource title={items.title} />
+                    <DeveloperResource title={items.title} icon={items.icon} linktext = {items.link} />
                   ))}
 
                   {/* <DeveloperResource title="Sketch libraries" />
@@ -182,7 +182,7 @@ class Home extends Component {
               <div className="resource-list">
                 <Row>
                   {homeData.latestTrends.latestTrendSectionArticle.map(items => (
-                    <ArticlePost title={items.title} topimage={items.image} author={items.author} published= {items.publishDate} />
+                    <ArticlePost title={items.title} topimage={items.image} author={items.author} published= {items.publishDate} link = {items.link} />
                   ))}
 
                   {/* <ArticlePost

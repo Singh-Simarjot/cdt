@@ -183,7 +183,7 @@ class EditProject extends Component {
     this.setState({ newProject });	
   };
 
-
+// Get thumb images
   getProjectThum = async files => {
     const newProject = this.state.project;
     const projectThum = [files];
@@ -228,6 +228,106 @@ class EditProject extends Component {
   removeVideoThumb = () => {
     const newProject = this.state.project;
     newProject.data.headerSection.videoThumb = "";
+    this.setState({ newProject });
+  };
+
+// Get Images
+  getDesigningImage = async files => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.designingSection.image = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeDesigningImage = () => {
+    const newProject = this.state.newProject;
+    newProject.data.designingSection.image = "";
+    this.setState({ newProject });
+  };
+
+  getDevelopingImage = async files => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.developmentSection.image = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeDevelopingImage = () => {
+    const newProject = this.state.newProject;
+    newProject.data.developmentSection.image = "";
+    this.setState({ newProject });
+  };
+
+  getLinksIcon = async (files, id) => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            newProject.data.resource.otherResourceComponets.filter(item =>
+              item.id === id ? (item.icon = data.file.toString()) : item
+            );
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeLinksIcon = id => {
+    const newProject = this.state.newProject;
+    newProject.data.resource.otherResourceComponets.filter(item =>
+      item.id === id ? (item.icon = "") : item
+    );
+    this.setState({ newProject });
+  };
+
+  getArticleImage = async (files, id) => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            newProject.data.latestTrends.latestTrendSectionArticle.filter(
+              item =>
+                item.id === id ? (item.image = data.file.toString()) : item
+            );
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeArticleImage = id => {
+    const newProject = this.state.newProject;
+    newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
+      item.id === id ? (item.image = "") : item
+    );
     this.setState({ newProject });
   };
 

@@ -102,7 +102,12 @@
 
   a {
     color: #fff;
+
+    &:hover{
+      text-decoration: none;
+    }
   }
+
 
   &::before {
     // background: linear-gradient(90deg, rgba(22,22,22,.5) 20px, transparent 1%) center, linear-gradient(rgba(22,22,22,.5) 20px, transparent 1%) center, rgba(22,22,22,.5);
