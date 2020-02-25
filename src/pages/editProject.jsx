@@ -87,7 +87,12 @@ class EditProject extends Component {
    
   handleChange = (e, section) => {
     const project = { ...this.state.project };
-    project.data[section][e.target.name] = e.target.value;
+    if (section === null) {
+      project[e.target.name] = e.target.value;
+    } else {
+      project.data[section][e.target.name] = e.target.value;
+    }
+
     this.setState({ project });
   };
   addProject = e => {
