@@ -17,8 +17,8 @@ class ArticlePost extends Component {
             <h4>{this.props.title}</h4>
 
             <div className="bottom-wrap flex-column">
-              <span>Lauren Rice </span>
-              <span> November 4, 2019 </span>
+              <span>{this.props.author} </span>
+              <span> {this.props.publishDate} </span>
             </div>
           </div>
         </div>
