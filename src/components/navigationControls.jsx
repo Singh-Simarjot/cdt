@@ -3,9 +3,9 @@ import { Button, Form } from "react-bootstrap";
 import $ from "jquery";
 
 class NavigationControls extends Component {
-    state = { title:""};
+  state = { title: "" };
   componentDidMount() {
-      const title = this.props.item.title;
+    const title = this.props.item.title;
     //editNavBtn
     $(document).on("click", ".editNavBtn", function() {
       $(this)
@@ -18,20 +18,29 @@ class NavigationControls extends Component {
         .removeClass("editDropOpen");
     });
   }
-  editLabel = (e) =>{
-       
-       this.setState({title:e.target.value});
-  }
+  editLabel = e => {
+    this.setState({ title: e.target.value });
+  };
 
   render() {
-    const { item, parentid,  onEdit, onDelete,onSaveLabel } = this.props;
-   const {title} = this.state;
+    const {
+      item,
+      parentid,
+      onEdit,
+      onDelete,
+      onSaveLabel,
+      dummyId
+    } = this.props;
+    const { title } = this.state;
     return (
       <div>
         {/* <span className="editNavBtn" onClick={() => onEdit(item.dummyid,parentid)}>
           Edit{" "}
         </span>{" "} */}
-        <span className="deleteNavBtn" onClick={() => onDelete(item.dummyid,parentid)}>
+        <span
+          className="deleteNavBtn"
+          onClick={() => onDelete(dummyId, parentid)}
+        >
           Delete
         </span>{" "}
         {/* <div className="editDrop">

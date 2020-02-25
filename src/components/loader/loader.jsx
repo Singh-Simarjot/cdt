@@ -5,7 +5,7 @@ class Loader extends Component {
   render() {
     return (
       <div className="loder">
-        <div class="lds-spinner">
+        <div className="lds-spinner">
           <div></div>
           <div></div>
           <div></div>

@@ -9,11 +9,13 @@ import {
   deleteProject,
   updateProject,
   createPage,
+  updatePage,
   deletePage,
   updatePageStatus,
   createNav,
   updateNav
 } from "../services/projects";
+ 
 
 const Context = React.createContext();
 
@@ -43,7 +45,9 @@ export class ProjectsContext extends Component {
           this.setState({ allProjects: allProjects, isloading: true });
         }
       });
-    } catch (err) {}
+    } catch (err) {
+      this.setState({ allProjects: [], isloading: true });
+    }
   };
 
   onSelectProject = async id => {
@@ -69,30 +73,23 @@ export class ProjectsContext extends Component {
             }
           );
 
-          /*
-        let resourceComponent = selectedProject.data.resource.otherResourceComponets;
-        const newResourceComponent = JSON.parse(resourceComponent);
-        
-        this.setState({
-          resourceComponent : newResourceComponent
-        });
-
-        */
-        
-            
           return selectedProject;
         }
       });
-    } catch (err) {}   
+    } catch (err) {
+      console.log(err);
+
+      this.setState({
+        selectedProjectID: null,
+        selectedProject: null,
+        isloading: true
+      });
+    }
 
     return result;
-
-    
-    
   };
 
   onSelectPage = async selectedPageID => {
-    
     this.setState({ selectedPageID });
   };
 
@@ -139,9 +136,16 @@ export class ProjectsContext extends Component {
     } catch (err) {}
   };
   updateProject = async selectedProject => {
-    await updateProject(selectedProject);
-    this.setState({ selectedProject });
-    toast.success("Project Updated!");
+    try {
+      await updateProject(selectedProject.id,JSON.stringify(selectedProject)).then(response => {
+        if (response.status === 200) {
+          this.setState({ selectedProject });
+          toast.success("Project Updated!");
+          
+        }
+      });
+    } catch (err) {}
+    
   };
 
   saveNewPage = async page => {
@@ -156,33 +160,40 @@ export class ProjectsContext extends Component {
     this.setState({ selectedProject });
   };
 
-  editPage = selectedPage => {
-    this.setState({ selectedPage });
-
+  editPage =  async selectedPage => {
+    
     const selectedProject = { ...this.state.selectedProject };
-    selectedProject.pages.filter(item =>
-      item.id === selectedPage.id
-        ? ((item.title = selectedPage.title),
-          (item.templateType = selectedPage.templateType))
-        : item
-    );
 
-    this.setState({ selectedProject });
-    toast.success("Page Updated!");
+    try {
+      await updatePage(selectedPage.id,JSON.stringify(selectedPage)).then(response => {
+        if (response.status === 200) {
+          selectedProject.pages.filter(item =>
+            item.id === selectedPage.id
+              ? ((item.title = selectedPage.title),
+                (item.templateType = selectedPage.templateType))
+              : item
+          );
+          this.setState({selectedProject, selectedPage });
+          toast.success("Page Updated!");
+          
+        }
+      });
+    } catch (err) {}
+
+  
+   
   };
 
   markDraftPage = async page => {
     const selectedPage = { ...this.state.selectedPage };
     const selectedProject = { ...this.state.selectedProject };
     let data = {};
-    if(page.saved) {
-             data.saved = 0
-    } 
-    else {
-         data.saved = 1
+    if (page.saved) {
+      data.saved = 0;
+    } else {
+      data.saved = 1;
     }
 
-   
     try {
       await updatePageStatus(page.id, data).then(response => {
         if (response.status === 200) {
@@ -216,51 +227,25 @@ export class ProjectsContext extends Component {
     toast.success("Project Deleted!");
   };
 
-  updateNavigation = async (id,navigation) => {
-    const newNav = [
-      {
-        title: "Navigation Data",
-        pageID: "1",
-        id: "",
-        linkType: "",
-        linkUrl: "",
-        children: [
-          {
-            id: "1_1",
-            title: "Link 1",
-            pageId: "",
-            linkType: "CUSTOM"
-          },
-          {
-            id: "1_2",
-            title: "Link 2",
-            pageId: "",
-            linkType: "CUSTOM"
-          },
-          {
-            id: "1_3",
-            title: "Link 3",
-            pageId: "",
-            linkType: "CUSTOM"
-          },
-          {
-            id: "1_4",
-            title: "Link 4",
-            pageId: "",
-            linkType: "CUSTOM"
-          }
-        ]
-      }
-    ];
+  updateNavigation = async navData => {
+     
+      const selectedProject = { ...this.state.selectedProject };
+    const id = this.state.selectedProject.navigationId;
 
-    const selectedProject = { ...this.state.selectedProject };
-  
-      await updateNav(id,JSON.stringify(newNav));
+    try {
+      await updateNav(id, navData).then(response => {
+        if (response.status === 200) {
+          console.log(response)
+        selectedProject.navigation = response.data.Navigation;
+        this.setState({ selectedProject });
+        toast.success("Navigation Updated!");
+        }
+      });
+    } catch (err) {}
+
    
 
-    selectedProject.navigation = navigation;
-    toast.success("Navigation Updated!");
-    this.setState({ selectedProject });
+   
   };
 
   render() {

@@ -27,9 +27,9 @@ export function deleteProject(id) {
   return apiService.post(projectsEndpoint);
 }
 
-export function updateProject(data) {
-  const projectsEndpoint = APIBASEURL + "project/" + data.id;
-  return apiService.put(projectsEndpoint, data);
+export function updateProject(id,data) {
+  const projectsEndpoint = APIBASEURL + "project/update/" +id;
+  return apiService.post(projectsEndpoint, data);
 }
 
 export function createPage(data) {
@@ -37,26 +37,27 @@ export function createPage(data) {
   return apiService.post(pageEndpoint, data);
 }
 
+export function updatePage(id,data) {
+  const pageEndpoint = APIBASEURL + "page/update/"+id;
+  return apiService.post(pageEndpoint, data);
+}
+
 export function deletePage(id) {
   const pageEndpoint = APIBASEURL + "page/" + id;
   return apiService.post(pageEndpoint);
 }
-export function updatePageStatus(id,data) {
-   
+export function updatePageStatus(id, data) {
   const pageEndpoint = APIBASEURL + "page/updatepagestatus/" + id;
-  
-  
-  return apiService.post(pageEndpoint,JSON.stringify(data));
+
+  return apiService.post(pageEndpoint, JSON.stringify(data));
 }
 
 export function createNav(data) {
-  
   const navigationEndpoint = APIBASEURL + "navigation/store";
   return apiService.post(navigationEndpoint, data);
 }
-export function updateNav(id,data) {
-  console.log("update");
-  const navigationEndpoint = APIBASEURL + "navigation/"+id;
+export function updateNav(id, data) {
+  const navigationEndpoint = APIBASEURL + "navigation/update/" + id;
   return apiService.post(navigationEndpoint, data);
 }
 

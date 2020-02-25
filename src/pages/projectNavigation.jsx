@@ -11,9 +11,10 @@ import NavigationControls from "../components/navigationControls";
 
 import _ from "lodash";
 import nextId from "react-id-generator";
-
+var stringify = require('json-stringify-safe');
 class Navigation extends Component {
   static contextType = ProjectsContext;
+  
   state = {
     navigation: [],
     customItem: {
@@ -21,10 +22,12 @@ class Navigation extends Component {
       url: ""
     }
   };
+  
 
   renderInfo = () => {
     const { navigation } = this.state;
-    navigation.filter(
+    console.log(navigation)
+    navigation.length > 0 && navigation.filter(
       (item, key) => (
         item.children !== undefined &&
           item.children.filter((subItem, subkey) => {
@@ -57,7 +60,7 @@ class Navigation extends Component {
 
   componentDidMount() {
     const { selectedProject } = this.context;
-    const navigation = selectedProject.navigation;
+    const navigation = selectedProject.navigation!== null  ?selectedProject.navigation :[];
     this.setState({ navigation }, () => this.renderInfo());
   }
 
@@ -65,7 +68,7 @@ class Navigation extends Component {
     console.log(key, subkey);
   };
   handleDelete = (id, parentid) => {
-    console.log(id, parentid);
+     
     const navigation = [...this.state.navigation];
     let result;
 
@@ -76,7 +79,7 @@ class Navigation extends Component {
           : item
       );
     } else {
-      result = navigation.filter(item => item.dummyid !== id);
+      result = navigation.filter(item =>  item.dummyid !== id);
     }
     this.setState({ navigation: result });
   };
@@ -126,33 +129,31 @@ class Navigation extends Component {
     this.setState({ navigation: nav.navigation });
   };
   addToNavigation = item => {
-    const dummyid = nextId();
-    console.log(item)
-
-    item.subtitle = (
+    const newitem = {...item}
+    newitem.dummyid ='_' + Math.random().toString(36).substr(2, 9) ;
+    newitem.subtitle = (
       <NavigationControls
         onEdit={this.handleEdit}
         onDelete={this.handleDelete}
         onSaveLabel={this.saveLabel}
         item={item}
         parentid={null}
+        dummyId={ newitem.dummyid}
       />
     );
-    item.dummyid = dummyid;
-    const navigation = [...this.state.navigation, item];
+   
+    const navigation = [...this.state.navigation, newitem];
     this.setState({ navigation });
   };
   addCustomItem = () => {
     const customItem = { ...this.state.customItem };
+    
+   
     this.setState({ customItem }, () =>
       this.addToNavigation(this.state.customItem)
     );
 
-    setTimeout(() => {
-      customItem.title = "";
-      customItem.url = "";
-      this.setState({ customItem });
-    }, 500);
+   
   };
   handleInput = e => {
     const customItem = { ...this.state.customItem };
@@ -161,21 +162,24 @@ class Navigation extends Component {
   };
 
   saveNavigation = () => {
-    const {selectedProjectID} =this.context;   
-    const navigation = this.state.navigation.filter(function(item){
-    item.subtitle = " ";
+    const navdata = [...this.state.navigation]
+    const navigation = navdata.filter(function(item){
+    item.subtitle = "empty";
     item.pageId = item.id;
-    item.projectId =selectedProjectID;
     item.children =  item.children !== undefined ? item.children : []; 
     item.linkType=item.templateType;
     item.navigationURL = item.url
      return item
    });
-   this.context.updateNavigation(selectedProjectID,navigation);
+   const navData = { data :navigation}
+  
+   
+   this.context.updateNavigation(  stringify(navData));
   };
 
   render() {
     const { selectedProject } = this.context;
+    console.log(selectedProject)
     return (
       <React.Fragment>
         <NavigationList
