@@ -12,11 +12,13 @@ import { WidgetsContext } from "../context/widgetsContext";
 import PreviewModal from "../containers/previewModal/previewModal";
 
 import nextId from "react-id-generator";
+import Loader from "../components/loader/loader";
 
 class AddNewPage extends Component {
   static contextType = ProjectsContext;
 
   state = {
+    isLoadeing: false,
     page: {
       id: "",
       title: "",
@@ -135,6 +137,13 @@ class AddNewPage extends Component {
   // preview
   handlePreviewModal = () => {
     this.setState({ showPreviewModal: !this.state.showPreviewModal });
+    this.setState({ isLoadeing: true });
+    setTimeout(
+      function() {
+        this.setState({ isLoadeing: false });
+      }.bind(this),
+      1000
+    );
   };
   // end preview
 
@@ -147,6 +156,7 @@ class AddNewPage extends Component {
       selectedProject.pages.filter(item => item.templateType !== "TABS");
     return (
       <WidgetsContext>
+        {this.state.isLoadeing && <Loader />}
         {page.templateType === "DEFAULT" && (
           <ComponentsList onModalChange={this.handleModal} />
         )}
@@ -170,6 +180,7 @@ class AddNewPage extends Component {
           onHandle={this.handleChange}
           deleteWidgets={this.deleteWidgets}
           handlePreviewModal={this.handlePreviewModal}
+          handelLoadeing={this.handelLoadeing}
         />
         <ModalComponent
           title={this.props.text}
