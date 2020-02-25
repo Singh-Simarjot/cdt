@@ -18,7 +18,7 @@ class NavigationList extends Component {
     let publishedPages =
       pages !== undefined &&
       pages.filter(items => {
-        return items.saved === true;
+        return items.saved === 1 ;
       });
 
     let processedPages = pages!==undefined ? pages.filter(items => {

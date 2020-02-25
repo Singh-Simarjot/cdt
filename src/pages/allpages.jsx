@@ -24,7 +24,7 @@ class AllPages extends Component {
   };
 
   onEditPage = id => {
-
+    this.context.onSelectPage(id)
     this.props.history.push({
       pathname: "/project/editpage" 
     
@@ -34,8 +34,8 @@ class AllPages extends Component {
   render() {
     const { selectedProject,isloading } = this.context;
     const pages =
-    selectedProject !== null &&  selectedProject.pages !== undefined &&
-      selectedProject.pages.filter(item => item.saved === 1 || item.saved === true );
+    selectedProject !== null &&  selectedProject.pages !== undefined   && selectedProject.pages ;
+      
       if(isloading ){ return (
         <div className="content">
           <div className="contentTop">
@@ -101,7 +101,9 @@ class AllPages extends Component {
                           variant="warning"
                           className="ml-2"
                         >
-                          Mark as Draft
+                        {project.saved ? "Mark as Draft" : "Publish"}
+                        
+                          
                         </Button>
                       </td>
                       <td></td>

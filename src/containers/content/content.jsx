@@ -7,17 +7,22 @@ import ContentItem from "./contentItem";
 import SortableTree from "react-sortable-tree";
 import "react-sortable-tree/style.css"; // This only needs to be imported once in your app
 import DragDrop from "./widgetsDragDrop";
+import ProjectsContext from "../../context/projectsContext";
+
 class Content extends Component {
+  static contextType = ProjectsContext;
+
   handleDragOver = e => {
     console.log(e);
   };
   onDrag = data => {
-    // console.log("data: ", data);
+  
     const page = this.props.page;
     page.data.widgets = data;
   };
   render() {
     const { page, sortNavigation, pageLabel, onSave, onMarkDraft } = this.props;
+    
     console.log(page)
     if(page!==undefined){
 
@@ -129,6 +134,16 @@ class Content extends Component {
           >
             {this.props.btnTitle}
           </Button>
+
+          {/* <Button
+            type="submit"
+            variant="warning"
+            onClick={() =>this.context.markDraftPage(page)}
+            
+          >
+          {console.log(page.saved )}
+           {page.saved === 1 ||  page.saved === true ? "Mark as Draft"  : "Publish" } 
+          </Button> */}
         </div>
       </div>
     ) }

@@ -148,8 +148,8 @@ class EditPage extends Component {
       item => item.templateType !== "TABS"
     );
 
-    // console.log(page);
-    if (!this.state.isLoading) {
+     console.log(page);
+    if (!this.state.isLoading && page!== null) {
       return (
         <WidgetsContext>
           {page.templateType === "DEFAULT" && (
@@ -168,7 +168,7 @@ class EditPage extends Component {
           <Content
             page={this.state.page}
             pageLabel="Edit Page"
-            btnTitle={this.props.location.state.pageType}
+            btnTitle="Save"
             onHandle={this.handleChange}
             onChangeTemplate={this.changeTemplate}
             onModalChange={this.handleModal}

@@ -54,10 +54,10 @@ export function createNav(data) {
   const navigationEndpoint = APIBASEURL + "navigation/store";
   return apiService.post(navigationEndpoint, data);
 }
-export function updateNav(data) {
+export function updateNav(id,data) {
   console.log("update");
-  const navigationEndpoint = APIBASEURL + "navigation/store";
-  return apiService.put(navigationEndpoint, data);
+  const navigationEndpoint = APIBASEURL + "navigation/"+id;
+  return apiService.post(navigationEndpoint, data);
 }
 
 export function uploadFile(file) {

@@ -33,7 +33,7 @@ class Home extends Component {
   }
 
   render() {
-    const { title, description, data } = this.props;
+    const { name, description, data } = this.props;
     const { selectedProject } = this.context;
     const homeData = selectedProject.data;
     // const homeData = selectedProjectID.data;
@@ -50,33 +50,33 @@ class Home extends Component {
               loop
             >
               <source
-                src={homeData.headerSection.videoUrl.mobile.webm}
+                src={homeData.headerSection.video}
                 type="video/webm"
                 media="all and (max-width: 600px)"
               />
               <source
-                src={homeData.headerSection.videoUrl.mobile.mp4}
+                src={homeData.headerSection.video}
                 type="video/mp4"
                 media="all and (max-width: 600px)"
               />
               <source
-                src={homeData.headerSection.videoUrl.desktop.webm}
+                src={homeData.headerSection.video}
                 type="video/webm"
               />
               <source
-                src={homeData.headerSection.videoUrl.desktop.webm}
+                src={homeData.headerSection.video}
                 type="video/mp4"
               />
             </video>
             <Container className="position-relative">
               <div className="more d-flex ml-auto">
                 <a
-                  href={homeData.headerSection.link.link}
+                  href={homeData.headerSection.link}
                   className="d-flex flex-column"
                 >
                   <div className="more-text">
-                    <span>{homeData.headerSection.link.linkTopText}</span>
-                    <h4>{homeData.headerSection.link.linkTitle}</h4>
+                    <span>{homeData.headerSection.linkTopText}</span>
+                    <h4>{homeData.headerSection.linkTitle}</h4>
                   </div>
                   <span className="arrow-icon mt-auto">
                     <i
@@ -94,7 +94,7 @@ class Home extends Component {
           <Container>
             <Row>
               <Col md={4}>
-                <div className="heading">{title}</div>
+                <div className="heading">{selectedProject.name}</div>
               </Col>
               <Col md={4} lg={8}>
                 <div className="heading-description">{description}</div>
@@ -105,18 +105,18 @@ class Home extends Component {
 
         <section className="designing-section">
           <Container className="position-relative">
-            <a href={homeData.section.designing.link}>
+            <a href={homeData.designingSection.link}>
               <div className="bx-ratio-section">
                 <img
-                  src={homeData.section.designing.image}
+                  src={homeData.designingSection.image}
                   alt=""
                   className="img-fluid top-img"
                 />
               </div>
               <div className="more d-flex ml-auto flex-column">
                 <div className="more-text">
-                  <span>{homeData.section.designing.linkTopText}</span>
-                  <h4>{homeData.section.designing.linkTitle}</h4>
+                  <span>{homeData.designingSection.linkTopText}</span>
+                  <h4>{homeData.designingSection.linkTitle}</h4>
                 </div>
                 <span className="arrow-icon mt-auto">
                   <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -128,18 +128,18 @@ class Home extends Component {
 
         <section className="designing-section">
           <Container className="position-relative">
-            <a href={homeData.section.development.link}>
+            <a href={homeData.developmentSection.link}>
               <div className="bx-ratio-section">
                 <img
-                  src={homeData.section.development.image}
+                  src={homeData.developmentSection.image}
                   alt=""
                   className="img-fluid top-img"
                 />
               </div>
               <div className="more d-flex ml-auto flex-column">
                 <div className="more-text">
-                  <span>{homeData.section.development.linkTopText}</span>
-                  <h4>{homeData.section.development.linkTitle}</h4>
+                  <span>{homeData.developmentSection.linkTopText}</span>
+                  <h4>{homeData.developmentSection.linkTitle}</h4>
                 </div>
                 <span className="arrow-icon mt-auto">
                   <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -152,12 +152,12 @@ class Home extends Component {
         <section className="other-resource">
           <Container>
             <div className="resource-wrap">
-              <h5 className="main-head">{homeData.resource.title}</h5>
-              <p>{homeData.resource.description}</p>
+              <h5 className="main-head">{homeData.resource.otherResourceTitle}</h5>
+              <p>{homeData.resource.otherResourceDescription}</p>
 
               <div className="resource-list">
                 <Row>
-                  {homeData.resource.resourceComponets.map(items => (
+                  {homeData.resource.otherResourceComponets.map(items => (
                     <DeveloperResource title={items.title} />
                   ))}
 
@@ -176,12 +176,12 @@ class Home extends Component {
           <Container>
             <div className="resource-wrap">
               <h5 className="main-head">
-                {homeData.laetstTrends.sectionTitle}
+                {homeData.latestTrends.latestTrendSectionTitle}
               </h5>
 
               <div className="resource-list">
                 <Row>
-                  {homeData.laetstTrends.article.map(items => (
+                  {homeData.latestTrends.latestTrendSectionArticle.map(items => (
                     <ArticlePost title={items.title} topimage={items.image} />
                   ))}
 
@@ -203,7 +203,7 @@ class Home extends Component {
           </Container>
         </section>
 
-        <section className="main-content start-contributing">
+        {/* <section className="main-content start-contributing">
           <Container>
             <Row>
               <Col md={4}>
@@ -214,6 +214,24 @@ class Home extends Component {
                   <p>{homeData.contribute.description}</p>
                   <Link to={homeData.contribute.link}>
                     {homeData.contribute.linkText}
+                  </Link>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </section> */}
+
+        <section className="main-content start-contributing">
+          <Container>
+            <Row>
+              <Col md={4}>
+                <div className="heading">Wondering how to contribute?</div>
+              </Col>
+              <Col md={4} lg={8}>
+                <div className="heading-description">
+                  <p>We welcome all feedback, designs, or ideas in order to produce the best possible experience for our users. If you’re interested in contributing, check out our contributing guidelines to get started.</p>
+                  <Link to="/">
+                  Start contributing
                   </Link>
                 </div>
               </Col>

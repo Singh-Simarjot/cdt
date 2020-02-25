@@ -171,7 +171,7 @@ class Navigation extends Component {
     item.navigationURL = item.url
      return item
    });
-   this.context.updateNavigation(navigation);
+   this.context.updateNavigation(selectedProjectID,navigation);
   };
 
   render() {

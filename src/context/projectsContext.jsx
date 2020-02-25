@@ -51,13 +51,13 @@ export class ProjectsContext extends Component {
   };
   handleProjectDetail = async id => {
     this.setState({ isloading: false });
-   
+
     var result;
     try {
       result = await getProjectDetail(id).then(response => {
         if (response.status === 200) {
           const selectedProject = response.data;
-          console.log(selectedProject);
+
           this.setState(
             {
               selectedProjectID: selectedProject.id,
@@ -69,14 +69,30 @@ export class ProjectsContext extends Component {
             }
           );
 
+          /*
+        let resourceComponent = selectedProject.data.resource.otherResourceComponets;
+        const newResourceComponent = JSON.parse(resourceComponent);
+        
+        this.setState({
+          resourceComponent : newResourceComponent
+        });
+
+        */
+        
+            
           return selectedProject;
         }
       });
-    } catch (err) {}
+    } catch (err) {}   
+
     return result;
+
+    
+    
   };
 
   onSelectPage = async selectedPageID => {
+    
     this.setState({ selectedPageID });
   };
 
@@ -159,8 +175,14 @@ export class ProjectsContext extends Component {
     const selectedPage = { ...this.state.selectedPage };
     const selectedProject = { ...this.state.selectedProject };
     let data = {};
+    if(page.saved) {
+             data.saved = 0
+    } 
+    else {
+         data.saved = 1
+    }
 
-    data.saved = page.saved === 1 ? false : true;
+   
     try {
       await updatePageStatus(page.id, data).then(response => {
         if (response.status === 200) {
@@ -170,7 +192,7 @@ export class ProjectsContext extends Component {
           selectedPage.saved = data.saved;
           this.setState({ selectedPage, selectedProject });
           toast.success(
-            selectedPage.saved ? "Marked as Draft !" : "Page is Live Now !"
+            selectedPage.saved ? "Page is Live Now !" : "Marked as Draft !"
           );
         }
       });
@@ -194,7 +216,7 @@ export class ProjectsContext extends Component {
     toast.success("Project Deleted!");
   };
 
-  updateNavigation = async navigation => {
+  updateNavigation = async (id,navigation) => {
     const newNav = [
       {
         title: "Navigation Data",
@@ -232,11 +254,9 @@ export class ProjectsContext extends Component {
     ];
 
     const selectedProject = { ...this.state.selectedProject };
-    if (selectedProject.navigation.length > 0) {
-      await updateNav(JSON.stringify(navigation));
-    } else {
-      await createNav(JSON.stringify(navigation));
-    }
+  
+      await updateNav(id,JSON.stringify(newNav));
+   
 
     selectedProject.navigation = navigation;
     toast.success("Navigation Updated!");
