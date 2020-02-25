@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal, Row, Col } from "react-bootstrap";
 import nextId from "react-id-generator";
 import FileBase64 from "react-file-base64";
 import { uploadFile } from "../../services/projects";
@@ -10,6 +10,7 @@ class IconGrid extends Component {
       {
         id: "1",
         url: "",
+        name: "",
         delete: true
       }
     ],
@@ -38,7 +39,7 @@ class IconGrid extends Component {
 
   addMoreIcon = () => {
     const dummyid = nextId();
-    const obj = { id: dummyid, url: "", delete: true };
+    const obj = { id: dummyid, url: "", name: "", delete: true };
     const items = [...this.state.items, obj];
     this.setState({ items });
   };
@@ -92,12 +93,21 @@ class IconGrid extends Component {
     const items = this.state.items;
 
     return items.filter(item => item.url === "").length !== 0 ||
+      items.filter(item => item.name === "").length !== 0 ||
       items.length === 0 ||
       widget.title == "" ||
       widget.description == ""
       ? true
       : false;
   }
+
+  addIconName = (e, id) => {
+    const items = this.state.items;
+    items.filter(item =>
+      item.id === id ? (item.name = e.target.value) : item
+    );
+    this.setState({ items });
+  };
 
   getIcon = async (files, id) => {
     const items = this.state.items;
@@ -116,6 +126,12 @@ class IconGrid extends Component {
         }
       });
     } catch (err) {}
+  };
+
+  removeIcone = id => {
+    const items = this.state.items;
+    items.filter(item => (item.id === id ? (item.url = "") : item));
+    this.setState({ items });
   };
 
   render() {
@@ -144,13 +160,36 @@ class IconGrid extends Component {
           <div className="widgetsDiv">
             {items.map(item => (
               <Form.Group className="addIceon" key={item.id}>
-                {item.url ? (
-                  <div className="imageOverRemove">
-                    <img src={item.url} alt="icon Url" />
-                  </div>
-                ) : (
-                  <FileBase64 onDone={e => this.getIcon(e, item.id)} />
-                )}
+                <Row>
+                  <Col>
+                    <Form.Group>
+                      <Form.Control
+                        type="text"
+                        placeholder="Icon Name"
+                        value={item.name}
+                        onChange={e => this.addIconName(e, item.id)}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group>
+                      {item.url ? (
+                        <div className="imageOverRemove">
+                          <img src={item.url} alt="icon Url" />
+                          <Button
+                            variant={"danger"}
+                            size="sm"
+                            onClick={() => this.removeIcone(item.id)}
+                          >
+                            <i className="fa fa-times"></i>
+                          </Button>
+                        </div>
+                      ) : (
+                        <FileBase64 onDone={e => this.getIcon(e, item.id)} />
+                      )}
+                    </Form.Group>
+                  </Col>
+                </Row>
                 <Button
                   size={"sm"}
                   variant="link"
@@ -167,7 +206,8 @@ class IconGrid extends Component {
                 variant="success"
                 onClick={this.addMoreIcon}
                 disabled={
-                  this.state.items.filter(item => item.url === "").length > 0
+                  this.state.items.filter(item => item.url === "").length > 0 ||
+                  this.state.items.filter(item => item.name === "").length > 0
                     ? true
                     : false
                 }

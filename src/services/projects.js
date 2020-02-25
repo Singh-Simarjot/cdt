@@ -27,8 +27,8 @@ export function deleteProject(id) {
   return apiService.post(projectsEndpoint);
 }
 
-export function updateProject(id,data) {
-  const projectsEndpoint = APIBASEURL + "project/update/" +id;
+export function updateProject(id, data) {
+  const projectsEndpoint = APIBASEURL + "project/update/" + id;
   return apiService.post(projectsEndpoint, data);
 }
 
@@ -37,8 +37,8 @@ export function createPage(data) {
   return apiService.post(pageEndpoint, data);
 }
 
-export function updatePage(id,data) {
-  const pageEndpoint = APIBASEURL + "page/update/"+id;
+export function updatePage(id, data) {
+  const pageEndpoint = APIBASEURL + "page/update/" + id;
   return apiService.post(pageEndpoint, data);
 }
 
