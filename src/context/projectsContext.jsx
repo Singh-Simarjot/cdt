@@ -61,7 +61,7 @@ export class ProjectsContext extends Component {
       result = await getProjectDetail(id).then(response => {
         if (response.status === 200) {
           const selectedProject = response.data;
-
+          // console.log(selectedProject);
           this.setState(
             {
               selectedProjectID: selectedProject.id,

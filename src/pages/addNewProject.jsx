@@ -649,6 +649,7 @@ class AddNewProject extends Component {
                             {newProject.data.headerSection.video ? (
                               <div className="imageOverRemove">
                                 <video
+                                  controls
                                   src={newProject.data.headerSection.video}
                                 ></video>
                                 <Button

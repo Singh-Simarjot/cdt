@@ -98,7 +98,8 @@ class Preview extends Component {
                 ))
               )
             )} */}
-            {selectedProject.navigation.map(item => (
+            {selectedProject.navigation !== null && (
+              selectedProject.navigation.map(item => (
               <>
               {console.log("/preview" + item.url)}
                 <Route
@@ -114,7 +115,9 @@ class Preview extends Component {
                     />
                   ))} */}
               </>
-            ))}
+            ))
+            )
+            }
           </Switch>
           <Footer />
         </div>

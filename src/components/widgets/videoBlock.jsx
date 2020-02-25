@@ -3,6 +3,8 @@ import "./widgets.scss";
 import { Form, Modal, Button } from "react-bootstrap";
 import nextId from "react-id-generator";
 // import FigureImage from "react-bootstrap/FigureImage";
+import FileBase64 from "react-file-base64";
+import { uploadFile } from "../../services/projects";
 
 class VideoBlock extends Component {
   state = {
@@ -74,6 +76,26 @@ class VideoBlock extends Component {
     this.setState({ widget });
     this.props.onSaveComponent(widget);
   };
+  getVideo = async files => {
+    const widget = this.state.widget;
+    const video = [files];
+    try {
+      await uploadFile(JSON.stringify(video)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            widget.content.video = data.file.toString();
+            this.setState({ widget });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+  removeWidgetVideo = () => {
+    const widget = this.state.widget;
+    widget.content.video = "";
+    this.setState({ widget });
+  };
   render() {
     const { onModalChange } = this.props;
     const { widget } = this.state;
@@ -122,24 +144,58 @@ class VideoBlock extends Component {
             {this.state.widget.content.videoType === "URL" && (
               <Form.Group>
                 <Form.Label>Video Url</Form.Label>
-                <Form.Control
-                  value={widget.content.video}
-                  onChange={e => this.addVideo(e)}
-                />
+                {widget.content.video ? (
+                  <div
+                    className="imageOverRemove"
+                    style={{ marginBottom: "15px" }}
+                  >
+                    <iframe src={widget.content.video} frameborder="0"></iframe>
+                    <Button
+                      variant={"danger"}
+                      size="sm"
+                      onClick={this.removeWidgetVideo}
+                    >
+                      <i className="fa fa-times"></i>
+                    </Button>
+                  </div>
+                ) : (
+                  <div style={{ marginBottom: "15px" }}>
+                    <Form.Control
+                      value={widget.content.video}
+                      onChange={e => this.addVideo(e)}
+                    />
+                  </div>
+                )}
               </Form.Group>
             )}
             {this.state.widget.content.videoType === "INTERNAL_STORAGE" && (
               <Form.Group>
                 <Form.Label>Add Video</Form.Label>
-                <Form.Control
+                {widget.content.video ? (
+                  <div
+                    className="imageOverRemove"
+                    style={{ marginBottom: "15px" }}
+                  >
+                    <video controls src={widget.content.video}></video>
+
+                    <Button
+                      variant={"danger"}
+                      size="sm"
+                      onClick={this.removeVideo}
+                    >
+                      <i className="fa fa-times"></i>
+                    </Button>
+                  </div>
+                ) : (
+                  <div style={{ marginBottom: "15px" }}>
+                    <FileBase64 onDone={this.getVideo.bind(this)} />
+                  </div>
+                )}
+                {/* <Form.Control
                   type="file"
                   value={widget.content.video}
                   onChange={e => this.addVideo(e)}
-                />
-                {/* <label className="dropImg">
-                  <input type="file" />
-                  <span>Drag & Drop Video Here</span>
-                </label> */}
+                /> */}
               </Form.Group>
             )}
           </div>

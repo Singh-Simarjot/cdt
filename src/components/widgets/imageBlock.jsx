@@ -17,7 +17,7 @@ class ImageBlock extends Component {
       description: "",
       internalNavigation: false,
       content: {
-        image: []
+        image: ""
       }
     }
   };
@@ -95,25 +95,24 @@ class ImageBlock extends Component {
   };
 
   getImage = async files => {
-    // const widget = this.state.widget;
-    // widget.content.image = files.map(f => f.meta);
-    // this.setState({ widget });
-    /*
-    const newProject = this.state.newProject;
-    const projectThum = [files];
+    const widget = this.state.widget;
+    const image = [files];
     try {
-      await uploadFile(JSON.stringify(projectThum)).then(response => {
+      await uploadFile(JSON.stringify(image)).then(response => {
         if (response.status === 200) {
           const data = response.data;
           if (data.status) {
-            // console.log("data ", data);
-            newProject.thumbnail = data.file.toString();
-            this.setState({ newProject });
+            widget.content.image = data.file.toString();
+            this.setState({ widget });
           }
         }
       });
     } catch (err) {}
-    */
+  };
+  removeWidgetImage = () => {
+    const widget = this.state.widget;
+    widget.content.image = "";
+    this.setState({ widget });
   };
   render() {
     const { onModalChange } = this.props;
@@ -140,19 +139,20 @@ class ImageBlock extends Component {
           </Form.Group>
           <Form.Group>
             <div className="widgetsDiv">
-              {/* <label className="dropImg">
-                <Dropzone
-                  getUploadParams={this.getUploadParams}
-                  onChangeStatus={this.handleChangeStatus}
-                  onSubmit={this.handleSubmit}
-                  maxFiles={1}
-                  accept="image/*,audio/*,video/*"
-                />
-              </label> */}
-              <FileBase64
-                // multiple={true}
-                onDone={this.getImage.bind(this)}
-              />
+              {widget.content.image ? (
+                <div className="imageOverRemove">
+                  <img src={widget.content.image} alt="widget image" />
+                  <Button
+                    variant={"danger"}
+                    size="sm"
+                    onClick={this.removeWidgetImage}
+                  >
+                    <i className="fa fa-times"></i>
+                  </Button>
+                </div>
+              ) : (
+                <FileBase64 onDone={this.getImage.bind(this)} />
+              )}
             </div>
           </Form.Group>
           <Form.Group>
