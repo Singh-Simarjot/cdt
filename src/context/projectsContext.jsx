@@ -57,7 +57,7 @@ export class ProjectsContext extends Component {
       result = await getProjectDetail(id).then(response => {
         if (response.status === 200) {
           const selectedProject = response.data;
-
+          // console.log(selectedProject);
           this.setState(
             {
               selectedProjectID: selectedProject.id,
@@ -78,21 +78,16 @@ export class ProjectsContext extends Component {
         });
 
         */
-        
-            
+
           return selectedProject;
         }
       });
-    } catch (err) {}   
+    } catch (err) {}
 
     return result;
-
-    
-    
   };
 
   onSelectPage = async selectedPageID => {
-    
     this.setState({ selectedPageID });
   };
 
@@ -175,14 +170,12 @@ export class ProjectsContext extends Component {
     const selectedPage = { ...this.state.selectedPage };
     const selectedProject = { ...this.state.selectedProject };
     let data = {};
-    if(page.saved) {
-             data.saved = 0
-    } 
-    else {
-         data.saved = 1
+    if (page.saved) {
+      data.saved = 0;
+    } else {
+      data.saved = 1;
     }
 
-   
     try {
       await updatePageStatus(page.id, data).then(response => {
         if (response.status === 200) {
@@ -216,7 +209,7 @@ export class ProjectsContext extends Component {
     toast.success("Project Deleted!");
   };
 
-  updateNavigation = async (id,navigation) => {
+  updateNavigation = async (id, navigation) => {
     const newNav = [
       {
         title: "Navigation Data",
@@ -254,9 +247,8 @@ export class ProjectsContext extends Component {
     ];
 
     const selectedProject = { ...this.state.selectedProject };
-  
-      await updateNav(id,JSON.stringify(newNav));
-   
+
+    await updateNav(id, JSON.stringify(newNav));
 
     selectedProject.navigation = navigation;
     toast.success("Navigation Updated!");

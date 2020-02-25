@@ -4,6 +4,8 @@ import "./widgets.scss";
 // import ko from "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js";
 import { Button, Form, Modal } from "react-bootstrap";
 import nextId from "react-id-generator";
+import FileBase64 from "react-file-base64";
+import { uploadFile } from "../../services/projects";
 
 class MultipleImage extends Component {
   state = {
@@ -11,7 +13,7 @@ class MultipleImage extends Component {
       {
         id: "1",
         url: "",
-        delete: null
+        delete: true
       }
     ],
     widget: {
@@ -23,7 +25,7 @@ class MultipleImage extends Component {
       description: "",
       internalNavigation: false,
       content: {
-        icons: []
+        images: []
       }
     }
   };
@@ -33,7 +35,7 @@ class MultipleImage extends Component {
     if (modalOpenType === "edit") {
       const content = this.props.data;
       this.setState({ widget: content });
-      // this.setState({ items: content.content.icons });
+      this.setState({ items: content.content.images });
     }
   }
 
@@ -60,13 +62,13 @@ class MultipleImage extends Component {
     this.setState({ widget });
   };
 
-  addIcon = e => {
-    const items = this.state.items;
-    items.filter(item =>
-      item.id === e.target.id ? (item.url = e.target.value) : item
-    );
-    this.setState({ items });
-  };
+  // addIcon = e => {
+  //   const items = this.state.items;
+  //   items.filter(item =>
+  //     item.id === e.target.id ? (item.url = e.target.value) : item
+  //   );
+  //   this.setState({ items });
+  // };
   onSaveContent = () => {
     let dummyid;
     const widget = { ...this.state.widget };
@@ -77,7 +79,7 @@ class MultipleImage extends Component {
       dummyid = nextId();
     }
     widget.id = dummyid;
-    widget.content.icons = this.state.items;
+    widget.content.images = this.state.items;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
   };
@@ -93,11 +95,36 @@ class MultipleImage extends Component {
     const items = this.state.items;
 
     return items.filter(item => item.url === "").length !== 0 ||
+      items.length === 0 ||
       widget.title == "" ||
       widget.description == ""
       ? true
       : false;
   }
+
+  getImage = async (files, id) => {
+    const items = this.state.items;
+    const image = [files];
+
+    try {
+      await uploadFile(JSON.stringify(image)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            items.filter(item =>
+              item.id === id ? (item.url = data.file.toString()) : item
+            );
+            this.setState({ items });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+  // removeWidgetImage = id => {
+  //   const items = this.state.items;
+  //   items.filter(item => (item.id === id ? (item.url = "") : item));
+  //   this.setState({ items });
+  // };
   render() {
     const { onModalChange } = this.props;
     const { widget, items } = this.state;
@@ -124,13 +151,28 @@ class MultipleImage extends Component {
           <div className="widgetsDiv">
             {items.map(item => (
               <Form.Group className="addIceon" key={item.id}>
-                <Form.Control
+                {item.url ? (
+                  <div className="imageOverRemove">
+                    <img src={item.url} alt="item image" />
+                    {/* <Button
+                      variant={"danger"}
+                      size="sm"
+                      onClick={() => this.removeWidgetImage(item.id)}
+                    >
+                      <i className="fa fa-times"></i>
+                    </Button> */}
+                  </div>
+                ) : (
+                  <FileBase64 onDone={e => this.getImage(e, item.id)} />
+                )}
+
+                {/* <Form.Control
                   type="file"
                   accept="image/*"
                   id={item.id}
                   // value={item.url}
                   onChange={e => this.addIcon(e)}
-                />
+                /> */}
                 <Button
                   size={"sm"}
                   variant="link"
