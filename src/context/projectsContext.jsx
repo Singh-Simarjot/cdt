@@ -164,8 +164,10 @@ export class ProjectsContext extends Component {
     
     const selectedProject = { ...this.state.selectedProject };
 
+    const page = {projectID:this.state.selectedProjectID,page:selectedPage }  
+
     try {
-      await updatePage(selectedPage.id,JSON.stringify(selectedPage)).then(response => {
+      await updatePage(selectedPage.id,JSON.stringify(page)).then(response => {
         if (response.status === 200) {
           selectedProject.pages.filter(item =>
             item.id === selectedPage.id
