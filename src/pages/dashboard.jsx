@@ -28,7 +28,6 @@ class Dashbord extends Component {
     this.props.history.push("/project");
   };
   componentDidMount() {
-    
     this.context.getAllProjects();
   }
   onPreview = id => {
@@ -76,7 +75,9 @@ class Dashbord extends Component {
                           >
                             <Card.Img
                               variant="top"
-                              src={ProjectLogo1}
+                              src={
+                                item.thumbnail ? item.thumbnail : ProjectLogo1
+                              }
                               alt={item.title}
                             />
                           </Card.Body>

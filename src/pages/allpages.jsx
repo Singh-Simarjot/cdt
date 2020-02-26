@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import ProjectsContext from "../context/projectsContext";
 import moment from "moment";
 import ModalDelete from "../components/modalDelete/modalDelete";
- 
-import Loader from '../components/loader/loader';
+
+import Loader from "../components/loader/loader";
 class AllPages extends Component {
   static contextType = ProjectsContext;
 
@@ -24,19 +24,21 @@ class AllPages extends Component {
   };
 
   onEditPage = id => {
-    this.context.onSelectPage(id)
+    this.context.onSelectPage(id);
     this.props.history.push({
-      pathname: "/project/editpage" 
-    
+      pathname: "/project/editpage"
     });
   };
 
   render() {
-    const { selectedProject,isloading } = this.context;
+    const { selectedProject, isloading } = this.context;
     const pages =
-    selectedProject !== null &&  selectedProject.pages !== undefined   && selectedProject.pages ;
-      
-      if(isloading ){ return (
+      selectedProject !== null &&
+      selectedProject.pages !== undefined &&
+      selectedProject.pages;
+
+    if (isloading) {
+      return (
         <div className="content">
           <div className="contentTop">
             <Row>
@@ -44,7 +46,11 @@ class AllPages extends Component {
                 <h2>Pages</h2>
               </Col>
               <Col xs={4} className="text-right">
-                <Link to="/project/addnew" size="sm" className="btn btn-success">
+                <Link
+                  to="/project/addnew"
+                  size="sm"
+                  className="btn btn-success"
+                >
                   Create New Page
                 </Link>
               </Col>
@@ -56,7 +62,7 @@ class AllPages extends Component {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Project Name</th>
+                    <th>Page Name</th>
                     <th>Date Created</th>
                     <th>Date Edited</th>
                     <th>Template Type</th>
@@ -101,9 +107,7 @@ class AllPages extends Component {
                           variant="warning"
                           className="ml-2"
                         >
-                        {project.saved ? "Mark as Draft" : "Publish"}
-                        
-                          
+                          {project.saved ? "Mark as Draft" : "Publish"}
                         </Button>
                       </td>
                       <td></td>
@@ -121,11 +125,10 @@ class AllPages extends Component {
             onconfirm={this.confirmAction}
           />
         </div>
-      )}
-      else{
-        return <Loader />
-      }
-   
+      );
+    } else {
+      return <Loader />;
+    }
   }
 }
 

@@ -13,7 +13,7 @@ class Html extends Component {
       <div className="htmlPreview">
         <h3>{data.title}</h3>
         <p>{data.description}</p>
-        {ReactHtmlParser(data.content)}
+        {ReactHtmlParser(data.content.code)}
       </div>
     );
   }

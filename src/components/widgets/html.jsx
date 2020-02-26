@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import "./widgets.scss";
 import { Form, Modal, Button } from "react-bootstrap";
 import nextId from "react-id-generator";
+import Editor from "react-simple-code-editor";
+import { highlight, languages } from "prismjs/components/prism-core";
+const code = `<h1>Hello world</h1>
+<p>Hello world</p>`;
 class Html extends Component {
   state = {
+    code,
     widget: {
       id: "",
       icon: "fa-code",
@@ -12,7 +17,9 @@ class Html extends Component {
       title: "",
       description: "",
       internalNavigation: false,
-      content: ""
+      content: {
+        code: ""
+      }
     }
   };
   componentDidMount() {
@@ -20,6 +27,7 @@ class Html extends Component {
     if (modalOpenType === "edit") {
       const content = this.props.data;
       this.setState({ widget: content });
+      this.setState({ code: content.content.code });
     }
   }
   titleInput = e => {
@@ -33,9 +41,12 @@ class Html extends Component {
     this.setState({ widget });
   };
   contentInput = e => {
+    /*
     const widget = { ...this.state.widget };
     widget.content = e.target.value;
     this.setState({ widget });
+    */
+    this.setState({ code: e.target.value });
   };
   internalNavigation = e => {
     const widget = { ...this.state.widget };
@@ -49,11 +60,16 @@ class Html extends Component {
     if (this.props.modalOpenType === "edit") {
       dummyid = widget.id;
     } else {
-     // dummyid = nextId();
-     dummyid = "_" + Math.random().toString(36).substr(2, 9);
+      // dummyid = nextId();
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
 
     widget.id = dummyid;
+    widget.content.code = this.state.code;
     this.setState({ widget });
     this.props.onSaveComponent(widget);
   };
@@ -91,12 +107,19 @@ class Html extends Component {
           <div className="widgetsDiv">
             <Form.Group>
               <Form.Label>HTML Code</Form.Label>
-              <Form.Control
-                value={widget.content}
-                onChange={e => this.contentInput(e)}
-                as="textarea"
-                rows="4"
-              />
+              <div className="codeEditor">
+                <Editor
+                  value={this.state.code}
+                  onValueChange={code => this.setState({ code })}
+                  highlight={code => highlight(code, languages.js)}
+                  padding={10}
+                  style={{
+                    fontFamily: '"Fira code", "Fira Mono", monospace',
+                    fontSize: 12
+                  }}
+                  onChange={e => this.contentInput(e)}
+                />
+              </div>
             </Form.Group>
           </div>
           <Form.Group>
