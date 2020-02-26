@@ -48,7 +48,7 @@ class Navigation extends Component {
                   onDelete={this.handleDelete}
                   onSaveLabel={this.handleEditLabel}
                   item={subItem}
-                  parentid={subItem.dummyid}
+                  parentid={item.dummyid}
                   dummyId={subItem.dummyid}
                 />
               );
@@ -80,15 +80,16 @@ class Navigation extends Component {
     console.log(key, subkey);
   };
   handleDelete = (id, parentid) => {
-    console.log(id, parentid);
+    console.log("id:" + id + " parent: " + parentid);
     const navigation = [...this.state.navigation];
     let result;
 
     if (parentid !== null) {
-       
       result = navigation.filter(item =>
         item.dummyid === parentid
-          ? (item.children = item.children.filter(item => item.dummyid !== id))
+          ? (item.children = item.children.filter(
+              child => child.dummyid !== id
+            ))
           : item
       );
     } else {
@@ -113,6 +114,11 @@ class Navigation extends Component {
   sortNavigation = nav => {
     nav.navigation.filter(
       (item, key) => (
+        (item.dummyid =
+          "_" +
+          Math.random()
+            .toString(36)
+            .substr(2, 9)),
         item.children !== undefined &&
           item.children.filter((subItem, subkey) => {
             subItem.dummyid =
@@ -126,16 +132,11 @@ class Navigation extends Component {
                 onDelete={this.handleDelete}
                 onSaveLabel={this.saveLabel}
                 item={subItem}
-                parentid={subItem.dummyid}
+                parentid={item.dummyid}
                 dummyId={subItem.dummyid}
               />
             );
           }),
-        ((item.dummyid =
-          "_" +
-          Math.random()
-            .toString(36)
-            .substr(2, 9)),
         (item.subtitle = (
           <NavigationControls
             onEdit={this.handleEdit}
@@ -145,7 +146,7 @@ class Navigation extends Component {
             parentid={null}
             dummyId={item.dummyid}
           />
-        )))
+        ))
       )
     );
     this.setState({ navigation: nav.navigation });
