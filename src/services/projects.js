@@ -66,6 +66,11 @@ export function uploadFile(file) {
   return apiService.post(projectsEndpoint, file);
 }
 
+export function previewProject(id) {
+  const projectsEndpoint = APIBASEURL + "project/download/"+id;
+  return apiService.get(projectsEndpoint);
+}
+
 // export function uploadFile(file) {
 //   const projectsEndpoint = APIBASEURL + "project/file";
 //   return apiService.post(projectsEndpoint, file, {

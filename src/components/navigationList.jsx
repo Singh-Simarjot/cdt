@@ -22,7 +22,6 @@ pages.filter(items => {
   return items.saved === 1 ;
 });
 
-console.log(navPages,pages)
 
     return (
       <div className="componentsList">

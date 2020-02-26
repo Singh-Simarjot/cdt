@@ -6,29 +6,18 @@ import PageHeader from "../components/PageHeader/PageHeader";
 import Tabs from "../components/Tab/Tabing";
 
 import ComponentsContent from "../components/componentsContent";
+import Loader from "../../components/loader/loader";
 class DefaultTemplate extends Component {
   static contextType = ProjectsContext;
-  //   state = {};
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  componentDidMount() {
-    const { selectedPageID ,selectedPage ,onSelectSubPage } = this.context;
-    if (selectedPageID === null || selectedPage ===undefined ) {
-      this.props.history.push("/preview");
-    }  
-    if(selectedPage !== undefined && selectedPage.templateType === "TABS" && selectedPage.data.tabs.length>0 ){
-      onSelectSubPage(selectedPage.data.tabs[0].id);
-      console.log(this.props.match.url + selectedPage.data.tabs[0].url)
-      this.props.history.push(this.props.match.url + selectedPage.data.tabs[0].url);
-    }
-  }
+    state = {isLoading:true};
+  
+  
    
   render() {
-    const { selectedPage, subPage } = this.context;
-    
-    return (
+    const {  subPage } = this.context;
+    const { selectedPage } = this.props;
+    const widgets = JSON.parse(selectedPage.widgets)
+ return (
       selectedPage !== undefined  ?
       <React.Fragment>
         <PageHeader pageTitel={selectedPage.title} />
@@ -54,11 +43,11 @@ class DefaultTemplate extends Component {
             {/* <Redirect to={this.props.match.url + selectedPage.data.tabs[0].url} /> */}
           </Switch>
         ) : (
-          <ComponentsContent data={selectedPage.data.widgets} />
+          <ComponentsContent data={selectedPage.widgets} />
         )}
       </React.Fragment> 
       :"Page Not FOund"
-    );
+    ) 
   }
 }
 
