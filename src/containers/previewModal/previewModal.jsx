@@ -56,9 +56,9 @@ class PreviewModal extends Component {
 
   render() {
     const { showModal, page } = this.props;
-    const interNav = page.data.widgets.filter(function(nav) {
-      return nav.internalNavigation === true;
-    });
+    // const interNav = page.data.widgets.filter(function(nav) {
+    //   return nav.internalNavigation === true;
+    // });
     return (
       <>
         <Modal
@@ -76,11 +76,14 @@ class PreviewModal extends Component {
             {page.title ? page.title : "Title Undefined"}
           </Modal.Header>
           <Modal.Body>
-            {interNav.map(function(nav) {
+
+          <InternalNav data={page.data.widgets} />
+
+            {/* {interNav.map(function(nav) {
               return (
-                <InternalNav link={nav.id} title={nav.title} />
+                <InternalNav />
               );
-            })}
+            })} */}
 
             {page.data.widgets.length > 0
               ? page.data.widgets.map(item => this.renderPreview(item))
