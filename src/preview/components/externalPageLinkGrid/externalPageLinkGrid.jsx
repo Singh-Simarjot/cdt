@@ -19,8 +19,8 @@ class ExternalPageLinkGrid extends Component {
                   <Card.Body>
                     <Card.Text>{tag.label}</Card.Text>
                     <img src={tag.icon} alt={tag.label} />
-                    <i className={tag.iconpackage}></i>
-                    <i className={tag.iconlink}></i>
+                    {/* <i className={tag.iconpackage}></i>
+                    <i className={tag.iconlink}></i> */}
                   </Card.Body>
                 </Card>
               </Link>

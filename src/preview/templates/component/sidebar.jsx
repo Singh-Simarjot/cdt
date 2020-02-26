@@ -32,7 +32,8 @@ class Sidebar extends Component {
 
     return (
       <div className="home-sidebar">
-        {selectedProject.navigation.length > 0 && (
+        {selectedProject.navigation !== null && (
+          selectedProject.navigation.length > 0 && (
           <ListGroup className="nav-list">
             <ListGroup.Item>
               <NavLink to={"/preview"}>
@@ -84,7 +85,7 @@ class Sidebar extends Component {
               </ListGroup.Item>
             ))}
           </ListGroup>
-        )}
+        ))}
       </div>
     );
   }

@@ -95,6 +95,20 @@ class EditProject extends Component {
 
     this.setState({ project });
   };
+
+    // changeVideotype
+    changeVideotype = e => {
+      const newProject = { ...this.state.project };
+      newProject.data.headerSection.videoType = e.target.value;
+      newProject.data.headerSection.video = "";
+      this.setState({ newProject });
+    };
+    removeProjevtVideo = () => {
+      const newProject = { ...this.state.project };
+      newProject.data.headerSection.video = "";
+      this.setState({ newProject });
+    };
+
   addProject = e => {
     e.preventDefault();
     this.context.onUpdateProject(this.state.project);
