@@ -19,6 +19,7 @@ class Content extends Component {
     const page = this.props.page;
     page.data.widgets = data;
   };
+
   render() {
     const { page, sortNavigation, pageLabel, onSave, onMarkDraft } = this.props;
 

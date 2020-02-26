@@ -39,18 +39,17 @@ class Preview extends Component {
           this.setState({ selectedProject, isLoading: true });
         }
       });
-    } catch (err) { 
+    } catch (err) {
       toast.error("Getting Some Issue, Please try agin later!");
-      this.props.history.push("/")
- 
+      this.props.history.push("/");
     }
   };
   handleSelectPage = id => {
     const pages = this.state.selectedProject.pages;
 
     const selectedPage = pages.filter(item => item.id === id);
-    console.log(pages,id)
-    this.setState({ selectedPage:selectedPage[0] });
+    // console.log(pages,id)
+    this.setState({ selectedPage: selectedPage[0] });
   };
 
   render() {

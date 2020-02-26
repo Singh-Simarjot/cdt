@@ -74,7 +74,8 @@ class AddNewPage extends Component {
     }, 500);
   };
   addToNavigation = item => {
-    const page = this.state.page;
+    // console.log("Nav",item);
+    const page = { ...this.state.page };
     let tabs = [...page.data.tabs, item];
     page.data.tabs = tabs;
     this.setState({ page });
@@ -98,6 +99,12 @@ class AddNewPage extends Component {
     this.setState({ modalData });
   };
   */
+  sortNavigation = tabs => {
+    const page = { ...this.state.page };
+    page.data.tabs = tabs.tabs;
+    console.log(page);
+    this.setState({ page });
+  };
   saveComponent = modalData => {
     const page = { ...this.state.page };
     if (this.state.modalOpenType === "edit") {
@@ -181,6 +188,7 @@ class AddNewPage extends Component {
           deleteWidgets={this.deleteWidgets}
           handlePreviewModal={this.handlePreviewModal}
           handelLoadeing={this.handelLoadeing}
+          sortNavigation={this.sortNavigation}
         />
         <ModalComponent
           title={this.props.text}
