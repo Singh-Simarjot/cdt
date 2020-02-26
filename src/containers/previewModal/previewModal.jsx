@@ -16,6 +16,7 @@ import ExternalPageLinkGrid from "../../preview/components/externalPageLinkGrid/
 import TextBlock from "../../preview/components/Content/Content";
 import ImageBlock from "../../preview/components/imageBlock/imageBlock";
 import MultipleImageBlock from "../../preview/components/multipleImageBlock/multipleImageBlock";
+import InternalNav from  "../../preview/components/internalNav/internalNav"
 // end components
 class PreviewModal extends Component {
   state = {
@@ -55,6 +56,9 @@ class PreviewModal extends Component {
 
   render() {
     const { showModal, page } = this.props;
+    const interNav = page.data.widgets.filter(function(nav) {
+      return nav.internalNavigation === true;
+    });
     return (
       <>
         <Modal
@@ -72,6 +76,12 @@ class PreviewModal extends Component {
             {page.title ? page.title : "Title Undefined"}
           </Modal.Header>
           <Modal.Body>
+            {interNav.map(function(nav) {
+              return (
+                <InternalNav link={nav.id} title={nav.title} />
+              );
+            })}
+
             {page.data.widgets.length > 0
               ? page.data.widgets.map(item => this.renderPreview(item))
               : "Please Add Widgets for this page"}

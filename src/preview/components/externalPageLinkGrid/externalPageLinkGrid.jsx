@@ -8,7 +8,7 @@ class ExternalPageLinkGrid extends Component {
     const { data } = this.props;
     return (
       <React.Fragment>
-        <h2>{data.title}</h2>
+        <h2 id ={data.id}>{data.title}</h2>
         <p>{data.description}</p>
         {/* <h3 className="mt-5 mb-3">Resources</h3> */}
         <Row>

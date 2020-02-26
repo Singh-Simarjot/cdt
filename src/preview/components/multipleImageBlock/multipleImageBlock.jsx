@@ -5,7 +5,7 @@ class MultipleImageBlock extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="multipleImageBlock">
+      <div className="multipleImageBlock"  id ={data.id}>
         <h3>{data.title}</h3>
         <p>{data.description}</p>
         <div className="multipleImageBlockGrid">

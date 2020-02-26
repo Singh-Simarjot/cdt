@@ -6,7 +6,7 @@ class CodeSnippetsWithView extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="codeSnippetsWithView">
+      <div className="codeSnippetsWithView"  id ={data.id}>
         <h1>{data.title}</h1>
         <p>{data.description}</p>
         {ReactHtmlParser(data.content.iframe)}

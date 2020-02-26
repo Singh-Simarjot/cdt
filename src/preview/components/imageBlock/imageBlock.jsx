@@ -5,7 +5,7 @@ class ImageBlock extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="ImageBlock">
+      <div className="ImageBlock"  id ={data.id}>
         <h3>{data.title}</h3>
         <p>{data.description}</p>
         <div>

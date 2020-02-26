@@ -14,7 +14,7 @@ class TypoGraphy extends Component {
     return (
       <React.Fragment>
         <MenuLink />
-        <div className="content-block">
+        <div className="content-block"  id ={data.id}>
           <h2>{data.title}</h2>
           <p>{data.description}</p>
           {/* <h2>Type tokens and sets</h2>

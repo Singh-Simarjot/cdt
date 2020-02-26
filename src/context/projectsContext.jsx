@@ -162,7 +162,6 @@ export class ProjectsContext extends Component {
 
   editPage = async selectedPage => {
     const selectedProject = { ...this.state.selectedProject };
-
     const page = {
       projectID: this.state.selectedProjectID,
       page: selectedPage

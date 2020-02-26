@@ -7,7 +7,7 @@ class CodeSnippets extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="codeSnippets">
+      <div className="codeSnippets"  id ={data.id}>
         <h1>{data.title}</h1>
         <p>{data.description}</p>
         <Editor

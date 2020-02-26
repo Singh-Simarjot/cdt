@@ -14,7 +14,7 @@ class TextBlock extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="content-block">
+      <div className="content-block"  id ={data.id} >
         <h1>{data.title}</h1>
         <p>{data.description}</p>
         <div className="contentHtml">{ReactHtmlParser(data.content)}</div>

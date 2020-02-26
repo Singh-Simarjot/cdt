@@ -10,7 +10,7 @@ class IconGrid extends Component {
     const { data } = this.props;
     console.log("data", data);
     return (
-      <div className="icon-grid">
+      <div className="icon-grid"  id ={data.id}>
         <h3 className="ml-0">{data.title}</h3>
         <p>{data.description}</p>
         <div className="icon-list">
