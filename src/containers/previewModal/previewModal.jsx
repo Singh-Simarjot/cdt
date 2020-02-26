@@ -14,6 +14,8 @@ import CodeSnippets from "../../preview/components/codeSnippets/codeSnippets";
 import CodeSnippetsWithView from "../../preview/components/codeSnippetsWithView/codeSnippetsWithView";
 import ExternalPageLinkGrid from "../../preview/components/externalPageLinkGrid/externalPageLinkGrid";
 import TextBlock from "../../preview/components/Content/Content";
+import ImageBlock from "../../preview/components/imageBlock/imageBlock";
+import MultipleImageBlock from "../../preview/components/multipleImageBlock/multipleImageBlock";
 // end components
 class PreviewModal extends Component {
   state = {
@@ -31,11 +33,9 @@ class PreviewModal extends Component {
       case "COLOR_PALETTE":
         return <ColorGrid data={item} />;
       case "MULTIPLE_IMAGE":
-        // return <MultipleImage data={item} />;
-        return <TableData data={item} />;
+        return <MultipleImageBlock data={item} />;
       case "IMAGE_BLOCK":
-        // return <ImageBlock data={item} />;
-        return <TableData data={item} />;
+        return <ImageBlock data={item} />;
       case "VIDEO_BLOCK":
         return <VideoBlock data={item} />;
       case "IFRAME_BLOCK":
