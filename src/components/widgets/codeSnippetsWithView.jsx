@@ -62,7 +62,8 @@ class CodeSnippetsWithView extends Component {
     if (this.props.modalOpenType === "edit") {
       dummyid = widget.id;
     } else {
-      dummyid = nextId();
+      //dummyid = nextId();
+      dummyid = "_" + Math.random().toString(36).substr(2, 9);
     }
     widget.id = dummyid;
     this.setState({ widget });
