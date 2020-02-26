@@ -40,6 +40,7 @@ class Sidebar extends Component {
 
     return (
       <div className="home-sidebar">
+<<<<<<< HEAD
         {selectedProject.navigation !== null &&
           selectedProject.navigation.length > 0 && (
             <ListGroup className="nav-list">
@@ -70,6 +71,35 @@ class Sidebar extends Component {
                       </span>
                     )}
                   </h5>
+=======
+        {selectedProject.navigation !== null && (
+          selectedProject.navigation.length > 0 && (
+          <ListGroup className="nav-list">
+            <ListGroup.Item>
+              <NavLink to={"/preview"}>
+                <h5>Home</h5>
+              </NavLink>
+            </ListGroup.Item>
+            {selectedProject.navigation.map(item => (
+             
+             
+              <ListGroup.Item key={item.id}>
+                <h5>
+                  {item.children !== undefined && item.children.length > 0 ? (
+                    item.title
+                  ) : (
+                    <NavLink
+                      to={"/preview" + item.url}
+                      exact
+                      onClick={() => {
+                        this.context.onSelectPage(item.id);
+                      }}
+                    >
+                      {" "}
+                      {item.title}{" "}
+                    </NavLink>
+                  )}
+>>>>>>> 814c84423c93f789c667a30fa112cdc987ca82a3
                   {item.children !== undefined && item.children.length > 0 && (
                     <ListGroup className="nav-sub-list">
                       {item.children.map(childItem => (
@@ -86,10 +116,35 @@ class Sidebar extends Component {
                       ))}
                     </ListGroup>
                   )}
+<<<<<<< HEAD
                 </ListGroup.Item>
               ))}
             </ListGroup>
           )}
+=======
+                </h5>
+                {item.children !== undefined && item.children.length > 0 && (
+                   
+                  <ListGroup className="nav-sub-list">
+                    {item.children.map(childItem => ( 
+                      <ListGroup.Item key={childItem.id}>
+                        <NavLink
+                          to={"/preview" + childItem.url} exact
+                          onClick={() => {
+                            this.context.onSelectPage(childItem.id);
+                          }}
+                        >
+                          {childItem.title}
+                        </NavLink>
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                )}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        ))}
+>>>>>>> 814c84423c93f789c667a30fa112cdc987ca82a3
       </div>
     );
   }

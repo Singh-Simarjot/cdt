@@ -14,8 +14,13 @@ import CodeSnippets from "../../preview/components/codeSnippets/codeSnippets";
 import CodeSnippetsWithView from "../../preview/components/codeSnippetsWithView/codeSnippetsWithView";
 import ExternalPageLinkGrid from "../../preview/components/externalPageLinkGrid/externalPageLinkGrid";
 import TextBlock from "../../preview/components/Content/Content";
+import ImageBlock from "../../preview/components/imageBlock/imageBlock";
+import MultipleImageBlock from "../../preview/components/multipleImageBlock/multipleImageBlock";
 // end components
 class PreviewModal extends Component {
+  state = {
+    isLoadeing: false
+  };
   renderPreview(item) {
     // data.map(item => item.type);
     switch (item.type) {
@@ -28,11 +33,9 @@ class PreviewModal extends Component {
       case "COLOR_PALETTE":
         return <ColorGrid data={item} />;
       case "MULTIPLE_IMAGE":
-        // return <MultipleImage data={item} />;
-        return <TableData data={item} />;
+        return <MultipleImageBlock data={item} />;
       case "IMAGE_BLOCK":
-        // return <ImageBlock data={item} />;
-        return <TableData data={item} />;
+        return <ImageBlock data={item} />;
       case "VIDEO_BLOCK":
         return <VideoBlock data={item} />;
       case "IFRAME_BLOCK":
@@ -49,39 +52,42 @@ class PreviewModal extends Component {
         return "foo";
     }
   }
+
   render() {
     const { showModal, page } = this.props;
     return (
-      <Modal
-        size={"xl"}
-        show={showModal}
-        className="previewModa"
-        backdropClassName="previewModalBackdrop"
-        onHide={() => {
-          this.props.handlePreviewModal();
-        }}
-        // centered
-        // animation={false}
-      >
-        <Modal.Header closeButton>
-          {page.title ? page.title : "Title Undefined"}
-        </Modal.Header>
-        <Modal.Body>
-          {page.data.widgets.length > 0
-            ? page.data.widgets.map(item => this.renderPreview(item))
-            : "Please Add Widgets for this page"}
-          {/* {page.data.widgets.map(item => this.renderPreview(item))} */}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="info"
-            size={"sm"}
-            onClick={this.props.handlePreviewModal}
-          >
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <>
+        <Modal
+          size={"xl"}
+          show={showModal}
+          className="previewModa"
+          backdropClassName="previewModalBackdrop"
+          onHide={() => {
+            this.props.handlePreviewModal();
+          }}
+          // centered
+          // animation={false}
+        >
+          <Modal.Header closeButton>
+            {page.title ? page.title : "Title Undefined"}
+          </Modal.Header>
+          <Modal.Body>
+            {page.data.widgets.length > 0
+              ? page.data.widgets.map(item => this.renderPreview(item))
+              : "Please Add Widgets for this page"}
+            {/* {page.data.widgets.map(item => this.renderPreview(item))} */}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="info"
+              size={"sm"}
+              onClick={this.props.handlePreviewModal}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
     );
   }
 }

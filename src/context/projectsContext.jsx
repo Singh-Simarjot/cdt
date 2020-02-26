@@ -15,7 +15,6 @@ import {
   createNav,
   updateNav
 } from "../services/projects";
- 
 
 const Context = React.createContext();
 
@@ -137,15 +136,16 @@ export class ProjectsContext extends Component {
   };
   updateProject = async selectedProject => {
     try {
-      await updateProject(selectedProject.id,JSON.stringify(selectedProject)).then(response => {
+      await updateProject(
+        selectedProject.id,
+        JSON.stringify(selectedProject)
+      ).then(response => {
         if (response.status === 200) {
           this.setState({ selectedProject });
           toast.success("Project Updated!");
-          
         }
       });
     } catch (err) {}
-    
   };
 
   saveNewPage = async page => {
@@ -160,14 +160,16 @@ export class ProjectsContext extends Component {
     this.setState({ selectedProject });
   };
 
-  editPage =  async selectedPage => {
-    
+  editPage = async selectedPage => {
     const selectedProject = { ...this.state.selectedProject };
 
-    const page = {projectID:this.state.selectedProjectID,page:selectedPage }  
+    const page = {
+      projectID: this.state.selectedProjectID,
+      page: selectedPage
+    };
 
     try {
-      await updatePage(selectedPage.id,JSON.stringify(page)).then(response => {
+      await updatePage(selectedPage.id, JSON.stringify(page)).then(response => {
         if (response.status === 200) {
           selectedProject.pages.filter(item =>
             item.id === selectedPage.id
@@ -175,15 +177,11 @@ export class ProjectsContext extends Component {
                 (item.templateType = selectedPage.templateType))
               : item
           );
-          this.setState({selectedProject, selectedPage });
+          this.setState({ selectedProject, selectedPage });
           toast.success("Page Updated!");
-          
         }
       });
     } catch (err) {}
-
-  
-   
   };
 
   markDraftPage = async page => {
@@ -230,24 +228,19 @@ export class ProjectsContext extends Component {
   };
 
   updateNavigation = async navData => {
-     
-      const selectedProject = { ...this.state.selectedProject };
+    const selectedProject = { ...this.state.selectedProject };
     const id = this.state.selectedProject.navigationId;
 
     try {
       await updateNav(id, navData).then(response => {
         if (response.status === 200) {
-          console.log(response)
-        selectedProject.navigation = response.data.Navigation;
-        this.setState({ selectedProject });
-        toast.success("Navigation Updated!");
+          console.log(response);
+          selectedProject.navigation = response.data.Navigation;
+          this.setState({ selectedProject });
+          toast.success("Navigation Updated!");
         }
       });
     } catch (err) {}
-
-   
-
-   
   };
 
   render() {

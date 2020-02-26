@@ -15,6 +15,7 @@ class EditPage extends Component {
   static contextType = ProjectsContext;
 
   state = {
+    isLoadeing: false,
     page: null,
     showModalComponent: false,
     modalData: null,
@@ -32,7 +33,7 @@ class EditPage extends Component {
   }
   getPageDetail = async () => {
     this.context.onPageDetail(this.context.selectedProjectID).then(response => {
-       this.setState({
+      this.setState({
         page: response,
         isLoading: false
       });
@@ -91,13 +92,11 @@ class EditPage extends Component {
     e.preventDefault();
     this.context.editPage(this.state.page);
     this.props.history.push("/project");
-    
   };
 
   onMarkDraft = e => {
     e.preventDefault();
     this.context.markDraftPage(this.state.page);
-    
   };
 
   sortNavigation = tabs => {
@@ -138,6 +137,13 @@ class EditPage extends Component {
   // preview
   handlePreviewModal = () => {
     this.setState({ showPreviewModal: !this.state.showPreviewModal });
+    this.setState({ isLoadeing: true });
+    setTimeout(
+      function() {
+        this.setState({ isLoadeing: false });
+      }.bind(this),
+      1000
+    );
   };
   // end preview
 
@@ -148,10 +154,11 @@ class EditPage extends Component {
       item => item.templateType !== "TABS"
     );
 
-     console.log(page);
-    if (!this.state.isLoading && page!== null) {
+    console.log(page);
+    if (!this.state.isLoading && page !== null) {
       return (
         <WidgetsContext>
+          {this.state.isLoadeing && <Loader />}
           {page.templateType === "DEFAULT" && (
             <ComponentsList onModalChange={this.handleModal} />
           )}
@@ -187,10 +194,10 @@ class EditPage extends Component {
             modalOpenType={this.state.modalOpenType}
           />
           <PreviewModal
-          showModal={this.state.showPreviewModal}
-          handlePreviewModal={this.handlePreviewModal}
-          page={this.state.page}
-        />
+            showModal={this.state.showPreviewModal}
+            handlePreviewModal={this.handlePreviewModal}
+            page={this.state.page}
+          />
         </WidgetsContext>
       );
     } else {

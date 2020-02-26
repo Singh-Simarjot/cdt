@@ -66,10 +66,10 @@ class Drafts extends Component {
                     <td>{project.id}</td>
                     <td>{project.title}</td>
                     <td>
-                      {moment(project.dateCreated).format("YYYY//MM//DD")}{" "}
+                      {moment(project.dateCreated).format("YYYY/MM/DD")}{" "}
                     </td>
                     <td>
-                      {moment(project.dateEdited).format("YYYY//MM//DD")}{" "}
+                      {moment(project.dateEdited).format("YYYY/MM/DD")}{" "}
                     </td>
                     <td>{project.templateType}</td>
                     <td>{project.author}</td>

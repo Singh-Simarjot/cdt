@@ -154,10 +154,10 @@ class Dashbord extends Component {
                             <Link to="/project">{project.name}</Link>
                           </td>
                           <td>
-                            {moment(project.dateCreated).format("YYYY//MM//DD")}
+                            {moment(project.created_at).format("YYYY/MM/DD")}
                           </td>
                           <td>
-                            {moment(project.dateEdited).format("YYYY//MM//DD")}
+                            {moment(project.updated_at).format("YYYY/MM/DD")}
                           </td>
                           <td>{project.authour}</td>
                           <td>

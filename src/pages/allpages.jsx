@@ -70,13 +70,13 @@ class AllPages extends Component {
                       <td className="count"></td>
                       <td>{project.title}</td>
                       <td>
-                        {moment(project.dateCreated).format("YYYY//MM//DD")}{" "}
+                        {moment(project.created_at).format("YYYY/MM/DD")}{" "}
                       </td>
                       <td>
-                        {moment(project.dateEdited).format("YYYY//MM//DD")}{" "}
+                        {moment(project.updated_at).format("YYYY/MM/DD")}{" "}
                       </td>
                       <td>{project.templateType}</td>
-                      <td>{project.author}</td>
+                      <td>{selectedProject.authour}</td>
                       <td>
                         <Button
                           size={"sm"}

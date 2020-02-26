@@ -11,7 +11,7 @@ class VideoBlock extends Component {
         {data.content.videoType === "URL" ? (
           <iframe src={data.content.video}></iframe>
         ) : (
-          <video src={data.content.video}></video>
+          <video controls src={data.content.video}></video>
         )}
       </div>
     );
