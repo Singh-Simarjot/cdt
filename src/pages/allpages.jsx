@@ -45,13 +45,18 @@ class AllPages extends Component {
               <Col>
                 <h2>Pages</h2>
               </Col>
-              <Col xs={4} className="text-right">
+              <Col xs={5} className="text-right">
                 <Link
                   to="/project/addnew"
                   size="sm"
                   className="btn btn-success"
                 >
-                  Create New Page
+                  <span className="d-none d-sm-inline-block">
+                    Create New Page
+                  </span>
+                  <span className="d-sm-none">
+                    <i className="fa fa-plus"></i>
+                  </span>
                 </Link>
               </Col>
             </Row>

@@ -59,15 +59,20 @@ class Dashbord extends Component {
                         <h2>Recent Projects</h2>
                       </div>
                     </Col>
-                    <Col xs={4} className="text-right">
+                    <Col xs={4} sm={5} className="text-right">
                       <Link to="/addnew" size="sm" className="btn btn-success">
-                        Create New Project
+                        <span className="d-none d-sm-inline-block">
+                          Create New Project
+                        </span>
+                        <span className="d-sm-none">
+                          <i className="fa fa-plus"></i>
+                        </span>
                       </Link>
                     </Col>
                   </Row>
                   <Row>
                     {allProjects.slice(0, 4).map(item => (
-                      <Col sm={6} md={4} lg={3} key={item.id}>
+                      <Col md={6} lg={4} xl={3} key={item.id}>
                         <Card bg="light" key={item.id}>
                           <Card.Body
                             className="text-center"
@@ -136,7 +141,12 @@ class Dashbord extends Component {
                   <div className="titelTop mb-3">
                     <h2>All Projects</h2>
                   </div>
-                  <Table responsive="md" hover variant="">
+                  <Table
+                    responsive="lg"
+                    hover
+                    variant=""
+                    style={{ minWidth: "900px" }}
+                  >
                     <thead>
                       <tr>
                         <th>#</th>
@@ -161,7 +171,7 @@ class Dashbord extends Component {
                             {moment(project.updated_at).format("YYYY/MM/DD")}
                           </td>
                           <td>{project.authour}</td>
-                          <td>
+                          <td style={{ whiteSpace: "nowrap" }}>
                             <Button
                               size={"sm"}
                               variant="success"
