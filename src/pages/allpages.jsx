@@ -104,7 +104,7 @@ class AllPages extends Component {
                         <Button
                           size={"sm"}
                           onClick={() => this.context.markDraftPage(project)}
-                          variant="warning"
+                          variant={project.saved ? "success" : "warning" } 
                           className="ml-2"
                         >
                           {project.saved ? "Mark as Draft" : "Publish"}

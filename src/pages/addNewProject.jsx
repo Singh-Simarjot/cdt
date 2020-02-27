@@ -539,6 +539,7 @@ class AddNewProject extends Component {
                         <Form.Control
                           type="text"
                           name="name"
+                          placeholder="Project Title"
                           value={newProject.name}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
@@ -548,6 +549,7 @@ class AddNewProject extends Component {
                         <Form.Control
                           as="textarea"
                           rows="4"
+                          placeholder="Project Description"
                           name="description"
                           value={newProject.description}
                           onChange={(e, section) => this.handleChange(e, null)}

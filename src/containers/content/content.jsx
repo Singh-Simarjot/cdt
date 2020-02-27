@@ -54,6 +54,7 @@ class Content extends Component {
               <Form.Control
                 type="text"
                 name="title"
+                placeholder="Page Name"
                 value={page.title}
                 onChange={this.props.onHandle}
               />
