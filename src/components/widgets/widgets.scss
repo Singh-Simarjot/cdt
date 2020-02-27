@@ -6,7 +6,7 @@
   .addIceon {
     padding-right: 40px;
     position: relative;
-    button {
+    & > button {
       position: absolute;
       right: 0;
       top: 0;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./widgets.scss";
 import { Button, Form, Modal } from "react-bootstrap";
 import nextId from "react-id-generator";
-import FileBase64 from "react-file-base64";
+import FileInputComponent from "react-file-input-previews-base64";
 import { uploadFile } from "../../services/projects";
 
 class ExternalPageLinkGrid extends Component {
@@ -119,7 +119,11 @@ class ExternalPageLinkGrid extends Component {
       dummyid = widget.id;
     } else {
       //dummyid = nextId();
-      dummyid = "_" + Math.random().toString(36).substr(2, 9);
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
     widget.id = dummyid;
     widget.content.externalLink = this.state.externalLink;
@@ -223,7 +227,21 @@ class ExternalPageLinkGrid extends Component {
                       </div>
                     ) : (
                       <div style={{ marginBottom: "15px" }}>
-                        <FileBase64 onDone={e => this.getIcon(e, link.id)} />
+                        <FileInputComponent
+                          labelText="Select Image"
+                          labelStyle={{ color: "#000", display: "none" }}
+                          imageStyle={{ display: "none" }}
+                          parentStyle={{ marginTop: 0 }}
+                          imagePreview={false}
+                          buttonComponent={
+                            <Button size="sm" variant="info">
+                              Select Image
+                            </Button>
+                          }
+                          multiple={false}
+                          callbackFunction={e => this.getIcon(e, link.id)}
+                          accept="image/*"
+                        />
                       </div>
                     )}
                   </Form.Group>

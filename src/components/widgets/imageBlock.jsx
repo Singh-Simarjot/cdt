@@ -3,9 +3,8 @@ import "./widgets.scss";
 import { Button, Form, Modal } from "react-bootstrap";
 import nextId from "react-id-generator";
 import Dropzone from "react-dropzone-uploader";
-import FileBase64 from "react-file-base64";
 import { uploadFile } from "../../services/projects";
-
+import FileInputComponent from "react-file-input-previews-base64";
 class ImageBlock extends Component {
   state = {
     widget: {
@@ -126,6 +125,18 @@ class ImageBlock extends Component {
       <>
         <Modal.Body>
           <Form.Group>
+            {/* <div>
+              <FileInputComponent
+                labelText="Select Image"
+                // labelStyle={{ fontSize: 14 }}
+                // multiple={true}
+                // callbackFunction={file_arr => {
+                //   console.log(file_arr);
+                // }}
+                callbackFunction={this.getImage.bind(this)}
+                accept="image/*"
+              />
+            </div> */}
             <Form.Label>Title</Form.Label>
             <Form.Control
               type="text"
@@ -156,7 +167,20 @@ class ImageBlock extends Component {
                   </Button>
                 </div>
               ) : (
-                <FileBase64 onDone={this.getImage.bind(this)} />
+                <FileInputComponent
+                  labelText="Select Image"
+                  labelStyle={{ color: "#000", display: "none" }}
+                  imageStyle={{ display: "none" }}
+                  parentStyle={{ marginTop: 0 }}
+                  buttonComponent={
+                    <Button size={"sm"} variant="info">
+                      Select Image
+                    </Button>
+                  }
+                  multiple={false}
+                  callbackFunction={this.getImage.bind(this)}
+                  accept="image/*"
+                />
               )}
             </div>
           </Form.Group>

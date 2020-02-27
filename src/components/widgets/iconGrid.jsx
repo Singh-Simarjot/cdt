@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./widgets.scss";
 import { Button, Form, Modal, Row, Col } from "react-bootstrap";
 import nextId from "react-id-generator";
-import FileBase64 from "react-file-base64";
+import FileInputComponent from "react-file-input-previews-base64";
 import { uploadFile } from "../../services/projects";
 class IconGrid extends Component {
   state = {
@@ -74,7 +74,11 @@ class IconGrid extends Component {
       dummyid = widget.id;
     } else {
       //dummyid = nextId();
-      dummyid = "_" + Math.random().toString(36).substr(2, 9);
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
 
     widget.id = dummyid;
@@ -186,7 +190,20 @@ class IconGrid extends Component {
                           </Button>
                         </div>
                       ) : (
-                        <FileBase64 onDone={e => this.getIcon(e, item.id)} />
+                        <FileInputComponent
+                          labelText="Select Image"
+                          labelStyle={{ color: "#000", display: "none" }}
+                          imageStyle={{ display: "none" }}
+                          parentStyle={{ marginTop: 0 }}
+                          buttonComponent={
+                            <Button block variant="info">
+                              Select Image
+                            </Button>
+                          }
+                          multiple={false}
+                          callbackFunction={e => this.getIcon(e, item.id)}
+                          accept="image/*"
+                        />
                       )}
                     </Form.Group>
                   </Col>

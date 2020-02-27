@@ -4,8 +4,8 @@ import "./widgets.scss";
 // import ko from "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js";
 import { Button, Form, Modal } from "react-bootstrap";
 import nextId from "react-id-generator";
-import FileBase64 from "react-file-base64";
 import { uploadFile } from "../../services/projects";
+import FileInputComponent from "react-file-input-previews-base64";
 
 class MultipleImage extends Component {
   state = {
@@ -77,7 +77,11 @@ class MultipleImage extends Component {
       dummyid = widget.id;
     } else {
       //dummyid = nextId();
-      dummyid = "_" + Math.random().toString(36).substr(2, 9);
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
     widget.id = dummyid;
     widget.content.images = this.state.items;
@@ -164,7 +168,22 @@ class MultipleImage extends Component {
                     </Button> */}
                   </div>
                 ) : (
-                  <FileBase64 onDone={e => this.getImage(e, item.id)} />
+                  <div className="text-left">
+                    <FileInputComponent
+                      labelText="Select Image"
+                      labelStyle={{ color: "#000", display: "none" }}
+                      imageStyle={{ display: "none" }}
+                      parentStyle={{ marginTop: 0 }}
+                      buttonComponent={
+                        <Button size={"sm"} variant="info">
+                          Select Image
+                        </Button>
+                      }
+                      multiple={false}
+                      callbackFunction={e => this.getImage(e, item.id)}
+                      accept="image/*"
+                    />
+                  </div>
                 )}
 
                 {/* <Form.Control

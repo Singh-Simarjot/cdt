@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone-uploader";
 import ProjectsContext from "../context/projectsContext";
 import Loader from "../components/loader/loader";
-import FileBase64 from "react-file-base64";
+import FileInputComponent from "react-file-input-previews-base64";
 import nextId from "react-id-generator";
 
 import { uploadFile } from "../services/projects";
@@ -53,6 +53,7 @@ class EditProject extends Component {
         { title: "", Desc: "", image: "", url: "" }
       ]
     },
+    deleteFiles: [],
     isLoading: false
   };
 
@@ -105,14 +106,19 @@ class EditProject extends Component {
   };
   removeProjevtVideo = () => {
     const project = { ...this.state.project };
+    const deleteFiles = [
+      ...this.state.deleteFiles,
+      project.data.headerSection.video
+    ];
     project.data.headerSection.video = "";
-    this.setState({ project });
+    this.setState({ project, deleteFiles });
   };
 
   addProject = e => {
     e.preventDefault();
-    const project = this.state.project;
-    this.context.onUpdateProject(this.state.project);
+    const deleteFiles = [...this.state.deleteFiles];
+    const project = { ...this.state.project, deleteFiles };
+    this.context.onUpdateProject(project);
     this.props.history.push("/");
   };
 
@@ -166,7 +172,24 @@ class EditProject extends Component {
     );
     this.setState({ project });
   };
-  // More Article
+  // addMoreArticles
+  addMoreArticles = () => {
+    const dummyId = nextId();
+    const obj = {
+      id: dummyId,
+      image: "",
+      title: "",
+      author: "",
+      publishDate: "1234567890",
+      link: ""
+    };
+    const project = { ...this.state.project };
+    project.data.latestTrends.latestTrendSectionArticle = [
+      ...project.data.latestTrends.latestTrendSectionArticle,
+      obj
+    ];
+    this.setState({ project });
+  };
   disabledAddMoreArticles() {
     const project = { ...this.state.project };
     const result = project.data.latestTrends.latestTrendSectionArticle.filter(
@@ -202,6 +225,13 @@ class EditProject extends Component {
     );
     this.setState({ project });
   };
+  deleteArticles = id => {
+    const project = this.state.project;
+    project.data.latestTrends.latestTrendSectionArticle = project.data.latestTrends.latestTrendSectionArticle.filter(
+      i => i.id !== id
+    );
+    this.setState({ project });
+  };
 
   // Get thumb images
   getProjectThum = async files => {
@@ -222,8 +252,9 @@ class EditProject extends Component {
 
   removeProjectThum = () => {
     const project = this.state.project;
+    const deleteFiles = [...this.state.deleteFiles, project.thumbnail];
     project.thumbnail = "";
-    this.setState({ project });
+    this.setState({ project, deleteFiles });
   };
 
   getVideoThum = async files => {
@@ -245,8 +276,12 @@ class EditProject extends Component {
 
   removeVideoThumb = () => {
     const project = this.state.project;
+    const deleteFiles = [
+      ...this.state.deleteFiles,
+      project.data.headerSection.videoThumb
+    ];
     project.data.headerSection.videoThumb = "";
-    this.setState({ project });
+    this.setState({ project, deleteFiles });
   };
 
   getProjectVideo = async files => {
@@ -286,8 +321,12 @@ class EditProject extends Component {
 
   removeDesigningImage = () => {
     const project = this.state.project;
+    const deleteFiles = [
+      ...this.state.deleteFiles,
+      project.data.designingSection.image
+    ];
     project.data.designingSection.image = "";
-    this.setState({ project });
+    this.setState({ project, deleteFiles });
   };
 
   getDevelopingImage = async files => {
@@ -309,8 +348,12 @@ class EditProject extends Component {
 
   removeDevelopingImage = () => {
     const project = this.state.project;
+    const deleteFiles = [
+      ...this.state.deleteFiles,
+      project.data.developmentSection.image
+    ];
     project.data.developmentSection.image = "";
-    this.setState({ project });
+    this.setState({ project, deleteFiles });
   };
 
   getLinksIcon = async (files, id) => {
@@ -331,12 +374,13 @@ class EditProject extends Component {
     } catch (err) {}
   };
 
-  removeLinksIcon = id => {
+  removeLinksIcon = (id, icon) => {
     const project = this.state.project;
+    const deleteFiles = [...this.state.deleteFiles, icon];
     project.data.resource.otherResourceComponets.filter(item =>
       item.id === id ? (item.icon = "") : item
     );
-    this.setState({ project });
+    this.setState({ project, deleteFiles });
   };
 
   getArticleImage = async (files, id) => {
@@ -357,12 +401,13 @@ class EditProject extends Component {
     } catch (err) {}
   };
 
-  removeArticleImage = id => {
+  removeArticleImage = (id, image) => {
     const project = this.state.project;
+    const deleteFiles = [...this.state.deleteFiles, image];
     project.data.latestTrends.latestTrendSectionArticle.filter(item =>
       item.id === id ? (item.image = "") : item
     );
-    this.setState({ project });
+    this.setState({ project, deleteFiles });
   };
 
   render() {
@@ -414,7 +459,7 @@ class EditProject extends Component {
                           />
                         </Form.Group>
                         <Form.Group>
-                          <Form.Label>Project Cover Photo</Form.Label>
+                          <Form.Label>Project Logo</Form.Label>
                           {this.state.project.thumbnail ? (
                             <div className="imageOverRemove">
                               <img
@@ -431,8 +476,21 @@ class EditProject extends Component {
                             </div>
                           ) : (
                             <div>
-                              <FileBase64
-                                onDone={this.getProjectThum.bind(this)}
+                              <FileInputComponent
+                                labelText="Select Image"
+                                labelStyle={{ color: "#000", display: "none" }}
+                                imageStyle={{ display: "none" }}
+                                parentStyle={{ marginTop: 0 }}
+                                buttonComponent={
+                                  <Button size={"sm"} variant="info">
+                                    Select Image
+                                  </Button>
+                                }
+                                multiple={false}
+                                callbackFunction={this.getProjectThum.bind(
+                                  this
+                                )}
+                                accept="image/*"
                               />
                             </div>
                           )}
@@ -469,8 +527,19 @@ class EditProject extends Component {
                               <div>
                                 <small>Video thumbnail image</small>
                               </div>
-                              <FileBase64
-                                onDone={this.getVideoThum.bind(this)}
+                              <FileInputComponent
+                                labelText="Select Image"
+                                labelStyle={{ color: "#000", display: "none" }}
+                                imageStyle={{ display: "none" }}
+                                parentStyle={{ marginTop: 0 }}
+                                buttonComponent={
+                                  <Button size={"sm"} variant="info">
+                                    Select Video thumbnail image
+                                  </Button>
+                                }
+                                multiple={false}
+                                callbackFunction={this.getVideoThum.bind(this)}
+                                accept="image/*"
                               />
                             </div>
                           )}
@@ -526,8 +595,25 @@ class EditProject extends Component {
                                   </Button>
                                 </div>
                               ) : (
-                                <FileBase64
-                                  onDone={this.getProjectVideo.bind(this)}
+                                <FileInputComponent
+                                  labelText="Select Image"
+                                  labelStyle={{
+                                    color: "#000",
+                                    display: "none"
+                                  }}
+                                  imageStyle={{ display: "none" }}
+                                  parentStyle={{ marginTop: 0 }}
+                                  imagePreview={false}
+                                  buttonComponent={
+                                    <Button size={"sm"} variant="info">
+                                      Select Video
+                                    </Button>
+                                  }
+                                  multiple={false}
+                                  callbackFunction={this.getProjectVideo.bind(
+                                    this
+                                  )}
+                                  accept="video/*"
                                 />
                               )}
                             </div>
@@ -629,9 +715,25 @@ class EditProject extends Component {
                               <div>
                                 <small>Select Image</small>
                               </div>
-                              <FileBase64
-                                // multiple={true}
-                                onDone={this.getDesigningImage.bind(this)}
+                              <FileInputComponent
+                                labelText="Select Image"
+                                labelStyle={{
+                                  color: "#000",
+                                  display: "none"
+                                }}
+                                imageStyle={{ display: "none" }}
+                                parentStyle={{ marginTop: 0 }}
+                                imagePreview={false}
+                                buttonComponent={
+                                  <Button size={"sm"} variant="info">
+                                    Select Image
+                                  </Button>
+                                }
+                                multiple={false}
+                                callbackFunction={this.getDesigningImage.bind(
+                                  this
+                                )}
+                                accept="image/*"
                               />
                             </div>
                           )}
@@ -687,9 +789,25 @@ class EditProject extends Component {
                               <div>
                                 <small>Select Image</small>
                               </div>
-                              <FileBase64
-                                // multiple={true}
-                                onDone={this.getDevelopingImage.bind(this)}
+                              <FileInputComponent
+                                labelText="Select Image"
+                                labelStyle={{
+                                  color: "#000",
+                                  display: "none"
+                                }}
+                                imageStyle={{ display: "none" }}
+                                parentStyle={{ marginTop: 0 }}
+                                imagePreview={false}
+                                buttonComponent={
+                                  <Button size={"sm"} variant="info">
+                                    Select Image
+                                  </Button>
+                                }
+                                multiple={false}
+                                callbackFunction={this.getDevelopingImage.bind(
+                                  this
+                                )}
+                                accept="image/*"
                               />
                             </div>
                           )}
@@ -796,17 +914,35 @@ class EditProject extends Component {
                                             variant={"danger"}
                                             size="sm"
                                             onClick={e =>
-                                              this.removeLinksIcon(item.id)
+                                              this.removeLinksIcon(
+                                                item.id,
+                                                item.icon
+                                              )
                                             }
                                           >
                                             <i className="fa fa-times"></i>
                                           </Button>
                                         </div>
                                       ) : (
-                                        <FileBase64
-                                          onDone={e =>
+                                        <FileInputComponent
+                                          labelText="Select Image"
+                                          labelStyle={{
+                                            color: "#000",
+                                            display: "none"
+                                          }}
+                                          imageStyle={{ display: "none" }}
+                                          parentStyle={{ marginTop: 0 }}
+                                          imagePreview={false}
+                                          buttonComponent={
+                                            <Button size={"sm"} variant="info">
+                                              Select Image
+                                            </Button>
+                                          }
+                                          multiple={false}
+                                          callbackFunction={e =>
                                             this.getLinksIcon(e, item.id)
                                           }
+                                          accept="image/*"
                                         />
                                       )}
                                     </Col>
@@ -903,17 +1039,35 @@ class EditProject extends Component {
                                             variant={"danger"}
                                             size="sm"
                                             onClick={e =>
-                                              this.removeArticleImage(item.id)
+                                              this.removeArticleImage(
+                                                item.id,
+                                                item.image
+                                              )
                                             }
                                           >
                                             <i className="fa fa-times"></i>
                                           </Button>
                                         </div>
                                       ) : (
-                                        <FileBase64
-                                          onDone={e =>
+                                        <FileInputComponent
+                                          labelText="Select Image"
+                                          labelStyle={{
+                                            color: "#000",
+                                            display: "none"
+                                          }}
+                                          imageStyle={{ display: "none" }}
+                                          parentStyle={{ marginTop: 0 }}
+                                          imagePreview={false}
+                                          buttonComponent={
+                                            <Button size={"sm"} variant="info">
+                                              Select Image
+                                            </Button>
+                                          }
+                                          multiple={false}
+                                          callbackFunction={e =>
                                             this.getArticleImage(e, item.id)
                                           }
+                                          accept="image/*"
                                         />
                                       )}
                                     </Col>

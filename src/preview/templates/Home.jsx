@@ -33,8 +33,8 @@ class Home extends Component {
   }
 
   render() {
-    const { name, description, data ,selectedProject } = this.props;
-    
+    const { name, description, data, selectedProject } = this.props;
+
     const homeData = selectedProject.data;
     // const homeData = selectedProjectID.data;
     return (

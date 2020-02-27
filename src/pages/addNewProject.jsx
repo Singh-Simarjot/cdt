@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone-uploader";
 import ProjectsContext from "../context/projectsContext";
 import nextId from "react-id-generator";
-import FileBase64 from "react-file-base64";
+import FileInputComponent from "react-file-input-previews-base64";
 
 import { uploadFile } from "../services/projects";
 class AddNewProject extends Component {
@@ -554,7 +554,7 @@ class AddNewProject extends Component {
                         />
                       </Form.Group>
                       <Form.Group>
-                        <Form.Label>Project Cover Photo</Form.Label>
+                        <Form.Label>Project Logo</Form.Label>
                         {newProject.thumbnail ? (
                           <div className="imageOverRemove">
                             <img src={newProject.thumbnail} alt="cover photo" />
@@ -568,8 +568,19 @@ class AddNewProject extends Component {
                           </div>
                         ) : (
                           <div>
-                            <FileBase64
-                              onDone={this.getProjectThum.bind(this)}
+                            <FileInputComponent
+                              labelText="Select Image"
+                              labelStyle={{ color: "#000", display: "none" }}
+                              imageStyle={{ display: "none" }}
+                              parentStyle={{ marginTop: 0 }}
+                              buttonComponent={
+                                <Button size={"sm"} variant="info">
+                                  Select Image
+                                </Button>
+                              }
+                              multiple={false}
+                              callbackFunction={this.getProjectThum.bind(this)}
+                              accept="image/*"
                             />
                           </div>
                         )}
@@ -603,10 +614,23 @@ class AddNewProject extends Component {
                           </div>
                         ) : (
                           <div style={{ marginBottom: "15px" }}>
-                            <div>
+                            {/* <div>
                               <small>Video thumbnail image</small>
-                            </div>
-                            <FileBase64 onDone={this.getVideoThum.bind(this)} />
+                            </div> */}
+                            <FileInputComponent
+                              labelText="Select Image"
+                              labelStyle={{ color: "#000", display: "none" }}
+                              imageStyle={{ display: "none" }}
+                              parentStyle={{ marginTop: 0 }}
+                              buttonComponent={
+                                <Button size={"sm"} variant="info">
+                                  Select Video thumbnail image
+                                </Button>
+                              }
+                              multiple={false}
+                              callbackFunction={this.getVideoThum.bind(this)}
+                              accept="image/*"
+                            />
                           </div>
                         )}
 
@@ -661,8 +685,22 @@ class AddNewProject extends Component {
                                 </Button>
                               </div>
                             ) : (
-                              <FileBase64
-                                onDone={this.getProjectVideo.bind(this)}
+                              <FileInputComponent
+                                labelText="Select Image"
+                                labelStyle={{ color: "#000", display: "none" }}
+                                imageStyle={{ display: "none" }}
+                                parentStyle={{ marginTop: 0 }}
+                                buttonComponent={
+                                  <Button size={"sm"} variant="info">
+                                    Select Video
+                                  </Button>
+                                }
+                                multiple={false}
+                                imagePreview={false}
+                                callbackFunction={this.getProjectVideo.bind(
+                                  this
+                                )}
+                                accept="video/*"
                               />
                             )}
                           </div>
@@ -760,12 +798,25 @@ class AddNewProject extends Component {
                           </div>
                         ) : (
                           <div style={{ marginBottom: "15px" }}>
-                            <div>
+                            {/* <div>
                               <small>Select Image</small>
-                            </div>
-                            <FileBase64
-                              // multiple={true}
-                              onDone={this.getDesigningImage.bind(this)}
+                            </div> */}
+                            <FileInputComponent
+                              labelText="Select Image"
+                              labelStyle={{ color: "#000", display: "none" }}
+                              imageStyle={{ display: "none" }}
+                              parentStyle={{ marginTop: 0 }}
+                              buttonComponent={
+                                <Button size={"sm"} variant="info">
+                                  Select Image
+                                </Button>
+                              }
+                              multiple={false}
+                              imagePreview={false}
+                              callbackFunction={this.getDesigningImage.bind(
+                                this
+                              )}
+                              accept="image/*"
                             />
                           </div>
                         )}
@@ -819,12 +870,25 @@ class AddNewProject extends Component {
                           </div>
                         ) : (
                           <div style={{ marginBottom: "15px" }}>
-                            <div>
+                            {/* <div>
                               <small>Select Image</small>
-                            </div>
-                            <FileBase64
-                              // multiple={true}
-                              onDone={this.getDevelopingImage.bind(this)}
+                            </div> */}
+                            <FileInputComponent
+                              labelText="Select Image"
+                              labelStyle={{ color: "#000", display: "none" }}
+                              imageStyle={{ display: "none" }}
+                              parentStyle={{ marginTop: 0 }}
+                              buttonComponent={
+                                <Button size={"sm"} variant="info">
+                                  Select Image
+                                </Button>
+                              }
+                              multiple={false}
+                              imagePreview={false}
+                              callbackFunction={this.getDevelopingImage.bind(
+                                this
+                              )}
+                              accept="image/*"
                             />
                           </div>
                         )}
@@ -899,6 +963,7 @@ class AddNewProject extends Component {
                                   <Col md={4}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       placeholder="title"
                                       value={item.title}
                                       name="title"
@@ -910,6 +975,7 @@ class AddNewProject extends Component {
                                   <Col md={4}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       placeholder="Link"
                                       value={item.link}
                                       name="link"
@@ -936,10 +1002,25 @@ class AddNewProject extends Component {
                                         </Button>
                                       </div>
                                     ) : (
-                                      <FileBase64
-                                        onDone={e =>
+                                      <FileInputComponent
+                                        labelText="Select Image"
+                                        labelStyle={{
+                                          color: "#000",
+                                          display: "none"
+                                        }}
+                                        imageStyle={{ display: "none" }}
+                                        parentStyle={{ marginTop: 0 }}
+                                        buttonComponent={
+                                          <Button size={"sm"} variant="info">
+                                            Select Image
+                                          </Button>
+                                        }
+                                        multiple={false}
+                                        imagePreview={false}
+                                        callbackFunction={e =>
                                           this.getLinksIcon(e, item.id)
                                         }
+                                        accept="image/*"
                                       />
                                     )}
                                   </Col>
@@ -991,6 +1072,7 @@ class AddNewProject extends Component {
                                   <Col md={3}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       value={item.title}
                                       placeholder="Title"
                                       name="title"
@@ -1002,6 +1084,7 @@ class AddNewProject extends Component {
                                   <Col md={3}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       placeholder="Author"
                                       name="author"
                                       value={item.author}
@@ -1013,6 +1096,7 @@ class AddNewProject extends Component {
                                   <Col md={3}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       placeholder="Link"
                                       name="link"
                                       value={item.link}
@@ -1042,10 +1126,25 @@ class AddNewProject extends Component {
                                         </Button>
                                       </div>
                                     ) : (
-                                      <FileBase64
-                                        onDone={e =>
+                                      <FileInputComponent
+                                        labelText="Select Image"
+                                        labelStyle={{
+                                          color: "#000",
+                                          display: "none"
+                                        }}
+                                        imageStyle={{ display: "none" }}
+                                        parentStyle={{ marginTop: 0 }}
+                                        buttonComponent={
+                                          <Button size={"sm"} variant="info">
+                                            Select Image
+                                          </Button>
+                                        }
+                                        multiple={false}
+                                        imagePreview={false}
+                                        callbackFunction={e =>
                                           this.getArticleImage(e, item.id)
                                         }
+                                        accept="image/*"
                                       />
                                     )}
                                   </Col>

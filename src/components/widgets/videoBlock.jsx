@@ -3,7 +3,7 @@ import "./widgets.scss";
 import { Form, Modal, Button } from "react-bootstrap";
 import nextId from "react-id-generator";
 // import FigureImage from "react-bootstrap/FigureImage";
-import FileBase64 from "react-file-base64";
+import FileInputComponent from "react-file-input-previews-base64";
 import { uploadFile } from "../../services/projects";
 
 class VideoBlock extends Component {
@@ -71,7 +71,11 @@ class VideoBlock extends Component {
       dummyid = widget.id;
     } else {
       //dummyid = nextId();
-      dummyid = "_" + Math.random().toString(36).substr(2, 9);
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
     widget.id = dummyid;
     this.setState({ widget });
@@ -189,7 +193,21 @@ class VideoBlock extends Component {
                   </div>
                 ) : (
                   <div style={{ marginBottom: "15px" }}>
-                    <FileBase64 onDone={this.getVideo.bind(this)} />
+                    <FileInputComponent
+                      labelText="Select Image"
+                      labelStyle={{ color: "#000", display: "none" }}
+                      imageStyle={{ display: "none" }}
+                      parentStyle={{ marginTop: 0 }}
+                      imagePreview={false}
+                      buttonComponent={
+                        <Button block variant="info">
+                          Select Video
+                        </Button>
+                      }
+                      multiple={false}
+                      callbackFunction={this.getVideo.bind(this)}
+                      accept="video/*"
+                    />
                   </div>
                 )}
                 {/* <Form.Control
