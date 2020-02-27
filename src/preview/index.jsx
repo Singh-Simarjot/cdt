@@ -18,7 +18,10 @@ class Preview extends Component {
   state = {
     isLoading: false,
     selectedProject: {},
-    selectedPage: []
+    selectedPage: [],
+    subPage: {
+      data: { widgets: [] }
+    }
   };
 
   // componentDidMount() {}
@@ -48,12 +51,17 @@ class Preview extends Component {
     const pages = this.state.selectedProject.pages;
 
     const selectedPage = pages.filter(item => item.id === id);
-    // console.log(pages,id)
+
     this.setState({ selectedPage: selectedPage[0] });
+  };
+  handleSelectSubPage = id => {
+    const pages = this.state.selectedProject.pages;
+    const selectedPage = pages.filter(item => item.id === id);
+    this.setState({ subPage: selectedPage[0] });
   };
 
   render() {
-    const { selectedProject, selectedPage } = this.state;
+    const { selectedProject, selectedPage, subPage } = this.state;
 
     if (this.state.isLoading) {
       return (
@@ -75,26 +83,10 @@ class Preview extends Component {
                     description={selectedProject.description}
                     selectedProject={selectedProject}
                   />
-                  // <Gloassary/>
-                  //<BuildingBlock/>
+                
                 )}
               />
-              {/* {selectedProject.navigation.map(
-              item => (
-                (
-                  <Route
-                    path={"/preview" + item.url}
-                    component={DefaultTemplate}
-                  />
-                ),
-                item.children.map(clildItem => (
-                  <Route
-                    path={"/preview" + clildItem.url}
-                    component={DefaultTemplate}
-                  />
-                ))
-              )
-            )} */}
+              
               {selectedProject.navigation !== null &&
                 selectedProject.navigation.map(item => (
                   <>
@@ -104,6 +96,8 @@ class Preview extends Component {
                         <DefaultTemplate
                           {...props}
                           selectedPage={selectedPage}
+                          subPage={subPage}
+                          onSelectSubPage={this.handleSelectSubPage}
                         />
                       )}
                     />

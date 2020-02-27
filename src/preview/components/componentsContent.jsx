@@ -54,12 +54,13 @@ class ComponentsContent extends Component {
   }
   render() {
     const { data } = this.props;
-     const updateData = JSON.parse(data);
+       
     return (
+     
       <section className="componentsContent">
         <Container>
-          {updateData.length > 0
-            ? updateData.map(item => this.renderPreview(item))
+          {data.length > 0
+            ? data.map(item => this.renderPreview(item))
             : "Please Add Widgets for this page"}
         </Container>
       </section>

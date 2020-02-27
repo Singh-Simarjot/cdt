@@ -33,6 +33,7 @@ class Sidebar extends Component {
       .join("-")
       .toLowerCase();
   }
+   
  
 
   render() {
@@ -50,8 +51,7 @@ class Sidebar extends Component {
               </ListGroup.Item>
               {selectedProject.navigation.map(item => (
                 <ListGroup.Item key={item.id}>
-                
-                  <h5>
+               <h5>
                     {item.children !== undefined && item.children.length > 0 ? (
                       item.title
                     ) : (

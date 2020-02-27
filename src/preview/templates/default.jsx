@@ -11,40 +11,47 @@ class DefaultTemplate extends Component {
   static contextType = ProjectsContext;
     state = {isLoading:true};
   
+  componentDidMount(){
+    const { selectedPage,onSelectSubPage } = this.props;
+     if( selectedPage.templateType === "TABS" ) {
+       
+      const tabs = selectedPage.data.tabs;
+        const newURL = this.renderUrl(tabs[0].title);
+        console.log(this.props.location.pathname)
+        onSelectSubPage(tabs[0].id)
+      this.props.history.push(this.props.location.pathname+"/"+newURL);
+     }
+
   
+  }
+ 
+   
+  renderUrl(string) {
+    return string
+      .split(" ")
+      .join("-")
+      .toLowerCase();
+  }
+ 
    
   render() {
-    const {  subPage } = this.context;
-    const { selectedPage } = this.props;
-    const widgets = JSON.parse(selectedPage.widgets)
+     
+    const { selectedPage ,subPage ,onSelectSubPage } = this.props;
+   
+  
  return (
       selectedPage !== undefined  ?
       <React.Fragment>
         <PageHeader pageTitel={selectedPage.title} />
         {selectedPage.templateType === "TABS" &&
-           
-            <Tabs tabsList={selectedPage.data.tabs} />
+           <React.Fragment>
+            <Tabs tabsList={selectedPage.data.tabs}   onSelectSubPage={onSelectSubPage} />
+            <ComponentsContent data={subPage.data.widgets} />
+            </React.Fragment>
           }
-        {selectedPage.templateType === "TABS" ? (
-          <Switch>
-            {selectedPage.data.tabs.map(item => (
-              
-              <Route
-                key={item.id}
-                path={this.props.match.url + item.url}
-                render={props => (
-                  <ComponentsContent
-                    {...this.props}
-                    data={subPage.data.widgets}
-                  />
-                )}
-              />
-            ))}
-            {/* <Redirect to={this.props.match.url + selectedPage.data.tabs[0].url} /> */}
-          </Switch>
-        ) : (
-          <ComponentsContent data={selectedPage.widgets} />
-        )}
+        {selectedPage.templateType === "DEFAULT"  && (
+          <ComponentsContent data={selectedPage.data.widgets} />
+        )    }
       </React.Fragment> 
       :"Page Not FOund"
     ) 
