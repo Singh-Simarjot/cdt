@@ -174,10 +174,10 @@ class Navigation extends Component {
   };
   addCustomItem = () => {
     const customItem = { ...this.state.customItem };
-
-    this.setState({ customItem }, () =>
-      this.addToNavigation(this.state.customItem)
-    );
+    customItem.templateType ="CUSTOM";
+    
+      this.addToNavigation(customItem)
+    
   };
   handleInput = e => {
     const customItem = { ...this.state.customItem };

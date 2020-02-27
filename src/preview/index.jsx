@@ -47,12 +47,18 @@ class Preview extends Component {
       this.props.history.push("/");
     }
   };
-  handleSelectPage = id => {
+  handleSelectPage = page => {
     const pages = this.state.selectedProject.pages;
 
-    const selectedPage = pages.filter(item => item.id === id);
+    const selectedPage = pages.filter(item => item.id === page.id);
 
     this.setState({ selectedPage: selectedPage[0] });
+    if (page.templateType === "TABS") {
+      const pages = this.state.selectedProject.pages.filter(
+        item => item.id === page.id
+      );
+      this.handleSelectSubPage(pages[0].data.tabs[0].id);
+    }
   };
   handleSelectSubPage = id => {
     const pages = this.state.selectedProject.pages;
@@ -83,10 +89,9 @@ class Preview extends Component {
                     description={selectedProject.description}
                     selectedProject={selectedProject}
                   />
-                
                 )}
               />
-              
+
               {selectedProject.navigation !== null &&
                 selectedProject.navigation.map(item => (
                   <>

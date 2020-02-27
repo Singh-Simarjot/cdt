@@ -27,18 +27,69 @@ class Sidebar extends Component {
   }
   static contextType = ProjectsContext;
 
-  renderUrl(string) {
+  renderUrl(item, parent, tab) {
+    let parentUrl;
+    let tabUrl;
+    if (parent !== null) {
+      parentUrl ="/"+ this.coovertToSring(parent.title);
+    } else {
+      parentUrl = "";
+    }
+    if (tab !== null) {
+      tabUrl =  "/" + this.coovertToSring(tab.title) ;
+    } else {
+      tabUrl = "";
+    }
+    return "/preview" + parentUrl + "/" +this.coovertToSring(item) + tabUrl;
+  }
+  coovertToSring(string) {
+    console.log(string)
     return string
       .split(" ")
       .join("-")
       .toLowerCase();
   }
-   
- 
+  renderNavLink(item, parent) {
+    const { selectedProject, onSelectPage } = this.props;
+    let url = "";
+
+    if (item.templateType == "TABS") {
+      const pages = selectedProject.pages.filter(page => page.id === item.id);
+      const tab = pages[0].data.tabs[0];
+      return (
+        <NavLink
+          to={this.renderUrl(item.title, parent, tab)}
+          exact
+          onClick={() => {
+            onSelectPage(item);
+          }}
+        >
+          {item.title}
+        </NavLink>
+      );
+    } 
+    else if(item.templateType == "CUSTOM"){
+      {
+         return (<a href ={item.url} target="_blank"> {item.title} </a> )
+      }
+    }
+    else {
+      return (
+        <NavLink
+          to={this.renderUrl(item.title, parent, null)}
+          exact
+          onClick={() => {
+            onSelectPage(item);
+          }}
+        >
+          {item.title}
+        </NavLink>
+      );
+    }
+  }
 
   render() {
-    const { selectedProject,onSelectPage } = this.props;
-
+    const { selectedProject, onSelectPage } = this.props;
     return (
       <div className="home-sidebar">
         {selectedProject.navigation !== null &&
@@ -51,19 +102,10 @@ class Sidebar extends Component {
               </ListGroup.Item>
               {selectedProject.navigation.map(item => (
                 <ListGroup.Item key={item.id}>
-               <h5>
-                    {item.children !== undefined && item.children.length > 0 ? (
-                      item.title
-                    ) : (
-                      <NavLink
-                        to={"/preview/" + this.renderUrl(item.title)}
-                        exact
-                        onClick={() => { onSelectPage(item.id);
-                        }}
-                      >
-                        {item.title}
-                      </NavLink>
-                    )}
+                  <h5>
+                    {item.children !== undefined && item.children.length > 0
+                      ? item.title
+                      : this.renderNavLink(item, null)}
                     {item.children !== undefined && item.children.length > 0 && (
                       <span>
                         <i className="fa fa-angle-down" aria-hidden="true"></i>
@@ -74,14 +116,7 @@ class Sidebar extends Component {
                     <ListGroup className="nav-sub-list">
                       {item.children.map(childItem => (
                         <ListGroup.Item key={childItem.id}>
-                          <NavLink
-                            to={"/preview/" + this.renderUrl(item.title)+ "/" +this.renderUrl(childItem.title)}
-                            exact
-                            onClick={() => { onSelectPage(childItem.id);
-                            }}
-                          >
-                            {childItem.title}
-                          </NavLink>
+                          {this.renderNavLink(childItem, item)}
                         </ListGroup.Item>
                       ))}
                     </ListGroup>
