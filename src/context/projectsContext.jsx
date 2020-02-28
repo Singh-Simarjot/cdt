@@ -248,18 +248,19 @@ export class ProjectsContext extends Component {
 
   // exportProject
   exportProject = async id => {
-    await exportProject(id);
-
+    var result;
     try {
-      await exportProject(id).then(response => {
+      result = await exportProject(id).then(response => {
         if (response.status === 200) {
-          console.log("response: ", response.data);
-          // selectedProject.navigation = response.data.Navigation;
-          // this.setState({ selectedProject });
-          // toast.success("Navigation Updated!");
+          const selectedProject = response.data;
+          const url = response.data.zipUrl;
+          // console.log(selectedProject);
+          return url;
         }
       });
     } catch (err) {}
+
+    return result;
   };
 
   render() {
