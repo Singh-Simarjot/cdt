@@ -8,25 +8,39 @@ import ModalComponent from "../containers/modal/modalComponent";
 import NavigationList from "../components/navigationList";
 import ProjectsContext from "../context/projectsContext";
 import { WidgetsContext } from "../context/widgetsContext";
+import PreviewModal from "../containers/previewModal/previewModal";
+import Loader from "../components/loader/loader";
 
 class EditPage extends Component {
   static contextType = ProjectsContext;
 
   state = {
-    page: {},
+    isLoadeing: false,
+    page: null,
     showModalComponent: false,
     modalData: null,
     customItem: {
       title: "",
       url: ""
     },
-    modalOpenType: ""
+    modalOpenType: "",
+    showPreviewModal: false,
+    deleteFiles: [],
+    finalDelete: [],
+    isLoading: true
   };
 
   componentDidMount() {
-    const page = this.context.selectedPage;
-    this.setState({ page });
+    this.getPageDetail();
   }
+  getPageDetail = async () => {
+    this.context.onPageDetail(this.context.selectedProjectID).then(response => {
+      this.setState({
+        page: response,
+        isLoading: false
+      });
+    });
+  };
 
   handleChange = (e, section) => {
     const page = { ...this.state.page };
@@ -68,12 +82,6 @@ class EditPage extends Component {
     this.setState({ customItem }, () =>
       this.addToNavigation(this.state.customItem)
     );
-
-    // setTimeout(() => {
-    //   customItem.title = "";
-    //   customItem.url = "";
-    //   this.setState({ customItem });
-    // }, 500);
   };
 
   handleInput = e => {
@@ -84,15 +92,22 @@ class EditPage extends Component {
 
   saveData = e => {
     e.preventDefault();
-    this.context.editPage(this.state.page);
+    const oldDeleteFiles = this.state.deleteFiles;
+    let deleteFiles = [];
+    oldDeleteFiles.filter(
+      item => item && item.filter(child => child && deleteFiles.push(child))
+    );
+
+    // console.log("finalDelete", finalDelete);
+
+    const page = this.state.page;
+    this.context.editPage(page, deleteFiles);
     this.props.history.push("/project");
-    console.log(this.state.page.title.length);
   };
 
   onMarkDraft = e => {
     e.preventDefault();
     this.context.markDraftPage(this.state.page);
-    // this.props.history.push("/project");
   };
 
   sortNavigation = tabs => {
@@ -102,14 +117,9 @@ class EditPage extends Component {
     this.setState({ page });
   };
 
-  // saveComponent = modalData => {
-  //   // console.log("Page Data", modalData);
-  //   const page = this.state.page;
-  //   // const modalData = { ...this.state.modalData };
-  //   page.data.widgets = [...page.data.widgets, modalData];
-  //   this.setState({ page }, () => this.handleModal());
-  // };
-  saveComponent = modalData => {
+  saveComponent = (modalData, deleteImages) => {
+    const deleteFiles = [...this.state.deleteFiles, deleteImages];
+    // console.log("deleteImages", deleteFiles);
     const page = { ...this.state.page };
     if (this.state.modalOpenType === "edit") {
       const saveType = page.data.widgets.filter(function(item) {
@@ -128,7 +138,7 @@ class EditPage extends Component {
       page.data.widgets = [modalData, ...page.data.widgets];
     }
 
-    this.setState({ page }, () => this.handleModal());
+    this.setState({ page, deleteFiles }, () => this.handleModal());
   };
 
   deleteWidgets = id => {
@@ -137,50 +147,75 @@ class EditPage extends Component {
     this.setState({ page });
   };
 
+  // preview
+  handlePreviewModal = () => {
+    this.setState({ showPreviewModal: !this.state.showPreviewModal });
+    this.setState({ isLoadeing: true });
+    setTimeout(
+      function() {
+        this.setState({ isLoadeing: false });
+      }.bind(this),
+      1000
+    );
+  };
+  // end preview
+
   render() {
     const { page } = this.state;
     const { selectedProject } = this.context;
     const pages = selectedProject.pages.filter(
       item => item.templateType !== "TABS"
     );
-    // console.log(this.props.location.state.pageType);
-    return (
-      <WidgetsContext>
-        {page.templateType === "DEFAULT" && (
-          <ComponentsList onModalChange={this.handleModal} />
-        )}
-        {page.templateType === "TABS" && (
-          <NavigationList
-            onCustomItem={this.addCustomItem}
-            pages={pages}
-            customItem={this.state.customItem}
-            onChangeField={this.handleInput}
-            // onModalChange={this.handleModal}
-            addToNavigation={this.addToNavigation}
+
+    console.log(page);
+    if (!this.state.isLoading && page !== null) {
+      return (
+        <WidgetsContext>
+          {this.state.isLoadeing && <Loader />}
+          {page.templateType === "DEFAULT" && (
+            <ComponentsList onModalChange={this.handleModal} />
+          )}
+          {page.templateType === "TABS" && (
+            <NavigationList
+              onCustomItem={this.addCustomItem}
+              pages={pages}
+              customItem={this.state.customItem}
+              onChangeField={this.handleInput}
+              // onModalChange={this.handleModal}
+              addToNavigation={this.addToNavigation}
+            />
+          )}
+          <Content
+            page={this.state.page}
+            pageLabel="Edit Page"
+            btnTitle="Save"
+            onHandle={this.handleChange}
+            onChangeTemplate={this.changeTemplate}
+            onModalChange={this.handleModal}
+            onSave={this.saveData}
+            sortNavigation={this.sortNavigation}
+            onMarkDraft={this.onMarkDraft}
+            deleteWidgets={this.deleteWidgets}
+            handlePreviewModal={this.handlePreviewModal}
           />
-        )}
-        <Content
-          page={this.state.page}
-          pageLabel="Edit Page"
-          btnTitle={this.props.location.state.pageType}
-          onHandle={this.handleChange}
-          onChangeTemplate={this.changeTemplate}
-          onModalChange={this.handleModal}
-          onSave={this.saveData}
-          sortNavigation={this.sortNavigation}
-          onMarkDraft={this.onMarkDraft}
-          deleteWidgets={this.deleteWidgets}
-        />
-        <ModalComponent
-          title={this.props.text}
-          onModalChange={this.handleModal}
-          showModal={this.state.showModalComponent}
-          modalData={this.state.modalData}
-          onSaveComponent={this.saveComponent}
-          modalOpenType={this.state.modalOpenType}
-        />
-      </WidgetsContext>
-    );
+          <ModalComponent
+            title={this.props.text}
+            onModalChange={this.handleModal}
+            showModal={this.state.showModalComponent}
+            modalData={this.state.modalData}
+            onSaveComponent={this.saveComponent}
+            modalOpenType={this.state.modalOpenType}
+          />
+          <PreviewModal
+            showModal={this.state.showPreviewModal}
+            handlePreviewModal={this.handlePreviewModal}
+            page={this.state.page}
+          />
+        </WidgetsContext>
+      );
+    } else {
+      return <Loader />;
+    }
   }
 }
 

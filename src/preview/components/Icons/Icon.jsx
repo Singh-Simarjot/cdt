@@ -13,7 +13,8 @@ class Icon extends Component {
           <h6 className="icon-name">{this.props.iconName}</h6>
           <div className="icon-preview">
             <span>
-              <i className={this.props.iconShow} aria-hidden="true"></i>
+              {/* <i className={this.props.iconShow} aria-hidden="true"></i> */}
+              <img src={this.props.iconShow} alt="icon" />
             </span>
           </div>
         </div>

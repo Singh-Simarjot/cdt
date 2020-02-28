@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import "./widgets.scss";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal, Row, Col } from "react-bootstrap";
 import nextId from "react-id-generator";
+import FileInputComponent from "react-file-input-previews-base64";
+import { uploadFile } from "../../services/projects";
 class IconGrid extends Component {
   state = {
     items: [
       {
         id: "1",
         url: "",
-        delete: null
+        name: "",
+        delete: true
       }
     ],
     widget: {
@@ -22,7 +25,8 @@ class IconGrid extends Component {
       content: {
         icons: []
       }
-    }
+    },
+    deleteFiles: []
   };
 
   componentDidMount() {
@@ -30,17 +34,21 @@ class IconGrid extends Component {
     if (modalOpenType === "edit") {
       const content = this.props.data;
       this.setState({ widget: content });
-      // this.setState({ items: content.content.icons });
+      this.setState({ items: content.content.icons });
     }
   }
 
   addMoreIcon = () => {
     const dummyid = nextId();
-    const obj = { id: dummyid, url: "", delete: true };
+    const obj = { id: dummyid, url: "", name: "", delete: true };
     const items = [...this.state.items, obj];
     this.setState({ items });
   };
-  deleteIcon = id => {
+  deleteIcon = (id, imgUrl) => {
+    if (imgUrl) {
+      const deleteFiles = [...this.state.deleteFiles, imgUrl];
+      this.setState({ deleteFiles });
+    }
     const items = this.state.items.filter(m => m.id !== id);
     this.setState({ items });
   };
@@ -57,26 +65,32 @@ class IconGrid extends Component {
     this.setState({ widget });
   };
 
-  addIcon = e => {
-    const items = this.state.items;
-    items.filter(item =>
-      item.id === e.target.id ? (item.url = e.target.value) : item
-    );
-    this.setState({ items });
-  };
+  // addIcon = e => {
+  //   const items = this.state.items;
+  //   items.filter(item =>
+  //     item.id === e.target.id ? (item.url = e.target.value) : item
+  //   );
+  //   this.setState({ items });
+  // };
   onSaveContent = () => {
+    const deleteFiles = [...this.state.deleteFiles];
     let dummyid;
     const widget = { ...this.state.widget };
     if (this.props.modalOpenType === "edit") {
       dummyid = widget.id;
     } else {
-      dummyid = nextId();
+      //dummyid = nextId();
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
 
     widget.id = dummyid;
     widget.content.icons = this.state.items;
     this.setState({ widget });
-    this.props.onSaveComponent(widget);
+    this.props.onSaveComponent(widget, deleteFiles);
   };
 
   internalNavigation = e => {
@@ -90,11 +104,47 @@ class IconGrid extends Component {
     const items = this.state.items;
 
     return items.filter(item => item.url === "").length !== 0 ||
+      items.filter(item => item.name === "").length !== 0 ||
+      items.length === 0 ||
       widget.title == "" ||
       widget.description == ""
       ? true
       : false;
   }
+
+  addIconName = (e, id) => {
+    const items = this.state.items;
+    items.filter(item =>
+      item.id === id ? (item.name = e.target.value) : item
+    );
+    this.setState({ items });
+  };
+
+  getIcon = async (files, id) => {
+    const items = this.state.items;
+    const icon = [files];
+
+    try {
+      await uploadFile(JSON.stringify(icon)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            items.filter(item =>
+              item.id === id ? (item.url = data.file.toString()) : item
+            );
+            this.setState({ items });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeIcone = (id, imgUrl) => {
+    const deleteFiles = [...this.state.deleteFiles, imgUrl];
+    const items = this.state.items;
+    items.filter(item => (item.id === id ? (item.url = "") : item));
+    this.setState({ items, deleteFiles });
+  };
 
   render() {
     const { onModalChange } = this.props;
@@ -122,18 +172,54 @@ class IconGrid extends Component {
           <div className="widgetsDiv">
             {items.map(item => (
               <Form.Group className="addIceon" key={item.id}>
-                <Form.Control
-                  type="file"
-                  accept="image/*"
-                  id={item.id}
-                  // value={item.url}
-                  onChange={e => this.addIcon(e)}
-                />
+                <Row>
+                  <Col>
+                    <Form.Group>
+                      <Form.Control
+                        type="text"
+                        placeholder="Icon Name"
+                        value={item.name}
+                        onChange={e => this.addIconName(e, item.id)}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group>
+                      {item.url ? (
+                        <div className="imageOverRemove">
+                          <img src={item.url} alt="icon Url" />
+                          <Button
+                            variant={"danger"}
+                            size="sm"
+                            onClick={() => this.removeIcone(item.id, item.url)}
+                          >
+                            <i className="fa fa-times"></i>
+                          </Button>
+                        </div>
+                      ) : (
+                        <FileInputComponent
+                          labelText="Select Image"
+                          labelStyle={{ color: "#000", display: "none" }}
+                          imageStyle={{ display: "none" }}
+                          parentStyle={{ marginTop: 0 }}
+                          buttonComponent={
+                            <Button block variant="info">
+                              Select Image
+                            </Button>
+                          }
+                          multiple={false}
+                          callbackFunction={e => this.getIcon(e, item.id)}
+                          accept="image/*"
+                        />
+                      )}
+                    </Form.Group>
+                  </Col>
+                </Row>
                 <Button
                   size={"sm"}
                   variant="link"
                   className={item.delete ? "text-danger" : "text-danger d-none"}
-                  onClick={() => this.deleteIcon(item.id)}
+                  onClick={() => this.deleteIcon(item.id, item.url)}
                 >
                   <i className="fa fa-minus"></i>
                 </Button>
@@ -145,7 +231,8 @@ class IconGrid extends Component {
                 variant="success"
                 onClick={this.addMoreIcon}
                 disabled={
-                  this.state.items.filter(item => item.url === "").length > 0
+                  this.state.items.filter(item => item.url === "").length > 0 ||
+                  this.state.items.filter(item => item.name === "").length > 0
                     ? true
                     : false
                 }

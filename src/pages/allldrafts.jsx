@@ -31,7 +31,7 @@ class Drafts extends Component {
 
   render() {
     const { selectedProject } = this.context;
-    const drafts = selectedProject.pages.filter(item => item.saved === false);
+    const drafts = selectedProject.pages.filter(item => item.saved === 0 || item.saved === false );
     return (
       <div className="content">
         <div className="contentTop">
@@ -66,10 +66,10 @@ class Drafts extends Component {
                     <td>{project.id}</td>
                     <td>{project.title}</td>
                     <td>
-                      {moment(project.dateCreated).format("YYYY//MM//DD")}{" "}
+                      {moment(project.dateCreated).format("YYYY/MM/DD")}{" "}
                     </td>
                     <td>
-                      {moment(project.dateEdited).format("YYYY//MM//DD")}{" "}
+                      {moment(project.dateEdited).format("YYYY/MM/DD")}{" "}
                     </td>
                     <td>{project.templateType}</td>
                     <td>{project.author}</td>

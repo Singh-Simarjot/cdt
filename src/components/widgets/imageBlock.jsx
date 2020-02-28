@@ -3,7 +3,8 @@ import "./widgets.scss";
 import { Button, Form, Modal } from "react-bootstrap";
 import nextId from "react-id-generator";
 import Dropzone from "react-dropzone-uploader";
-
+import { uploadFile } from "../../services/projects";
+import FileInputComponent from "react-file-input-previews-base64";
 class ImageBlock extends Component {
   state = {
     widget: {
@@ -15,9 +16,10 @@ class ImageBlock extends Component {
       description: "",
       internalNavigation: false,
       content: {
-        image: []
+        image: ""
       }
-    }
+    },
+    deleteFiles: []
   };
   componentDidMount() {
     const modalOpenType = this.props.modalOpenType;
@@ -26,21 +28,6 @@ class ImageBlock extends Component {
       this.setState({ widget: content });
     }
   }
-  getUploadParams = ({ meta }) => {
-    return { url: "https://httpbin.org/post" };
-  };
-  handleChangeStatus = ({ meta, file }, status) => {
-    console.log(status, meta, file);
-  };
-  handleSubmit = (files, allFiles) => {
-    // console.log(files.map(f => f.meta));
-    const widget = this.state.widget;
-    widget.content.image = files.map(f => f.meta);
-    this.setState({ widget });
-  };
-  handleChange = (e, section) => {
-    console.log(e.target.value, section);
-  };
 
   internalNavigation = e => {
     const widget = { ...this.state.widget };
@@ -68,17 +55,44 @@ class ImageBlock extends Component {
       : false;
   }
   onSaveContent = () => {
+    const deleteFiles = [...this.state.deleteFiles];
     let dummyid;
     const widget = { ...this.state.widget };
-
     if (this.props.modalOpenType === "edit") {
       dummyid = widget.id;
     } else {
-      dummyid = nextId();
+      //dummyid = nextId();
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
     widget.id = dummyid;
     this.setState({ widget });
-    this.props.onSaveComponent(widget);
+    this.props.onSaveComponent(widget, deleteFiles);
+  };
+
+  getImage = async files => {
+    const widget = this.state.widget;
+    const image = [files];
+    try {
+      await uploadFile(JSON.stringify(image)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            widget.content.image = data.file.toString();
+            this.setState({ widget });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+  removeWidgetImage = () => {
+    const widget = this.state.widget;
+    const deleteFiles = [...this.state.deleteFiles, widget.content.image];
+    widget.content.image = "";
+    this.setState({ widget, deleteFiles });
   };
   render() {
     const { onModalChange } = this.props;
@@ -87,6 +101,18 @@ class ImageBlock extends Component {
       <>
         <Modal.Body>
           <Form.Group>
+            {/* <div>
+              <FileInputComponent
+                labelText="Select Image"
+                // labelStyle={{ fontSize: 14 }}
+                // multiple={true}
+                // callbackFunction={file_arr => {
+                //   console.log(file_arr);
+                // }}
+                callbackFunction={this.getImage.bind(this)}
+                accept="image/*"
+              />
+            </div> */}
             <Form.Label>Title</Form.Label>
             <Form.Control
               type="text"
@@ -105,15 +131,33 @@ class ImageBlock extends Component {
           </Form.Group>
           <Form.Group>
             <div className="widgetsDiv">
-              <label className="dropImg">
-                <Dropzone
-                  getUploadParams={this.getUploadParams}
-                  onChangeStatus={this.handleChangeStatus}
-                  onSubmit={this.handleSubmit}
-                  maxFiles={1}
-                  accept="image/*,audio/*,video/*"
+              {widget.content.image ? (
+                <div className="imageOverRemove">
+                  <img src={widget.content.image} alt="widget image" />
+                  <Button
+                    variant={"danger"}
+                    size="sm"
+                    onClick={this.removeWidgetImage}
+                  >
+                    <i className="fa fa-times"></i>
+                  </Button>
+                </div>
+              ) : (
+                <FileInputComponent
+                  labelText="Select Image"
+                  labelStyle={{ color: "#000", display: "none" }}
+                  imageStyle={{ display: "none" }}
+                  parentStyle={{ marginTop: 0 }}
+                  buttonComponent={
+                    <Button size={"sm"} variant="info">
+                      Select Image
+                    </Button>
+                  }
+                  multiple={false}
+                  callbackFunction={this.getImage.bind(this)}
+                  accept="image/*"
                 />
-              </label>
+              )}
             </div>
           </Form.Group>
           <Form.Group>

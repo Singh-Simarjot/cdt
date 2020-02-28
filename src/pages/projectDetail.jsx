@@ -11,35 +11,45 @@ import EditPage from "./editPage";
 
 import Drafts from "./allldrafts";
 
+import Loader from "../components/loader/loader";
 class ProjectDetail extends Component {
   static contextType = ProjectsContext;
 
   state = {};
   componentDidMount() {
     if (this.context.selectedProjectID !== null) {
-      this.context.getAllPages(this.context.selectedProjectID);
+      this.context.onProjectDetail(this.context.selectedProjectID);
     } else {
       this.props.history.push("/");
     }
   }
   render() {
-    return (
-      <main className="main">
-        <div className="containerMain">
-          <SidebarNav />
-          <div className="containerMainContent">
-            <Switch>
-              <Route exact path="/project/navigation" component={Navigation} />
-              <Route exact path="/project/addnew" component={AddNewPage} />
-              <Route exact path="/project/editpage" component={EditPage} />
-              <Route exact path="/project/drafts" component={Drafts} />
+    const { isloading } = this.context;
+    if (isloading) {
+      return (
+        <main className="main">
+          <div className="containerMain">
+            <SidebarNav />
+            <div className="containerMainContent">
+              <Switch>
+                <Route
+                  exact
+                  path="/project/navigation"
+                  component={Navigation}
+                />
+                <Route exact path="/project/addnew" component={AddNewPage} />
+                <Route exact path="/project/editpage" component={EditPage} />
+                <Route exact path="/project/drafts" component={Drafts} />
 
-              <Route exact path="/project" component={AllPages} />
-            </Switch>
+                <Route exact path="/project" component={AllPages} />
+              </Switch>
+            </div>
           </div>
-        </div>
-      </main>
-    );
+        </main>
+      );
+    } else {
+      return <Loader />;
+    }
   }
 }
 

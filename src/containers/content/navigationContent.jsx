@@ -9,9 +9,7 @@ import "react-sortable-tree/style.css"; // This only needs to be imported once i
 
 class NavigationContent extends Component {
  
-   componentWillUpdate = props => {
-     console.log(props)
-   }
+   
 
   render() {
     const { onSaveNavigatoin,navigation } = this.props;
@@ -34,7 +32,7 @@ class NavigationContent extends Component {
           <SortableTree
             treeData={navigation}
             onChange={(navigation) => this.props.sortNavigation({ navigation })}
-            maxDepth="2"
+            maxDepth={2}
           />
         </div>
       </div>

@@ -5,13 +5,16 @@ import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone-uploader";
 import ProjectsContext from "../context/projectsContext";
 import nextId from "react-id-generator";
+import FileInputComponent from "react-file-input-previews-base64";
+
+import { uploadFile } from "../services/projects";
 class AddNewProject extends Component {
   static contextType = ProjectsContext;
   state = {
     newProject: {
       name: "",
       description: "",
-      id: "",
+
       thumbnail: "",
       data: {
         headerSection: {
@@ -64,12 +67,15 @@ class AddNewProject extends Component {
       }
     }
   };
-  getUploadParams = ({ meta }) => {
-    console.log(meta);
-    let file = { file: meta.previewUrl };
+  // getUploadParams = ({ meta }) => {
+  //   console.log(meta);
+  //   let file = { file: meta.previewUrl };
 
-    return { url: this.context.onUploadFile(file) };
-  };
+  //   // return { url: this.context.onUploadFile(file) };
+  //   return {
+  //     url: "http://dev.evantiv.com/carbon_design/public/api/project/file"
+  //   };
+  // };
   // handleChangeStatus = ({ file }, status) => {
   //   // console.log(status, meta, file);
   //   const fileName = file.name;
@@ -123,14 +129,14 @@ class AddNewProject extends Component {
     );
     this.setState({ newProject });
   };
-  addResourceLinkIcon = (e, id) => {
-    const icon = e.target.value;
-    const newProject = { ...this.state.newProject };
-    newProject.data.resource.otherResourceComponets.filter(item =>
-      item.id === id ? (item.icon = icon) : item
-    );
-    this.setState({ newProject });
-  };
+  // addResourceLinkIcon = (e, id) => {
+  //   const icon = e.target.value;
+  //   const newProject = { ...this.state.newProject };
+  //   newProject.data.resource.otherResourceComponets.filter(item =>
+  //     item.id === id ? (item.icon = icon) : item
+  //   );
+  //   this.setState({ newProject });
+  // };
 
   deleteResource = id => {
     const newProject = this.state.newProject;
@@ -194,13 +200,13 @@ class AddNewProject extends Component {
     );
     this.setState({ newProject });
   };
-  addMoreArticlesImage = (e, id) => {
-    const newProject = { ...this.state.newProject };
-    newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
-      item.id === id ? (item.image = e.target.value) : item
-    );
-    this.setState({ newProject });
-  };
+  // addMoreArticlesImage = (e, id) => {
+  //   const newProject = { ...this.state.newProject };
+  //   newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
+  //     item.id === id ? (item.image = e.target.value) : item
+  //   );
+  //   this.setState({ newProject });
+  // };
 
   deleteArticles = id => {
     const newProject = this.state.newProject;
@@ -211,6 +217,7 @@ class AddNewProject extends Component {
   };
 
   handleChangeStatus = ({ meta, file }, status, name) => {
+    console.log({ meta, file }, status, name);
     const newProject = this.state.newProject;
     const fileName = file.name;
     if (status === null) {
@@ -233,9 +240,196 @@ class AddNewProject extends Component {
     }
     this.setState({ newProject });
   };
-  // handleHeaderSection(){
 
-  // }
+  // changeVideotype
+  changeVideotype = e => {
+    const newProject = { ...this.state.newProject };
+    newProject.data.headerSection.videoType = e.target.value;
+    newProject.data.headerSection.video = "";
+    this.setState({ newProject });
+  };
+  removeProjevtVideo = () => {
+    const newProject = { ...this.state.newProject };
+    newProject.data.headerSection.video = "";
+    this.setState({ newProject });
+  };
+  /*
+  getFiles = async files => {
+    try {
+      await uploadFile(JSON.stringify(files)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            data.file
+            console.log("data ", data);
+          }
+        }
+      });
+    } catch (err) {}
+    // const result = this.context.onUploadFile(JSON.stringify(files));
+  };
+  */
+  getProjectThum = async files => {
+    const newProject = this.state.newProject;
+    const projectThum = [files];
+    try {
+      await uploadFile(JSON.stringify(projectThum)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.thumbnail = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+    // const result = this.context.onUploadFile(JSON.stringify(files));
+  };
+
+  removeProjectThum = () => {
+    const newProject = this.state.newProject;
+    newProject.thumbnail = "";
+    this.setState({ newProject });
+  };
+
+  getVideoThum = async files => {
+    const newProject = this.state.newProject;
+    const videoThum = [files];
+    try {
+      await uploadFile(JSON.stringify(videoThum)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.headerSection.videoThumb = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeVideoThumb = () => {
+    const newProject = this.state.newProject;
+    newProject.data.headerSection.videoThumb = "";
+    this.setState({ newProject });
+  };
+
+  getProjectVideo = async files => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.headerSection.video = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+  getDesigningImage = async files => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.designingSection.image = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeDesigningImage = () => {
+    const newProject = this.state.newProject;
+    newProject.data.designingSection.image = "";
+    this.setState({ newProject });
+  };
+
+  getDevelopingImage = async files => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            // console.log("data ", data);
+            newProject.data.developmentSection.image = data.file.toString();
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeDevelopingImage = () => {
+    const newProject = this.state.newProject;
+    newProject.data.developmentSection.image = "";
+    this.setState({ newProject });
+  };
+
+  getLinksIcon = async (files, id) => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            newProject.data.resource.otherResourceComponets.filter(item =>
+              item.id === id ? (item.icon = data.file.toString()) : item
+            );
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeLinksIcon = id => {
+    const newProject = this.state.newProject;
+    newProject.data.resource.otherResourceComponets.filter(item =>
+      item.id === id ? (item.icon = "") : item
+    );
+    this.setState({ newProject });
+  };
+
+  getArticleImage = async (files, id) => {
+    const newProject = this.state.newProject;
+    const projectVideo = [files];
+    try {
+      await uploadFile(JSON.stringify(projectVideo)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            newProject.data.latestTrends.latestTrendSectionArticle.filter(
+              item =>
+                item.id === id ? (item.image = data.file.toString()) : item
+            );
+            this.setState({ newProject });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+
+  removeArticleImage = id => {
+    const newProject = this.state.newProject;
+    newProject.data.latestTrends.latestTrendSectionArticle.filter(item =>
+      item.id === id ? (item.image = "") : item
+    );
+    this.setState({ newProject });
+  };
 
   // disabledAddProject
   disabledAddProject() {
@@ -316,7 +510,6 @@ class AddNewProject extends Component {
   addProject = e => {
     e.preventDefault();
     const newProject = this.state.newProject;
-    newProject.id = nextId();
     this.context.addNewProject(newProject);
     this.props.history.push("/");
   };
@@ -346,6 +539,7 @@ class AddNewProject extends Component {
                         <Form.Control
                           type="text"
                           name="name"
+                          placeholder="Project Title"
                           value={newProject.name}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
@@ -355,24 +549,43 @@ class AddNewProject extends Component {
                         <Form.Control
                           as="textarea"
                           rows="4"
+                          placeholder="Project Description"
                           name="description"
                           value={newProject.description}
                           onChange={(e, section) => this.handleChange(e, null)}
                         />
                       </Form.Group>
                       <Form.Group>
-                        <Form.Label>Project Cover Photo</Form.Label>
-                        <label className="dropImg">
-                          <Dropzone
-                            getUploadParams={this.getUploadParams}
-                            onChangeStatus={(e, section, name) =>
-                              this.handleChangeStatus(e, null, null)
-                            }
-                            onSubmit={this.handleSubmit}
-                            maxFiles={1}
-                            accept="image/*,audio/*,video/*"
-                          />
-                        </label>
+                        <Form.Label>Project Logo</Form.Label>
+                        {newProject.thumbnail ? (
+                          <div className="imageOverRemove">
+                            <img src={newProject.thumbnail} alt="cover photo" />
+                            <Button
+                              variant={"danger"}
+                              size="sm"
+                              onClick={this.removeProjectThum}
+                            >
+                              <i className="fa fa-times"></i>
+                            </Button>
+                          </div>
+                        ) : (
+                          <div>
+                            <FileInputComponent
+                              labelText="Select Image"
+                              labelStyle={{ color: "#000", display: "none" }}
+                              imageStyle={{ display: "none" }}
+                              parentStyle={{ marginTop: 0 }}
+                              buttonComponent={
+                                <Button size={"sm"} variant="info">
+                                  Select Image
+                                </Button>
+                              }
+                              multiple={false}
+                              callbackFunction={this.getProjectThum.bind(this)}
+                              accept="image/*"
+                            />
+                          </div>
+                        )}
                       </Form.Group>
                     </div>
                   </Col>
@@ -380,28 +593,56 @@ class AddNewProject extends Component {
                     <div className="addNewProjectData">
                       <Form.Group>
                         <Form.Label>Header Section</Form.Label>
-                        <label className="dropImg">
-                          Video Thumb
-                          <br />
-                          <Dropzone
-                            getUploadParams={this.getUploadParams}
-                            onChangeStatus={(e, section, name) =>
-                              this.handleChangeStatus(
-                                e,
-                                "headerSection",
-                                "videoThumb"
-                              )
-                            }
-                            onSubmit={this.handleSubmit}
-                            accept="image/*,audio/*,video/*"
-                          />
-                        </label>
+
+                        {newProject.data.headerSection.videoThumb ? (
+                          <div
+                            className="imageOverRemove"
+                            style={{ marginBottom: "15px" }}
+                          >
+                            <div>
+                              <small>Video thumbnail image</small>
+                            </div>
+                            <img
+                              src={newProject.data.headerSection.videoThumb}
+                              alt="video Thum"
+                            />
+                            <Button
+                              variant={"danger"}
+                              size="sm"
+                              onClick={this.removeVideoThumb}
+                            >
+                              <i className="fa fa-times"></i>
+                            </Button>
+                          </div>
+                        ) : (
+                          <div style={{ marginBottom: "15px" }}>
+                            {/* <div>
+                              <small>Video thumbnail image</small>
+                            </div> */}
+                            <FileInputComponent
+                              labelText="Select Image"
+                              labelStyle={{ color: "#000", display: "none" }}
+                              imageStyle={{ display: "none" }}
+                              parentStyle={{ marginTop: 0 }}
+                              buttonComponent={
+                                <Button size={"sm"} variant="info">
+                                  Select Video thumbnail image
+                                </Button>
+                              }
+                              multiple={false}
+                              callbackFunction={this.getVideoThum.bind(this)}
+                              accept="image/*"
+                            />
+                          </div>
+                        )}
+
                         <Form.Control
                           as="select"
                           name="videoType"
-                          onChange={(e, section) =>
-                            this.handleChange(e, "headerSection")
-                          }
+                          // onChange={(e, section) =>
+                          //   this.handleChange(e, "headerSection")
+                          // }
+                          onChange={e => this.changeVideotype(e)}
                         >
                           <option
                             value="INTERNAL_STORAGE"
@@ -425,6 +666,90 @@ class AddNewProject extends Component {
                             URL
                           </option>
                         </Form.Control>
+                        {newProject.data.headerSection.videoType ===
+                        "INTERNAL_STORAGE" ? (
+                          <div style={{ marginBottom: "15px" }}>
+                            <div>
+                              <small>Select Video</small>
+                            </div>
+                            {newProject.data.headerSection.video ? (
+                              <div className="imageOverRemove">
+                                <video
+                                  controls
+                                  src={newProject.data.headerSection.video}
+                                ></video>
+                                <Button
+                                  variant={"danger"}
+                                  size="sm"
+                                  onClick={this.removeProjevtVideo}
+                                >
+                                  <i className="fa fa-times"></i>
+                                </Button>
+                              </div>
+                            ) : (
+                              <FileInputComponent
+                                labelText="Select Image"
+                                labelStyle={{ color: "#000", display: "none" }}
+                                imageStyle={{ display: "none" }}
+                                parentStyle={{ marginTop: 0 }}
+                                buttonComponent={
+                                  <Button size={"sm"} variant="info">
+                                    Select Video
+                                  </Button>
+                                }
+                                multiple={false}
+                                imagePreview={false}
+                                callbackFunction={this.getProjectVideo.bind(
+                                  this
+                                )}
+                                accept="video/*"
+                              />
+                            )}
+                          </div>
+                        ) : (
+                          <div style={{ marginBottom: "15px" }}>
+                            {newProject.data.headerSection.video ? (
+                              <div
+                                className="imageOverRemove"
+                                style={{ marginBottom: "15px" }}
+                              >
+                                <iframe
+                                  src={newProject.data.headerSection.video}
+                                  frameborder="0"
+                                ></iframe>
+                                <Button
+                                  variant={"danger"}
+                                  size="sm"
+                                  onClick={this.removeProjevtVideo}
+                                >
+                                  <i className="fa fa-times"></i>
+                                </Button>
+                              </div>
+                            ) : (
+                              <div
+                                style={{ marginBottom: "15px" }}
+                                className="projectVideoUrl"
+                              >
+                                <Form.Control
+                                  type="text"
+                                  name="video"
+                                  placeholder="Video Url"
+                                  value={newProject.data.headerSection.video}
+                                  onChange={(e, section) =>
+                                    this.handleChange(e, "headerSection")
+                                  }
+                                />
+                                {/* <Button
+                                  variant={"success"}
+                                  size="md"
+                                  // onClick={this.removeProjevtVideo}
+                                >
+                                  <i className="fa fa-check"></i>
+                                </Button> */}
+                              </div>
+                            )}
+                          </div>
+                        )}
                         <Form.Control
                           type="text"
                           name="linkTopText"
@@ -443,28 +768,6 @@ class AddNewProject extends Component {
                             this.handleChange(e, "headerSection")
                           }
                         />
-                        {newProject.data.headerSection.videoType ===
-                        "INTERNAL_STORAGE" ? (
-                          <Form.Control
-                            type="file"
-                            name="video"
-                            value={newProject.data.headerSection.video}
-                            onChange={(e, section) =>
-                              this.handleChange(e, "headerSection")
-                            }
-                            className="form-control"
-                          />
-                        ) : (
-                          <Form.Control
-                            type="text"
-                            name="video"
-                            placeholder="Video Url"
-                            value={newProject.data.headerSection.video}
-                            onChange={(e, section) =>
-                              this.handleChange(e, "headerSection")
-                            }
-                          />
-                        )}
                         <Form.Control
                           type="text"
                           name="link"
@@ -478,20 +781,47 @@ class AddNewProject extends Component {
 
                       <Form.Group>
                         <Form.Label>Designing Section</Form.Label>
-                        <label className="dropImg">
-                          <Dropzone
-                            getUploadParams={this.getUploadParams}
-                            onSubmit={this.handleSubmit}
-                            accept="image/*,audio/*,video/*"
-                            onChangeStatus={(e, section, name) =>
-                              this.handleChangeStatus(
-                                e,
-                                "designingSection",
-                                "image"
-                              )
-                            }
-                          />
-                        </label>
+                        {newProject.data.designingSection.image ? (
+                          <div
+                            className="imageOverRemove"
+                            style={{ marginBottom: "15px" }}
+                          >
+                            <img
+                              src={newProject.data.designingSection.image}
+                              alt="designing Section Image"
+                            />
+                            <Button
+                              variant={"danger"}
+                              size="sm"
+                              onClick={this.removeDesigningImage}
+                            >
+                              <i className="fa fa-times"></i>
+                            </Button>
+                          </div>
+                        ) : (
+                          <div style={{ marginBottom: "15px" }}>
+                            {/* <div>
+                              <small>Select Image</small>
+                            </div> */}
+                            <FileInputComponent
+                              labelText="Select Image"
+                              labelStyle={{ color: "#000", display: "none" }}
+                              imageStyle={{ display: "none" }}
+                              parentStyle={{ marginTop: 0 }}
+                              buttonComponent={
+                                <Button size={"sm"} variant="info">
+                                  Select Image
+                                </Button>
+                              }
+                              multiple={false}
+                              imagePreview={false}
+                              callbackFunction={this.getDesigningImage.bind(
+                                this
+                              )}
+                              accept="image/*"
+                            />
+                          </div>
+                        )}
                         <Form.Control
                           type="text"
                           placeholder="Top Title Text"
@@ -523,20 +853,47 @@ class AddNewProject extends Component {
 
                       <Form.Group>
                         <Form.Label>Developing Section</Form.Label>
-                        <label className="dropImg">
-                          <Dropzone
-                            getUploadParams={this.getUploadParams}
-                            onSubmit={this.handleSubmit}
-                            accept="image/*,audio/*,video/*"
-                            onChangeStatus={(e, section, name) =>
-                              this.handleChangeStatus(
-                                e,
-                                "developmentSection",
-                                "image"
-                              )
-                            }
-                          />
-                        </label>
+                        {newProject.data.developmentSection.image ? (
+                          <div
+                            className="imageOverRemove"
+                            style={{ marginBottom: "15px" }}
+                          >
+                            <img
+                              src={newProject.data.developmentSection.image}
+                              alt="development Section image"
+                            />
+                            <Button
+                              variant={"danger"}
+                              size="sm"
+                              onClick={this.removeDevelopingImage}
+                            >
+                              <i className="fa fa-times"></i>
+                            </Button>
+                          </div>
+                        ) : (
+                          <div style={{ marginBottom: "15px" }}>
+                            {/* <div>
+                              <small>Select Image</small>
+                            </div> */}
+                            <FileInputComponent
+                              labelText="Select Image"
+                              labelStyle={{ color: "#000", display: "none" }}
+                              imageStyle={{ display: "none" }}
+                              parentStyle={{ marginTop: 0 }}
+                              buttonComponent={
+                                <Button size={"sm"} variant="info">
+                                  Select Image
+                                </Button>
+                              }
+                              multiple={false}
+                              imagePreview={false}
+                              callbackFunction={this.getDevelopingImage.bind(
+                                this
+                              )}
+                              accept="image/*"
+                            />
+                          </div>
+                        )}
                         <Form.Control
                           type="text"
                           placeholder="Top Title Text"
@@ -608,6 +965,7 @@ class AddNewProject extends Component {
                                   <Col md={4}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       placeholder="title"
                                       value={item.title}
                                       name="title"
@@ -619,6 +977,7 @@ class AddNewProject extends Component {
                                   <Col md={4}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       placeholder="Link"
                                       value={item.link}
                                       name="link"
@@ -628,14 +987,44 @@ class AddNewProject extends Component {
                                     />
                                   </Col>
                                   <Col md={4}>
-                                    <Form.Control
-                                      type="file"
-                                      value={item.icon}
-                                      name="icon"
-                                      onChange={e =>
-                                        this.addResourceLinkIcon(e, item.id)
-                                      }
-                                    />
+                                    {item.icon ? (
+                                      <div
+                                        className="imageOverRemove"
+                                        style={{ marginBottom: "10px" }}
+                                      >
+                                        <img src={item.icon} alt="Links Icon" />
+                                        <Button
+                                          variant={"danger"}
+                                          size="sm"
+                                          onClick={e =>
+                                            this.removeLinksIcon(item.id)
+                                          }
+                                        >
+                                          <i className="fa fa-times"></i>
+                                        </Button>
+                                      </div>
+                                    ) : (
+                                      <FileInputComponent
+                                        labelText="Select Image"
+                                        labelStyle={{
+                                          color: "#000",
+                                          display: "none"
+                                        }}
+                                        imageStyle={{ display: "none" }}
+                                        parentStyle={{ marginTop: 0 }}
+                                        buttonComponent={
+                                          <Button size={"sm"} variant="info">
+                                            Select Image
+                                          </Button>
+                                        }
+                                        multiple={false}
+                                        imagePreview={false}
+                                        callbackFunction={e =>
+                                          this.getLinksIcon(e, item.id)
+                                        }
+                                        accept="image/*"
+                                      />
+                                    )}
                                   </Col>
                                 </Row>
                                 <Button
@@ -685,6 +1074,7 @@ class AddNewProject extends Component {
                                   <Col md={3}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       value={item.title}
                                       placeholder="Title"
                                       name="title"
@@ -696,6 +1086,7 @@ class AddNewProject extends Component {
                                   <Col md={3}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       placeholder="Author"
                                       name="author"
                                       value={item.author}
@@ -707,6 +1098,7 @@ class AddNewProject extends Component {
                                   <Col md={3}>
                                     <Form.Control
                                       type="text"
+                                      size="sm"
                                       placeholder="Link"
                                       name="link"
                                       value={item.link}
@@ -716,13 +1108,47 @@ class AddNewProject extends Component {
                                     />
                                   </Col>
                                   <Col md={3}>
-                                    <Form.Control
-                                      type="file"
-                                      value={item.image}
-                                      onChange={e =>
-                                        this.addMoreArticlesImage(e, item.id)
-                                      }
-                                    />
+                                    {item.image ? (
+                                      <div
+                                        className="imageOverRemove"
+                                        style={{ marginBottom: "10px" }}
+                                      >
+                                        <img
+                                          src={item.image}
+                                          alt="Article Image"
+                                        />
+                                        <Button
+                                          variant={"danger"}
+                                          size="sm"
+                                          onClick={e =>
+                                            this.removeArticleImage(item.id)
+                                          }
+                                        >
+                                          <i className="fa fa-times"></i>
+                                        </Button>
+                                      </div>
+                                    ) : (
+                                      <FileInputComponent
+                                        labelText="Select Image"
+                                        labelStyle={{
+                                          color: "#000",
+                                          display: "none"
+                                        }}
+                                        imageStyle={{ display: "none" }}
+                                        parentStyle={{ marginTop: 0 }}
+                                        buttonComponent={
+                                          <Button size={"sm"} variant="info">
+                                            Select Image
+                                          </Button>
+                                        }
+                                        multiple={false}
+                                        imagePreview={false}
+                                        callbackFunction={e =>
+                                          this.getArticleImage(e, item.id)
+                                        }
+                                        accept="image/*"
+                                      />
+                                    )}
                                   </Col>
                                 </Row>
                                 <Button
@@ -753,7 +1179,7 @@ class AddNewProject extends Component {
                           variant="primary"
                           size="lg"
                           onClick={e => this.addProject(e)}
-                          disabled={this.disabledAddProject()}
+                          // disabled={this.disabledAddProject()}
                         >
                           Submit
                         </Button>

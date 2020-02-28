@@ -13,24 +13,29 @@ class Tabs extends Component {
     super(props);
     this.state = {};
   }
+  renderUrl(string) {
+    return string
+      .split(" ")
+      .join("-")
+      .toLowerCase();
+  }
   render() {
-    const { tabsList } = this.props;
-    const { onSelectSubPage } = this.context;
-    console.log(this.props)
-    // const { selectedTabID } = this.context;
-    return (
+    const { tabsList ,onSelectSubPage } = this.props;
+    
+    
+ 
+     return (
       <section className="tabing-section">
         <Container>
           
           <Nav
-          // activeKey="/home"
-          // onSelect={selectedKey => alert(`selected ${selectedKey}`)}
+           
           >
             {tabsList.length>0 ? tabsList.map(item => (
               <Nav.Item key={item.id}>
                 {/* <Nav.Link href={item.url}>{item.title}</Nav.Link> */}
                 <NavLink
-                  to={"/preview/link1/page1" + item.url}
+                  to={this.renderUrl(item.title)}
                   onClick={() => {
                     onSelectSubPage(item.id);
                   }}

@@ -3,6 +3,7 @@ import "./componentsList.scss";
 // import ComponentsListItem from "./componentsListItem";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import ProjectsContext from "../context/projectsContext";
+import $ from "jquery";
 
 // import $ from "jquery";
 class NavigationList extends Component {
@@ -12,37 +13,20 @@ class NavigationList extends Component {
     return customItem.title === "" || customItem.url === "" ? true : false;
   };
 
+  componentDidMount() {
+    $(".componentsListBtn button").on("click", function() {
+      $(".componentsListItms").toggleClass("componentsListItmsOpen");
+    });
+  }
+
   render() {
     const { pages, customItem } = this.props;
 
-    let publishedPages =
+    const navPages =
       pages !== undefined &&
       pages.filter(items => {
-        return items.saved === true;
+        return items.saved === 1;
       });
-
-    let processedPages = pages.filter(items => {
-      items.url =
-        "/" +
-        items.title
-          .toLowerCase()
-          .split(" ")
-          .join("");
-      return items;
-    });
-
-    let navPages = processedPages.map((menuPage, i) => {
-      return (
-        <li key={i}>
-          {" "}
-          {menuPage.title}{" "}
-          <i
-            onClick={() => this.props.addToNavigation(menuPage)}
-            className="fa fa-plus"
-          ></i>
-        </li>
-      );
-    });
 
     return (
       <div className="componentsList">
@@ -59,17 +43,16 @@ class NavigationList extends Component {
         <div className="componentsListItms">
           <div className="navigationList">
             <ul>
-              {navPages}
-              {/* {pages.map(item => (
-                <li>
+              {navPages.map((menuPage, i) => (
+                <li key={i}>
                   {" "}
-                  {item.title}{" "}
+                  {menuPage.title}{" "}
                   <i
-                    onClick={() => this.props.addToNavigation(item)}
+                    onClick={() => this.props.addToNavigation(menuPage)}
                     className="fa fa-plus"
-                  ></i>{" "}
+                  ></i>
                 </li>
-              ))} */}
+              ))}
             </ul>
           </div>
           {/* customLickCreate */}

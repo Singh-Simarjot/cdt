@@ -11,11 +11,25 @@
     height: -webkit-calc(100% - 30px);
     height: calc(100% - 30px);
     img {
-      width: 200px;
-      max-width: 100%;
+      width: auto;
+      max-width: 200px;
+      max-height: 120px;
+      -o-object-fit: contain;
+      object-fit: contain;
+      -o-object-position: center;
+      object-position: center;
     }
     .card-body {
       cursor: pointer;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
     }
     &:hover {
       background-color: rgba($theme-bg, 0.1) !important;

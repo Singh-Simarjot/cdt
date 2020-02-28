@@ -4,6 +4,8 @@ import "./widgets.scss";
 // import ko from "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js";
 import { Button, Form, Modal } from "react-bootstrap";
 import nextId from "react-id-generator";
+import { uploadFile } from "../../services/projects";
+import FileInputComponent from "react-file-input-previews-base64";
 
 class MultipleImage extends Component {
   state = {
@@ -11,7 +13,7 @@ class MultipleImage extends Component {
       {
         id: "1",
         url: "",
-        delete: null
+        delete: true
       }
     ],
     widget: {
@@ -23,9 +25,10 @@ class MultipleImage extends Component {
       description: "",
       internalNavigation: false,
       content: {
-        icons: []
+        images: []
       }
-    }
+    },
+    deleteFiles: []
   };
 
   componentDidMount() {
@@ -33,7 +36,7 @@ class MultipleImage extends Component {
     if (modalOpenType === "edit") {
       const content = this.props.data;
       this.setState({ widget: content });
-      // this.setState({ items: content.content.icons });
+      this.setState({ items: content.content.images });
     }
   }
 
@@ -43,7 +46,11 @@ class MultipleImage extends Component {
     const items = [...this.state.items, obj];
     this.setState({ items });
   };
-  deleteIcon = id => {
+  deleteIcon = (id, imgUrl) => {
+    if (imgUrl) {
+      const deleteFiles = [...this.state.deleteFiles, imgUrl];
+      this.setState({ deleteFiles });
+    }
     const items = this.state.items.filter(m => m.id !== id);
     this.setState({ items });
   };
@@ -60,26 +67,32 @@ class MultipleImage extends Component {
     this.setState({ widget });
   };
 
-  addIcon = e => {
-    const items = this.state.items;
-    items.filter(item =>
-      item.id === e.target.id ? (item.url = e.target.value) : item
-    );
-    this.setState({ items });
-  };
+  // addIcon = e => {
+  //   const items = this.state.items;
+  //   items.filter(item =>
+  //     item.id === e.target.id ? (item.url = e.target.value) : item
+  //   );
+  //   this.setState({ items });
+  // };
   onSaveContent = () => {
+    const deleteFiles = [...this.state.deleteFiles];
     let dummyid;
     const widget = { ...this.state.widget };
 
     if (this.props.modalOpenType === "edit") {
       dummyid = widget.id;
     } else {
-      dummyid = nextId();
+      //dummyid = nextId();
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
     widget.id = dummyid;
-    widget.content.icons = this.state.items;
+    widget.content.images = this.state.items;
     this.setState({ widget });
-    this.props.onSaveComponent(widget);
+    this.props.onSaveComponent(widget, deleteFiles);
   };
 
   internalNavigation = e => {
@@ -93,11 +106,38 @@ class MultipleImage extends Component {
     const items = this.state.items;
 
     return items.filter(item => item.url === "").length !== 0 ||
+      items.length === 0 ||
       widget.title == "" ||
       widget.description == ""
       ? true
       : false;
   }
+
+  getImage = async (files, id) => {
+    const items = this.state.items;
+    const image = [files];
+
+    try {
+      await uploadFile(JSON.stringify(image)).then(response => {
+        if (response.status === 200) {
+          const data = response.data;
+          if (data.status) {
+            items.filter(item =>
+              item.id === id ? (item.url = data.file.toString()) : item
+            );
+            this.setState({ items });
+          }
+        }
+      });
+    } catch (err) {}
+  };
+  // removeWidgetImage = (id, urlImg) => {
+  //   const deleteFiles = [...this.state.deleteFiles, urlImg];
+
+  //   const items = this.state.items;
+  //   items.filter(item => (item.id === id ? (item.url = "") : item));
+  //   this.setState({ items, deleteFiles });
+  // };
   render() {
     const { onModalChange } = this.props;
     const { widget, items } = this.state;
@@ -124,18 +164,40 @@ class MultipleImage extends Component {
           <div className="widgetsDiv">
             {items.map(item => (
               <Form.Group className="addIceon" key={item.id}>
-                <Form.Control
-                  type="file"
-                  accept="image/*"
-                  id={item.id}
-                  // value={item.url}
-                  onChange={e => this.addIcon(e)}
-                />
+                {item.url ? (
+                  <div className="imageOverRemove">
+                    <img src={item.url} alt="item image" />
+                    {/* <Button
+                      variant={"danger"}
+                      size="sm"
+                      onClick={() => this.removeWidgetImage(item.id, item.url)}
+                    >
+                      <i className="fa fa-times"></i>
+                    </Button> */}
+                  </div>
+                ) : (
+                  <div className="text-left">
+                    <FileInputComponent
+                      labelText="Select Image"
+                      labelStyle={{ color: "#000", display: "none" }}
+                      imageStyle={{ display: "none" }}
+                      parentStyle={{ marginTop: 0 }}
+                      buttonComponent={
+                        <Button size={"sm"} variant="info">
+                          Select Image
+                        </Button>
+                      }
+                      multiple={false}
+                      callbackFunction={e => this.getImage(e, item.id)}
+                      accept="image/*"
+                    />
+                  </div>
+                )}
                 <Button
                   size={"sm"}
                   variant="link"
                   className={item.delete ? "text-danger" : "text-danger d-none"}
-                  onClick={() => this.deleteIcon(item.id)}
+                  onClick={() => this.deleteIcon(item.id, item.url)}
                 >
                   <i className="fa fa-minus"></i>
                 </Button>

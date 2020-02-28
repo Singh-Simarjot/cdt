@@ -8,7 +8,7 @@ class ExternalPageLinkGrid extends Component {
     const { data } = this.props;
     return (
       <React.Fragment>
-        <h2>{data.title}</h2>
+        <h3 id={data.id}>{data.title}</h3>
         <p>{data.description}</p>
         {/* <h3 className="mt-5 mb-3">Resources</h3> */}
         <Row>
@@ -17,10 +17,10 @@ class ExternalPageLinkGrid extends Component {
               <Link to={tag.url} target="_blank" key={tag.id}>
                 <Card>
                   <Card.Body>
-                    <Card.Text>{tag.title}</Card.Text>
+                    <Card.Text>{tag.label}</Card.Text>
                     <img src={tag.icon} alt={tag.label} />
-                    <i className={tag.iconpackage}></i>
-                    <i className={tag.iconlink}></i>
+                    {/* <i className={tag.iconpackage}></i>
+                    <i className={tag.iconlink}></i> */}
                   </Card.Body>
                 </Card>
               </Link>

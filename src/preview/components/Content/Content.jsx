@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2
-} from "react-html-parser";
+import ReactHtmlParser from "react-html-parser";
 
 import "./content.scss";
 
@@ -18,11 +14,11 @@ class TextBlock extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="content-block">
-        <h1>{data.title}</h1>
+      <div className="content-block " id={data.id}>
+        <h3>{data.title}</h3>
         <p>{data.description}</p>
-        {ReactHtmlParser(data.content)}
-        <p>
+        <div className="contentHtml">{ReactHtmlParser(data.content)}</div>
+        {/* <p>
           Carbon is IBM’s open-source design system for digital products and
           experiences. With the IBM Design Language as its foundation, the
           system consists of working code, design tools and resources, human
@@ -98,7 +94,8 @@ class TextBlock extends Component {
           wherever else we’re needed.
         </p>
 
-        {/* Content Spacing */}
+// Content Spacing 
+        
         <div className="content-place mt-5">
           <div className="box-wrap">
             <div className="right-content-place">
@@ -125,7 +122,7 @@ class TextBlock extends Component {
           </div>
         </div>
 
-        {/* Image Block */}
+
         <div className="single-img-block">
           <Image
             src="https://cdn.shopify.com/s/files/1/1162/8728/articles/Blog_Post_400x.JPG"
@@ -133,7 +130,7 @@ class TextBlock extends Component {
           />
         </div>
 
-        {/* Multiple Image Block */}
+
         <div className="multi-img-block">
           <Image
             src="https://cdn.shopify.com/s/files/1/1162/8728/articles/Blog_Post_400x.JPG"
@@ -156,6 +153,7 @@ class TextBlock extends Component {
             fluid
           />
         </div>
+       */}
       </div>
     );
   }

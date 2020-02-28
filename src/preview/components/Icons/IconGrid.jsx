@@ -7,11 +7,17 @@ class IconGrid extends Component {
   //     this.state = {  }
   // }
   render() {
+    const { data } = this.props;
+    console.log("data", data);
     return (
-      <div className="icon-grid">
-        <h3>Navigation</h3>
+      <div className="icon-grid"  id ={data.id}>
+        <h3 className="ml-0">{data.title}</h3>
+        <p>{data.description}</p>
         <div className="icon-list">
-          <Icon iconName="Add" iconShow="fa fa-plus" />
+          {data.content.icons.map(item => (
+            <Icon key={item.id} iconName={item.name} iconShow={item.url} />
+          ))}
+          {/* <Icon iconName="Add" iconShow="fa fa-plus" />
           <Icon iconName="Add alt" iconShow="fa fa-plus-circle" />
           <Icon iconName="Edit" iconShow="fa fa-pencil" />
           <Icon iconName="Sort Descending" iconShow="fa fa-sort-desc" />
@@ -23,7 +29,7 @@ class IconGrid extends Component {
           <Icon iconName="Menu Bar" iconShow="fa fa-bars" />
           <Icon iconName="Direction Arrow" iconShow="fa fa-arrows" />
           <Icon iconName="Check" iconShow="fa fa-check-circle-o" />
-          <Icon iconName="Eye" iconShow="fa fa-eye" />
+          <Icon iconName="Eye" iconShow="fa fa-eye" /> */}
         </div>
       </div>
     );

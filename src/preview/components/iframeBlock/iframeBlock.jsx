@@ -6,8 +6,8 @@ class IframeBlock extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="iframeBlock">
-        <h1>{data.title}</h1>
+      <div className="iframeBlock" id={data.id}>
+        <h3>{data.title}</h3>
         <p>{data.description}</p>
         {ReactHtmlParser(data.content.iframe)}
       </div>

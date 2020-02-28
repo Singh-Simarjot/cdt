@@ -149,7 +149,7 @@ class ColorGrid extends Component {
 
           {data.content.colorsPalettes.map(row => (
             <div key={row.id}>
-              <div className="color-pattern">
+              <div className="color-pattern"  id ={row.id}>
                 {row.shades.map(item => (
                   <div
                     className="color-grid-box"

@@ -9,13 +9,16 @@ import NavigationList from "../components/navigationList";
 
 import ProjectsContext from "../context/projectsContext";
 import { WidgetsContext } from "../context/widgetsContext";
+import PreviewModal from "../containers/previewModal/previewModal";
 
 import nextId from "react-id-generator";
+import Loader from "../components/loader/loader";
 
 class AddNewPage extends Component {
   static contextType = ProjectsContext;
 
   state = {
+    isLoadeing: false,
     page: {
       id: "",
       title: "",
@@ -24,7 +27,7 @@ class AddNewPage extends Component {
         widgets: [],
         tabs: []
       },
-      saved: true,
+      saved: 0,
       btnDisable: true
     },
     customItem: {
@@ -34,7 +37,8 @@ class AddNewPage extends Component {
     showModalComponent: false,
 
     modalData: { title: "", description: "", content: "" },
-    modalOpenType: ""
+    modalOpenType: "",
+    showPreviewModal: false
   };
   changeTemplate = e => {
     const page = { ...this.state.page };
@@ -70,7 +74,8 @@ class AddNewPage extends Component {
     }, 500);
   };
   addToNavigation = item => {
-    const page = this.state.page;
+    // console.log("Nav",item);
+    const page = { ...this.state.page };
     let tabs = [...page.data.tabs, item];
     page.data.tabs = tabs;
     this.setState({ page });
@@ -94,6 +99,12 @@ class AddNewPage extends Component {
     this.setState({ modalData });
   };
   */
+  sortNavigation = tabs => {
+    const page = { ...this.state.page };
+    page.data.tabs = tabs.tabs;
+    console.log(page);
+    this.setState({ page });
+  };
   saveComponent = modalData => {
     const page = { ...this.state.page };
     if (this.state.modalOpenType === "edit") {
@@ -130,6 +141,19 @@ class AddNewPage extends Component {
     this.setState({ page });
   };
 
+  // preview
+  handlePreviewModal = () => {
+    this.setState({ showPreviewModal: !this.state.showPreviewModal });
+    this.setState({ isLoadeing: true });
+    setTimeout(
+      function() {
+        this.setState({ isLoadeing: false });
+      }.bind(this),
+      1000
+    );
+  };
+  // end preview
+
   render() {
     const { page } = this.state;
     const { selectedProject } = this.context;
@@ -139,6 +163,7 @@ class AddNewPage extends Component {
       selectedProject.pages.filter(item => item.templateType !== "TABS");
     return (
       <WidgetsContext>
+        {this.state.isLoadeing && <Loader />}
         {page.templateType === "DEFAULT" && (
           <ComponentsList onModalChange={this.handleModal} />
         )}
@@ -161,6 +186,9 @@ class AddNewPage extends Component {
           onSave={this.saveData}
           onHandle={this.handleChange}
           deleteWidgets={this.deleteWidgets}
+          handlePreviewModal={this.handlePreviewModal}
+          handelLoadeing={this.handelLoadeing}
+          sortNavigation={this.sortNavigation}
         />
         <ModalComponent
           title={this.props.text}
@@ -169,6 +197,11 @@ class AddNewPage extends Component {
           modalData={this.state.modalData}
           onSaveComponent={this.saveComponent}
           modalOpenType={this.state.modalOpenType}
+        />
+        <PreviewModal
+          showModal={this.state.showPreviewModal}
+          handlePreviewModal={this.handlePreviewModal}
+          page={this.state.page}
         />
       </WidgetsContext>
     );

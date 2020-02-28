@@ -10,7 +10,7 @@ import Dashboard from "./pages/dashboard";
 import AddNewProject from "./pages/addNewProject";
 import ProjectDetail from "./pages/projectDetail";
 // import Home from "./preview/templates/Home";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Theme from "./preview/components/Content/Content.jsx";
 import Content from "./preview/components/Content/Content";
@@ -20,10 +20,17 @@ import Preview from "./preview/index";
 import EditProject from "./pages/editProject";
 
 import Login from "./components/account/login";
+
 import SignUp from "./components/account/signup";
 import ForgotPassword from "./components/account/forgotpassword";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+localStorage.setItem("page", "123");
+
+console.log(localStorage);
+
+const data = localStorage.getItem("page");
 
 
 function App() {
@@ -31,6 +38,7 @@ function App() {
     <ProjectsContext>
       <Header />
       <Switch>
+        <Route path="/login" component={Login} />
         <Route path="/project" component={ProjectDetail} />
         <Route path="/addnew" component={AddNewProject} />
         <Route path="/edit" component={EditProject} />
@@ -38,10 +46,17 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/"  component={Dashboard} />
+        <Route path="/" component={Dashboard} />
         {/* <Route path="/" component={Content} /> */}
-      </Switch> 
-      <ToastContainer/>
+      </Switch>
+      <ToastContainer />
+
+      {/* Show Login Page */}
+      {data == "" ? (
+        <Redirect from="/" to="/login" />
+      ) : (
+        <Redirect from="/login" to="/" />
+      )}
 
       {/* <Page /> */}
     </ProjectsContext>

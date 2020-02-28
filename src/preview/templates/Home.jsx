@@ -33,50 +33,129 @@ class Home extends Component {
   }
 
   render() {
-    const { title, description, data } = this.props;
-    const { selectedProject } = this.context;
+    const { name, description, data, selectedProject } = this.props;
     const homeData = selectedProject.data;
     // const homeData = selectedProjectID.data;
     return (
       <React.Fragment>
-        {homeData.headerSection.videoThumb !== undefined && (
-          <section className="video-section">
-            {/* <iframe src="https://www.youtube.com/embed/9No-FiEInLA?autoplay=1&controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen Autoplay ></iframe> */}
-            <video
-              poster={homeData.headerSection.videoThumb}
-              muted
-              autoPlay="autoplay"
-              playsInline=""
-              loop
-            >
-              <source
-                src={homeData.headerSection.videoUrl.mobile.webm}
-                type="video/webm"
-                media="all and (max-width: 600px)"
-              />
-              <source
-                src={homeData.headerSection.videoUrl.mobile.mp4}
-                type="video/mp4"
-                media="all and (max-width: 600px)"
-              />
-              <source
-                src={homeData.headerSection.videoUrl.desktop.webm}
-                type="video/webm"
-              />
-              <source
-                src={homeData.headerSection.videoUrl.desktop.webm}
-                type="video/mp4"
-              />
-            </video>
-            <Container className="position-relative">
-              <div className="more d-flex ml-auto">
-                <a
-                  href={homeData.headerSection.link.link}
-                  className="d-flex flex-column"
+        {homeData.headerSection.videoThumb &&
+          homeData.headerSection.videoThumb !== undefined && (
+            <section className="video-section">
+              {homeData.headerSection.videoThumb && (
+                <video
+                  poster={homeData.headerSection.videoThumb}
+                  muted
+                  autoPlay="autoplay"
+                  playsInline=""
+                  loop
                 >
+                  <source
+                    src={homeData.headerSection.video}
+                    type="video/webm"
+                    media="all and (max-width: 600px)"
+                  />
+                  <source
+                    src={homeData.headerSection.video}
+                    type="video/mp4"
+                    media="all and (max-width: 600px)"
+                  />
+                  <source
+                    src={homeData.headerSection.video}
+                    type="video/webm"
+                  />
+                  <source src={homeData.headerSection.video} type="video/mp4" />
+                </video>
+              )}
+              {homeData.headerSection.link && (
+                <Container className="position-relative">
+                  <div className="more d-flex ml-auto">
+                    <a
+                      href={homeData.headerSection.link}
+                      className="d-flex flex-column"
+                    >
+                      <div className="more-text">
+                        <span>{homeData.headerSection.linkTopText}</span>
+                        <h4>{homeData.headerSection.linkTitle}</h4>
+                      </div>
+                      <span className="arrow-icon mt-auto">
+                        <i
+                          className="fa fa-long-arrow-right"
+                          aria-hidden="true"
+                        ></i>
+                      </span>
+                    </a>
+                  </div>
+                </Container>
+              )}
+            </section>
+          )}
+
+        {selectedProject.name && (
+          <section className="main-content">
+            <Container>
+              <Row>
+                <Col md={4}>
+                  <div className="heading">{selectedProject.name}</div>
+                </Col>
+                <Col>
+                  <div className="heading-description">{description}</div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+        )}
+
+        {homeData.designingSection.link && (
+          <section className="designing-section">
+            <Container className="position-relative">
+              <a href={homeData.designingSection.link}>
+                {homeData.designingSection.image && (
+                  <div className="bx-ratio-section">
+                    <img
+                      src={homeData.designingSection.image}
+                      alt=""
+                      className="img-fluid top-img"
+                    />
+                  </div>
+                )}
+                {homeData.designingSection.linkTitle && (
+                  <div className="more d-flex ml-auto flex-column">
+                    <div className="more-text">
+                      {homeData.designingSection.linkTopText && (
+                        <span>{homeData.designingSection.linkTopText}</span>
+                      )}
+                      {homeData.designingSection.linkTitle && (
+                        <h4>{homeData.designingSection.linkTitle}</h4>
+                      )}
+                    </div>
+                    <span className="arrow-icon mt-auto">
+                      <i
+                        className="fa fa-long-arrow-right"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                )}
+              </a>
+            </Container>
+          </section>
+        )}
+
+        {homeData.developmentSection.link && (
+          <section className="designing-section">
+            <Container className="position-relative">
+              <a href={homeData.developmentSection.link}>
+                <div className="bx-ratio-section">
+                  <img
+                    src={homeData.developmentSection.image}
+                    alt=""
+                    className="img-fluid top-img"
+                  />
+                </div>
+                <div className="more d-flex ml-auto flex-column">
                   <div className="more-text">
-                    <span>{homeData.headerSection.link.linkTopText}</span>
-                    <h4>{homeData.headerSection.link.linkTitle}</h4>
+                    <span>{homeData.developmentSection.linkTopText}</span>
+                    <h4>{homeData.developmentSection.linkTitle}</h4>
                   </div>
                   <span className="arrow-icon mt-auto">
                     <i
@@ -84,108 +163,69 @@ class Home extends Component {
                       aria-hidden="true"
                     ></i>
                   </span>
-                </a>
+                </div>
+              </a>
+            </Container>
+          </section>
+        )}
+
+        {homeData.resource.otherResourceTitle && (
+          <section className="other-resource">
+            <Container>
+              <div className="resource-wrap">
+                <h5 className="main-head">
+                  {homeData.resource.otherResourceTitle}
+                </h5>
+                <p>{homeData.resource.otherResourceDescription}</p>
+                {homeData.resource.otherResourceComponets.length > 0 && (
+                  <div className="resource-list">
+                    <Row>
+                      {homeData.resource.otherResourceComponets.map(items => (
+                        <DeveloperResource
+                          title={items.title}
+                          icon={items.icon}
+                          linktext={items.link}
+                        />
+                      ))}
+
+                      {/* <DeveloperResource title="Sketch libraries" />
+                    <DeveloperResource title="Carbon Components" />
+                    <DeveloperResource title="Carbon Components React" />
+                    <DeveloperResource title="Carbon Components Angular" />
+                    <DeveloperResource title="Carbon Components Vue" /> */}
+                    </Row>
+                  </div>
+                )}
               </div>
             </Container>
           </section>
         )}
 
-        <section className="main-content">
-          <Container>
-            <Row>
-              <Col md={4}>
-                <div className="heading">{title}</div>
-              </Col>
-              <Col md={4} lg={8}>
-                <div className="heading-description">{description}</div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
-
-        <section className="designing-section">
-          <Container className="position-relative">
-            <a href={homeData.section.designing.link}>
-              <div className="bx-ratio-section">
-                <img
-                  src={homeData.section.designing.image}
-                  alt=""
-                  className="img-fluid top-img"
-                />
-              </div>
-              <div className="more d-flex ml-auto flex-column">
-                <div className="more-text">
-                  <span>{homeData.section.designing.linkTopText}</span>
-                  <h4>{homeData.section.designing.linkTitle}</h4>
-                </div>
-                <span className="arrow-icon mt-auto">
-                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
-                </span>
-              </div>
-            </a>
-          </Container>
-        </section>
-
-        <section className="designing-section">
-          <Container className="position-relative">
-            <a href={homeData.section.development.link}>
-              <div className="bx-ratio-section">
-                <img
-                  src={homeData.section.development.image}
-                  alt=""
-                  className="img-fluid top-img"
-                />
-              </div>
-              <div className="more d-flex ml-auto flex-column">
-                <div className="more-text">
-                  <span>{homeData.section.development.linkTopText}</span>
-                  <h4>{homeData.section.development.linkTitle}</h4>
-                </div>
-                <span className="arrow-icon mt-auto">
-                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
-                </span>
-              </div>
-            </a>
-          </Container>
-        </section>
-
-        <section className="other-resource">
-          <Container>
-            <div className="resource-wrap">
-              <h5 className="main-head">{homeData.resource.title}</h5>
-              <p>{homeData.resource.description}</p>
-
-              <div className="resource-list">
-                <Row>
-                  {homeData.resource.resourceComponets.map(items => (
-                    <DeveloperResource title={items.title} />
-                  ))}
-
-                  {/* <DeveloperResource title="Sketch libraries" />
-                  <DeveloperResource title="Carbon Components" />
-                  <DeveloperResource title="Carbon Components React" />
-                  <DeveloperResource title="Carbon Components Angular" />
-                  <DeveloperResource title="Carbon Components Vue" /> */}
-                </Row>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        <section className="latest-post">
-          <Container>
-            <div className="resource-wrap">
-              <h5 className="main-head">
-                {homeData.laetstTrends.sectionTitle}
-              </h5>
-
-              <div className="resource-list">
-                <Row>
-                  {homeData.laetstTrends.article.map(items => (
-                    <ArticlePost title={items.title} topimage={items.image} />
-                  ))}
-
-                  {/* <ArticlePost
+        {homeData.latestTrends.latestTrendSectionTitle && (
+          <section className="latest-post">
+            <Container>
+              <div className="resource-wrap">
+                <h5 className="main-head">
+                  {homeData.latestTrends.latestTrendSectionTitle}
+                </h5>
+                {homeData.latestTrends.latestTrendSectionArticle.length > 0 && (
+                  <div className="resource-list">
+                    <Row>
+                      {homeData.latestTrends.latestTrendSectionArticle.map(
+                        items => (
+                          <ArticlePost
+                            title={items.title}
+                            topimage={items.image}
+                            author={items.author}
+                            //published={items.publishDate}
+                            link={items.link}
+                          />
+                          
+                        )
+                        
+                      )}
+                            
+                      {/* <ArticlePost
                     title="Adobe XD Carbon starter kit announced at Max"
                     topimage={xdImage}
                   />
@@ -197,13 +237,17 @@ class Home extends Component {
                     title="Help build Carbon — Hacktoberfest 2019"
                     topimage={hackImage}
                   /> */}
-                </Row>
+                 
+                    </Row>
+                  </div>
+                )}
+                
               </div>
-            </div>
-          </Container>
-        </section>
+            </Container>
+          </section>
+        )}
 
-        <section className="main-content start-contributing">
+        {/* <section className="main-content start-contributing">
           <Container>
             <Row>
               <Col md={4}>
@@ -219,9 +263,27 @@ class Home extends Component {
               </Col>
             </Row>
           </Container>
-        </section>
+        </section> */}
 
-        <section className="text-pagination mt-0">
+        {/* <section className="main-content start-contributing">
+          <Container>
+            <Row>
+              <Col md={4}>
+                <div className="heading">Wondering how to contribute?</div>
+              </Col>
+              <Col md={4} lg={8}>
+                <div className="heading-description">
+                  <p>We welcome all feedback, designs, or ideas in order to produce the best possible experience for our users. If you’re interested in contributing, check out our contributing guidelines to get started.</p>
+                  <Link to="/">
+                  Start contributing
+                  </Link>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </section> */}
+
+        {/* <section className="text-pagination mt-0">
           <Container>
             <Link>
               <div className="previous">
@@ -237,7 +299,7 @@ class Home extends Component {
               </div>
             </Link>
           </Container>
-        </section>
+        </section> */}
       </React.Fragment>
     );
   }

@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import "./widgets.scss";
 import { Modal, Button, Form } from "react-bootstrap";
-
 import "jodit";
-import "jodit/build/jodit.min.css";
 import JoditEditor from "jodit-react";
-import nextId from "react-id-generator";
-
+// import 'jodit/build/jodit.min.css';
 class TextBlock extends Component {
+  jodit;
+  setRef = jodit => (this.jodit = jodit);
   state = {
     widget: {
       id: "",
@@ -20,6 +19,7 @@ class TextBlock extends Component {
       content: ""
     }
   };
+
   componentDidMount() {
     const modalOpenType = this.props.modalOpenType;
     if (modalOpenType === "edit") {
@@ -31,6 +31,7 @@ class TextBlock extends Component {
     const widget = this.state.widget;
     widget.content = content;
     this.setState({ widget });
+    //console.log(widget);
   }
 
   updateTitle(e) {
@@ -58,7 +59,12 @@ class TextBlock extends Component {
     if (this.props.modalOpenType === "edit") {
       dummyid = widget.id;
     } else {
-      dummyid = nextId();
+      //dummyid = nextId();
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
     widget.id = dummyid;
     this.setState({ widget });
@@ -68,7 +74,7 @@ class TextBlock extends Component {
 
   disabledSave() {
     const widget = this.state.widget;
-    const items = this.state.items;
+    // const items = this.state.items;
 
     return widget.content == "" ||
       widget.title == "" ||
@@ -80,12 +86,19 @@ class TextBlock extends Component {
   config = {
     placeholder: "",
     height: 250,
-    triggerChangeEvent: true
+    triggerChangeEvent: true,
+    readonly: false,
+    enter: "P",
+    uploader: {
+      insertImageAsBase64URI: true
+    },
+    removeButtons: ["source"]
   };
 
   render() {
     const { onModalChange } = this.props;
     const { widget } = this.state;
+
     return (
       <>
         <Modal.Body>
@@ -111,11 +124,10 @@ class TextBlock extends Component {
 
           <Form.Group>
             <JoditEditor
+              editorRef={this.setRef}
               value={widget.content}
-              onChange={newContent => this.updateContent(newContent)}
+              onChange={content => this.updateContent(content)}
               config={this.config}
-              // onChange={e => oncomponentInput(e)}
-              // name="content"
             />
           </Form.Group>
           <Form.Group>

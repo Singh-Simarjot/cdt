@@ -55,6 +55,18 @@ $theme-light: false;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+.dashboard .table tbody {
+  counter-reset: section;
+}
+
+.dashboard .table tbody tr {
+  counter-increment: section;
+}
+
+.dashboard .table tbody tr td.count:after {
+  content: counter(section);
+}
+
 .dashboard .table tbody tr td a {
   color: #000;
 }

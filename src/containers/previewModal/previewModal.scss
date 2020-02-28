@@ -1,0 +1,68 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+.previewModa {
+  width: 0;
+  height: 100%;
+  -webkit-transition: width 0.6s;
+  transition: width 0.6s;
+  right: 0;
+  left: auto;
+  &.show {
+    width: 100%;
+  }
+  .modal-dialog {
+    max-width: 100%;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100%;
+    .modal-content {
+      border-radius: 0;
+      min-height: 100%;
+      border: 0;
+    }
+    @include sm-min {
+      max-width: -webkit-calc(100% - 250px);
+      max-width: calc(100% - 250px);
+      margin-left: 250px;
+    }
+  }
+
+  .modal-content{
+    background: #f5f5f5;
+  }
+}
+.previewModalBackdrop {
+  opacity: 0 !important;
+}
+// for design only
+.design-data{
+  padding:0px 24px 0px 24px;
+  h1{
+    font-size: 2.2rem;
+  }
+  .contentHtml{
+    h3{
+      margin: 0px 0px 14px 0px;
+      font-size: 1.7rem;
+      line-height:normal;
+    }
+    h4{
+      margin: 0px 0px 14px 0px;
+      font-size: 1.5rem;
+    }
+  }
+  .card-box-feature{
+    .card-body{
+      p{
+        font-size:14px;
+        color:#444;
+      }
+    }
+    a {
+      img{
+        width:32px;
+      } 
+    }
+  } 
+}

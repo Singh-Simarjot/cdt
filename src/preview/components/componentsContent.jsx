@@ -15,6 +15,8 @@ import IframeBlock from "./iframeBlock/iframeBlock";
 import VideoBlock from "./videoBlock/videoBlock";
 import TypoGraphy from "./typoGraphy/typography";
 import ExternalPageLinkGrid from "./externalPageLinkGrid/externalPageLinkGrid";
+import ImageBlock from "./imageBlock/imageBlock";
+import MultipleImageBlock from "./multipleImageBlock/multipleImageBlock";
 class ComponentsContent extends Component {
   state = {};
   renderPreview(item) {
@@ -29,14 +31,11 @@ class ComponentsContent extends Component {
       case "ICON_GRID":
         return <IconGrid data={item} />;
       case "COLOR_PALETTE":
-        // return <ColorPalette data={item} />;
         return <ColorGrid data={item} />;
       case "MULTIPLE_IMAGE":
-        // return <MultipleImage data={item} />;
-        return <TableData data={item} />;
+        return <MultipleImageBlock data={item} />;
       case "IMAGE_BLOCK":
-        // return <ImageBlock data={item} />;
-        return <TableData data={item} />;
+        return <ImageBlock data={item} />;
       case "VIDEO_BLOCK":
         return <VideoBlock data={item} />;
       case "IFRAME_BLOCK":
@@ -55,8 +54,9 @@ class ComponentsContent extends Component {
   }
   render() {
     const { data } = this.props;
-    // console.log("data: ", data);
+       
     return (
+     
       <section className="componentsContent">
         <Container>
           {data.length > 0
