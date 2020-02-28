@@ -13,7 +13,8 @@ import {
   deletePage,
   updatePageStatus,
   createNav,
-  updateNav
+  updateNav,
+  exportProject
 } from "../services/projects";
 
 const Context = React.createContext();
@@ -243,6 +244,22 @@ export class ProjectsContext extends Component {
     } catch (err) {}
   };
 
+  // exportProject
+  exportProject = async id => {
+    await exportProject(id);
+
+    try {
+      await exportProject(id).then(response => {
+        if (response.status === 200) {
+          console.log("response: ", response.data);
+          // selectedProject.navigation = response.data.Navigation;
+          // this.setState({ selectedProject });
+          // toast.success("Navigation Updated!");
+        }
+      });
+    } catch (err) {}
+  };
+
   render() {
     return (
       <Context.Provider
@@ -262,7 +279,8 @@ export class ProjectsContext extends Component {
           onSaveNewPage: this.saveNewPage,
           markDraftPage: this.markDraftPage,
           onUploadFile: this.handleUploadFile,
-          onSelectSubPage: this.handleSelectSubPage
+          onSelectSubPage: this.handleSelectSubPage,
+          exportProject: this.exportProject
         }}
       >
         {this.props.children}
