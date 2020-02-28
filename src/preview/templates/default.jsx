@@ -31,7 +31,7 @@ class DefaultTemplate extends Component {
             <Tabs
               tabsList={selectedPage.data.tabs}
               onSelectSubPage={onSelectSubPage}
-            />
+            />  
             <ComponentsContent data={subPage.data.widgets} />
           </React.Fragment>
         )}
