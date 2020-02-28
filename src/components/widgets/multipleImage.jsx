@@ -27,7 +27,8 @@ class MultipleImage extends Component {
       content: {
         images: []
       }
-    }
+    },
+    deleteFiles: []
   };
 
   componentDidMount() {
@@ -45,7 +46,11 @@ class MultipleImage extends Component {
     const items = [...this.state.items, obj];
     this.setState({ items });
   };
-  deleteIcon = id => {
+  deleteIcon = (id, imgUrl) => {
+    if (imgUrl) {
+      const deleteFiles = [...this.state.deleteFiles, imgUrl];
+      this.setState({ deleteFiles });
+    }
     const items = this.state.items.filter(m => m.id !== id);
     this.setState({ items });
   };
@@ -70,6 +75,7 @@ class MultipleImage extends Component {
   //   this.setState({ items });
   // };
   onSaveContent = () => {
+    const deleteFiles = [...this.state.deleteFiles];
     let dummyid;
     const widget = { ...this.state.widget };
 
@@ -86,7 +92,7 @@ class MultipleImage extends Component {
     widget.id = dummyid;
     widget.content.images = this.state.items;
     this.setState({ widget });
-    this.props.onSaveComponent(widget);
+    this.props.onSaveComponent(widget, deleteFiles);
   };
 
   internalNavigation = e => {
@@ -125,10 +131,12 @@ class MultipleImage extends Component {
       });
     } catch (err) {}
   };
-  // removeWidgetImage = id => {
+  // removeWidgetImage = (id, urlImg) => {
+  //   const deleteFiles = [...this.state.deleteFiles, urlImg];
+
   //   const items = this.state.items;
   //   items.filter(item => (item.id === id ? (item.url = "") : item));
-  //   this.setState({ items });
+  //   this.setState({ items, deleteFiles });
   // };
   render() {
     const { onModalChange } = this.props;
@@ -162,7 +170,7 @@ class MultipleImage extends Component {
                     {/* <Button
                       variant={"danger"}
                       size="sm"
-                      onClick={() => this.removeWidgetImage(item.id)}
+                      onClick={() => this.removeWidgetImage(item.id, item.url)}
                     >
                       <i className="fa fa-times"></i>
                     </Button> */}
@@ -185,19 +193,11 @@ class MultipleImage extends Component {
                     />
                   </div>
                 )}
-
-                {/* <Form.Control
-                  type="file"
-                  accept="image/*"
-                  id={item.id}
-                  // value={item.url}
-                  onChange={e => this.addIcon(e)}
-                /> */}
                 <Button
                   size={"sm"}
                   variant="link"
                   className={item.delete ? "text-danger" : "text-danger d-none"}
-                  onClick={() => this.deleteIcon(item.id)}
+                  onClick={() => this.deleteIcon(item.id, item.url)}
                 >
                   <i className="fa fa-minus"></i>
                 </Button>

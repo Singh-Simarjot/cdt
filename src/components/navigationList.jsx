@@ -3,6 +3,7 @@ import "./componentsList.scss";
 // import ComponentsListItem from "./componentsListItem";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import ProjectsContext from "../context/projectsContext";
+import $ from "jquery";
 
 // import $ from "jquery";
 class NavigationList extends Component {
@@ -11,6 +12,12 @@ class NavigationList extends Component {
     const { customItem } = this.props;
     return customItem.title === "" || customItem.url === "" ? true : false;
   };
+
+  componentDidMount() {
+    $(".componentsListBtn button").on("click", function() {
+      $(".componentsListItms").toggleClass("componentsListItmsOpen");
+    });
+  }
 
   render() {
     const { pages, customItem } = this.props;

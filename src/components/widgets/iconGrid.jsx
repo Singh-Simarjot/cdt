@@ -25,7 +25,8 @@ class IconGrid extends Component {
       content: {
         icons: []
       }
-    }
+    },
+    deleteFiles: []
   };
 
   componentDidMount() {
@@ -43,7 +44,11 @@ class IconGrid extends Component {
     const items = [...this.state.items, obj];
     this.setState({ items });
   };
-  deleteIcon = id => {
+  deleteIcon = (id, imgUrl) => {
+    if (imgUrl) {
+      const deleteFiles = [...this.state.deleteFiles, imgUrl];
+      this.setState({ deleteFiles });
+    }
     const items = this.state.items.filter(m => m.id !== id);
     this.setState({ items });
   };
@@ -68,6 +73,7 @@ class IconGrid extends Component {
   //   this.setState({ items });
   // };
   onSaveContent = () => {
+    const deleteFiles = [...this.state.deleteFiles];
     let dummyid;
     const widget = { ...this.state.widget };
     if (this.props.modalOpenType === "edit") {
@@ -84,7 +90,7 @@ class IconGrid extends Component {
     widget.id = dummyid;
     widget.content.icons = this.state.items;
     this.setState({ widget });
-    this.props.onSaveComponent(widget);
+    this.props.onSaveComponent(widget, deleteFiles);
   };
 
   internalNavigation = e => {
@@ -133,10 +139,11 @@ class IconGrid extends Component {
     } catch (err) {}
   };
 
-  removeIcone = id => {
+  removeIcone = (id, imgUrl) => {
+    const deleteFiles = [...this.state.deleteFiles, imgUrl];
     const items = this.state.items;
     items.filter(item => (item.id === id ? (item.url = "") : item));
-    this.setState({ items });
+    this.setState({ items, deleteFiles });
   };
 
   render() {
@@ -184,7 +191,7 @@ class IconGrid extends Component {
                           <Button
                             variant={"danger"}
                             size="sm"
-                            onClick={() => this.removeIcone(item.id)}
+                            onClick={() => this.removeIcone(item.id, item.url)}
                           >
                             <i className="fa fa-times"></i>
                           </Button>
@@ -212,7 +219,7 @@ class IconGrid extends Component {
                   size={"sm"}
                   variant="link"
                   className={item.delete ? "text-danger" : "text-danger d-none"}
-                  onClick={() => this.deleteIcon(item.id)}
+                  onClick={() => this.deleteIcon(item.id, item.url)}
                 >
                   <i className="fa fa-minus"></i>
                 </Button>

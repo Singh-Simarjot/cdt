@@ -160,11 +160,12 @@ export class ProjectsContext extends Component {
     this.setState({ selectedProject });
   };
 
-  editPage = async selectedPage => {
+  editPage = async (selectedPage, deleteFiles) => {
     const selectedProject = { ...this.state.selectedProject };
     const page = {
       projectID: this.state.selectedProjectID,
-      page: selectedPage
+      page: selectedPage,
+      deleteFiles
     };
 
     try {

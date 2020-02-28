@@ -26,7 +26,8 @@ class ExternalPageLinkGrid extends Component {
       content: {
         externalLink: []
       }
-    }
+    },
+    deleteFiles: []
   };
 
   componentDidMount() {
@@ -61,7 +62,11 @@ class ExternalPageLinkGrid extends Component {
       externalLink: [...this.state.externalLink, obj]
     });
   };
-  deleteLink = id => {
+  deleteLink = (id, icon) => {
+    if (icon) {
+      const deleteFiles = [...this.state.deleteFiles, icon];
+      this.setState({ deleteFiles });
+    }
     let externalLink = [...this.state.externalLink];
     externalLink = externalLink.filter(m => m.id !== id);
     this.setState({ externalLink });
@@ -112,6 +117,7 @@ class ExternalPageLinkGrid extends Component {
       : false;
   }
   onSaveContent = () => {
+    const deleteFiles = [...this.state.deleteFiles];
     let dummyid;
     const widget = { ...this.state.widget };
 
@@ -128,7 +134,7 @@ class ExternalPageLinkGrid extends Component {
     widget.id = dummyid;
     widget.content.externalLink = this.state.externalLink;
     this.setState({ widget });
-    this.props.onSaveComponent(widget);
+    this.props.onSaveComponent(widget, deleteFiles);
   };
 
   getIcon = async (files, id) => {
@@ -149,10 +155,11 @@ class ExternalPageLinkGrid extends Component {
       });
     } catch (err) {}
   };
-  removeIcon = id => {
+  removeIcon = (id, iconUrl) => {
+    const deleteFiles = [...this.state.deleteFiles, iconUrl];
     const externalLink = [...this.state.externalLink];
     externalLink.filter(item => (item.id === id ? (item.icon = "") : item));
-    this.setState({ externalLink });
+    this.setState({ externalLink, deleteFiles });
   };
   render() {
     const { onModalChange } = this.props;
@@ -220,7 +227,7 @@ class ExternalPageLinkGrid extends Component {
                         <Button
                           variant={"danger"}
                           size="sm"
-                          onClick={() => this.removeIcon(link.id)}
+                          onClick={() => this.removeIcon(link.id, link.icon)}
                         >
                           <i className="fa fa-times"></i>
                         </Button>
@@ -249,7 +256,7 @@ class ExternalPageLinkGrid extends Component {
                     size={"sm"}
                     variant="link"
                     className="text-danger"
-                    onClick={() => this.deleteLink(link.id)}
+                    onClick={() => this.deleteLink(link.id, link.icon)}
                   >
                     <i className="fa fa-minus"></i>
                   </Button>

@@ -18,7 +18,8 @@ class ImageBlock extends Component {
       content: {
         image: ""
       }
-    }
+    },
+    deleteFiles: []
   };
   componentDidMount() {
     const modalOpenType = this.props.modalOpenType;
@@ -27,32 +28,6 @@ class ImageBlock extends Component {
       this.setState({ widget: content });
     }
   }
-  getUploadParams = ({ meta }) => {
-    console.log("mettt", meta);
-
-    return { url: "https://httpbin.org/post" };
-    // return {
-    //   url: "http://dev.evantiv.com/carbon_design/public/api/project/file"
-    // };
-  };
-  handleChangeStatus = ({ meta, file }, status) => {
-    console.log(status, meta, file);
-  };
-  handleSubmit = (files, allFiles) => {
-    // console.log(files.map(f => f.meta));
-    const widget = this.state.widget;
-    widget.content.image = files.map(f => f.meta);
-    this.setState({ widget });
-
-    // console.log("files: ", files);
-    console.log(
-      "meta",
-      files.map(f => f.meta)
-    );
-  };
-  handleChange = (e, section) => {
-    console.log(e.target.value, section);
-  };
 
   internalNavigation = e => {
     const widget = { ...this.state.widget };
@@ -80,9 +55,9 @@ class ImageBlock extends Component {
       : false;
   }
   onSaveContent = () => {
+    const deleteFiles = [...this.state.deleteFiles];
     let dummyid;
     const widget = { ...this.state.widget };
-
     if (this.props.modalOpenType === "edit") {
       dummyid = widget.id;
     } else {
@@ -95,7 +70,7 @@ class ImageBlock extends Component {
     }
     widget.id = dummyid;
     this.setState({ widget });
-    this.props.onSaveComponent(widget);
+    this.props.onSaveComponent(widget, deleteFiles);
   };
 
   getImage = async files => {
@@ -115,8 +90,9 @@ class ImageBlock extends Component {
   };
   removeWidgetImage = () => {
     const widget = this.state.widget;
+    const deleteFiles = [...this.state.deleteFiles, widget.content.image];
     widget.content.image = "";
-    this.setState({ widget });
+    this.setState({ widget, deleteFiles });
   };
   render() {
     const { onModalChange } = this.props;

@@ -25,6 +25,8 @@ class EditPage extends Component {
     },
     modalOpenType: "",
     showPreviewModal: false,
+    deleteFiles: [],
+    finalDelete: [],
     isLoading: true
   };
 
@@ -90,7 +92,16 @@ class EditPage extends Component {
 
   saveData = e => {
     e.preventDefault();
-    this.context.editPage(this.state.page);
+    const oldDeleteFiles = this.state.deleteFiles;
+    let deleteFiles = [];
+    oldDeleteFiles.filter(
+      item => item && item.filter(child => child && deleteFiles.push(child))
+    );
+
+    // console.log("finalDelete", finalDelete);
+
+    const page = this.state.page;
+    this.context.editPage(page, deleteFiles);
     this.props.history.push("/project");
   };
 
@@ -106,7 +117,9 @@ class EditPage extends Component {
     this.setState({ page });
   };
 
-  saveComponent = modalData => {
+  saveComponent = (modalData, deleteImages) => {
+    const deleteFiles = [...this.state.deleteFiles, deleteImages];
+    // console.log("deleteImages", deleteFiles);
     const page = { ...this.state.page };
     if (this.state.modalOpenType === "edit") {
       const saveType = page.data.widgets.filter(function(item) {
@@ -125,7 +138,7 @@ class EditPage extends Component {
       page.data.widgets = [modalData, ...page.data.widgets];
     }
 
-    this.setState({ page }, () => this.handleModal());
+    this.setState({ page, deleteFiles }, () => this.handleModal());
   };
 
   deleteWidgets = id => {

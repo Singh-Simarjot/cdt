@@ -20,7 +20,8 @@ class VideoBlock extends Component {
         videoType: "INTERNAL_STORAGE",
         video: ""
       }
-    }
+    },
+    deleteFiles: []
   };
   componentDidMount() {
     const modalOpenType = this.props.modalOpenType;
@@ -46,6 +47,12 @@ class VideoBlock extends Component {
   };
   videoType = e => {
     const widget = this.state.widget;
+    const type = widget.content.videoType;
+    const videoUrl = widget.content.video;
+    if (type === "INTERNAL_STORAGE" && videoUrl !== "") {
+      const deleteFiles = [...this.state.deleteFiles, videoUrl];
+      this.setState({ deleteFiles });
+    }
     widget.content.video = "";
     widget.content.videoType = e.target.value;
     this.setState({ widget });
@@ -64,6 +71,7 @@ class VideoBlock extends Component {
       : false;
   }
   onSaveContent = () => {
+    const deleteFiles = [...this.state.deleteFiles];
     let dummyid;
     const widget = { ...this.state.widget };
 
@@ -79,7 +87,7 @@ class VideoBlock extends Component {
     }
     widget.id = dummyid;
     this.setState({ widget });
-    this.props.onSaveComponent(widget);
+    this.props.onSaveComponent(widget, deleteFiles);
   };
   getVideo = async files => {
     const widget = this.state.widget;
@@ -98,6 +106,12 @@ class VideoBlock extends Component {
   };
   removeWidgetVideo = () => {
     const widget = this.state.widget;
+    const type = widget.content.videoType;
+    const videoUrl = widget.content.video;
+    if (type === "INTERNAL_STORAGE" && videoUrl !== "") {
+      const deleteFiles = [...this.state.deleteFiles, videoUrl];
+      this.setState({ deleteFiles });
+    }
     widget.content.video = "";
     this.setState({ widget });
   };
@@ -186,7 +200,7 @@ class VideoBlock extends Component {
                     <Button
                       variant={"danger"}
                       size="sm"
-                      onClick={this.removeVideo}
+                      onClick={this.removeWidgetVideo}
                     >
                       <i className="fa fa-times"></i>
                     </Button>
