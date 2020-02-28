@@ -255,6 +255,7 @@ export class ProjectsContext extends Component {
           // selectedProject.navigation = response.data.Navigation;
           // this.setState({ selectedProject });
           // toast.success("Navigation Updated!");
+          // http://dev.evantiv.com/carbon_design/public/download/CDT-Preview/build.zip
         }
       });
     } catch (err) {}
