@@ -58,6 +58,9 @@ class AllPages extends Component {
                     <i className="fa fa-plus"></i>
                   </span>
                 </Link>
+                <Button className="ml-2" variant="info">
+                  Export
+                </Button>
               </Col>
             </Row>
           </div>
@@ -110,7 +113,7 @@ class AllPages extends Component {
                         <Button
                           size={"sm"}
                           onClick={() => this.context.markDraftPage(project)}
-                          variant={project.saved ? "success" : "warning" } 
+                          variant={project.saved ? "success" : "warning"}
                           className="ml-2"
                         >
                           {project.saved ? "Mark as Draft" : "Publish"}
