@@ -14,7 +14,7 @@ class Header extends Component {
     });
   }
   render() {
-    const { selectedProjectID } = this.context;
+    const { selectedProjectID, exportProject } = this.context;
     return (
       <header className="headerMain">
         <Container fluid>
@@ -43,7 +43,11 @@ class Header extends Component {
                   </svg>
                 </Button>
                 {selectedProjectID && (
-                  <Button className="ml-2" variant="info">
+                  <Button
+                    className="ml-2"
+                    variant="info"
+                    onClick={() => exportProject(selectedProjectID)}
+                  >
                     Export
                   </Button>
                 )}
