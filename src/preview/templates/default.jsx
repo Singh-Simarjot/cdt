@@ -11,8 +11,6 @@ class DefaultTemplate extends Component {
   static contextType = ProjectsContext;
   state = { isLoading: true };
 
-  
-
   renderUrl(string) {
     return string
       .split(" ")
@@ -31,7 +29,7 @@ class DefaultTemplate extends Component {
             <Tabs
               tabsList={selectedPage.data.tabs}
               onSelectSubPage={onSelectSubPage}
-            />  
+            />
             <ComponentsContent data={subPage.data.widgets} />
           </React.Fragment>
         )}
