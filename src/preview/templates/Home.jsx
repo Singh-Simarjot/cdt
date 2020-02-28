@@ -34,7 +34,6 @@ class Home extends Component {
 
   render() {
     const { name, description, data, selectedProject } = this.props;
-
     const homeData = selectedProject.data;
     // const homeData = selectedProjectID.data;
     return (
@@ -98,7 +97,7 @@ class Home extends Component {
                 <Col md={4}>
                   <div className="heading">{selectedProject.name}</div>
                 </Col>
-                <Col md={4} lg={8}>
+                <Col>
                   <div className="heading-description">{description}</div>
                 </Col>
               </Row>
@@ -218,12 +217,14 @@ class Home extends Component {
                             title={items.title}
                             topimage={items.image}
                             author={items.author}
-                            published={items.publishDate}
+                            //published={items.publishDate}
                             link={items.link}
                           />
+                          
                         )
+                        
                       )}
-
+                            
                       {/* <ArticlePost
                     title="Adobe XD Carbon starter kit announced at Max"
                     topimage={xdImage}
@@ -236,9 +237,11 @@ class Home extends Component {
                     title="Help build Carbon — Hacktoberfest 2019"
                     topimage={hackImage}
                   /> */}
+                 
                     </Row>
                   </div>
                 )}
+                
               </div>
             </Container>
           </section>

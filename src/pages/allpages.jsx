@@ -63,7 +63,7 @@ class AllPages extends Component {
           </div>
           <div className="contentData mt-4">
             {pages.length > 0 ? (
-              <Table responsive="md" hover variant="" className="allpagesTable">
+              <Table responsive="lg" hover variant="" className="allpagesTable">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -73,6 +73,7 @@ class AllPages extends Component {
                     <th>Template Type</th>
                     <th>Author</th>
                     <th>Actions</th>
+                    <th>&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -10,6 +10,32 @@
           content: counter(section);
         }
       }
+      td{
+        white-space: nowrap;
+      }
+    }
+  }
+  thead{
+    tr{
+      th{
+        white-space: nowrap;
+      }
+    }
+  }
+  @include lg {
+    thead{
+      tr{
+        th{
+          white-space: normal;
+        }
+      }
+    }
+    tbody{
+      tr{
+        td{
+          white-space: normal;
+        }
+      }
     }
   }
 }

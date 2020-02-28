@@ -75,7 +75,7 @@ class PreviewModal extends Component {
           <Modal.Header closeButton>
             {page.title ? page.title : "Title Undefined"}
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="design-data">
 
           <InternalNav data={page.data.widgets} />
 

@@ -218,7 +218,7 @@ class ExternalPageLinkGrid extends Component {
                       onChange={e => this.addUrl(e, link.id)}
                     />
                   </Form.Group>
-                  <Form.Group className="mb-0">
+                  <Form.Group className="mb-0 image-icon">
                     <Form.Label>Icon</Form.Label>
                     {link.icon ? (
                       <div className="imageOverRemove">
