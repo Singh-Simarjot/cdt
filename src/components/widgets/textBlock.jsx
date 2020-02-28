@@ -1,14 +1,12 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import "./widgets.scss";
 import { Modal, Button, Form } from "react-bootstrap";
 import "jodit";
 import JoditEditor from "jodit-react";
-import nextId from "react-id-generator";
-import 'jodit';
-import 'jodit/build/jodit.min.css';
+// import 'jodit/build/jodit.min.css';
 class TextBlock extends Component {
-jodit;
-	setRef = jodit => this.jodit = jodit;
+  jodit;
+  setRef = jodit => (this.jodit = jodit);
   state = {
     widget: {
       id: "",
@@ -21,7 +19,7 @@ jodit;
       content: ""
     }
   };
-  
+
   componentDidMount() {
     const modalOpenType = this.props.modalOpenType;
     if (modalOpenType === "edit") {
@@ -62,7 +60,11 @@ jodit;
       dummyid = widget.id;
     } else {
       //dummyid = nextId();
-      dummyid = "_" + Math.random().toString(36).substr(2, 9);
+      dummyid =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
     }
     widget.id = dummyid;
     this.setState({ widget });
@@ -72,7 +74,7 @@ jodit;
 
   disabledSave() {
     const widget = this.state.widget;
-    const items = this.state.items;
+    // const items = this.state.items;
 
     return widget.content == "" ||
       widget.title == "" ||
@@ -86,18 +88,17 @@ jodit;
     height: 250,
     triggerChangeEvent: true,
     readonly: false,
-    enter: 'P',
+    enter: "P",
     uploader: {
       insertImageAsBase64URI: true
     },
-    removeButtons: ['source'],
+    removeButtons: ["source"]
   };
 
   render() {
-    
     const { onModalChange } = this.props;
     const { widget } = this.state;
-    
+
     return (
       <>
         <Modal.Body>
@@ -118,7 +119,6 @@ jodit;
               as="textarea"
               rows="2"
               name="description"
-         
             />
           </Form.Group>
 
@@ -126,12 +126,8 @@ jodit;
             <JoditEditor
               editorRef={this.setRef}
               value={widget.content}
-              //onBlur={newContent => this.updateContent(newContent)} // preferred to use only this option to update the content for performance reasons
               onChange={content => this.updateContent(content)}
               config={this.config}
-              // onChange={e => oncomponentInput(e)}
-              // name="content"
-              //onChange={newContent => {}}
             />
           </Form.Group>
           <Form.Group>
