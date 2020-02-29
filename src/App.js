@@ -28,7 +28,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 localStorage.setItem("page", "123");
 
-console.log(localStorage);
+ 
 
 const data = localStorage.getItem("page");
 

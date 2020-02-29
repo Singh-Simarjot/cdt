@@ -6,6 +6,8 @@ import $ from "jquery";
 import ProjectsContext from "../../context/projectsContext";
  
 import Loader from '../../components/loader/loader';
+import { toast } from "react-toastify";
+import {exportProject} from "../../services/projects"
 class Header extends Component {
   static contextType = ProjectsContext;
   state = {
@@ -23,14 +25,29 @@ class Header extends Component {
       
       isLoading: true
     });
-    this.context.exportProject(id)
-      .then(response => {
-        console.log(response);
-        this.setState({
+
+    try {
+      await exportProject(id).then(response => {
+        if (response.status === 200) {
+          console.log(response);
+          const url = response.data.build_url;
+          // console.log(selectedProject);
+          this.setState({
            
-          isLoading: false
-        },()=> window.location = "http://dev.evantiv.com/carbon_design/public/download/CDT-Preview/build.zip");
+            isLoading: false
+          },()=> window.location = response.data.build_url);
+        }
       });
+    } catch (err) {
+
+      this.setState({
+           
+        isLoading: false
+      });
+      toast.error("Server Error, Please try again Later!")
+    }
+    
+    
   };
 
    
@@ -48,7 +65,7 @@ class Header extends Component {
                 <Button variant="dark" size="sm" className="menuBtn">
                   <i className="fa fa-bars"></i>
                 </Button>
-                <Link to="/" className="headerLogo">
+                <Link to="/cdt" className="headerLogo">
                   Carbon <b>Design System</b>
                 </Link>
               </Col>
