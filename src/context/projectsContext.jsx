@@ -52,6 +52,8 @@ export class ProjectsContext extends Component {
 
   onSelectProject = async id => {
     this.setState({ selectedProjectID: id });
+    const selectedProject = await getProjectDetail(id);
+    this.setState({ selectedProject: selectedProject.data });
   };
   handleProjectDetail = async id => {
     this.setState({ isloading: false });
@@ -246,19 +248,23 @@ export class ProjectsContext extends Component {
 
   // exportProject
   exportProject = async id => {
-    await exportProject(id);
-
+    var result;
     try {
-      await exportProject(id).then(response => {
+      result = await exportProject(id).then(response => {
         if (response.status === 200) {
-          console.log("response: ", response.data);
-          // selectedProject.navigation = response.data.Navigation;
-          // this.setState({ selectedProject });
-          // toast.success("Navigation Updated!");
-          // http://dev.evantiv.com/carbon_design/public/download/CDT-Preview/build.zip
+          const selectedProject = response.data;
+          const url = response.data.zipUrl;
+          // console.log(selectedProject);
+          return url;
         }
       });
     } catch (err) {}
+
+    return result;
+  };
+
+  goRooturl = () => {
+    this.setState({ selectedProjectID: null });
   };
 
   render() {
@@ -281,7 +287,8 @@ export class ProjectsContext extends Component {
           markDraftPage: this.markDraftPage,
           onUploadFile: this.handleUploadFile,
           onSelectSubPage: this.handleSelectSubPage,
-          exportProject: this.exportProject
+          exportProject: this.exportProject,
+          goRooturl: this.goRooturl
         }}
       >
         {this.props.children}

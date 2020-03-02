@@ -58,9 +58,6 @@ class AllPages extends Component {
                     <i className="fa fa-plus"></i>
                   </span>
                 </Link>
-                <Button className="ml-2" variant="info">
-                  Export
-                </Button>
               </Col>
             </Row>
           </div>

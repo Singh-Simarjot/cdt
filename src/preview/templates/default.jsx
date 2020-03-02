@@ -11,8 +11,6 @@ class DefaultTemplate extends Component {
   static contextType = ProjectsContext;
   state = { isLoading: true };
 
-  
-
   renderUrl(string) {
     return string
       .split(" ")

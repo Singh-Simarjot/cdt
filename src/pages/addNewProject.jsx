@@ -511,7 +511,7 @@ class AddNewProject extends Component {
     e.preventDefault();
     const newProject = this.state.newProject;
     this.context.addNewProject(newProject);
-    this.props.history.push("/");
+    this.props.history.push("/cdt");
   };
   render() {
     const newProject = this.state.newProject;
@@ -525,7 +525,7 @@ class AddNewProject extends Component {
                   <h2>Add New Project</h2>
                 </Col>
                 <Col xs={4} className="text-right">
-                  <Link size="sm" to="/" className="btn btn-success">
+                  <Link size="sm" to="/cdt" className="btn btn-success">
                     Back
                   </Link>
                 </Col>

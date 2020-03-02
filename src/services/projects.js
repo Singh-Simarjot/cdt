@@ -72,7 +72,7 @@ export function previewProject(id) {
 }
 
 export function exportProject(id) {
-  console.log("export Project: ", id);
+ 
   const projectsEndpoint = APIBASEURL + "project/viewproject/" + id;
   return apiService.get(projectsEndpoint);
 }

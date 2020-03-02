@@ -61,7 +61,7 @@ class EditProject extends Component {
     if (this.context.selectedProjectID !== null) {
       this.getProjectDetail();
     } else {
-      this.props.history.push("/");
+      this.props.history.push("/cdt");
     }
   }
 
