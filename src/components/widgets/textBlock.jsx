@@ -73,8 +73,8 @@ class TextBlock extends Component {
     const widget = this.state.widget;
     // const items = this.state.items;
 
-    return widget.content == "" ||
-      widget.title == "" ||
+    return widget.title == "" ||
+      // widget.content == "" ||
       widget.description == ""
       ? true
       : false;
