@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import "./widgets.scss";
 import { Modal, Button, Form } from "react-bootstrap";
-import "jodit";
 import JoditEditor from "jodit-react";
 // import 'jodit/build/jodit.min.css';
 class TextBlock extends Component {
-  jodit;
-  setRef = jodit => (this.jodit = jodit);
   state = {
     widget: {
       id: "",
@@ -124,9 +121,9 @@ class TextBlock extends Component {
 
           <Form.Group>
             <JoditEditor
-              editorRef={this.setRef}
               value={widget.content}
-              onChange={content => this.updateContent(content)}
+              // onChange={content => this.updateContent(content)}
+              onBlur={content => this.updateContent(content)}
               config={this.config}
             />
           </Form.Group>
