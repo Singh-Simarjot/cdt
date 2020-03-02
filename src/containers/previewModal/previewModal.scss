@@ -37,7 +37,7 @@
 }
 // for design only
 .design-data{
-  padding:0px 24px 0px 24px;
+  padding:20px 50px 0px 50px;
   h1{
     font-size: 2.2rem;
   }
@@ -64,5 +64,49 @@
         width:32px;
       } 
     }
+  }
+  .content-block {
+    h3{
+      margin-top:0;
+    }
+  }
+  .external-link-feature{
+    margin-bottom:50px;
+  }
+  .codeSnippetsWithView{
+    margin-bottom:50px;
   } 
+  .codeSnippets{
+    margin-bottom:50px;
+  }
+  .iframeBlock{
+    margin-bottom:50px;
+  }
+  .videoBlock{
+    margin-bottom:50px;
+  }
+  .color-grid{
+    margin-bottom:50px;
+  }
+  .icon-grid{
+    margin-bottom:50px;
+    .icon-list{
+      .icon-preview{
+        span{
+          img{
+            width:40px;
+          }
+        }
+      }
+    }
+  }
+  .blockTypography{
+    margin-bottom:50px;
+  }
+  .htmlPreview{
+    margin-bottom:50px;
+  }
+  @include sm-max{
+    padding:20px 15px 0px 15px;
+  }
 }

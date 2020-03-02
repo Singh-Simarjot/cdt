@@ -8,25 +8,27 @@ class ExternalPageLinkGrid extends Component {
     const { data } = this.props;
     return (
       <React.Fragment>
-        <h3 id={data.id}>{data.title}</h3>
-        <p>{data.description}</p>
-        {/* <h3 className="mt-5 mb-3">Resources</h3> */}
-        <Row>
-          <Col lg={8} className="d-flex card-box-feature">
-            {data.content.externalLink.map(tag => (
-              <Link to={tag.url} target="_blank" key={tag.id}>
-                <Card>
-                  <Card.Body>
-                    <Card.Text>{tag.label}</Card.Text>
-                    <img src={tag.icon} alt={tag.label} />
-                    {/* <i className={tag.iconpackage}></i>
-                    <i className={tag.iconlink}></i> */}
-                  </Card.Body>
-                </Card>
-              </Link>
-            ))}
-          </Col>
-        </Row>
+        <div className="external-link-feature">
+          <h3 id={data.id}>{data.title}</h3>
+          <p>{data.description}</p>
+          {/* <h3 className="mt-5 mb-3">Resources</h3> */}
+          <Row>
+            <Col lg={8} className="d-flex card-box-feature">
+              {data.content.externalLink.map(tag => (
+                <Link to={tag.url} target="_blank" key={tag.id}>
+                  <Card>
+                    <Card.Body>
+                      <Card.Text>{tag.label}</Card.Text>
+                      <img src={tag.icon} alt={tag.label} />
+                      {/* <i className={tag.iconpackage}></i>
+                      <i className={tag.iconlink}></i> */}
+                    </Card.Body>
+                  </Card>
+                </Link>
+              ))}
+            </Col>
+          </Row>
+        </div>              
       </React.Fragment>
     );
   }
