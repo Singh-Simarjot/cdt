@@ -22,9 +22,9 @@ class Footer extends Component {
                     <ListGroup.Item action href="#;">
                       Terms of use
                     </ListGroup.Item>
-                    <ListGroup.Item action href="#;">
+                    {/* <ListGroup.Item action href="#;">
                       IBM.com
-                    </ListGroup.Item>
+                    </ListGroup.Item> */}
                   </ListGroup>
                 </div>
               </Col>
@@ -55,17 +55,17 @@ class Footer extends Component {
                     Vanilla Components version ^10.9.0 <br />
                     React Components version ^7.9.0 <br />
                     Last updated 13 January 2020 <br />
-                    Copyright © 2020 IBM
+                    {/* Copyright © 2020 IBM */}
                   </p>
                 </div>
               </Col>
             </Row>
 
-            <Row>
+            {/* <Row>
               <Col md={3}>
                 
               </Col>
-            </Row>
+            </Row> */}
           </Container>
         </section>
       </footer>
