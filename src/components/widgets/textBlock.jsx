@@ -88,8 +88,8 @@ class TextBlock extends Component {
     enter: "P",
     uploader: {
       insertImageAsBase64URI: true
-    },
-    removeButtons: ["source"]
+    }
+    // removeButtons: ["source"]
   };
 
   render() {
