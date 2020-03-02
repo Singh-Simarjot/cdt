@@ -10,8 +10,10 @@ class ArticlePost extends Component {
   render() {
     return (
       <Col md={4}>
+        <div className="bx-ratio">
         <div className="top-img">
           <img src={this.props.topimage} className="img-fluid" />
+        </div>
         </div>
         <div className="bx-ratio">
         <a href={this.props.link} target="_blank">
@@ -25,6 +27,7 @@ class ArticlePost extends Component {
           </div>
           </a>
         </div>
+       
       </Col>
     );
   }

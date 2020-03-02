@@ -1,17 +1,24 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Dropdown,
+  ButtonGroup
+} from "react-bootstrap";
 import "./header.scss";
 import { Link } from "react-router-dom";
 import $ from "jquery";
 import ProjectsContext from "../../context/projectsContext";
- 
-import Loader from '../../components/loader/loader';
+
+import Loader from "../../components/loader/loader";
 import { toast } from "react-toastify";
-import {exportProject} from "../../services/projects"
+import { exportProject } from "../../services/projects";
 class Header extends Component {
   static contextType = ProjectsContext;
   state = {
-    isLoading:false
+    isLoading: false
   };
   componentDidMount() {
     $(".menuBtn").on("click", function() {
@@ -20,9 +27,8 @@ class Header extends Component {
     });
   }
 
-  exportFile = async (id) => {
+  exportFile = async id => {
     this.setState({
-      
       isLoading: true
     });
 
@@ -32,63 +38,86 @@ class Header extends Component {
           console.log(response);
           const url = response.data.build_url;
           // console.log(selectedProject);
-          this.setState({
-           
-            isLoading: false
-          },()=> window.location = response.data.build_url);
+          this.setState(
+            {
+              isLoading: false
+            },
+            () => (window.location = response.data.build_url)
+          );
         }
       });
     } catch (err) {
-
       this.setState({
-           
         isLoading: false
       });
-      toast.error("Server Error, Please try again Later!")
+      toast.error("Server Error, Please try again Later!");
     }
-    
-    
   };
 
-   
   render() {
     const { selectedProjectID } = this.context;
 
-
-
-      return (
-        <React.Fragment>
+    return (
+      <React.Fragment>
         <header className="headerMain">
           <Container fluid>
-            <Row className="align-items-center">
+            <Row className="align-items-center no-gutters">
               <Col>
-                <Button variant="dark" size="sm" className="menuBtn">
+                <Button
+                  variant="dark"
+                  size="sm"
+                  className={selectedProjectID ? "menuBtn" : "menuBtn d-none"}
+                >
                   <i className="fa fa-bars"></i>
                 </Button>
-                <Link to="/cdt" className="headerLogo">
+                <Link
+                  to="/cdt"
+                  className="headerLogo"
+                  onClick={this.context.goRooturl}
+                >
                   Carbon <b>Design System</b>
                 </Link>
               </Col>
-              <Col xs={4} md={2} className="text-right">
+              <Col xs={5} md={2} className="text-right">
+                {/* <Button variant="dark" size="sm">
+                  <svg
+                    focusable="false"
+                    preserveAspectRatio="xMidYMid meet"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    aria-hidden="true"
+                  >
+                    <path d="M15.5 15.5H18V18h-2.5zm-6.75 0h2.5V18h-2.5zM2 15.5h2.5V18H2zm13.5-6.75H18v2.5h-2.5zm-6.75 0h2.5v2.5h-2.5zM2 8.75h2.5v2.5H2zM15.5 2H18v2.5h-2.5zM8.75 2h2.5v2.5h-2.5zM2 2h2.5v2.5H2z"></path>
+                  </svg>
+                </Button> */}
                 <div className="headerRight">
-                  <Button variant="dark" size="sm">
-                    <svg
-                      focusable="false"
-                      preserveAspectRatio="xMidYMid meet"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      aria-hidden="true"
-                    >
-                      <path d="M15.5 15.5H18V18h-2.5zm-6.75 0h2.5V18h-2.5zM2 15.5h2.5V18H2zm13.5-6.75H18v2.5h-2.5zm-6.75 0h2.5v2.5h-2.5zM2 8.75h2.5v2.5H2zM15.5 2H18v2.5h-2.5zM8.75 2h2.5v2.5h-2.5zM2 2h2.5v2.5H2z"></path>
-                    </svg>
-                  </Button>
+                  <Dropdown as={ButtonGroup}>
+                    <Dropdown.Toggle variant="dark" size="sm">
+                      <svg
+                        focusable="false"
+                        preserveAspectRatio="xMidYMid meet"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        aria-hidden="true"
+                      >
+                        <path d="M15.5 15.5H18V18h-2.5zm-6.75 0h2.5V18h-2.5zM2 15.5h2.5V18H2zm13.5-6.75H18v2.5h-2.5zm-6.75 0h2.5v2.5h-2.5zM2 8.75h2.5v2.5H2zM15.5 2H18v2.5h-2.5zM8.75 2h2.5v2.5h-2.5zM2 2h2.5v2.5H2z"></path>
+                      </svg>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu alignRight variant="dark">
+                      <Dropdown.Item href="#">Logout</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                   {selectedProjectID && (
                     <Button
-                      className="ml-2"
                       variant="info"
-                      onClick={() => this.exportFile(selectedProjectID) }
+                      size="sm"
+                      className="btnExport"
+                      onClick={() => this.exportFile(selectedProjectID)}
                     >
                       Export
                     </Button>
@@ -97,13 +126,10 @@ class Header extends Component {
               </Col>
             </Row>
           </Container>
-
         </header>
         {this.state.isLoading && <Loader />}
-        </React.Fragment>
-      );
-    
-    
+      </React.Fragment>
+    );
   }
 }
 

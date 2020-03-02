@@ -31,19 +31,19 @@ class Sidebar extends Component {
     let parentUrl;
     let tabUrl;
     if (parent !== null) {
-      parentUrl ="/"+ this.coovertToSring(parent.title);
+      parentUrl = "/" + this.coovertToSring(parent.title);
     } else {
       parentUrl = "";
     }
     if (tab !== null) {
-      tabUrl =  "/" + this.coovertToSring(tab.title) ;
+      tabUrl = "/" + this.coovertToSring(tab.title);
     } else {
       tabUrl = "";
     }
-    return "/preview" + parentUrl + "/" +this.coovertToSring(item) + tabUrl;
+    return "/preview" + parentUrl + "/" + this.coovertToSring(item) + tabUrl;
   }
   coovertToSring(string) {
-    console.log(string)
+    console.log(string);
     return string
       .split(" ")
       .join("-")
@@ -67,13 +67,16 @@ class Sidebar extends Component {
           {item.title}
         </NavLink>
       );
-    } 
-    else if(item.templateType == "CUSTOM"){
+    } else if (item.templateType == "CUSTOM") {
       {
-         return (<a href ={item.url} target="_blank"> {item.title} </a> )
+        return (
+          <a href={item.url} target="_blank">
+            {" "}
+            {item.title}{" "}
+          </a>
+        );
       }
-    }
-    else {
+    } else {
       return (
         <NavLink
           to={this.renderUrl(item.title, parent, null)}
@@ -91,7 +94,7 @@ class Sidebar extends Component {
   render() {
     const { selectedProject, onSelectPage } = this.props;
     return (
-      <div className="home-sidebar">
+      <div className="home-sidebar sidebarNav">
         {selectedProject.navigation !== null &&
           selectedProject.navigation.length > 0 && (
             <ListGroup className="nav-list">

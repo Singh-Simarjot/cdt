@@ -12,18 +12,29 @@
     vertical-align: middle;
   }
   .headerRight {
+    .dropdown {
+      display: inline-block;
+    }
     button {
       svg {
         fill: $theme-text;
       }
       &:not(:last-child) {
-        margin-right: 10px;
+        // margin-right: 10px;
+      }
+      &.dropdown-toggle {
+        &:after {
+          display: none;
+        }
+      }
+      &.btnExport {
+        margin-left: 10px;
       }
     }
   }
   .menuBtn {
     margin-right: 10px;
-    @include lg {
+    @include sm-min {
       display: none;
     }
   }
