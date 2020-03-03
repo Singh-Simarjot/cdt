@@ -38,57 +38,65 @@ class Home extends Component {
     // const homeData = selectedProjectID.data;
     return (
       <React.Fragment>
-        {homeData.headerSection.videoThumb &&
-          homeData.headerSection.videoThumb !== undefined && (
-            <section className="video-section">
-              {homeData.headerSection.videoThumb && (
-                <video
-                  poster={homeData.headerSection.videoThumb}
-                  muted
-                  autoPlay="autoplay"
-                  playsInline=""
-                  loop
-                >
-                  <source
-                    src={homeData.headerSection.video}
-                    type="video/webm"
-                    media="all and (max-width: 600px)"
-                  />
-                  <source
-                    src={homeData.headerSection.video}
-                    type="video/mp4"
-                    media="all and (max-width: 600px)"
-                  />
-                  <source
-                    src={homeData.headerSection.video}
-                    type="video/webm"
-                  />
-                  <source src={homeData.headerSection.video} type="video/mp4" />
-                </video>
-              )}
-              {homeData.headerSection.link && (
-                <Container className="position-relative">
-                  <div className="more d-flex ml-auto">
-                    <a
-                      href={homeData.headerSection.link}
-                      className="d-flex flex-column"
-                    >
-                      <div className="more-text">
-                        <span>{homeData.headerSection.linkTopText}</span>
-                        <h4>{homeData.headerSection.linkTitle}</h4>
-                      </div>
-                      <span className="arrow-icon mt-auto">
-                        <i
-                          className="fa fa-long-arrow-right"
-                          aria-hidden="true"
-                        ></i>
-                      </span>
-                    </a>
-                  </div>
-                </Container>
-              )}
-            </section>
-          )}
+        {homeData.headerSection.video !== undefined && (
+          <section className="video-section">
+            {homeData.headerSection.videoType === "URL" ? (
+              <iframe
+                src={
+                  homeData.headerSection.video +
+                  "?rel=0;&autoplay=1&mute=1&loop=1"
+                }
+                frameborder="0"
+                muted
+                autoPlay="autoplay"
+                playsInline=""
+                loop
+              ></iframe>
+            ) : (
+              <video
+                poster={homeData.headerSection.videoThumb}
+                muted
+                autoPlay="autoplay"
+                playsInline=""
+                loop
+              >
+                <source
+                  src={homeData.headerSection.video}
+                  type="video/webm"
+                  media="all and (max-width: 600px)"
+                />
+                <source
+                  src={homeData.headerSection.video}
+                  type="video/mp4"
+                  media="all and (max-width: 600px)"
+                />
+                <source src={homeData.headerSection.video} type="video/webm" />
+                <source src={homeData.headerSection.video} type="video/mp4" />
+              </video>
+            )}
+            {homeData.headerSection.link && (
+              <Container className="position-relative">
+                <div className="more d-flex ml-auto">
+                  <a
+                    href={homeData.headerSection.link}
+                    className="d-flex flex-column"
+                  >
+                    <div className="more-text">
+                      <span>{homeData.headerSection.linkTopText}</span>
+                      <h4>{homeData.headerSection.linkTitle}</h4>
+                    </div>
+                    <span className="arrow-icon mt-auto">
+                      <i
+                        className="fa fa-long-arrow-right"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </a>
+                </div>
+              </Container>
+            )}
+          </section>
+        )}
 
         {selectedProject.name && (
           <section className="main-content">
@@ -220,11 +228,9 @@ class Home extends Component {
                             //published={items.publishDate}
                             link={items.link}
                           />
-                          
                         )
-                        
                       )}
-                            
+
                       {/* <ArticlePost
                     title="Adobe XD Carbon starter kit announced at Max"
                     topimage={xdImage}
@@ -237,11 +243,9 @@ class Home extends Component {
                     title="Help build Carbon — Hacktoberfest 2019"
                     topimage={hackImage}
                   /> */}
-                 
                     </Row>
                   </div>
                 )}
-                
               </div>
             </Container>
           </section>

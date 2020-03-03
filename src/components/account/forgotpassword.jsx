@@ -3,10 +3,11 @@ import "./account.scss";
 import { Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import lopginBg from "./images/lopginBg.jpg";
+import { forgotPass } from "../../services/authService";
 class ForgotPassword extends Component {
   state = {
     account: {
-      userEmail: ""
+      email: ""
     }
   };
   changeVal = ({ currentTarget: input }) => {
@@ -16,7 +17,18 @@ class ForgotPassword extends Component {
   };
   submitForgotPassword = e => {
     e.preventDefault();
+    const account = this.state.account;
+    forgotPass(JSON.stringify(account));
   };
+
+  disabledForgot() {
+    const account = { ...this.state.account };
+    if (account.email === "") {
+      return true;
+    } else {
+      return false;
+    }
+  }
   render() {
     const { account } = this.state;
     return (
@@ -31,13 +43,21 @@ class ForgotPassword extends Component {
               <Form.Group>
                 <Form.Label>Email</Form.Label>
                 <Form.Control
-                  value={account.userEmail}
-                  name="userEmail"
+                  value={account.email}
+                  name="email"
                   onChange={this.changeVal}
+                  type="email"
+                  required
                 />
               </Form.Group>
               <Form.Group className="text-center">
-                <Button variant="success" block size={"md"} type="submit">
+                <Button
+                  variant="success"
+                  block
+                  size={"md"}
+                  type="submit"
+                  disabled={this.disabledForgot()}
+                >
                   Send Password
                 </Button>
               </Form.Group>
