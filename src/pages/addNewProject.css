@@ -52,7 +52,7 @@ $theme-light: false;
 
 .resourceItem .resourceItemInner button.btn-danger {
   position: absolute;
-  top: 13px;
+  top: 10px;
   right: 10px;
 }
 /*# sourceMappingURL=addNewProject.css.map */

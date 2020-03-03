@@ -26,13 +26,29 @@ class EditPage extends Component {
     modalOpenType: "",
     showPreviewModal: false,
     deleteFiles: [],
-    finalDelete: [],
+    // finalDelete: [],
     isLoading: true
   };
 
   componentDidMount() {
     this.getPageDetail();
   }
+  componentDidUpdate() {
+    setTimeout(() => {
+      const page = { ...this.state.page };
+      if (page) {
+        if (page.templateType === "TABS") {
+          if (page.data.tabs.length === 0) {
+            page.btnDisable = true;
+          } else {
+            page.btnDisable = false;
+          }
+          this.setState({ page });
+        }
+      }
+    }, 100);
+  }
+
   getPageDetail = async () => {
     this.context.onPageDetail(this.context.selectedProjectID).then(response => {
       this.setState({

@@ -263,6 +263,10 @@ export class ProjectsContext extends Component {
     return result;
   };
 
+  goRooturl = () => {
+    this.setState({ selectedProjectID: null });
+  };
+
   render() {
     return (
       <Context.Provider
@@ -283,7 +287,8 @@ export class ProjectsContext extends Component {
           markDraftPage: this.markDraftPage,
           onUploadFile: this.handleUploadFile,
           onSelectSubPage: this.handleSelectSubPage,
-          exportProject: this.exportProject
+          exportProject: this.exportProject,
+          goRooturl: this.goRooturl
         }}
       >
         {this.props.children}

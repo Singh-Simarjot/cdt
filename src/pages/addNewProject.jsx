@@ -1004,26 +1004,28 @@ class AddNewProject extends Component {
                                         </Button>
                                       </div>
                                     ) : (
-                                      <FileInputComponent
-                                        labelText="Select Image"
-                                        labelStyle={{
-                                          color: "#000",
-                                          display: "none"
-                                        }}
-                                        imageStyle={{ display: "none" }}
-                                        parentStyle={{ marginTop: 0 }}
-                                        buttonComponent={
-                                          <Button size={"sm"} variant="info">
-                                            Select Image
-                                          </Button>
-                                        }
-                                        multiple={false}
-                                        imagePreview={false}
-                                        callbackFunction={e =>
-                                          this.getLinksIcon(e, item.id)
-                                        }
-                                        accept="image/*"
-                                      />
+                                      <div style={{ marginBottom: "10px" }}>
+                                        <FileInputComponent
+                                          labelText="Select Image"
+                                          labelStyle={{
+                                            color: "#000",
+                                            display: "none"
+                                          }}
+                                          imageStyle={{ display: "none" }}
+                                          parentStyle={{ marginTop: 0 }}
+                                          buttonComponent={
+                                            <Button size={"sm"} variant="info">
+                                              Select Image
+                                            </Button>
+                                          }
+                                          multiple={false}
+                                          imagePreview={false}
+                                          callbackFunction={e =>
+                                            this.getLinksIcon(e, item.id)
+                                          }
+                                          accept="image/*"
+                                        />
+                                      </div>
                                     )}
                                   </Col>
                                 </Row>
@@ -1128,26 +1130,28 @@ class AddNewProject extends Component {
                                         </Button>
                                       </div>
                                     ) : (
-                                      <FileInputComponent
-                                        labelText="Select Image"
-                                        labelStyle={{
-                                          color: "#000",
-                                          display: "none"
-                                        }}
-                                        imageStyle={{ display: "none" }}
-                                        parentStyle={{ marginTop: 0 }}
-                                        buttonComponent={
-                                          <Button size={"sm"} variant="info">
-                                            Select Image
-                                          </Button>
-                                        }
-                                        multiple={false}
-                                        imagePreview={false}
-                                        callbackFunction={e =>
-                                          this.getArticleImage(e, item.id)
-                                        }
-                                        accept="image/*"
-                                      />
+                                      <div style={{ marginBottom: "10px" }}>
+                                        <FileInputComponent
+                                          labelText="Select Image"
+                                          labelStyle={{
+                                            color: "#000",
+                                            display: "none"
+                                          }}
+                                          imageStyle={{ display: "none" }}
+                                          parentStyle={{ marginTop: 0 }}
+                                          buttonComponent={
+                                            <Button size={"sm"} variant="info">
+                                              Select Image
+                                            </Button>
+                                          }
+                                          multiple={false}
+                                          imagePreview={false}
+                                          callbackFunction={e =>
+                                            this.getArticleImage(e, item.id)
+                                          }
+                                          accept="image/*"
+                                        />
+                                      </div>
                                     )}
                                   </Col>
                                 </Row>

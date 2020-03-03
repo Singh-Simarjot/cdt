@@ -58,7 +58,6 @@ class AllPages extends Component {
                     <i className="fa fa-plus"></i>
                   </span>
                 </Link>
-               
               </Col>
             </Row>
           </div>

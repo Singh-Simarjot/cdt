@@ -8,20 +8,19 @@
 
 .home-sidebar {
   background: #161616;
-  font-size: 14px;
-  color: #c6c6c6;
-  width: 250px;
-  height: 100%;
-  position: fixed;
+  // font-size: 14px;
+  // color: #c6c6c6;
+  // width: 250px;
+  // height: 100%;
+  // position: fixed;
   z-index: 99;
   // top: 0;
   border-right: 1px solid #393939;
-  display: none;
+  // display: none;
 
   @include lg {
     display: block;
   }
-
   .nav-list {
     .list-group-item {
       background: transparent;
@@ -186,8 +185,6 @@
     }
   }
 
- 
-
   section {
     margin-top: 50px;
 
@@ -198,7 +195,7 @@
 
     @include lg {
       // padding-left: 400px !important;
-      padding-left: 250px !important;
+      // padding-left: 250px !important;
     }
 
     a {
@@ -218,7 +215,8 @@
     @include sm {
       position: absolute;
       bottom: 0;
-      right: 20px;
+      // right: 20px;
+      right: 0;
       width: 320px;
       height: 160px;
     }
@@ -327,13 +325,24 @@
         width: 66.667%;
       }
     }
+    .row {
+      margin-left: -1px;
+      margin-right: -1px;
+    }
+
+    .resource-list{
+      @include sm{
+        padding-left: 15px;
+      }
+    }
 
     .col-md-4 {
-      padding: 1px;
+      padding-bottom: 1px;
 
       @include sm {
         flex: 0 0 50%;
         max-width: 50%;
+        padding: 1px;
       }
 
       @include lg {
@@ -389,9 +398,9 @@
 
     .bottom-wrap {
       display: flex;
-      .left-icon{
-        img{
-          width:32px;
+      .left-icon {
+        img {
+          width: 32px;
         }
       }
       .right-icon {
@@ -414,7 +423,11 @@
       font-size: 12px;
       color: #c6c6c6;
     }
-
+    .row {
+      @include sm {
+        margin-left: 0;
+      }
+    }
     .col-md-4 {
       // padding-right: 15px;
       margin-bottom: 15px;
@@ -430,9 +443,53 @@
     }
     .top-img {
       img{
-        max-height: 214px;
+
         width: 100%;
         object-fit: cover;
+
+        @include md{
+          max-height: 214px;
+        }
+      }
+    }
+
+    .resource-wrap{
+      
+      @include sm {
+        padding-left: 15px;
+      }
+      .col-md-4{
+
+        @include sm{
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        @include md{
+          flex: 0 0 33.333%;
+          max-width: 33.333%;
+      }
+
+        .bx-ratio{
+          &:first-child{
+
+          padding-bottom: 56%;
+
+          @include md {
+            // padding-bottom:50%;
+            padding-bottom: 0;
+          }
+
+          .top-img{
+            position: absolute;
+
+            @include md{
+              position: relative;
+            }
+          }
+
+          }
+        }
       }
     }
   }
@@ -544,5 +601,12 @@
     .footer-bottom {
       margin-top: 32px;
     }
+  }
+}
+
+.position-relative {
+  a {
+    display: block;
+    position: relative;
   }
 }

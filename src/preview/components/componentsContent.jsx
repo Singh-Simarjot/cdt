@@ -17,6 +17,8 @@ import TypoGraphy from "./typoGraphy/typography";
 import ExternalPageLinkGrid from "./externalPageLinkGrid/externalPageLinkGrid";
 import ImageBlock from "./imageBlock/imageBlock";
 import MultipleImageBlock from "./multipleImageBlock/multipleImageBlock";
+import InternalNav from  "../../preview/components/internalNav/internalNav"
+
 class ComponentsContent extends Component {
   state = {};
   renderPreview(item) {
@@ -54,11 +56,14 @@ class ComponentsContent extends Component {
   }
   render() {
     const { data } = this.props;
-       
+    console.log(data)
     return (
      
       <section className="componentsContent">
         <Container>
+
+        <InternalNav data={data} />
+
           {data.length > 0
             ? data.map(item => this.renderPreview(item))
             : "Please Add Widgets for this page"}
