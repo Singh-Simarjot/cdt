@@ -128,10 +128,10 @@ export class ProjectsContext extends Component {
     try {
       await createProject(JSON.stringify(item)).then(response => {
         if (response.status === 200) {
+          toast.success("Project Added!");
           const result = response.data;
           item.id = result.data.projectId;
           const allProjects = [item, ...this.state.allProjects];
-          toast.success("Project Added!");
           this.setState({ allProjects });
         }
       });
