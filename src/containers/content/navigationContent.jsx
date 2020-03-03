@@ -12,7 +12,8 @@ class NavigationContent extends Component {
    
 
   render() {
-    const { onSaveNavigatoin,navigation } = this.props;
+    const { onSaveNavigatoin,navigation,selectedProject } = this.props;
+    console.log(this.props);
     
     return (
       <div className="content">
