@@ -72,15 +72,15 @@ export function previewProject(id) {
 }
 
 export function exportProject(id) {
- 
   const projectsEndpoint = APIBASEURL + "project/viewproject/" + id;
   return apiService.get(projectsEndpoint);
 }
 
-// export function uploadFile(file) {
-//   const projectsEndpoint = APIBASEURL + "project/file";
-//   return apiService.post(projectsEndpoint, file, {
-//     headers: { "content-type": "application/x-www-form-urlencoded" }
-//   });
+// export function loginUser(account) {
+//   console.log("account:- ", account);
+//   // const projectsEndpoint = APIBASEURL + "auth/login/" + account;
 
+//   const projectsEndpoint =
+//     "http://dev.evantiv.com/carbon_design/api/auth/login";
+//   return apiService.post(projectsEndpoint, account);
 // }

@@ -24,12 +24,14 @@ class Sidebar extends Component {
           .addClass("active");
       }
     });
+    
   }
   static contextType = ProjectsContext;
 
   renderUrl(item, parent, tab) {
     let parentUrl;
     let tabUrl;
+    
     if (parent !== null) {
       parentUrl = "/" + this.coovertToSring(parent.title);
     } else {
@@ -37,7 +39,7 @@ class Sidebar extends Component {
     }
     if (tab !== null) {
       tabUrl = "/" + this.coovertToSring(tab.title);
-    } else {
+    } else {  
       tabUrl = "";
     }
     return "/preview" + parentUrl + "/" + this.coovertToSring(item) + tabUrl;
@@ -52,6 +54,8 @@ class Sidebar extends Component {
   renderNavLink(item, parent) {
     const { selectedProject, onSelectPage } = this.props;
     let url = "";
+    console.log(selectedProject);
+    
 
     if (item.templateType == "TABS") {
       const pages = selectedProject.pages.filter(page => page.id === item.id);

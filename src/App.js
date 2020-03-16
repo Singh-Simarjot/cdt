@@ -17,38 +17,36 @@ import SignUp from "./components/account/signup";
 import ForgotPassword from "./components/account/forgotpassword";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-localStorage.setItem("page", "123");
-
-const data = localStorage.getItem("page");
-
-
+// tokenKeyGet
+const tokenKeyGet = localStorage.getItem("key");
 function App() {
   return (
     <ProjectsContext>
-      <Header />
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/project" component={ProjectDetail} />
-        <Route path="/addnew" component={AddNewProject} />
-        <Route path="/edit" component={EditProject} />
-        <Route path="/preview" component={Preview} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/" component={Dashboard} />
-        {/* <Route path="/" component={Content} /> */}
-      </Switch>
-      <ToastContainer />
-
-      {/* Show Login Page */}
-      {data == "" ? (
-        <Redirect from="/" to="/login" />
+      <Header tokenKeyGet={tokenKeyGet} />
+      {tokenKeyGet ? (
+        <React.Fragment>
+          <Switch>
+            <Route path="/project" component={ProjectDetail} />
+            <Route path="/addnew" component={AddNewProject} />
+            <Route path="/edit" component={EditProject} />
+            <Route path="/preview" component={Preview} />
+            <Route path="/" component={Dashboard} />
+            {/* <Route path="/" component={Content} /> */}
+          </Switch>
+          <Redirect to="/" />
+        </React.Fragment>
       ) : (
-        <Redirect from="/login" to="/" />
+        <React.Fragment>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/forgotpassword" component={ForgotPassword} />
+            <Route path="/" component={Login} />
+          </Switch>
+          <Redirect to="/login" />
+        </React.Fragment>
       )}
-
-      {/* <Page /> */}
+      <ToastContainer />
     </ProjectsContext>
   );
 }

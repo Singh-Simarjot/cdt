@@ -40,21 +40,21 @@ class AddNewPage extends Component {
     modalOpenType: "",
     showPreviewModal: false
   };
-  componentDidUpdate() {
-    setTimeout(() => {
-      const page = { ...this.state.page };
-      if (page) {
-        if (page.templateType === "TABS") {
-          if (page.data.tabs.length === 0) {
-            page.btnDisable = true;
-          } else {
-            page.btnDisable = false;
-          }
-          this.setState({ page });
-        }
-      }
-    }, 100);
-  }
+  // componentDidUpdate() {
+  //   setTimeout(() => {
+  //     const page = { ...this.state.page };
+  //     if (page) {
+  //       if (page.templateType === "TABS") {
+  //         if (page.data.tabs.length === 0) {
+  //           page.btnDisable = true;
+  //         } else {
+  //           page.btnDisable = false;
+  //         }
+  //         this.setState({ page });
+  //       }
+  //     }
+  //   }, 100);
+  // }
   changeTemplate = e => {
     const page = { ...this.state.page };
     page.templateType = e.target.value;

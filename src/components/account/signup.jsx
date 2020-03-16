@@ -3,12 +3,13 @@ import "./account.scss";
 import { Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import lopginBg from "./images/lopginBg.jpg";
+import { signUp } from "../../services/authService";
 class SignUp extends Component {
   state = {
     account: {
-      userName: "",
-      userEmail: "",
-      userPassword: ""
+      name: "Harwinder Singh",
+      email: "harwinder.singh@millipixels.com",
+      password: "Test123"
     }
   };
   changeVal = ({ currentTarget: input }) => {
@@ -16,9 +17,38 @@ class SignUp extends Component {
     account[input.name] = input.value;
     this.setState({ account });
   };
-  submitSignUp = e => {
+  // submitSignUp = e => {
+  //   e.preventDefault();
+  //   const account = this.state.account;
+  //   signUp(JSON.stringify(account));
+  // };
+
+  submitSignUp = async e => {
     e.preventDefault();
+    const account = this.state.account;
+    try {
+      await signUp(JSON.stringify(account)).then(response => {
+        if (response.status === 200) {
+          console.log("signUp Data: ", response.data);
+          // this.setState({ allProjects: allProjects, isloading: true });
+        }
+      });
+    } catch (err) {
+      // this.setState({ allProjects: [], isloading: true });
+    }
   };
+  disabledSignUp() {
+    const account = { ...this.state.account };
+    if (
+      account.name === "" ||
+      account.email === "" ||
+      account.password === ""
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   render() {
     const { account } = this.state;
     return (
@@ -33,30 +63,40 @@ class SignUp extends Component {
               <Form.Group>
                 <Form.Label>Name</Form.Label>
                 <Form.Control
-                  value={account.userName}
-                  name="userName"
+                  value={account.name}
+                  name="name"
                   onChange={this.changeVal}
+                  required
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Email</Form.Label>
                 <Form.Control
-                  value={account.userEmail}
-                  name="userEmail"
+                  value={account.email}
+                  name="email"
                   onChange={this.changeVal}
+                  type="email"
+                  required
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
-                  value={account.userPassword}
-                  name="userPassword"
+                  value={account.password}
+                  name="password"
                   onChange={this.changeVal}
+                  required
                 />
               </Form.Group>
               <Form.Group className="text-center">
-                <Button variant="success" block size={"md"} type="submit">
+                <Button
+                  variant="success"
+                  block
+                  size={"md"}
+                  type="submit"
+                  disabled={this.disabledSignUp()}
+                >
                   Sign Up
                 </Button>
               </Form.Group>

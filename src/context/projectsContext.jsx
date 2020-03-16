@@ -128,10 +128,10 @@ export class ProjectsContext extends Component {
     try {
       await createProject(JSON.stringify(item)).then(response => {
         if (response.status === 200) {
+          toast.success("Project Added!");
           const result = response.data;
           item.id = result.data.projectId;
           const allProjects = [item, ...this.state.allProjects];
-          toast.success("Project Added!");
           this.setState({ allProjects });
         }
       });
@@ -214,12 +214,44 @@ export class ProjectsContext extends Component {
   };
 
   onDeletePage = async id => {
+    
+    // console.log(id);
+    
     const selectedProject = this.state.selectedProject;
-    const result = await deletePage(id);
+    // const navLength = selectedProject.navigation.filter(item => item.pageId === id).length;
+    console.log(selectedProject);
+    
+    if( selectedProject.navigation.filter(item => item.pageId === id).length > 0){
+      let updatedNav = {data:selectedProject.navigation.filter(item => item.pageId !== id)}; 
+      const navigationData = JSON.stringify(updatedNav);    
+      console.log(navigationData);
+      
+      try {
+        await updateNav(selectedProject.navigationId, navigationData).then(response => { 
+          if (response.status === 200) {
+            console.log(response);
+            selectedProject.navigation = response.data.Navigation;
+            this.setState({ selectedProject });
+          }
+        });
+      } catch (err) {}
+    }
+
     let pages = selectedProject.pages.filter(item => item.id !== id);
-    selectedProject.pages = pages;
-    this.setState({ selectedProject });
-    toast.success("Page Deleted!");
+    try {
+      await deletePage(id).then(response => {
+        if (response.status === 200) {
+          selectedProject.pages = pages;
+          this.setState({ selectedProject });
+          toast.success("Page Deleted!");
+        }
+      });
+    } catch (err) {}
+
+ 
+ 
+
+    
   };
 
   onDeleteProject = async id => {
@@ -233,11 +265,13 @@ export class ProjectsContext extends Component {
   updateNavigation = async navData => {
     const selectedProject = { ...this.state.selectedProject };
     const id = this.state.selectedProject.navigationId;
-
+    console.log(navData);
     try {
       await updateNav(id, navData).then(response => {
         if (response.status === 200) {
           console.log(response);
+
+          
           selectedProject.navigation = response.data.Navigation;
           this.setState({ selectedProject });
           toast.success("Navigation Updated!");
@@ -268,6 +302,7 @@ export class ProjectsContext extends Component {
   };
 
   render() {
+    
     return (
       <Context.Provider
         value={{

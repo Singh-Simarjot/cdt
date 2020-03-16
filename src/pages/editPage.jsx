@@ -33,21 +33,21 @@ class EditPage extends Component {
   componentDidMount() {
     this.getPageDetail();
   }
-  componentDidUpdate() {
-    setTimeout(() => {
-      const page = { ...this.state.page };
-      if (page) {
-        if (page.templateType === "TABS") {
-          if (page.data.tabs.length === 0) {
-            page.btnDisable = true;
-          } else {
-            page.btnDisable = false;
-          }
-          this.setState({ page });
-        }
-      }
-    }, 100);
-  }
+  // componentDidUpdate() {
+  //   setTimeout(() => {
+  //     const page = { ...this.state.page };
+  //     if (page) {
+  //       if (page.templateType === "TABS") {
+  //         if (page.data.tabs.length === 0) {
+  //           page.btnDisable = true;
+  //         } else {
+  //           page.btnDisable = false;
+  //         }
+  //         this.setState({ page });
+  //       }
+  //     }
+  //   }, 100);
+  // }
 
   getPageDetail = async () => {
     this.context.onPageDetail(this.context.selectedProjectID).then(response => {
